@@ -1,4 +1,13 @@
 language: java
 sudo: false
 jdk: oraclejdk9
+notifications:
+  email:
+    - luca30@live.ca
+    - jeyabalan.karthikan@gmail.com
+    - kevin.tan97@hotmail.com
+    - shawnguerrabautista@gmail.com
+    - shurid_07@hotmail.com
+    - shanerobphillips@gmail.com
+    - patelsagar1997@gmail.com
 script: mvn clean verify

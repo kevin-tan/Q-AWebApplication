@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GreetingController {
 
     @RequestMapping(method = RequestMethod.GET, value="/1")
-    String getGreeting(){
+    public String getGreeting(){
         return "Hello World!";
     }
 }

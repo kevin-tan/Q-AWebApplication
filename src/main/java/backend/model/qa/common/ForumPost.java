@@ -32,15 +32,15 @@ public abstract class ForumPost {
         return dateTime.toString(DateTimeFormat.mediumDateTime());
     }
 
-    public int getUpVotes(){
+    public int getUpVotes() {
         return votes.getUpVotes();
     }
 
-    public int getTotalVotes(){
+    public int getTotalVotes() {
         return votes.getTotalVotes();
     }
 
-    public int getDownVotes(){
+    public int getDownVotes() {
         return votes.getDownVotes();
     }
 
@@ -52,19 +52,19 @@ public abstract class ForumPost {
         this.dateTime = dateTime;
     }
 
-    public void incrementUpVote(){
+    public void incrementUpVote() {
         votes.incrementDownVotes();
     }
 
-    public void decrementUpVote(){
+    public void decrementUpVote() {
         votes.decrementUpVotes();
     }
 
-    public void incrementDownVote(){
+    public void incrementDownVote() {
         votes.incrementDownVotes();
     }
 
-    public void decrementDownVote(){
+    public void decrementDownVote() {
         votes.decrementDownVotes();
     }
 }

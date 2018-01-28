@@ -1,0 +1,222 @@
+body {
+    background-image: url("icons/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    font-family: Sans-Serif;
+}
+
+li {
+    float: left;
+    padding-right: 4px;
+}
+
+
+.nav {
+    display: block;
+    color: #3f93b3;
+    text-align: center;
+    padding: 7px;
+    padding-top: 14px;
+    text-decoration: none;
+    height: 50px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.nav:hover {
+    background-color: #3f93b3;
+    color: white;
+}
+
+
+.icon {
+    display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: white;
+    text-align: center;
+    text-decoration: none;
+    height: 50px;
+    width: 50px;
+    border: 1px;
+}
+
+.icon:hover {
+    background-color: #3f93b3;
+}
+
+
+
+
+.button {
+    height: 50px;
+    width: 125px;
+    background-color: #3f93b3;
+    color: white;
+    font-size: 17px;
+    text-align: center;
+    transition: all 0.5s;
+    cursor: pointer;
+    border: 2px;
+    font-weight: bold;
+}
+
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.button:hover span {
+    padding-right: 25px;
+}
+
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+
+
+.button1 {
+    height: 50px;
+    width: 125px;
+    background-color: white;
+    color: #3f93b3;
+    font-size: 17px;
+    text-align: center;
+    transition: all 0.5s;
+    cursor: pointer;
+    border: 2px;
+    font-weight: bold;
+}
+
+.button1 span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.button1 span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.button1:hover span {
+    padding-right: 25px;
+}
+
+.button1:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.welcome {
+    width: 100%;
+    height: 100%;
+    size: 20vw;
+    size: 20vh;
+    padding-top: 10%;
+    padding: 150px;
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.welcome p {
+    color: #e9e9e9;
+    font-size: 15px;
+    line-height: 15px;
+    text-align: inherit;
+}
+
+.welcome h4 {
+    color: white;
+    font-size: 100px;
+    font-size: 12vw;
+    font-size: 12vh;
+    line-height: 50px;
+    text-align: inherit;
+
+    font-family: "Space Ranger";
+}
+
+.search-box-wrapper {
+    display: inline-flex;
+    padding: 25px;
+    font-size: 20px;
+}
+
+.search-box-input {
+    width: 30vw;
+    height: 75px;
+    font-size: inherit;
+    border: 0.2em solid #0f2229;
+    border-radius: 0.5em 0 0 0.5em;
+    padding: 0.2em 0.5em;
+    outline: 0;
+
+}
+
+.search-box-input:hover,
+.search-box-input:focus {
+    border-color: #0f2229;
+}
+
+.search-box-button {
+    width: 100px;
+    height: 75px;
+    text-align: center;
+    font-size: inherit;
+    font-weight: bold;
+    border: 0.2em solid #0f2229;
+    border-radius: 0 0.5em 0.5em 0;
+    background-color: #0f2229;
+    border-left: 0;
+    color: white;
+    outline: 0;
+    cursor: pointer;
+
+}
+
+.search-box-button:hover,
+.search-box-button:focus {
+    border-color: #0f2229;
+    background: #377f9b;
+}
+
+.footer {
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;
+    bottom: -300px;
+    width: 100%;
+    height: 60px;
+    background-color: #e9e9e9;
+}

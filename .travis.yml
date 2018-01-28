@@ -1,8 +1,4 @@
 language: java
 sudo: false
-jdk:
-  - oraclejdk8
-  - oraclejdk9
-script:
- - jdk_switcher use oraclejdk9
- - mvn clean verify
+jdk: oraclejdk9
+script: mvn clean verify

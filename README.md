@@ -8,7 +8,7 @@ Houston Answers is a Q&A website that allows users to ask and/or answer a variet
 # Roadmap
 This project is currently **in progress**
 - [ ] Login feature
-- [ ] TBA
+- [ ] QA Section
 - [ ] TBA
 ## Team members
 * Karthikan Jeyabalan

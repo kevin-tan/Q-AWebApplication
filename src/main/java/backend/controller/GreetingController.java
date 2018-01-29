@@ -13,6 +13,6 @@ public class GreetingController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/1")
     public String getGreeting() {
-        return "Hello World!12";
+        return "Hello World!1";
     }
 }

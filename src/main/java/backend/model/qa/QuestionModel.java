@@ -8,10 +8,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Kevin Tan 2018-01-28
- */
-
 @Entity
 public class QuestionModel extends ForumPost {
 
@@ -22,8 +18,8 @@ public class QuestionModel extends ForumPost {
     @JsonIgnore
     private QuestionVoteModel votes;
 
-    public QuestionModel(String message, String author, String dateTime) {
-        super(message, author, dateTime);
+    public QuestionModel(String message, String author, String postedTime) {
+        super(message, author, postedTime);
     }
 
     public QuestionModel() { //for jpa

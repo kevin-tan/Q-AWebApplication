@@ -20,8 +20,8 @@ public class AnswerModel extends ForumPost {
     @JsonIgnore
     private QuestionModel question;
 
-    public AnswerModel(QuestionModel question, String replyMessage, String author, String dateTime) {
-        super(replyMessage, author, dateTime);
+    public AnswerModel(QuestionModel question, String replyMessage, String author, String postedTime) {
+        super(replyMessage, author, postedTime);
         this.question = question;
     }
 

@@ -10,7 +10,4 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface ForumPostRepository<T extends ForumPost> extends JpaRepository<T, Long>{
-    T findById(long id);
-
-    void deleteById(long id);
 }

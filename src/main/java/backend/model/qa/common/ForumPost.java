@@ -1,6 +1,6 @@
 package backend.model.qa.common;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,26 +15,36 @@ import javax.persistence.Inheritance;
 public abstract class ForumPost {
 
     @Id
-    @JsonIgnore
     private long id;
-    @JsonIgnore
-    private String dateTime;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String updatedTime;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String postedDate;
     private String message;
-    //TODO replace with User
+    //TODO replace with User issue#
     private String author;
 
-    public ForumPost(String message, String author, String dateTime){
+    public ForumPost(String message, String author, String postedDate){
         this.message = message;
         this.author = author;
-        this.dateTime = dateTime;
+        this.postedDate = postedDate;
+        this.updatedTime = postedDate;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public void setPostedDate(String postedDate) {
+        this.postedDate = postedDate;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public String getPostedDate() {
+        return postedDate;
+    }
+
+    public String getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(String updatedTime) {
+        this.updatedTime = updatedTime;
     }
 
     public String getMessage() {

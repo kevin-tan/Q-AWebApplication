@@ -31,7 +31,7 @@ public class QuestionController {
     //Post a question
     @PostMapping(path = "", produces = "application/json", consumes = "application/json")
     public QuestionModel postQuestion(@RequestBody QuestionModel question) {
-        QuestionModel questionModel = new QuestionModel(question.getPostMessage(), question.getAuthor(),
+        QuestionModel questionModel = new QuestionModel(question.getMessage(), question.getAuthor(),
                 new DateTime().toString(DateTimeFormat.mediumDateTime()));
         questionModel.setId(count);
         questionModel.setVotes(new QuestionVoteModel(questionModel));
@@ -57,7 +57,7 @@ public class QuestionController {
     @PutMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
     public QuestionModel editQuestion(@PathVariable long id, @RequestBody QuestionModel questionModel) {
         QuestionModel question = questionRepository.findById(id);
-        question.setPostMessage(questionModel.getPostMessage());
+        question.setMessage(questionModel.getMessage());
         questionRepository.save(question);
         return questionModel;
     }

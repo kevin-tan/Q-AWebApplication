@@ -1,6 +1,7 @@
 package backend.model.vote;
 
 import backend.model.qa.QuestionModel;
+import backend.model.vote.common.VoteModel;
 
 import javax.persistence.*;
 
@@ -9,20 +10,13 @@ import javax.persistence.*;
  */
 
 @Entity
-public class QuestionVoteModel {
+public class QuestionVoteModel extends VoteModel{
 
-    @Id
-    @GeneratedValue
-    private long id;
     @OneToOne
     QuestionModel question;
-    private int upVotes;
-    private int downVotes;
 
     public QuestionVoteModel(QuestionModel question) {
         this.question = question;
-        upVotes = 1;
-        downVotes = 0;
     }
 
     public QuestionVoteModel(){
@@ -30,38 +24,6 @@ public class QuestionVoteModel {
 
     public QuestionModel getQuestion() {
         return question;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public int getUpVotes() {
-        return upVotes;
-    }
-
-    public int getDownVotes() {
-        return downVotes;
-    }
-
-    public int getTotalVotes() {
-        return upVotes + downVotes;
-    }
-
-    public void decrementUpVotes() {
-        upVotes--;
-    }
-
-    public void incrementUpVotes() {
-        upVotes++;
-    }
-
-    public void decrementDownVotes() {
-        downVotes--;
-    }
-
-    public void incrementDownVotes() {
-        downVotes++;
     }
 
 }

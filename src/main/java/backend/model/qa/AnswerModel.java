@@ -28,9 +28,7 @@ public class AnswerModel extends ForumPost {
     }
 
     public AnswerModel() { //for jpa
-        super("", "", new DateTime());
-        votes = new AnswerVoteModel(this);
-        question = new QuestionModel();
+        this(new QuestionModel(), "", "", new DateTime());
     }
 
     public long getId() {

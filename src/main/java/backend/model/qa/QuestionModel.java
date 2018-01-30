@@ -32,8 +32,7 @@ public class QuestionModel extends ForumPost{
     }
 
     public QuestionModel(){ //for jpa
-        super("","", new DateTime());
-        votes = new QuestionVoteModel(this);
+        this("","", new DateTime());
     }
 
     public void setId(long id) {

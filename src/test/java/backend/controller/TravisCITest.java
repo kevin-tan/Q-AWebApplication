@@ -1,6 +1,5 @@
-package backend;
+package backend.controller;
 
-import backend.controller.GreetingController;
 import org.junit.Before;
 import org.junit.Test;
 

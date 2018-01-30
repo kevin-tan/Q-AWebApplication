@@ -1,11 +1,14 @@
 package backend.repository.vote;
 
 import backend.model.vote.AnswerVoteModel;
-import org.springframework.data.jpa.repository.JpaRepository;
+import backend.repository.vote.common.VoteRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Kevin Tan 2018-01-30
  */
-public interface AnswerVoteRepository extends JpaRepository<AnswerVoteModel, Long> {
-    AnswerVoteModel findByAnswerId(long answerId);
+
+@Transactional
+public interface AnswerVoteRepository extends VoteRepository<AnswerVoteModel> {
+
 }

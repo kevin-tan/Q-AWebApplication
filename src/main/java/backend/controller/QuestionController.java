@@ -31,14 +31,13 @@ public class QuestionController {
     //Post a question
     @PostMapping(path = "", produces = "application/json", consumes = "application/json")
     public QuestionModel postQuestion(@RequestBody QuestionModel question) {
-        QuestionModel questionModel = new QuestionModel(question.getMessage(), question.getAuthor(),
-                new DateTime().toString(DateTimeFormat.mediumDateTime()));
-        questionModel.setId(count);
-        questionModel.setVotes(new QuestionVoteModel(questionModel));
-        questionRepository.save(questionModel);
-        questionVoteRepository.save(questionRepository.findById(questionModel.getId()).getVotes());
+        question.setId(count);
+        question.setDateTime(new DateTime().toString(DateTimeFormat.mediumDateTime()));
+        question.setVotes(new QuestionVoteModel(question));
+        questionRepository.save(question);
+        questionVoteRepository.save(questionRepository.findById(question.getId()).getVotes());
         count++;
-        return questionModel;
+        return question;
     }
 
     //Get question posted

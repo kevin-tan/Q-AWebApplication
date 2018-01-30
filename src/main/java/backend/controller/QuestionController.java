@@ -9,37 +9,35 @@ import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 /**
  * Created by Kevin Tan 2018-01-29
  */
 
 @RestController
-@RequestMapping(value = "/questions/")
+@RequestMapping(value = "/questions")
 public class QuestionController {
 
-    //To generate a sequential id for each post
-    private final AtomicLong id = new AtomicLong();
+    private long count;
     private final QuestionRepository questionRepository;
     private final QuestionVoteRepository questionVoteRepository;
 
     @Autowired
     public QuestionController(QuestionRepository questionRepository, QuestionVoteRepository questionVoteRepository) {
+        count = questionRepository.count();
         this.questionRepository = questionRepository;
         this.questionVoteRepository = questionVoteRepository;
     }
 
     //Post a question
-    @PostMapping(path = "", produces = "application/json")
+    @PostMapping(path = "", produces = "application/json", consumes = "application/json")
     public QuestionModel postQuestion(@RequestBody QuestionModel question) {
-        QuestionModel questionModel =
-                new QuestionModel(question.getMessage(), question.getAuthor(), new DateTime().toString(DateTimeFormat.mediumDateTime()));
-        question.setId(id.getAndIncrement());
-        QuestionVoteModel questionVoteModel = new QuestionVoteModel(questionModel);
-        questionModel.setVotes(questionVoteModel);
+        QuestionModel questionModel = new QuestionModel(question.getPostMessage(), question.getAuthor(),
+                new DateTime().toString(DateTimeFormat.mediumDateTime()));
+        questionModel.setId(count);
+        questionModel.setVotes(new QuestionVoteModel(questionModel));
         questionRepository.save(questionModel);
-        questionVoteRepository.save(questionVoteModel);
+        questionVoteRepository.save(questionRepository.findById(questionModel.getId()).getVotes());
+        count++;
         return questionModel;
     }
 
@@ -58,7 +56,9 @@ public class QuestionController {
     //Modify/Update a post
     @PutMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
     public QuestionModel editQuestion(@PathVariable long id, @RequestBody QuestionModel questionModel) {
-        questionRepository.save(questionModel);
+        QuestionModel question = questionRepository.findById(id);
+        question.setPostMessage(questionModel.getPostMessage());
+        questionRepository.save(question);
         return questionModel;
     }
 

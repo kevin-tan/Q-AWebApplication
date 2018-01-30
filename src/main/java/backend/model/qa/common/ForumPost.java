@@ -1,6 +1,5 @@
 package backend.model.qa.common;
 
-import backend.model.vote.VoteModel;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
@@ -10,61 +9,31 @@ import org.joda.time.format.DateTimeFormat;
 
 public abstract class ForumPost {
 
-    protected String postMessage;
+    protected String message;
     protected DateTime dateTime;
-    //TODO figure out if Vote model should be implemented to hold these values issue#12
-    protected final VoteModel votes;
-    //TODO replace with User
+    //TODO replace with User issue#8
     protected String author;
 
-    public ForumPost(String postMessage, String author, DateTime dateTime, VoteModel votes) {
-        this.postMessage = postMessage;
+    public ForumPost(String message, String author, DateTime dateTime) {
+        this.message = message;
         this.author = author;
         this.dateTime = dateTime;
-        this.votes = votes;
     }
 
-    public String getPostMessage() {
-        return postMessage;
+    public String getMessage() {
+        return message;
     }
 
     public String getDateTime() {
         return dateTime.toString(DateTimeFormat.mediumDateTime());
     }
 
-    public int getUpVotes() {
-        return votes.getUpVotes();
-    }
-
-    public int getTotalVotes() {
-        return votes.getTotalVotes();
-    }
-
-    public int getDownVotes() {
-        return votes.getDownVotes();
-    }
-
-    public void setPostMessage(String postMessage) {
-        this.postMessage = postMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public void setDateTime(DateTime dateTime) {
         this.dateTime = dateTime;
     }
 
-    public void incrementUpVote() {
-        votes.incrementDownVotes();
-    }
-
-    public void decrementUpVote() {
-        votes.decrementUpVotes();
-    }
-
-    public void incrementDownVote() {
-        votes.incrementDownVotes();
-    }
-
-    public void decrementDownVote() {
-        votes.decrementDownVotes();
-    }
 }

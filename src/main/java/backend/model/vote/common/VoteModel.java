@@ -1,21 +1,17 @@
-package backend.model.vote;
+package backend.model.vote.common;
 
 /**
  * Created by Kevin Tan 2018-01-28
  */
-public class VoteModel {
+
+public abstract class VoteModel {
 
     private int upVotes;
     private int downVotes;
 
-    public VoteModel(){
+    public VoteModel() {
         upVotes = 1;
         downVotes = 0;
-    }
-
-    public VoteModel(int upVotes, int downVotes) {
-        this.upVotes = upVotes;
-        this.downVotes = downVotes;
     }
 
     public int getUpVotes() {
@@ -26,11 +22,11 @@ public class VoteModel {
         return downVotes;
     }
 
-    public int getTotalVotes(){
+    public int getTotalVotes() {
         return upVotes + downVotes;
     }
 
-    public void decrementUpVotes(){
+    public void decrementUpVotes() {
         upVotes--;
     }
 
@@ -38,12 +34,11 @@ public class VoteModel {
         upVotes++;
     }
 
-    public void decrementDownVotes(){
+    public void decrementDownVotes() {
         downVotes--;
     }
 
     public void incrementDownVotes() {
         downVotes++;
     }
-
 }

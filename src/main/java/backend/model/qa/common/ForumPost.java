@@ -1,8 +1,5 @@
 package backend.model.qa.common;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-
 /**
  * Created by Kevin Tan 2018-01-28
  */
@@ -10,11 +7,11 @@ import org.joda.time.format.DateTimeFormat;
 public abstract class ForumPost {
 
     protected String message;
-    protected DateTime dateTime;
+    protected String dateTime;
     //TODO replace with User issue#8
     protected String author;
 
-    public ForumPost(String message, String author, DateTime dateTime) {
+    public ForumPost(String message, String author, String dateTime) {
         this.message = message;
         this.author = author;
         this.dateTime = dateTime;
@@ -25,15 +22,19 @@ public abstract class ForumPost {
     }
 
     public String getDateTime() {
-        return dateTime.toString(DateTimeFormat.mediumDateTime());
+        return dateTime;
     }
 
     public void setMessage(String message) {
         this.message = message;
     }
 
-    public void setDateTime(DateTime dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getAuthor(){
+        return author;
     }
 
 }

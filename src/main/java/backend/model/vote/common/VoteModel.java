@@ -6,8 +6,8 @@ package backend.model.vote.common;
 
 public abstract class VoteModel {
 
-    private int upVotes;
-    private int downVotes;
+    protected int upVotes;
+    protected int downVotes;
 
     public VoteModel() {
         upVotes = 1;

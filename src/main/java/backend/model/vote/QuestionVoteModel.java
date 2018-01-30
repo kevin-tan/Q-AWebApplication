@@ -25,6 +25,10 @@ public class QuestionVoteModel extends VoteModel {
         this.question = question;
     }
 
+    public QuestionVoteModel(){
+
+    }
+
     public QuestionModel getQuestion() {
         return question;
     }

@@ -2,9 +2,11 @@ package backend.model.qa;
 
 import backend.model.qa.common.ForumPost;
 import backend.model.vote.AnswerVoteModel;
-import org.joda.time.DateTime;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  * Created by Kevin Tan 2018-01-28
@@ -20,15 +22,14 @@ public class AnswerModel extends ForumPost {
     @ManyToOne
     private QuestionModel question;
 
-    public AnswerModel(QuestionModel question, String postMessage, String author, DateTime dateTime) {
+    public AnswerModel(QuestionModel question, String postMessage, String author, String dateTime) {
         super(postMessage, author, dateTime);
         id = 0;
-        votes = new AnswerVoteModel(this);
         this.question = question;
     }
 
     public AnswerModel() { //for jpa
-        this(new QuestionModel(), "", "", new DateTime());
+        this(null, "", "", "");
     }
 
     public void setId(long id){

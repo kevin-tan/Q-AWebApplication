@@ -2,7 +2,6 @@ package backend.model.qa;
 
 import backend.model.qa.common.ForumPost;
 import backend.model.vote.QuestionVoteModel;
-import org.joda.time.DateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,14 +24,17 @@ public class QuestionModel extends ForumPost{
     @OneToOne
     private QuestionVoteModel votes;
 
-    public QuestionModel(String postMessage, String author, DateTime dateTime) {
+    public QuestionModel(String postMessage, String author, String dateTime) {
         super(postMessage, author, dateTime);
         id = 0; //dummy value, will always be changed
-        votes = new QuestionVoteModel(this);
     }
 
     public QuestionModel(){ //for jpa
-        this("","", new DateTime());
+        this("", "", "");
+    }
+
+    public void setVotes(QuestionVoteModel votes){
+        this.votes = votes;
     }
 
     public void setId(long id) {

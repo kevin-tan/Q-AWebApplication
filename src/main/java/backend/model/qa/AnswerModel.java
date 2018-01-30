@@ -33,6 +33,10 @@ public class AnswerModel extends ForumPost {
         this.votes = votes;
     }
 
+    public void setQuestion(QuestionModel question) {
+        this.question = question;
+    }
+
     public AnswerVoteModel getVotes() {
         return votes;
     }

@@ -3,6 +3,8 @@ package backend.model.user;
 import backend.model.qa.AnswerModel;
 import backend.model.qa.QuestionModel;
 import backend.model.qa.common.ForumPost;
+import backend.model.roles.RoleModel;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -31,20 +33,20 @@ public class UserModel {
     private String firstName;
     private String lastName;
     private String email;
-    //TODO
-    //private String role;
+    private RoleModel role;
 
-    private UserModel(String username, String password, String firstName, String lastName, String email) {
+    private UserModel(String username, String password, String firstName, String lastName, String email, RoleModel role) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.role = role;
         reputation = 0;
     }
 
     public UserModel() {
-        this("", "", "", "", "");
+        this("", "", "", "", "", null);
     }
 
     public long getId() {
@@ -113,5 +115,13 @@ public class UserModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public RoleModel getRoleModel(){
+    	return role;
+    }
+    
+    public void setRoleModel(RoleModel role){
+    	this.role = role;
     }
 }

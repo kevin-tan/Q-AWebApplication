@@ -10,5 +10,5 @@ import java.util.Collection;
  */
 public interface AnswerRepository extends JpaRepository<AnswerModel, Long> {
 
-    Collection<AnswerModel> findByQuestionId(long id);
+    Collection<AnswerModel> findByQuestionId(long questionId);
 }

@@ -1,70 +1,73 @@
 package backend.model.qa.common;
 
-import backend.model.vote.VoteModel;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
 
 /**
- * Created by Kevin Tan 2018-01-28
+ * Created by Kevin Tan 2018-01-30
  */
 
+@Entity
+@Inheritance
 public abstract class ForumPost {
 
-    protected String postMessage;
-    protected DateTime dateTime;
-    //TODO figure out if Vote model should be implemented to hold these values issue#12
-    protected final VoteModel votes;
-    //TODO replace with User
-    protected String author;
+    @Id
+    private long id;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String updatedTime;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String postedDate;
+    private String message;
+    //TODO replace with User issue#
+    private String author;
 
-    public ForumPost(String postMessage, String author, DateTime dateTime, VoteModel votes) {
-        this.postMessage = postMessage;
+    public ForumPost(String message, String author, String postedDate){
+        this.message = message;
         this.author = author;
-        this.dateTime = dateTime;
-        this.votes = votes;
+        this.postedDate = postedDate;
+        this.updatedTime = postedDate;
     }
 
-    public String getPostMessage() {
-        return postMessage;
+    public void setPostedDate(String postedDate) {
+        this.postedDate = postedDate;
     }
 
-    public String getDateTime() {
-        return dateTime.toString(DateTimeFormat.mediumDateTime());
+    public String getPostedDate() {
+        return postedDate;
     }
 
-    public int getUpVotes() {
-        return votes.getUpVotes();
+    public String getUpdatedTime() {
+        return updatedTime;
     }
 
-    public int getTotalVotes() {
-        return votes.getTotalVotes();
+    public void setUpdatedTime(String updatedTime) {
+        this.updatedTime = updatedTime;
     }
 
-    public int getDownVotes() {
-        return votes.getDownVotes();
+    public String getMessage() {
+        return message;
     }
 
-    public void setPostMessage(String postMessage) {
-        this.postMessage = postMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public void setDateTime(DateTime dateTime) {
-        this.dateTime = dateTime;
+    public String getAuthor() {
+        return author;
     }
 
-    public void incrementUpVote() {
-        votes.incrementDownVotes();
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public void decrementUpVote() {
-        votes.decrementUpVotes();
+    public long getId() {
+        return id;
     }
 
-    public void incrementDownVote() {
-        votes.incrementDownVotes();
-    }
-
-    public void decrementDownVote() {
-        votes.decrementDownVotes();
+    public void setId(long id) {
+        this.id = id;
     }
 }

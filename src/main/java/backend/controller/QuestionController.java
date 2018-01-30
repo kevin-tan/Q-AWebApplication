@@ -1,7 +1,7 @@
 package backend.controller;
 
 import backend.model.qa.QuestionModel;
-import backend.repository.QuestionRepository;
+import backend.repository.qa.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

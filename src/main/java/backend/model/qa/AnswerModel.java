@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class AnswerModel extends ForumPost {
 
     @Id
-    @GeneratedValue
     private long id;
     @OneToOne
     private AnswerVoteModel votes;
@@ -23,12 +22,17 @@ public class AnswerModel extends ForumPost {
 
     public AnswerModel(QuestionModel question, String postMessage, String author, DateTime dateTime) {
         super(postMessage, author, dateTime);
+        id = 0;
         votes = new AnswerVoteModel(this);
         this.question = question;
     }
 
     public AnswerModel() { //for jpa
         this(new QuestionModel(), "", "", new DateTime());
+    }
+
+    public void setId(long id){
+        this.id = id;
     }
 
     public long getId() {

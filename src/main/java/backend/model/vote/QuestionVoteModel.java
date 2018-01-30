@@ -19,14 +19,14 @@ public class QuestionVoteModel extends VoteModel {
     @GeneratedValue
     private long id;
     @OneToOne
-    QuestionModel questionModel;
+    QuestionModel question;
 
-    public QuestionVoteModel(QuestionModel questionModel) {
-        this.questionModel = questionModel;
+    public QuestionVoteModel(QuestionModel question) {
+        this.question = question;
     }
 
-    public QuestionModel getQuestionModel() {
-        return questionModel;
+    public QuestionModel getQuestion() {
+        return question;
     }
 
     public long getId() {

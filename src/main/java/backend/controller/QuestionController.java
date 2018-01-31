@@ -17,6 +17,7 @@ import static backend.controller.constants.ForumPostConstants.FORMAT;
  */
 
 @RestController
+@CrossOrigin(origins = "http://localhost:63342")
 @RequestMapping(value = "/questions")
 public class QuestionController {
 

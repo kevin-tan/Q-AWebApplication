@@ -25,7 +25,8 @@ public class UserQuestionController {
     private AnswerRepository answerRepository;
 
     @Autowired
-    public UserQuestionController(UserRepository userRepository, QuestionRepository questionRepository, QuestionVoteRepository questionVoteRepository, AnswerRepository answerRepository) {
+    public UserQuestionController(UserRepository userRepository, QuestionRepository questionRepository,
+                                  QuestionVoteRepository questionVoteRepository, AnswerRepository answerRepository) {
         this.userRepository = userRepository;
         this.questionRepository = questionRepository;
         this.questionVoteRepository = questionVoteRepository;
@@ -51,7 +52,23 @@ public class UserQuestionController {
         return questionRepository.findByUserModelId(userId);
     }
 
+    @DeleteMapping(path = "/[userId]/questions/[questionId]")
+    public void deletePost(@PathVariable long userId, @PathVariable long questionId) {
+        questionRepository.delete(findQuestionById(userId, questionId));
+    }
 
+    @PutMapping(value = "/[userId]/questions/[questionId]", produces = "application/json", consumes = "application/json")
+    public void editQuestion(@PathVariable long userId, @PathVariable long questionId, @RequestBody QuestionModel questionModel) {
+        QuestionModel question = findQuestionById(userId, questionId);
+        question.setMessage(questionModel.getMessage());
+        question.setUpdatedTime(new DateTime().toString(FORMAT));
+        questionRepository.save(question);
+    }
+
+    private QuestionModel findQuestionById(long userId, long questionId) {
+        return questionRepository.findByUserModelId(userId).stream().filter(questionModel -> questionModel.getId() == questionId)
+                                 .findFirst().get();
+    }
 
 
 }

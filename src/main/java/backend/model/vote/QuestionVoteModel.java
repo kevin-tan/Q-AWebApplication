@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class QuestionVoteModel extends VoteModel{
 
     @OneToOne
-    @PrimaryKeyJoinColumn
     @JsonIgnore
     QuestionModel question;
 

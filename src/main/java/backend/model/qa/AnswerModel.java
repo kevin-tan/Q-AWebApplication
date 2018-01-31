@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class AnswerModel extends ForumPost {
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
     private AnswerVoteModel votes;
     @ManyToOne
     @JsonIgnore
@@ -31,6 +30,10 @@ public class AnswerModel extends ForumPost {
 
     public void setVotes(AnswerVoteModel votes) {
         this.votes = votes;
+    }
+
+    public void setQuestion(QuestionModel question) {
+        this.question = question;
     }
 
     public AnswerVoteModel getVotes() {

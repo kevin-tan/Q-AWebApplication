@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 
 /**
@@ -44,21 +46,27 @@ public class QuestionController {
     }
 
     //Get question posted
-    @RequestMapping(value = "/{id}")
-    public QuestionModel getByPostId(@PathVariable long id) {
-        return questionRepository.findOne(id);
+    @RequestMapping(value = "/{questionId}")
+    public QuestionModel getByPostId(@PathVariable long questionId) {
+        return questionRepository.findOne(questionId);
+    }
+
+    //Get all questions posted
+    @RequestMapping(value = "")
+    public List<QuestionModel> getAllQuestions() {
+        return questionRepository.findAll();
     }
 
     //Delete a post
-    @DeleteMapping(path = "/{id}")
-    public void deletePostById(@PathVariable long id) {
-        questionRepository.delete(id);
+    @DeleteMapping(path = "/{questionId}")
+    public void deletePostById(@PathVariable long questionId) {
+        questionRepository.delete(questionId);
     }
 
     //Modify/Update a post
-    @PutMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
-    public void editQuestion(@PathVariable long id, @RequestBody QuestionModel questionModel) {
-        QuestionModel question = questionRepository.findOne(id);
+    @PutMapping(value = "/{questionId}", produces = "application/json", consumes = "application/json")
+    public void editQuestion(@PathVariable long questionId, @RequestBody QuestionModel questionModel) {
+        QuestionModel question = questionRepository.findOne(questionId);
         question.setMessage(questionModel.getMessage());
         question.setUpdatedTime(new DateTime().toString(FORMAT));
         questionRepository.save(question);

@@ -21,12 +21,9 @@ public abstract class ForumPost {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String postedDate;
     private String message;
-    //TODO replace with User issue#
-    private String author;
 
-    public ForumPost(String message, String author, String postedDate){
+    public ForumPost(String message, String postedDate){
         this.message = message;
-        this.author = author;
         this.postedDate = postedDate;
         this.updatedTime = postedDate;
     }
@@ -53,14 +50,6 @@ public abstract class ForumPost {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public long getId() {

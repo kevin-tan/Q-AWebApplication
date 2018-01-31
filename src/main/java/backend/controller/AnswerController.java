@@ -1,3 +1,5 @@
+//TODO This file is an enhancement depending on whether posting will be allowed without an account. Issue #29
+/*
 package backend.controller;
 
 import backend.model.qa.AnswerModel;
@@ -82,3 +84,4 @@ public class AnswerController {
     }
 
 }
+*/

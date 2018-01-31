@@ -1,3 +1,5 @@
+//TODO This file is an enhancement depending on whether posting will be allowed without an account. Issue #29
+/*
 package backend.controller;
 
 import backend.model.qa.QuestionModel;
@@ -12,9 +14,11 @@ import java.util.List;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 
+*/
 /**
  * Created by Kevin Tan 2018-01-29
- */
+ *//*
+
 
 @RestController
 @RequestMapping(value = "/questions")
@@ -73,3 +77,4 @@ public class QuestionController {
     }
 
 }
+*/

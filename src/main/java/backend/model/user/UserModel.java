@@ -1,9 +1,12 @@
 package backend.model.user;
 
+import backend.model.qa.AnswerModel;
+import backend.model.qa.QuestionModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class UserModel {
@@ -14,6 +17,12 @@ public class UserModel {
     private String dateJoined;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int reputation;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userModel")
+    Set<QuestionModel> questionModels = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userModel")
+    Set<AnswerModel> answerModels = new HashSet<>();
+
 
     private String username;
     private String password;
@@ -79,5 +88,25 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setDateJoined(String dateJoined) {
+        this.dateJoined = dateJoined;
+    }
+
+    public void setReputation(int reputation) {
+        this.reputation = reputation;
+    }
+
+    public Set<QuestionModel> getQuestionModels() {
+        return questionModels;
+    }
+
+    public Set<AnswerModel> getAnswerModels() {
+        return answerModels;
     }
 }

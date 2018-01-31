@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 
 /**
@@ -47,6 +49,12 @@ public class QuestionController {
     @RequestMapping(value = "/{questionId}")
     public QuestionModel getByPostId(@PathVariable long questionId) {
         return questionRepository.findOne(questionId);
+    }
+
+    //Get all questions posted
+    @RequestMapping(value = "")
+    public List<QuestionModel> getAllQuestions() {
+        return questionRepository.findAll();
     }
 
     //Delete a post

@@ -2,6 +2,7 @@ package backend.model.vote;
 
 import backend.model.qa.QuestionModel;
 import backend.model.vote.common.VoteModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -13,6 +14,8 @@ import javax.persistence.*;
 public class QuestionVoteModel extends VoteModel{
 
     @OneToOne
+    @PrimaryKeyJoinColumn
+    @JsonIgnore
     QuestionModel question;
 
     public QuestionVoteModel(QuestionModel question) {

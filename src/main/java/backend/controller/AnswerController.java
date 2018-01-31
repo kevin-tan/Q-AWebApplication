@@ -18,7 +18,6 @@ import static backend.controller.constants.ForumPostConstants.FORMAT;
 @RequestMapping("/questions/{questionId}/replies")
 public class AnswerController {
 
-    private long count;
     private AnswerVoteRepository answerVoteRepository;
     private QuestionRepository questionRepository;
     private AnswerRepository answerRepository;
@@ -26,7 +25,6 @@ public class AnswerController {
     @Autowired
     public AnswerController(QuestionRepository questionRepository, AnswerRepository answerRepository,
                             AnswerVoteRepository answerVoteRepository) {
-        count = questionRepository.count();
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
         this.answerVoteRepository = answerVoteRepository;
@@ -44,6 +42,7 @@ public class AnswerController {
 
     @PostMapping(value = "", consumes = "application/json", produces = "application/json")
     public void postReply(@PathVariable long questionId, @RequestBody AnswerModel answerModel) {
+        long count = questionRepository.count() + answerRepository.count();
         DateTime dateTime = new DateTime();
         answerModel.setId(count);
         answerModel.setPostedDate(dateTime.toString(FORMAT));
@@ -52,7 +51,6 @@ public class AnswerController {
         answerModel.setVotes(new AnswerVoteModel(answerModel));
         answerRepository.save(answerModel);
         answerVoteRepository.save(answerRepository.findOne(count).getVotes());
-        count++;
     }
 
     @PutMapping(value = "/{author}/{replyId}", consumes = "application/json", produces = "application/json")
@@ -69,6 +67,11 @@ public class AnswerController {
     public void deleteReply(@PathVariable long questionId, @PathVariable String author, @PathVariable int replyId) {
         List<AnswerModel> answerModels = getRepliesByAuthor(questionId, author);
         answerRepository.delete(answerModels.get(replyId));
+    }
+
+    @DeleteMapping(value = "/deleteAll")
+    public void deleteAllReplies(@PathVariable long questionId){
+        answerRepository.delete(answerRepository.findByQuestionId(questionId));
     }
 
     private List<AnswerModel> getRepliesByAuthor(long questionId, String author) {

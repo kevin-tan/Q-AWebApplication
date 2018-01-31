@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 /**
  * Created by Kevin Tan 2018-01-29
@@ -16,7 +15,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class AnswerVoteModel extends VoteModel {
 
     @OneToOne
-    @PrimaryKeyJoinColumn
     @JsonIgnore
     AnswerModel answer;
 

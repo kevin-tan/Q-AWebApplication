@@ -1,0 +1,116 @@
+body{
+    background-image: url("icons/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: helvetica, sans-serif;
+    font-size: 180%;
+}
+input{
+    padding: 5px 5px 6px 5px;
+    font-size: 25px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    width: 320px;
+}
+label{
+    position: relative;
+    top: 4px;
+    left: 20px;
+    font-size: 25px;
+    width: 200px;
+    width: 300px;
+    float: left
+
+}
+#wrapper{
+    
+    background-color: azure;
+    border-radius: 10px;
+    width: 700px;
+    margin: 10% auto;
+}
+.form-element{
+    margin-bottom: 10px;
+}
+#submitButton{
+    border-radius: 20px;
+    width: 150px;
+    margin-left: 300px;
+    margin-bottom: 20%;
+    
+}
+
+#errorMessage{
+    color: red;
+    font-size: 90% !important;
+    margin: 5%
+}
+#successMessage{
+    color: green;
+    font-size: 90% !important;
+    display: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+}
+
+
+
+
+
+
+.login-wrapper{
+    width: 670px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+
+}
+.login-body{
+    background: aliceblue;
+    height: 100%;
+}
+.login-limiter{
+    width: 100%;
+    margin: 0 auto;
+}
+.login-container{
+    width: 100%;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: black;
+    
+}
+.login-form{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 43px 88px 93px 190px;
+    
+    
+}
+.login-input{
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #b2b2b2;
+    
+}
+.validate-input{
+    position: relative;
+}
+.login-form-title{
+    
+}
+.login-btn-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; 
+}
+.login-btn{
+    
+}

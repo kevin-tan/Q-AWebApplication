@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/greeting")
 public class GreetingController {
-
     @RequestMapping(method = RequestMethod.GET, value = "/1")
     public String getGreeting() {
         return "Hello World!";

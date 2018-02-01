@@ -12,12 +12,12 @@
 //	});
 //});
 
-$(document).ready(function(){
-    $("#form").ajaxSubmit({
-        type: 'POST',
-        url: 'http://localhost:8080/questions'
-        contentType: "application/json"
-        data: JSON.stringify({"message": $('#fname').val(), "author": $('#lname').val()})
-    })
-})
-})
+    function postData(){
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/questions",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({'message': $("#message").val(), 'author': $("#author").val()})
+        });
+    }

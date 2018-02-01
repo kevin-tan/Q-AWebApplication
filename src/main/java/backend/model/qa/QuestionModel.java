@@ -19,9 +19,11 @@ public class QuestionModel extends ForumPost {
     @ManyToOne
     @JsonIgnore
     private UserModel user;
+    private String author;
 
     public QuestionModel(String message, String postedTime) {
         super(message, postedTime);
+        this.author = "";
     }
 
     public QuestionModel() { //for jpa
@@ -46,6 +48,11 @@ public class QuestionModel extends ForumPost {
 
     public void setUser(UserModel userModel) {
         this.user = userModel;
+        author = userModel.getUsername();
+    }
+
+    public String getAuthor() {
+        return author;
     }
 
 }

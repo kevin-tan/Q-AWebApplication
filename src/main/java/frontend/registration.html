@@ -44,16 +44,19 @@
               <div class="form-element">
                   <label for="username">Username</label>
                   <input type="text" name="username" id="username" placeholder="Username">
+                  <span class="error">*Username is required</span>
               </div>
 
               <div class="form-element">
                   <label for="password">Password</label>
                   <input type="password" name="password" id="password">
+                  <span class="error">*Password is required</span>
               </div>
 
               <div class="form-element">
                   <label for="passwordConfirm">Confirm Password</label>
                   <input type="password" name="passwordConfirm" id="passwordConfirm">
+                  <span class="error">*Password don't match</span>
               </div>
 
               <div class="form-element">
@@ -112,10 +115,15 @@
                 changeClass(input,isPassword);
               });
 
+
               $('#passwordConfirm').on('input', function(){
                 var input = $(this);
                 var isPasswordConfirm= input.val();
-                changeClass(input,isPasswordConfirm);
+                if(isPasswordConfirm == $("#password").val()){
+                  input.removeClass("invalid").addClass("valid");
+                }else{
+                  input.removeClass("valid").addClass("invalid");
+              }
               });
 
               $('#submitButton').click(function(event){
@@ -123,7 +131,6 @@
                 var error_free = true;
                 for(var input in form_data){
                   var element =$('#'+form_data[input]['name']);
-                  alert(element);
                   var valid = element.hasClass("valid");
                   var error_element =$("span",element.parent());
                   if(!valid){
@@ -134,18 +141,17 @@
                   }
                   if(!error_free){
                     event.preventDefault();
+                    //alert("Double check information provided")
                   }else{
-                    alert("No errors, Form will be submitted");
+                    //alert("No errors, Form will be submitted");
                   }
                 }
               });
 
 
             });
+
         </script>
-
-
-
 
     </body>
 </html>

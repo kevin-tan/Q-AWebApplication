@@ -2,6 +2,7 @@ package backend.controller;
 
 import backend.model.qa.QuestionModel;
 import backend.model.vote.QuestionVoteModel;
+import backend.repository.qa.AnswerRepository;
 import backend.repository.qa.QuestionRepository;
 import backend.repository.vote.QuestionVoteRepository;
 import org.joda.time.DateTime;
@@ -24,12 +25,15 @@ public class QuestionController {
     private long count;
     private final QuestionRepository questionRepository;
     private final QuestionVoteRepository questionVoteRepository;
+    private final AnswerRepository answerRepository;
 
     @Autowired
-    public QuestionController(QuestionRepository questionRepository, QuestionVoteRepository questionVoteRepository) {
-        count = questionRepository.count();
+    public QuestionController(QuestionRepository questionRepository, QuestionVoteRepository questionVoteRepository,
+                              AnswerRepository answerRepository) {
+        count = questionRepository.count() + answerRepository.count();
         this.questionRepository = questionRepository;
         this.questionVoteRepository = questionVoteRepository;
+        this.answerRepository = answerRepository;
     }
 
     //Post a question

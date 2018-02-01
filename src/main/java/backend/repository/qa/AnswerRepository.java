@@ -13,4 +13,6 @@ import java.util.List;
 @Transactional
 public interface AnswerRepository extends ForumPostRepository<AnswerModel> {
     List<AnswerModel> findByQuestionId(long questionId);
+
+    List<AnswerModel> findByUserId(long userId);
 }

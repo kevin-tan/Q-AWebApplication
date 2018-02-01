@@ -18,7 +18,7 @@ public class QuestionModel extends ForumPost {
     private QuestionVoteModel votes;
     @ManyToOne
     @JsonIgnore
-    private UserModel userModel;
+    private UserModel user;
 
     public QuestionModel(String message, String postedTime) {
         super(message, postedTime);
@@ -40,11 +40,12 @@ public class QuestionModel extends ForumPost {
         return votes;
     }
 
-    public UserModel getUserModel() {
-        return userModel;
+    public UserModel getUser() {
+        return user;
     }
 
-    public void setUserModel(UserModel userModel) {
-        this.userModel = userModel;
+    public void setUser(UserModel userModel) {
+        this.user = userModel;
     }
+
 }

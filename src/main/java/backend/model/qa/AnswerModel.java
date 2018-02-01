@@ -5,7 +5,10 @@ import backend.model.user.UserModel;
 import backend.model.vote.AnswerVoteModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  * Created by Kevin Tan 2018-01-28
@@ -21,7 +24,7 @@ public class AnswerModel extends ForumPost {
     private QuestionModel question;
     @ManyToOne
     @JsonIgnore
-    private UserModel userModel;
+    private UserModel user;
 
     public AnswerModel(QuestionModel question, String replyMessage, String postedTime) {
         super(replyMessage, postedTime);
@@ -48,11 +51,12 @@ public class AnswerModel extends ForumPost {
         return question;
     }
 
-    public UserModel getUserModel() {
-        return userModel;
+    public UserModel getUser() {
+        return user;
     }
 
-    public void setUserModel(UserModel userModel) {
-        this.userModel = userModel;
+    public void setUser(UserModel userModel) {
+        this.user = userModel;
     }
+
 }

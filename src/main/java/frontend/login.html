@@ -1,9 +1,43 @@
 <html>
     <head>
-    <title>Registration | Houston Answers</title>
+        <title>Login | Houston Answers</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="login-style.css">
     </head>
     <body>
-    
-    
+      <div id="wrapper">
+
+          <div id="logo">
+            <a href="welcome.html">
+            <img src="../../resources/icons/login-logo.png" width="400px" alt="Houston Answers"></a>
+          </div>
+
+          <form id="user_login" method="post" action="">
+            <div class="form-element">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" placeholder="Username">
+            </div>
+
+            <div class="form-element">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
+
+            <div class="form-element">
+                <input type="submit" id="submitButton" value="Login">
+            </div>
+        </form>
+
+          <div id="successMessage" class="alert alert-success">Signed up successfully!</div>
+          <div id="errorMessage"></div>
+
+      </div>
+
     </body>
 </html>

@@ -3,44 +3,49 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    font-family: helvetica, sans-serif;
-    font-size: 180%;
+    font-family: helvetic, sans-serif;
 }
 input{
-    padding: 5px 5px 6px 5px;
-    font-size: 25px;
-    border-radius: 5px;
-    border: 1px solid grey;
+    padding-left: 10px;
+    font-size: 20px;
+    border: none;
+    border-bottom: 1.5px solid #3e93b2;
     width: 320px;
+    color: white;
+    background-color: black;
 }
 label{
     position: relative;
     top: 4px;
-    left: 20px;
-    font-size: 25px;
+    left: 13%;
+    font-size: 20px;
     width: 200px;
     width: 300px;
-    float: left
-
+    color: #3e93b2;
 }
 #wrapper{
-    
-    background-color: azure;
-    border-radius: 10px;
+    background-color: black;
+    opacity: .75;
+    border-radius: 30px;
     width: 700px;
     margin: 10% auto;
+    box-shadow: 5px 10px 50px #3e93b2;
+}
+#logo{
+  padding-top: 10%;
+  margin-left: 23%;
 }
 .form-element{
-    margin-bottom: 10px;
+    margin-top: 20px;
 }
 #submitButton{
     border-radius: 20px;
-    width: 150px;
+    border-width: 0px;
+    width: 100px;
     margin-left: 300px;
     margin-bottom: 20%;
-    
-}
 
+}
 #errorMessage{
     color: red;
     font-size: 90% !important;
@@ -52,65 +57,26 @@ label{
     display: none;
     padding-top: 10px;
     padding-bottom: 10px;
-    
 }
-
-
-
-
-
-
-.login-wrapper{
-    width: 670px;
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
+.error{
+  display: none;
+  margin-bottom:5px;
+}
+.error_show{
+  position: relative;
+  color: red;
+  margin-left: 45%;
 
 }
-.login-body{
-    background: aliceblue;
-    height: 100%;
+textarea{
+  vertical-align: top;
+  height: 5em;
 }
-.login-limiter{
-    width: 100%;
-    margin: 0 auto;
+input.invalid, textarea.invalid{
+  border: 2px solid red;
+  border-radius: 20px;
 }
-.login-container{
-    width: 100%;
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    background: black;
-    
-}
-.login-form{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 43px 88px 93px 190px;
-    
-    
-}
-.login-input{
-    width: 100%;
-    position: relative;
-    border-bottom: 1px solid #b2b2b2;
-    
-}
-.validate-input{
-    position: relative;
-}
-.login-form-title{
-    
-}
-.login-btn-container{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap; 
-}
-.login-btn{
-    
+input.valid, textarea.valid{
+  border: 2px solid green;
+  border-radius: 20px;
 }

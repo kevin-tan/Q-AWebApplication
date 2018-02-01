@@ -40,12 +40,19 @@ label{
 }
 #submitButton{
     border-radius: 20px;
-    border-width: 0px;
+    border-width: 1px;
     width: 100px;
     margin-left: 300px;
     margin-bottom: 20%;
-
+    background-color: #7df9ff;
+    color: black;
+    opacity: .80;
 }
+#submitButton:hover{
+  background-color: black;
+  color:#7df9ff;
+}
+
 #errorMessage{
     color: red;
     font-size: 90% !important;

@@ -51,30 +51,36 @@ public class UserModel {
         this.email = "";
     }
 
-
-    public String getFirstName() {
-        return firstName;
+    public long getId() {
+        return id;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getDateJoined() {
+        return dateJoined;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setDateJoined(String dateJoined) {
+        this.dateJoined = dateJoined;
     }
 
-
-    public String getEmail() {
-        return email;
+    public int getReputation() {
+        return reputation;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setReputation(int reputation) {
+        this.reputation = reputation;
+    }
+
+    public Set<QuestionModel> getQuestionModels() {
+        return questionModels;
+    }
+
+    public Set<AnswerModel> getAnswerModels() {
+        return answerModels;
     }
 
     public String getUsername() {
@@ -93,27 +99,27 @@ public class UserModel {
         this.password = password;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public long getId() {
-        return id;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setDateJoined(String dateJoined) {
-        this.dateJoined = dateJoined;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setReputation(int reputation) {
-        this.reputation = reputation;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public Set<QuestionModel> getQuestionModels() {
-        return questionModels;
+    public String getEmail() {
+        return email;
     }
 
-    public Set<AnswerModel> getAnswerModels() {
-        return answerModels;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

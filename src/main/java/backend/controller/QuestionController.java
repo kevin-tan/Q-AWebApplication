@@ -15,12 +15,6 @@ import java.util.List;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 
-*/
-/**
- * Created by Kevin Tan 2018-01-29
- *//*
-
-
 @RestController
 @CrossOrigin(origins = "http://localhost:63342")
 @RequestMapping(value = "/questions")

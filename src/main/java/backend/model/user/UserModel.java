@@ -36,7 +36,7 @@ public class UserModel {
     //TODO
     //private String role;
 
-    public UserModel(String username, String password, String firstName, String lastName, String email) {
+    private UserModel(String username, String password, String firstName, String lastName, String email) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;

@@ -2,8 +2,6 @@ package backend.controller;
 
 import backend.model.user.UserModel;
 import backend.repository.user.UserRepository;
-import backend.repository.vote.AnswerVoteRepository;
-import backend.repository.vote.QuestionVoteRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,15 +17,11 @@ public class RegisterController {
 
     private long count;
     private final UserRepository userRepository;
-    private final QuestionVoteRepository questionVoteRepository;
-    private final AnswerVoteRepository answerVoteRepository;
 
     @Autowired
-    public RegisterController(UserRepository userRepository, QuestionVoteRepository questionVoteRepository, AnswerVoteRepository answerVoteRepository) {
+    public RegisterController(UserRepository userRepository) {
         count = userRepository.count();
         this.userRepository = userRepository;
-        this.questionVoteRepository = questionVoteRepository;
-        this.answerVoteRepository = answerVoteRepository;
     }
 
     @PostMapping(path = "", produces = "application/json", consumes = "application/json")

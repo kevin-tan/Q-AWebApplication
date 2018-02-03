@@ -2,6 +2,7 @@ package backend.model.user;
 
 import backend.model.qa.AnswerModel;
 import backend.model.qa.QuestionModel;
+import backend.model.qa.common.ForumPost;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.CascadeType;
@@ -21,9 +22,9 @@ public class UserModel {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int reputation;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = ForumPost.class)
     private Set<QuestionModel> questionModels = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = ForumPost.class)
     private Set<AnswerModel> answerModels = new HashSet<>();
 
 

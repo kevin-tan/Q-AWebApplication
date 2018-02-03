@@ -1,11 +1,11 @@
 package backend.controller;
 
 import backend.model.qa.AnswerModel;
-import backend.model.vote.AnswerVoteModel;
+import backend.model.vote.VoteModel;
 import backend.repository.qa.AnswerRepository;
 import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
-import backend.repository.vote.AnswerVoteRepository;
+import backend.repository.vote.VoteRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +21,15 @@ public class UserAnswerController {
 
     private UserRepository userRepository;
     private QuestionRepository questionRepository;
-    private AnswerVoteRepository answerVoteRepository;
+    private VoteRepository voteRepository;
     private AnswerRepository answerRepository;
 
     @Autowired
     public UserAnswerController(UserRepository userRepository, QuestionRepository questionRepository,
-                                AnswerVoteRepository answerVoteRepository, AnswerRepository answerRepository) {
+                                VoteRepository voteRepository, AnswerRepository answerRepository) {
         this.userRepository = userRepository;
         this.questionRepository = questionRepository;
-        this.answerVoteRepository = answerVoteRepository;
+        this.voteRepository = voteRepository;
         this.answerRepository = answerRepository;
     }
 
@@ -41,10 +41,10 @@ public class UserAnswerController {
         answerModel.setPostedDate(dateTime.toString(FORMAT));
         answerModel.setUpdatedTime(dateTime.toString(FORMAT));
         answerModel.setQuestion(questionRepository.findOne(questionId));
-        answerModel.setVotes(new AnswerVoteModel(answerModel));
+        answerModel.setVotes(new VoteModel(answerModel));
         answerModel.setUser(userRepository.findOne(userId));
         answerRepository.save(answerModel);
-        answerVoteRepository.save(answerRepository.findOne(count).getVotes());
+        voteRepository.save(answerRepository.findOne(count).getVotes());
     }
 
     @RequestMapping(value = "")

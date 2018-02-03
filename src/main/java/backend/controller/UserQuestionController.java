@@ -1,11 +1,11 @@
 package backend.controller;
 
 import backend.model.qa.QuestionModel;
-import backend.model.vote.QuestionVoteModel;
+import backend.model.vote.VoteModel;
 import backend.repository.qa.AnswerRepository;
 import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
-import backend.repository.vote.QuestionVoteRepository;
+import backend.repository.vote.VoteRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +21,15 @@ public class UserQuestionController {
 
     private UserRepository userRepository;
     private QuestionRepository questionRepository;
-    private QuestionVoteRepository questionVoteRepository;
+    private VoteRepository voteRepository;
     private AnswerRepository answerRepository;
 
     @Autowired
     public UserQuestionController(UserRepository userRepository, QuestionRepository questionRepository,
-                                  QuestionVoteRepository questionVoteRepository, AnswerRepository answerRepository) {
+                                  VoteRepository voteRepository, AnswerRepository answerRepository) {
         this.userRepository = userRepository;
         this.questionRepository = questionRepository;
-        this.questionVoteRepository = questionVoteRepository;
+        this.voteRepository = voteRepository;
         this.answerRepository = answerRepository;
     }
 
@@ -40,10 +40,10 @@ public class UserQuestionController {
         questionModel.setId(count);
         questionModel.setPostedDate(dateTime.toString(FORMAT));
         questionModel.setUpdatedTime(dateTime.toString(FORMAT));
-        questionModel.setVotes(new QuestionVoteModel(questionModel));
+        questionModel.setVotes(new VoteModel(questionModel));
         questionModel.setUser(userRepository.findOne(userId));
         questionRepository.save(questionModel);
-        questionVoteRepository.save(questionRepository.findOne(questionModel.getId()).getVotes());
+        voteRepository.save(questionRepository.findOne(questionModel.getId()).getVotes());
         return questionModel;
     }
 

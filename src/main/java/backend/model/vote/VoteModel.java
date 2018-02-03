@@ -1,26 +1,33 @@
-package backend.model.vote.common;
+package backend.model.vote;
+
+import backend.model.qa.common.ForumPost;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import javax.persistence.OneToOne;
 
-/**
- * Created by Kevin Tan 2018-01-30
- */
 @Entity
-@Inheritance
-public abstract class VoteModel {
+public class VoteModel {
 
     @Id
     @GeneratedValue
     private long id;
     private int upVotes;
     private int downVotes;
+    @OneToOne
+    @JsonIgnore
+    private ForumPost forumPost;
 
-    protected VoteModel(){
+    public VoteModel(ForumPost forumPost) {
+        this.forumPost = forumPost;
         upVotes = 1;
-        downVotes =0;
+        downVotes = 0;
+    }
+
+    public VoteModel() {
+
     }
 
     public long getId() {
@@ -53,5 +60,13 @@ public abstract class VoteModel {
 
     public void incrementDownVotes() {
         downVotes++;
+    }
+
+    public ForumPost getForumPost() {
+        return forumPost;
+    }
+
+    public void setForumPost(ForumPost forumPost) {
+        this.forumPost = forumPost;
     }
 }

@@ -1,10 +1,11 @@
 package backend.model.qa.common;
 
+import backend.model.user.UserModel;
+import backend.model.vote.VoteModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import javax.persistence.*;
 
 /**
  * Created by Kevin Tan 2018-01-30
@@ -21,12 +22,15 @@ public abstract class ForumPost {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String postedDate;
     private String message;
-    //TODO replace with User issue#
+    @ManyToOne
+    @JsonIgnore
+    private UserModel user;
     private String author;
+    @OneToOne(cascade = CascadeType.ALL)
+    private VoteModel votes;
 
-    public ForumPost(String message, String author, String postedDate){
+    public ForumPost(String message, String postedDate) {
         this.message = message;
-        this.author = author;
         this.postedDate = postedDate;
         this.updatedTime = postedDate;
     }
@@ -55,14 +59,6 @@ public abstract class ForumPost {
         this.message = message;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public long getId() {
         return id;
     }
@@ -70,4 +66,22 @@ public abstract class ForumPost {
     public void setId(long id) {
         this.id = id;
     }
+
+    public void setUser(UserModel userModel) {
+        this.user = userModel;
+        author = userModel.getUsername();
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public VoteModel getVotes() {
+        return votes;
+    }
+
+    public void setVotes(VoteModel votes) {
+        this.votes = votes;
+    }
+
 }

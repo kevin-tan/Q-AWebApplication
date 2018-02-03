@@ -1,4 +1,4 @@
-//TODO This file is an enhancement depending on whether posting will be allowed without an account. Issue #29
+//TODO to be removed issue#45
 /*
 package backend.controller;
 

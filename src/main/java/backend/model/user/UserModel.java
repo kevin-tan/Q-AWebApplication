@@ -3,6 +3,8 @@ package backend.model.user;
 import backend.model.qa.AnswerModel;
 import backend.model.qa.QuestionModel;
 import backend.model.qa.common.ForumPost;
+import backend.model.vote.VoteModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -24,7 +26,12 @@ public class UserModel {
     private Set<QuestionModel> questionModels = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = ForumPost.class)
     private Set<AnswerModel> answerModels = new HashSet<>();
-
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "userUpVotes")
+    @JsonIgnore
+    private Set<VoteModel> upVotedVoteModels = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "userDownVotes")
+    @JsonIgnore
+    private Set<VoteModel> downVotedVoteModels = new HashSet<>();
 
     private String username;
     private String password;

@@ -81,4 +81,7 @@ public abstract class ForumPost {
         this.votes = votes;
     }
 
+    public UserModel getUser() {
+        return user;
+    }
 }

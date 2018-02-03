@@ -2,8 +2,10 @@ package backend.controller;
 
 import backend.model.qa.QuestionModel;
 import backend.model.user.UserModel;
+import backend.model.vote.VoteModel;
 import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
+import backend.repository.vote.VoteRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +18,15 @@ import static backend.controller.constants.ForumPostConstants.JSON;
 @RequestMapping("/user/{userId}/questions")
 public class UserQuestionController {
 
-    private UserRepository userRepository;
-    private QuestionRepository questionRepository;
+    private final UserRepository userRepository;
+    private final QuestionRepository questionRepository;
+    private final VoteRepository voteRepository;
 
     @Autowired
-    public UserQuestionController(UserRepository userRepository, QuestionRepository questionRepository) {
+    public UserQuestionController(UserRepository userRepository, QuestionRepository questionRepository, VoteRepository voteRepository) {
         this.userRepository = userRepository;
         this.questionRepository = questionRepository;
+        this.voteRepository = voteRepository;
     }
 
     @PostMapping(value = "", consumes = JSON, produces = JSON)
@@ -32,8 +36,10 @@ public class UserQuestionController {
         questionModel.setPostedDate(dateTime.toString(FORMAT));
         questionModel.setUpdatedTime(dateTime.toString(FORMAT));
         questionModel.setUser(user);
+        questionModel.setVotes(new VoteModel(questionModel, user));
         user.incrementReputation();
         questionRepository.save(questionModel);
+        voteRepository.save(questionRepository.findOne(questionModel.getId()).getVotes());
         return questionModel;
     }
 

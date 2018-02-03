@@ -1,12 +1,12 @@
 package backend.model.vote;
 
 import backend.model.qa.common.ForumPost;
+import backend.model.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class VoteModel {
@@ -14,16 +14,19 @@ public class VoteModel {
     @Id
     @GeneratedValue
     private long id;
-    private int upVotes;
-    private int downVotes;
     @OneToOne
     @JsonIgnore
     private ForumPost forumPost;
+    @ManyToMany
+    @JsonIgnore
+    private Set<UserModel> userUpVotes = new HashSet<>();
+    @ManyToMany
+    @JsonIgnore
+    private Set<UserModel> userDownVotes = new HashSet<>();
 
-    public VoteModel(ForumPost forumPost) {
+    public VoteModel(ForumPost forumPost, UserModel user) {
         this.forumPost = forumPost;
-        upVotes = 1;
-        downVotes = 0;
+        userUpVotes.add(user);
     }
 
     public VoteModel() {
@@ -35,31 +38,31 @@ public class VoteModel {
     }
 
     public int getUpVotes() {
-        return upVotes;
+        return userUpVotes.size();
     }
 
     public int getDownVotes() {
-        return downVotes;
+        return userDownVotes.size();
     }
 
     public int getTotalVotes() {
-        return upVotes + downVotes;
+        return userUpVotes.size() + userDownVotes.size();
     }
 
-    public void decrementUpVotes() {
-        upVotes--;
+    public boolean incrementUpVotes(UserModel user) {
+        return userUpVotes.add(user);
     }
 
-    public void incrementUpVotes() {
-        upVotes++;
+    public boolean incrementDownVotes(UserModel user) {
+        return userDownVotes.add(user);
     }
 
-    public void decrementDownVotes() {
-        downVotes--;
+    public void decrementUpVotes(UserModel user) {
+        userUpVotes.remove(user);
     }
 
-    public void incrementDownVotes() {
-        downVotes++;
+    public void decrementDownVotes(UserModel user) {
+        userDownVotes.remove(user);
     }
 
     public ForumPost getForumPost() {
@@ -68,5 +71,13 @@ public class VoteModel {
 
     public void setForumPost(ForumPost forumPost) {
         this.forumPost = forumPost;
+    }
+
+    public Set<UserModel> getUserUpVotes() {
+        return userUpVotes;
+    }
+
+    public Set<UserModel> getUserDownVotes() {
+        return userDownVotes;
     }
 }

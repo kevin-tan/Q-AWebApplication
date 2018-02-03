@@ -116,6 +116,10 @@ navbar-right:hover{
 
 }
 
+.list-group-item {
+    margin-top: 10px;
+}
+
 #right-side-bar {
     margin-top: 10px;
     background: transparent;

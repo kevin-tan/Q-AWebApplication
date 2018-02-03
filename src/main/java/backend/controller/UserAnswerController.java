@@ -10,8 +10,6 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 
 @RestController
@@ -45,11 +43,6 @@ public class UserAnswerController {
         answerModel.setUser(userRepository.findOne(userId));
         answerRepository.save(answerModel);
         voteRepository.save(answerRepository.findOne(count).getVotes());
-    }
-
-    @RequestMapping(value = "")
-    public List<AnswerModel> getAllRepliesByUserId(@PathVariable long userId) {
-        return answerRepository.findByUserId(userId);
     }
 
     @PutMapping(value = "/questions/{questionId}/replies/{replyId}", consumes = "application/json", produces = "application/json")

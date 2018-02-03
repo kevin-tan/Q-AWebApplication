@@ -1,3 +1,5 @@
+//TODO Temporary class, remove when registration is implemented with encryption and all.
+
 package backend.controller;
 
 import backend.model.user.UserModel;

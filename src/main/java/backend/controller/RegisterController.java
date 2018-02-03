@@ -30,7 +30,6 @@ public class RegisterController {
     public UserModel registerUser(@RequestBody UserModel userModel) {
         userModel.setId(count);
         userModel.setDateJoined(new DateTime().toString(FORMAT));
-        userModel.setReputation(0);
         userRepository.save(userModel);
         count++;
         return userModel;

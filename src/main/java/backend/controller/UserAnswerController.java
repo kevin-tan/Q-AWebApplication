@@ -1,6 +1,7 @@
 package backend.controller;
 
 import backend.model.qa.AnswerModel;
+import backend.model.user.UserModel;
 import backend.model.vote.VoteModel;
 import backend.repository.qa.AnswerRepository;
 import backend.repository.qa.QuestionRepository;
@@ -23,8 +24,8 @@ public class UserAnswerController {
     private AnswerRepository answerRepository;
 
     @Autowired
-    public UserAnswerController(UserRepository userRepository, QuestionRepository questionRepository,
-                                VoteRepository voteRepository, AnswerRepository answerRepository) {
+    public UserAnswerController(UserRepository userRepository, QuestionRepository questionRepository, VoteRepository voteRepository,
+                                AnswerRepository answerRepository) {
         this.userRepository = userRepository;
         this.questionRepository = questionRepository;
         this.voteRepository = voteRepository;
@@ -34,13 +35,15 @@ public class UserAnswerController {
     @PostMapping(value = "/questions/{questionId}/replies", consumes = "application/json", produces = "application/json")
     public void postReply(@PathVariable long questionId, @PathVariable long userId, @RequestBody AnswerModel answerModel) {
         long count = questionRepository.count() + answerRepository.count();
+        UserModel user = (userRepository.findOne(userId));
         DateTime dateTime = new DateTime();
         answerModel.setId(count);
         answerModel.setPostedDate(dateTime.toString(FORMAT));
         answerModel.setUpdatedTime(dateTime.toString(FORMAT));
         answerModel.setQuestion(questionRepository.findOne(questionId));
         answerModel.setVotes(new VoteModel(answerModel));
-        answerModel.setUser(userRepository.findOne(userId));
+        answerModel.setUser(user);
+        user.incrementReputation();
         answerRepository.save(answerModel);
         voteRepository.save(answerRepository.findOne(count).getVotes());
     }

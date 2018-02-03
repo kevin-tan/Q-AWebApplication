@@ -42,14 +42,11 @@ public class UserModel {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        reputation = 0;
     }
 
     public UserModel() {
-        this.username = "";
-        this.password = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.email = "";
+        this("", "", "", "", "");
     }
 
     public long getId() {
@@ -72,8 +69,8 @@ public class UserModel {
         return reputation;
     }
 
-    public void setReputation(int reputation) {
-        this.reputation = reputation;
+    public void incrementReputation() {
+        reputation++;
     }
 
     public Set<QuestionModel> getQuestionModels() {

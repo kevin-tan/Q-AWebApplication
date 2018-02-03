@@ -1,6 +1,7 @@
 package backend.controller;
 
 import backend.model.qa.QuestionModel;
+import backend.model.user.UserModel;
 import backend.model.vote.VoteModel;
 import backend.repository.qa.AnswerRepository;
 import backend.repository.qa.QuestionRepository;
@@ -35,11 +36,13 @@ public class UserQuestionController {
     public QuestionModel postQuestion(@RequestBody QuestionModel questionModel, @PathVariable long userId) {
         DateTime dateTime = new DateTime();
         long count = questionRepository.count() + answerRepository.count();
+        UserModel user = (userRepository.findOne(userId));
         questionModel.setId(count);
         questionModel.setPostedDate(dateTime.toString(FORMAT));
         questionModel.setUpdatedTime(dateTime.toString(FORMAT));
         questionModel.setVotes(new VoteModel(questionModel));
-        questionModel.setUser(userRepository.findOne(userId));
+        questionModel.setUser(user);
+        user.incrementReputation();
         questionRepository.save(questionModel);
         voteRepository.save(questionRepository.findOne(questionModel.getId()).getVotes());
         return questionModel;

@@ -3,7 +3,6 @@ package backend.controller;
 import backend.model.qa.QuestionModel;
 import backend.model.user.UserModel;
 import backend.model.vote.VoteModel;
-import backend.repository.qa.AnswerRepository;
 import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
 import backend.repository.vote.VoteRepository;
@@ -21,23 +20,18 @@ public class UserQuestionController {
     private UserRepository userRepository;
     private QuestionRepository questionRepository;
     private VoteRepository voteRepository;
-    private AnswerRepository answerRepository;
 
     @Autowired
-    public UserQuestionController(UserRepository userRepository, QuestionRepository questionRepository,
-                                  VoteRepository voteRepository, AnswerRepository answerRepository) {
+    public UserQuestionController(UserRepository userRepository, QuestionRepository questionRepository, VoteRepository voteRepository) {
         this.userRepository = userRepository;
         this.questionRepository = questionRepository;
         this.voteRepository = voteRepository;
-        this.answerRepository = answerRepository;
     }
 
     @PostMapping(value = "/{userId}/questions", consumes = "application/json", produces = "application/json")
     public QuestionModel postQuestion(@RequestBody QuestionModel questionModel, @PathVariable long userId) {
         DateTime dateTime = new DateTime();
-        long count = questionRepository.count() + answerRepository.count();
         UserModel user = (userRepository.findOne(userId));
-        questionModel.setId(count);
         questionModel.setPostedDate(dateTime.toString(FORMAT));
         questionModel.setUpdatedTime(dateTime.toString(FORMAT));
         questionModel.setVotes(new VoteModel(questionModel));
@@ -67,8 +61,8 @@ public class UserQuestionController {
     }
 
     private QuestionModel findQuestionById(long userId, long questionId) {
-        return questionRepository.findByUserId(userId).stream().filter(questionModel -> questionModel.getId() == questionId)
-                                 .findFirst().get();
+        return questionRepository.findByUserId(userId).stream().filter(questionModel -> questionModel.getId() == questionId).findFirst()
+                                 .get();
     }
 
 

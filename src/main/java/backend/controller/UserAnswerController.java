@@ -34,10 +34,8 @@ public class UserAnswerController {
 
     @PostMapping(value = "/questions/{questionId}/replies", consumes = "application/json", produces = "application/json")
     public void postReply(@PathVariable long questionId, @PathVariable long userId, @RequestBody AnswerModel answerModel) {
-        long count = questionRepository.count() + answerRepository.count();
         UserModel user = (userRepository.findOne(userId));
         DateTime dateTime = new DateTime();
-        answerModel.setId(count);
         answerModel.setPostedDate(dateTime.toString(FORMAT));
         answerModel.setUpdatedTime(dateTime.toString(FORMAT));
         answerModel.setQuestion(questionRepository.findOne(questionId));
@@ -45,7 +43,7 @@ public class UserAnswerController {
         answerModel.setUser(user);
         user.incrementReputation();
         answerRepository.save(answerModel);
-        voteRepository.save(answerRepository.findOne(count).getVotes());
+        voteRepository.save(answerRepository.findOne(answerModel.getId()).getVotes());
     }
 
     @PutMapping(value = "/questions/{questionId}/replies/{replyId}", consumes = "application/json", produces = "application/json")

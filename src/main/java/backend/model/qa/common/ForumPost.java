@@ -16,6 +16,7 @@ import javax.persistence.*;
 public abstract class ForumPost {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String updatedTime;
@@ -61,10 +62,6 @@ public abstract class ForumPost {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setUser(UserModel userModel) {

@@ -5,10 +5,7 @@ import backend.model.qa.QuestionModel;
 import backend.model.qa.common.ForumPost;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +13,7 @@ import java.util.Set;
 public class UserModel {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String dateJoined;
@@ -51,10 +49,6 @@ public class UserModel {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getDateJoined() {

@@ -1,7 +1,6 @@
 package backend.controller;
 
 import backend.model.qa.QuestionModel;
-import backend.model.user.UserModel;
 import backend.model.vote.VoteModel;
 import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -41,9 +41,13 @@ public class VoteController {
 
     }
 
+    //Get Id for all users who up voted
     @RequestMapping(value = "/questions/{questionId}/upVotedUsers")
-    public List<UserModel> getAllUpvotedUsers(@PathVariable long questionId) {
-        return userRepository.findByUpVotedVoteModelsId(voteRepository.findByForumPostId(questionId).getId());
+    public List<Long> getAllUpVotedUsers(@PathVariable long questionId) {
+        List<Long> list = new LinkedList<>();
+        userRepository.findByUpVotedVoteModelsId(voteRepository.findByForumPostId(questionId).getId())
+                      .forEach(user -> list.add(user.getId()));
+        return list;
     }
 
 }

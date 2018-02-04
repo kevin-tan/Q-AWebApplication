@@ -30,7 +30,6 @@ public class VoteModel {
     }
 
     public VoteModel() {
-
     }
 
     public long getId() {

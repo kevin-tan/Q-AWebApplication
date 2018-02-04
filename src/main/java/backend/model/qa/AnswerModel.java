@@ -15,7 +15,7 @@ public class AnswerModel extends ForumPost {
     private QuestionModel question;
     @ManyToOne
     @JsonIgnore
-    private UserModel user;
+    private UserModel userAnswer;
 
     public AnswerModel(QuestionModel question, String replyMessage, String postedTime) {
         super(replyMessage, postedTime);
@@ -34,12 +34,12 @@ public class AnswerModel extends ForumPost {
         return question;
     }
 
-    public void setUser(UserModel userModel) {
-        this.user = userModel;
+    public void setUserAnswer(UserModel userModel) {
+        this.userAnswer = userModel;
         author = userModel.getUsername();
     }
 
-    public UserModel getUser() {
-        return user;
+    public UserModel getUserAnswer() {
+        return userAnswer;
     }
 }

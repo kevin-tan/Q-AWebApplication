@@ -14,5 +14,5 @@ import java.util.List;
 public interface AnswerRepository extends ForumPostRepository<AnswerModel> {
     List<AnswerModel> findByQuestionId(long questionId);
 
-    List<AnswerModel> findByUserId(long userId);
+    List<AnswerModel> findByUserAnswerId(long userId);
 }

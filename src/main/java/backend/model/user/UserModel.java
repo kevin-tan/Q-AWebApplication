@@ -21,9 +21,9 @@ public class UserModel {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int reputation;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userQuestion")
     private Set<QuestionModel> questionModels = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userAnswer")
     private Set<AnswerModel> answerModels = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "upVotedUsers")

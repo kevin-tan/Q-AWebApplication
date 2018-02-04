@@ -35,7 +35,7 @@ public class UserAnswerController {
         answerModel.setPostedDate(dateTime.toString(FORMAT));
         answerModel.setUpdatedTime(dateTime.toString(FORMAT));
         answerModel.setQuestion(questionRepository.findOne(questionId));
-        answerModel.setUser(user);
+        answerModel.setUserAnswer(user);
         user.incrementReputation();
         answerRepository.save(answerModel);
     }

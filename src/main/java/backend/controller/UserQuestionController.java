@@ -35,7 +35,7 @@ public class UserQuestionController {
         UserModel user = (userRepository.findOne(userId));
         questionModel.setPostedDate(dateTime.toString(FORMAT));
         questionModel.setUpdatedTime(dateTime.toString(FORMAT));
-        questionModel.setUser(user);
+        questionModel.setUserQuestion(user);
         questionModel.setVotes(new VoteModel(questionModel, user));
         user.incrementReputation();
         questionRepository.save(questionModel);
@@ -62,7 +62,7 @@ public class UserQuestionController {
     }
 
     private QuestionModel findQuestionById(long userId, long questionId) {
-        return questionRepository.findByUserId(userId).stream().filter(questionModel -> questionModel.getId() == questionId).findFirst()
+        return questionRepository.findByUserQuestionId(userId).stream().filter(questionModel -> questionModel.getId() == questionId).findFirst()
                                  .get();
     }
 

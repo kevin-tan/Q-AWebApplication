@@ -19,14 +19,14 @@ public class VoteModel {
     private ForumPost forumPost;
     @ManyToMany
     @JsonIgnore
-    private Set<UserModel> userUpVotes = new HashSet<>();
+    private Set<UserModel> upVotedUsers = new HashSet<>();
     @ManyToMany
     @JsonIgnore
-    private Set<UserModel> userDownVotes = new HashSet<>();
+    private Set<UserModel> downVotedUsers = new HashSet<>();
 
     public VoteModel(ForumPost forumPost, UserModel user) {
         this.forumPost = forumPost;
-        userUpVotes.add(user);
+        upVotedUsers.add(user);
     }
 
     public VoteModel() {
@@ -38,31 +38,31 @@ public class VoteModel {
     }
 
     public int getUpVotes() {
-        return userUpVotes.size();
+        return upVotedUsers.size();
     }
 
     public int getDownVotes() {
-        return userDownVotes.size();
+        return downVotedUsers.size();
     }
 
     public int getTotalVotes() {
-        return userUpVotes.size() + userDownVotes.size();
+        return upVotedUsers.size() + downVotedUsers.size();
     }
 
     public boolean incrementUpVotes(UserModel user) {
-        return userUpVotes.add(user);
+        return upVotedUsers.add(user);
     }
 
     public boolean incrementDownVotes(UserModel user) {
-        return userDownVotes.add(user);
+        return downVotedUsers.add(user);
     }
 
     public void decrementUpVotes(UserModel user) {
-        userUpVotes.remove(user);
+        upVotedUsers.remove(user);
     }
 
     public void decrementDownVotes(UserModel user) {
-        userDownVotes.remove(user);
+        downVotedUsers.remove(user);
     }
 
     public ForumPost getForumPost() {
@@ -73,11 +73,11 @@ public class VoteModel {
         this.forumPost = forumPost;
     }
 
-    public Set<UserModel> getUserUpVotes() {
-        return userUpVotes;
+    public Set<UserModel> getUpVotedUsers() {
+        return upVotedUsers;
     }
 
-    public Set<UserModel> getUserDownVotes() {
-        return userDownVotes;
+    public Set<UserModel> getDownVotedUsers() {
+        return downVotedUsers;
     }
 }

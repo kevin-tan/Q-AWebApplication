@@ -2,7 +2,6 @@ package backend.model.user;
 
 import backend.model.qa.AnswerModel;
 import backend.model.qa.QuestionModel;
-import backend.model.qa.common.ForumPost;
 import backend.model.vote.VoteModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,14 +21,15 @@ public class UserModel {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int reputation;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = ForumPost.class)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<QuestionModel> questionModels = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = ForumPost.class)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<AnswerModel> answerModels = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "userUpVotes")
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "upVotedUsers")
     @JsonIgnore
     private Set<VoteModel> upVotedVoteModels = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "userDownVotes")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "downVotedUsers")
     @JsonIgnore
     private Set<VoteModel> downVotedVoteModels = new HashSet<>();
 

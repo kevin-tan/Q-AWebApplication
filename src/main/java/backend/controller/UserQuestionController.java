@@ -39,7 +39,7 @@ public class UserQuestionController {
         questionModel.setVotes(new VoteModel(questionModel, user));
         user.incrementReputation();
         questionRepository.save(questionModel);
-        voteRepository.save(questionRepository.findOne(questionModel.getId()).getVotes());
+        voteRepository.save(questionModel.getVotes());
         return questionModel;
     }
 

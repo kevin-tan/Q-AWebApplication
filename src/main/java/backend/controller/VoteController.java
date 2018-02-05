@@ -1,6 +1,7 @@
 package backend.controller;
 
 import backend.model.qa.QuestionModel;
+import backend.model.user.UserModel;
 import backend.model.vote.VoteModel;
 import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
@@ -33,22 +34,29 @@ public class VoteController {
     @RequestMapping(value = "/user/{userId}/questions/{questionId}/upVote")
     public void upVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
         vote(questionId, (voteModel, questionModel) -> {
-            if (voteModel.incrementUpVotes(userRepository.findOne(userId))) {
-                questionModel.getUserQuestion().incrementReputation();
+            UserModel user = userRepository.findOne(userId);
+            UserModel author = questionModel.getUserQuestion();
+            if (voteModel.incrementUpVotes(user)) {
+                if (voteModel.decrementDownVotes(user)) author.incrementReputation();
+                author.incrementReputation();
             }
+            userRepository.save(author);
         });
     }
 
     @RequestMapping(value = "/user/{userId}/questions/{questionId}/downVote")
     public void downVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
         vote(questionId, (voteModel, questionModel) -> {
-            if (voteModel.incrementDownVotes(userRepository.findOne(userId))) {
-                questionModel.getUserQuestion().decrementReputation();
+            UserModel user = userRepository.findOne(userId);
+            UserModel author = questionModel.getUserQuestion();
+            if (voteModel.incrementDownVotes(user)) {
+                if (voteModel.decrementUpVotes(user)) author.decrementReputation();
+                author.decrementReputation();
             }
+            userRepository.save(author);
         });
     }
 
-    //TODO checking if user exists already as a upvote or downvote
     private void vote(long postId, BiConsumer<VoteModel, QuestionModel> voting) {
         VoteModel vote = voteRepository.findByForumPostId(postId);
         QuestionModel question = questionRepository.findOne(postId);

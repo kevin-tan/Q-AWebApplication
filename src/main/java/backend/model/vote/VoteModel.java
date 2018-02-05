@@ -56,12 +56,12 @@ public class VoteModel {
         return downVotedUsers.add(user);
     }
 
-    public void decrementUpVotes(UserModel user) {
-        upVotedUsers.remove(user);
+    public boolean decrementUpVotes(UserModel user) {
+        return upVotedUsers.remove(user);
     }
 
-    public void decrementDownVotes(UserModel user) {
-        downVotedUsers.remove(user);
+    public boolean decrementDownVotes(UserModel user) {
+        return downVotedUsers.remove(user);
     }
 
     public ForumPost getForumPost() {

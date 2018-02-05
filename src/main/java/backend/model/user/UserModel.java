@@ -74,6 +74,10 @@ public class UserModel {
         reputation++;
     }
 
+    public void decrementReputation() {
+        reputation--;
+    }
+
     public Set<QuestionModel> getQuestionModels() {
         return questionModels;
     }

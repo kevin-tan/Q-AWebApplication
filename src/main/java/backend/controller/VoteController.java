@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 @RestController
 @CrossOrigin
@@ -31,17 +32,32 @@ public class VoteController {
 
     @RequestMapping(value = "/user/{userId}/questions/{questionId}/upVote")
     public void upVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
-        VoteModel vote = voteRepository.findByForumPostId(questionId);
-        QuestionModel question = questionRepository.findOne(questionId);
-        if (vote.incrementUpVotes(userRepository.findOne(userId))) {
-            question.getUserQuestion().incrementReputation();
-        }
-        voteRepository.save(vote);
-        questionRepository.save(question);
-
+        vote(questionId, (voteModel, questionModel) -> {
+            if (voteModel.incrementUpVotes(userRepository.findOne(userId))) {
+                questionModel.getUserQuestion().incrementReputation();
+            }
+        });
     }
 
-    //Get Id for all users who up voted
+    @RequestMapping(value = "/user/{userId}/questions/{questionId}/downVote")
+    public void downVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
+        vote(questionId, (voteModel, questionModel) -> {
+            if (voteModel.incrementDownVotes(userRepository.findOne(userId))) {
+                questionModel.getUserQuestion().decrementReputation();
+            }
+        });
+    }
+
+    //TODO checking if user exists already as a upvote or downvote
+    private void vote(long postId, BiConsumer<VoteModel, QuestionModel> voting) {
+        VoteModel vote = voteRepository.findByForumPostId(postId);
+        QuestionModel question = questionRepository.findOne(postId);
+        voting.accept(vote, question);
+        voteRepository.save(vote);
+        questionRepository.save(question);
+    }
+
+    //Get Id for all users who up voted for a question
     @RequestMapping(value = "/questions/{questionId}/upVotedUsers")
     public List<Long> getAllUpVotedUsers(@PathVariable long questionId) {
         List<Long> list = new LinkedList<>();

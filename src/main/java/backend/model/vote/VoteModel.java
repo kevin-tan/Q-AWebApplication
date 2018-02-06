@@ -13,7 +13,7 @@ public class VoteModel {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     @OneToOne
     @JsonIgnore
     private ForumPost forumPost;
@@ -32,7 +32,7 @@ public class VoteModel {
     public VoteModel() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

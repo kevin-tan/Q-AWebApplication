@@ -27,7 +27,7 @@ public class QuestionRepositoryTest {
     private TestEntityManager testEntityManager;
 
     @Test
-    public void whenValidId_thenQuestionShouldBeFound() throws Exception {
+    public void whenValidId_thenQuestionShouldBeFound(){
         QuestionModel questionModel = new QuestionModel("test questions", new DateTime().toString(FORMAT));
         testEntityManager.persist(questionModel);
         QuestionModel question = questionRepository.findOne(questionModel.getId());

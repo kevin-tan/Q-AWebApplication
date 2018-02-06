@@ -15,7 +15,7 @@ public abstract class ForumPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String updatedTime;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -55,7 +55,7 @@ public abstract class ForumPost {
         this.message = message;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

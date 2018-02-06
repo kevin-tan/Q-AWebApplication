@@ -43,18 +43,12 @@ public class QuestionControllerTest {
 
     private final QuestionModel question = new QuestionModel("Unit test message", new DateTime().toString(FORMAT));
     private final QuestionModel question2 = new QuestionModel("Unit test message 2", new DateTime().toString(FORMAT));
-    private int questionOneIndex;
-    private int questionTwoIndex;
-    private int questionListSize;
 
     @Before
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
         questionRepository.save(question);
-        questionOneIndex = (int) questionRepository.count() - 1;
         questionRepository.save(question2);
-        questionTwoIndex = (int) questionRepository.count() - 1;
-        questionListSize = (int)questionRepository.count();
     }
 
     @Test
@@ -81,17 +75,17 @@ public class QuestionControllerTest {
         mockMvc.perform(get("/questions"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$", hasSize(questionListSize)))
-                .andExpect(jsonPath("$[" + questionOneIndex + "].id", is(question.getId()
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id", is(question.getId()
                         .intValue())))
-                .andExpect(jsonPath("$[" + questionOneIndex + "].message", is(question.getMessage())))
-                .andExpect(jsonPath("$[" + questionOneIndex + "].postedDate", is(question.getPostedDate())))
-                .andExpect(jsonPath("$[" + questionOneIndex + "].updatedTime", is(question.getUpdatedTime())))
-                .andExpect(jsonPath("$[" + questionTwoIndex + "].id", is(question2.getId()
+                .andExpect(jsonPath("$[0].message", is(question.getMessage())))
+                .andExpect(jsonPath("$[0].postedDate", is(question.getPostedDate())))
+                .andExpect(jsonPath("$[0].updatedTime", is(question.getUpdatedTime())))
+                .andExpect(jsonPath("$[1].id", is(question2.getId()
                         .intValue())))
-                .andExpect(jsonPath("$[" + questionTwoIndex + "].message", is(question2.getMessage())))
-                .andExpect(jsonPath("$[" + questionTwoIndex + "].postedDate", is(question2.getPostedDate())))
-                .andExpect(jsonPath("$[" + questionTwoIndex + "].updatedTime", is(question2.getUpdatedTime())));
+                .andExpect(jsonPath("$[1].message", is(question2.getMessage())))
+                .andExpect(jsonPath("$[1].postedDate", is(question2.getPostedDate())))
+                .andExpect(jsonPath("$[1].updatedTime", is(question2.getUpdatedTime())));
     }
 
     @After

@@ -14,7 +14,7 @@ import static backend.controller.constants.ForumPostConstants.JSON;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/user/{userId}")
+@RequestMapping("/user/{userId}/questions/{questionId}")
 public class UserAnswerController {
 
     private UserRepository userRepository;
@@ -28,7 +28,7 @@ public class UserAnswerController {
         this.answerRepository = answerRepository;
     }
 
-    @PostMapping(value = "/questions/{questionId}/replies", consumes = JSON, produces = JSON)
+    @PostMapping(value = "/replies", consumes = JSON, produces = JSON)
     public void postReply(@PathVariable long questionId, @PathVariable long userId, @RequestBody AnswerModel answerModel) {
         UserModel user = (userRepository.findOne(userId));
         DateTime dateTime = new DateTime();
@@ -40,7 +40,7 @@ public class UserAnswerController {
         answerRepository.save(answerModel);
     }
 
-    @PutMapping(value = "/questions/{questionId}/replies/{replyId}", consumes = JSON, produces = JSON)
+    @PutMapping(value = "/replies/{replyId}", consumes = JSON, produces = JSON)
     public void updateReply(@PathVariable long replyId, @RequestBody AnswerModel answer) {
         AnswerModel answerModel = answerRepository.findOne(replyId);
         answerModel.setMessage(answer.getMessage());
@@ -48,7 +48,7 @@ public class UserAnswerController {
         answerRepository.save(answerModel);
     }
 
-    @DeleteMapping(value = "/questions/{questionId}/replies/{replyId}")
+    @DeleteMapping(value = "/replies/{replyId}")
     public void deleteReply(@PathVariable long replyId) {
         answerRepository.delete(answerRepository.findOne(replyId));
     }

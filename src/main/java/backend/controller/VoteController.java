@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
 @RestController
 @CrossOrigin
@@ -33,36 +33,39 @@ public class VoteController {
 
     @RequestMapping(value = "/user/{userId}/questions/{questionId}/upVote")
     public void upVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
-        vote(questionId, (voteModel, questionModel) -> {
+        questionVoting(questionId, (voteModel, questionModel) -> {
             UserModel user = userRepository.findOne(userId);
             UserModel author = questionModel.getUserQuestion();
             if (voteModel.incrementUpVotes(user)) {
                 if (voteModel.decrementDownVotes(user)) author.incrementReputation();
                 author.incrementReputation();
             }
-            userRepository.save(author);
+            return author;
         });
     }
 
     @RequestMapping(value = "/user/{userId}/questions/{questionId}/downVote")
     public void downVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
-        vote(questionId, (voteModel, questionModel) -> {
+        questionVoting(questionId, (voteModel, questionModel) -> {
             UserModel user = userRepository.findOne(userId);
             UserModel author = questionModel.getUserQuestion();
             if (voteModel.incrementDownVotes(user)) {
                 if (voteModel.decrementUpVotes(user)) author.decrementReputation();
                 author.decrementReputation();
             }
-            userRepository.save(author);
+            return author;
         });
     }
 
-    private void vote(long postId, BiConsumer<VoteModel, QuestionModel> voting) {
-        VoteModel vote = voteRepository.findByForumPostId(postId);
-        QuestionModel question = questionRepository.findOne(postId);
-        voting.accept(vote, question);
-        voteRepository.save(vote);
-        questionRepository.save(question);
+    @RequestMapping(value = "/user/{userId}/questions/{questionId}/unVote")
+    public void unVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
+        questionVoting(questionId, (voteModel, questionModel) -> {
+            UserModel user = userRepository.findOne(userId);
+            UserModel author = questionModel.getUserQuestion();
+            if(voteModel.decrementDownVotes(user)) author.incrementReputation();
+            if(voteModel.decrementUpVotes(user)) author.decrementReputation();
+            return author;
+        });
     }
 
     //Get Id for all users who up voted for a question
@@ -72,6 +75,14 @@ public class VoteController {
         userRepository.findByUpVotedVoteModelsId(voteRepository.findByForumPostId(questionId).getId())
                       .forEach(user -> list.add(user.getId()));
         return list;
+    }
+
+    private void questionVoting(long postId, BiFunction<VoteModel, QuestionModel, UserModel> voting) {
+        VoteModel vote = voteRepository.findByForumPostId(postId);
+        QuestionModel question = questionRepository.findOne(postId);
+        userRepository.save(voting.apply(vote, question));
+        voteRepository.save(vote);
+        questionRepository.save(question);
     }
 
 }

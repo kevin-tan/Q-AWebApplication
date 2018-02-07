@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { QuestionsComponent } from './questions/questions.component';
     QuestionsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

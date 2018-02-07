@@ -1,11 +1,12 @@
 package backend.repository.roles;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import backend.model.roles.RoleModel;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-/**
- * Created by Luca Fiorilli 2018-01-30
- */
+import java.util.List;
 
 public interface RolesRepository extends JpaRepository<RoleModel, Long> {
+    List<RoleModel> findByUsersId(long id);
+
+    RoleModel findByTitle(String title);
 }

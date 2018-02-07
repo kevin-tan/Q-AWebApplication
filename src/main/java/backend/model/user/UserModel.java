@@ -18,18 +18,24 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    //User information
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String dateJoined;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int reputation;
 
+    //Questions & Answers
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userQuestion")
     private Set<QuestionModel> questionModels = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userAnswer")
     private Set<AnswerModel> answerModels = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "users", targetEntity = RoleModel.class)
+
+    //Roles
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "users")
     private Set<RoleModel> roles = new HashSet<>();
 
+    //Votes
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "upVotedUsers")
     @JsonIgnore
     private Set<VoteModel> upVotedVoteModels = new HashSet<>();
@@ -37,6 +43,7 @@ public class UserModel {
     @JsonIgnore
     private Set<VoteModel> downVotedVoteModels = new HashSet<>();
 
+    //User credentials
     private String username;
     private String password;
     private String firstName;
@@ -88,8 +95,8 @@ public class UserModel {
         return answerModels;
     }
 
-    public Set<RoleModel> getRoleModel(){
-    	return roles;
+    public Set<RoleModel> getRoleModel() {
+        return roles;
     }
 
     public String getUsername() {
@@ -130,6 +137,13 @@ public class UserModel {
 
     public void setEmail(String email) {
         this.email = email;
-    }    
-    
+    }
+
+    public void addRole(RoleModel roleModel) {
+        roles.add(roleModel);
+    }
+
+    public void removeRole(RoleModel roleModel) {
+        roles.remove(roleModel);
+    }
 }

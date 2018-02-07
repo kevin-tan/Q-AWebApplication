@@ -1,67 +1,73 @@
 package backend.controller;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
+import backend.model.roles.RoleModel;
+import backend.model.user.UserModel;
+import backend.repository.roles.RolesRepository;
+import backend.repository.user.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import backend.repository.roles.RolesRepository;
-import backend.model.qa.QuestionModel;
-import backend.model.roles.RoleModel;
 
 /**
  * Created by Luca Fiorilli 2018-01-30
  */
 
 @RestController
-@RequestMapping(value = "/roles")
+@RequestMapping(value = "user/{userId}/roles")
 public class RolesController {
-	private final RolesRepository roleRepository;
-	private long count;
-	
-	@Autowired
-	public RolesController(RolesRepository roleRepository){
-		count = roleRepository.count();
-		this.roleRepository = roleRepository;
-	}
-	
-	@RequestMapping(value = "")
-	public List<RoleModel> getAllQuestions() {
-        return roleRepository.findAll();
+
+    private final RolesRepository roleRepository;
+    private final UserRepository userRepository;
+
+    @Autowired
+    public RolesController(RolesRepository roleRepository, UserRepository userRepository) {
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
-	
-	//Post a role
-    @PostMapping(path = "", produces = "application/json", consumes = "application/json")
-    public RoleModel postRole(@RequestBody RoleModel role) {
-        role.setId(count);
-        roleRepository.save(role);        
-        count++;
-        return role;
+
+    //Get roles
+    @RequestMapping(value = "")
+    public List<RoleModel> getRolesByUserId(@PathVariable long userId) {
+        return roleRepository.findByUsersId(userId);
     }
-	
-    //Get role
-    @RequestMapping(value = "/{id}")
-    public RoleModel getByPostId(@PathVariable long id) {
-        return roleRepository.findOne(id);
-    }	
-    
-    //Delete a role
-    @DeleteMapping(path = "/{id}")
-    public void deletePostById(@PathVariable long id) {
-        roleRepository.delete(id);
+
+    @RequestMapping(value = "/setUser")
+    public UserModel setUserRole(@PathVariable long userId) {
+        UserModel user = userRepository.findOne(userId);
+        RoleModel userRole =roleRepository.findByTitle("user");
+        userRole.addUser(user);
+        user.addRole(userRole);
+        roleRepository.save(userRole);
+        userRepository.save(user);
+        return user;
     }
-    
-    //Update a role
-    @PutMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
-    public void editRole(@PathVariable long id, @RequestBody String roles) {
-        RoleModel role = roleRepository.findOne(id);
-        role.setTitle(roles);
+
+    //Post a role
+    @RequestMapping(path = "/setAdmin")
+    public UserModel setAdminRole(@PathVariable long userId) {
+        UserModel user = userRepository.findOne(userId);
+        RoleModel admin = roleRepository.findByTitle("admin");
+        admin.addUser(user);
+        user.addRole(admin);
+        roleRepository.save(admin);
+        userRepository.save(user);
+        return user;
+    }
+
+    //Revoke role, 1=admin, 2=user
+    @RequestMapping(value = "/{roleId}")
+    public UserModel revokeRole(@PathVariable long userId, @PathVariable long roleId) {
+        UserModel user = userRepository.findOne(userId);
+        RoleModel role = roleRepository.findOne(roleId);
+        role.removeUser(user);
+        user.removeRole(role);
         roleRepository.save(role);
+        userRepository.save(user);
+        return user;
     }
+
+    //TODO refactor duplicate code
 }

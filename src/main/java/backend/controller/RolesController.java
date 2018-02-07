@@ -37,7 +37,7 @@ public class RolesController {
         return roleRepository.findByUsersId(userId);
     }
 
-    //Set Role
+    //Promote to admin
     @RequestMapping(path = "/promote")
     public UserModel promote(@PathVariable long userId) {
         return roleMechanism(userId, (user, role) -> {
@@ -46,7 +46,7 @@ public class RolesController {
         });
     }
 
-    //Revoke role
+    //Demote admin right
     @RequestMapping(value = "/demote")
     public UserModel demote(@PathVariable long userId) {
         return roleMechanism(userId, (user, role) -> {

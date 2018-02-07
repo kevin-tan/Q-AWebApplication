@@ -1,6 +1,7 @@
 package backend.controller;
 
 import backend.model.user.UserModel;
+import backend.repository.roles.RolesRepository;
 import backend.repository.user.UserRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,13 @@ import static backend.controller.constants.ForumPostConstants.JSON;
 public class RegisterController {
 
     private final UserRepository userRepository;
+    private final RolesRepository rolesRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public RegisterController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public RegisterController(UserRepository userRepository, RolesRepository rolesRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.rolesRepository = rolesRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -42,6 +45,7 @@ public class RegisterController {
         if (authenticateEmail == null && authenticateUsername == null) {
             userModel.setDateJoined(new DateTime().toString(FORMAT));
             userModel.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
+            userModel.addRole(rolesRepository.findOne(2L));
             userRepository.save(userModel);
         }
         return userModel;

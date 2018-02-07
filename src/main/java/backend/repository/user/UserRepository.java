@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserModel, Long> {
     List<UserModel> findByUpVotedVoteModelsId(long id);
+
+    UserModel findByUsername(String username);
+
+    UserModel findByEmail(String email);
 }

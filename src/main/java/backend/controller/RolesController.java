@@ -35,18 +35,10 @@ public class RolesController {
         return roleRepository.findByUsersId(userId);
     }
 
-    @RequestMapping(value = "/setUser")
-    public UserModel setUserRole(@PathVariable long userId) {
-        return roleMechanism(userId, 2, (user, role) -> {
-            role.addUser(user);
-            user.addRole(role);
-        });
-    }
-
-    //Post a role
-    @RequestMapping(path = "/setAdmin")
-    public UserModel setAdminRole(@PathVariable long userId) {
-        return roleMechanism(userId, 1, (user, role) -> {
+    //Set Role
+    @RequestMapping(path = "/setRole/{roleId}")
+    public UserModel setRole(@PathVariable long userId, @PathVariable long roleId) {
+        return roleMechanism(userId, roleId, (user, role) -> {
             role.addUser(user);
             user.addRole(role);
         });

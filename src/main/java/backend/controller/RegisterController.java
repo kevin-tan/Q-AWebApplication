@@ -1,5 +1,6 @@
 package backend.controller;
 
+import backend.model.roles.RoleModel;
 import backend.model.user.UserModel;
 import backend.repository.roles.RolesRepository;
 import backend.repository.user.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 import static backend.controller.constants.ForumPostConstants.JSON;
+import static backend.controller.constants.RoleConstants.USER;
 
 @RestController
 @CrossOrigin
@@ -45,8 +47,11 @@ public class RegisterController {
         if (authenticateEmail == null && authenticateUsername == null) {
             userModel.setDateJoined(new DateTime().toString(FORMAT));
             userModel.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
-            userModel.addRole(rolesRepository.findOne(2L));
+            RoleModel userRole = rolesRepository.findOne(USER);
+            userModel.addRole(userRole);
+            userRole.addUser(userModel);
             userRepository.save(userModel);
+            rolesRepository.save(userRole);
         }
         return userModel;
     }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import static backend.controller.constants.RoleConstants.ADMIN;
+
 @RestController
 @CrossOrigin
 @RequestMapping(value = "user/{userId}/roles")
@@ -36,26 +38,26 @@ public class RolesController {
     }
 
     //Set Role
-    @RequestMapping(path = "/setRole/{roleId}")
-    public UserModel setRole(@PathVariable long userId, @PathVariable long roleId) {
-        return roleMechanism(userId, roleId, (user, role) -> {
+    @RequestMapping(path = "/promote")
+    public UserModel promote(@PathVariable long userId) {
+        return roleMechanism(userId, (user, role) -> {
             role.addUser(user);
             user.addRole(role);
         });
     }
 
     //Revoke role
-    @RequestMapping(value = "/revoke/{roleId}")
-    public UserModel revokeRole(@PathVariable long userId, @PathVariable long roleId) {
-        return roleMechanism(userId, roleId, (user, role) -> {
+    @RequestMapping(value = "/demote")
+    public UserModel demote(@PathVariable long userId) {
+        return roleMechanism(userId, (user, role) -> {
             role.removeUser(user);
             user.removeRole(role);
         });
     }
 
-    private UserModel roleMechanism(long userId, long roleId, BiConsumer<UserModel, RoleModel> function) {
+    private UserModel roleMechanism(long userId, BiConsumer<UserModel, RoleModel> function) {
         UserModel user = userRepository.findOne(userId);
-        RoleModel role = roleRepository.findOne(roleId);
+        RoleModel role = roleRepository.findOne(ADMIN);
         function.accept(user, role);
         roleRepository.save(role);
         userRepository.save(user);

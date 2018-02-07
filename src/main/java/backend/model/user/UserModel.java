@@ -33,8 +33,9 @@ public class UserModel {
     @JsonIgnore
     private Set<VoteModel> downVotedVoteModels = new HashSet<>();
 
-    private String username;
+    @JsonIgnore
     private String password;
+    private String username;
     private String firstName;
     private String lastName;
     private String email;

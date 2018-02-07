@@ -5,17 +5,16 @@ import backend.model.user.UserModel;
 import backend.repository.roles.RolesRepository;
 import backend.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-/**
- * Created by Luca Fiorilli 2018-01-30
- */
+import java.util.function.BiConsumer;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "user/{userId}/roles")
 public class RolesController {
 
@@ -28,6 +27,8 @@ public class RolesController {
         this.userRepository = userRepository;
     }
 
+    //Roles: 1 = admin, 2 = user
+
     //Get roles
     @RequestMapping(value = "")
     public List<RoleModel> getRolesByUserId(@PathVariable long userId) {
@@ -36,38 +37,36 @@ public class RolesController {
 
     @RequestMapping(value = "/setUser")
     public UserModel setUserRole(@PathVariable long userId) {
-        UserModel user = userRepository.findOne(userId);
-        RoleModel userRole =roleRepository.findByTitle("user");
-        userRole.addUser(user);
-        user.addRole(userRole);
-        roleRepository.save(userRole);
-        userRepository.save(user);
-        return user;
+        return roleMechanism(userId, 2, (user, role) -> {
+            role.addUser(user);
+            user.addRole(role);
+        });
     }
 
     //Post a role
     @RequestMapping(path = "/setAdmin")
     public UserModel setAdminRole(@PathVariable long userId) {
-        UserModel user = userRepository.findOne(userId);
-        RoleModel admin = roleRepository.findByTitle("admin");
-        admin.addUser(user);
-        user.addRole(admin);
-        roleRepository.save(admin);
-        userRepository.save(user);
-        return user;
+        return roleMechanism(userId, 1, (user, role) -> {
+            role.addUser(user);
+            user.addRole(role);
+        });
     }
 
-    //Revoke role, 1=admin, 2=user
-    @RequestMapping(value = "/{roleId}")
+    //Revoke role
+    @RequestMapping(value = "/revoke/{roleId}")
     public UserModel revokeRole(@PathVariable long userId, @PathVariable long roleId) {
+        return roleMechanism(userId, roleId, (user, role) -> {
+            role.removeUser(user);
+            user.removeRole(role);
+        });
+    }
+
+    private UserModel roleMechanism(long userId, long roleId, BiConsumer<UserModel, RoleModel> function) {
         UserModel user = userRepository.findOne(userId);
         RoleModel role = roleRepository.findOne(roleId);
-        role.removeUser(user);
-        user.removeRole(role);
+        function.accept(user, role);
         roleRepository.save(role);
         userRepository.save(user);
         return user;
     }
-
-    //TODO refactor duplicate code
 }

@@ -3,6 +3,8 @@ package backend.model.user;
 import backend.model.qa.AnswerModel;
 import backend.model.qa.QuestionModel;
 import backend.model.vote.VoteModel;
+import backend.model.roles.RoleModel;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,6 +27,8 @@ public class UserModel {
     private Set<QuestionModel> questionModels = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userAnswer")
     private Set<AnswerModel> answerModels = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "users", targetEntity = RoleModel.class)
+    private Set<RoleModel> roles = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "upVotedUsers")
     @JsonIgnore
@@ -38,8 +42,6 @@ public class UserModel {
     private String firstName;
     private String lastName;
     private String email;
-    //TODO
-    //private String role;
 
     public UserModel(String username, String password, String firstName, String lastName, String email) {
         this.username = username;
@@ -86,6 +88,10 @@ public class UserModel {
         return answerModels;
     }
 
+    public Set<RoleModel> getRoleModel(){
+    	return roles;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -124,5 +130,6 @@ public class UserModel {
 
     public void setEmail(String email) {
         this.email = email;
-    }
+    }    
+    
 }

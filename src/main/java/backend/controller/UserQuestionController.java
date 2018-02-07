@@ -62,8 +62,8 @@ public class UserQuestionController {
     }
 
     private QuestionModel findQuestionById(long userId, long questionId) {
-        return questionRepository.findByUserQuestionId(userId).stream().filter(questionModel -> questionModel.getId() == questionId).findFirst()
-                                 .get();
+        return questionRepository.findByUserQuestionId(userId).stream().filter(questionModel -> questionModel.getId() == questionId)
+                                 .findFirst().get();
     }
 
 

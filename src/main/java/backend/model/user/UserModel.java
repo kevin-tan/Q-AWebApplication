@@ -15,7 +15,7 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String dateJoined;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -41,7 +41,7 @@ public class UserModel {
     //TODO
     //private String role;
 
-    private UserModel(String username, String password, String firstName, String lastName, String email) {
+    public UserModel(String username, String password, String firstName, String lastName, String email) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -54,7 +54,7 @@ public class UserModel {
         this("", "", "", "", "");
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

@@ -2,51 +2,45 @@ package backend.controller;
 
 import backend.model.qa.AnswerModel;
 import backend.model.user.UserModel;
-import backend.model.vote.VoteModel;
 import backend.repository.qa.AnswerRepository;
 import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
-import backend.repository.vote.VoteRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
+import static backend.controller.constants.ForumPostConstants.JSON;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/user/{userId}")
+@RequestMapping("/user/{userId}/questions/{questionId}")
 public class UserAnswerController {
 
     private UserRepository userRepository;
     private QuestionRepository questionRepository;
-    private VoteRepository voteRepository;
     private AnswerRepository answerRepository;
 
     @Autowired
-    public UserAnswerController(UserRepository userRepository, QuestionRepository questionRepository, VoteRepository voteRepository,
-                                AnswerRepository answerRepository) {
+    public UserAnswerController(UserRepository userRepository, QuestionRepository questionRepository, AnswerRepository answerRepository) {
         this.userRepository = userRepository;
         this.questionRepository = questionRepository;
-        this.voteRepository = voteRepository;
         this.answerRepository = answerRepository;
     }
 
-    @PostMapping(value = "/questions/{questionId}/replies", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/replies", consumes = JSON, produces = JSON)
     public void postReply(@PathVariable long questionId, @PathVariable long userId, @RequestBody AnswerModel answerModel) {
         UserModel user = (userRepository.findOne(userId));
         DateTime dateTime = new DateTime();
         answerModel.setPostedDate(dateTime.toString(FORMAT));
         answerModel.setUpdatedTime(dateTime.toString(FORMAT));
         answerModel.setQuestion(questionRepository.findOne(questionId));
-        answerModel.setVotes(new VoteModel(answerModel));
-        answerModel.setUser(user);
+        answerModel.setUserAnswer(user);
         user.incrementReputation();
         answerRepository.save(answerModel);
-        voteRepository.save(answerRepository.findOne(answerModel.getId()).getVotes());
     }
 
-    @PutMapping(value = "/questions/{questionId}/replies/{replyId}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/replies/{replyId}", consumes = JSON, produces = JSON)
     public void updateReply(@PathVariable long replyId, @RequestBody AnswerModel answer) {
         AnswerModel answerModel = answerRepository.findOne(replyId);
         answerModel.setMessage(answer.getMessage());
@@ -54,7 +48,7 @@ public class UserAnswerController {
         answerRepository.save(answerModel);
     }
 
-    @DeleteMapping(value = "/questions/{questionId}/replies/{replyId}")
+    @DeleteMapping(value = "/replies/{replyId}")
     public void deleteReply(@PathVariable long replyId) {
         answerRepository.delete(answerRepository.findOne(replyId));
     }

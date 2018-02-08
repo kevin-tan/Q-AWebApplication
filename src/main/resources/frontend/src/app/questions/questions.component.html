@@ -1,0 +1,17 @@
+<p>
+  questions works!
+</p>
+<div *ngFor="let quest of questions">
+  <p>id = {{quest.id}}</p>
+  <p>message = {{quest.message}}</p>
+  <p>Date = {{quest.updatedTime}}</p>
+</div>
+
+<div>
+  <label>Message:
+    <input #message />
+  </label>
+  <button (click)="add(message.value); message.value=''">
+    add
+  </button>
+</div>

@@ -11,15 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
+import static backend.controller.constants.ForumPostConstants.JSON;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/user")
+@RequestMapping("/user/{userId}/questions")
 public class UserQuestionController {
 
-    private UserRepository userRepository;
-    private QuestionRepository questionRepository;
-    private VoteRepository voteRepository;
+    private final UserRepository userRepository;
+    private final QuestionRepository questionRepository;
+    private final VoteRepository voteRepository;
 
     @Autowired
     public UserQuestionController(UserRepository userRepository, QuestionRepository questionRepository, VoteRepository voteRepository) {
@@ -28,31 +29,31 @@ public class UserQuestionController {
         this.voteRepository = voteRepository;
     }
 
-    @PostMapping(value = "/{userId}/questions", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "", consumes = JSON, produces = JSON)
     public QuestionModel postQuestion(@RequestBody QuestionModel questionModel, @PathVariable long userId) {
         DateTime dateTime = new DateTime();
         UserModel user = (userRepository.findOne(userId));
         questionModel.setPostedDate(dateTime.toString(FORMAT));
         questionModel.setUpdatedTime(dateTime.toString(FORMAT));
-        questionModel.setVotes(new VoteModel(questionModel));
-        questionModel.setUser(user);
+        questionModel.setUserQuestion(user);
+        questionModel.setVotes(new VoteModel(questionModel, user));
         user.incrementReputation();
         questionRepository.save(questionModel);
-        voteRepository.save(questionRepository.findOne(questionModel.getId()).getVotes());
+        voteRepository.save(questionModel.getVotes());
         return questionModel;
     }
 
-    @RequestMapping(value = "/{userId}/questions/{questionId}")
+    @RequestMapping(value = "/{questionId}")
     public QuestionModel getQuestionsByUser(@PathVariable long userId, @PathVariable long questionId) {
         return findQuestionById(userId, questionId);
     }
 
-    @DeleteMapping(path = "/{userId}/questions/{questionId}")
+    @DeleteMapping(path = "/{questionId}")
     public void deletePost(@PathVariable long userId, @PathVariable long questionId) {
         questionRepository.delete(findQuestionById(userId, questionId));
     }
 
-    @PutMapping(value = "/{userId}/questions/{questionId}", produces = "application/json", consumes = "application/json")
+    @PutMapping(value = "/{questionId}", produces = JSON, consumes = JSON)
     public void editQuestion(@PathVariable long userId, @PathVariable long questionId, @RequestBody QuestionModel questionModel) {
         QuestionModel question = findQuestionById(userId, questionId);
         question.setMessage(questionModel.getMessage());
@@ -61,8 +62,8 @@ public class UserQuestionController {
     }
 
     private QuestionModel findQuestionById(long userId, long questionId) {
-        return questionRepository.findByUserId(userId).stream().filter(questionModel -> questionModel.getId() == questionId).findFirst()
-                                 .get();
+        return questionRepository.findByUserQuestionId(userId).stream().filter(questionModel -> questionModel.getId() == questionId)
+                                 .findFirst().get();
     }
 
 

@@ -1,65 +1,67 @@
 package backend.model.vote;
 
 import backend.model.qa.common.ForumPost;
+import backend.model.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class VoteModel {
 
     @Id
     @GeneratedValue
-    private long id;
-    private int upVotes;
-    private int downVotes;
+    private Long id;
     @OneToOne
     @JsonIgnore
     private ForumPost forumPost;
+    @ManyToMany
+    @JsonIgnore
+    private Set<UserModel> upVotedUsers = new HashSet<>();
+    @ManyToMany
+    @JsonIgnore
+    private Set<UserModel> downVotedUsers = new HashSet<>();
 
-    public VoteModel(ForumPost forumPost) {
+    public VoteModel(ForumPost forumPost, UserModel user) {
         this.forumPost = forumPost;
-        upVotes = 1;
-        downVotes = 0;
+        upVotedUsers.add(user);
     }
 
     public VoteModel() {
-
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
     public int getUpVotes() {
-        return upVotes;
+        return upVotedUsers.size();
     }
 
     public int getDownVotes() {
-        return downVotes;
+        return downVotedUsers.size();
     }
 
     public int getTotalVotes() {
-        return upVotes + downVotes;
+        return upVotedUsers.size() + downVotedUsers.size();
     }
 
-    public void decrementUpVotes() {
-        upVotes--;
+    public boolean incrementUpVotes(UserModel user) {
+        return upVotedUsers.add(user);
     }
 
-    public void incrementUpVotes() {
-        upVotes++;
+    public boolean incrementDownVotes(UserModel user) {
+        return downVotedUsers.add(user);
     }
 
-    public void decrementDownVotes() {
-        downVotes--;
+    public boolean decrementUpVotes(UserModel user) {
+        return upVotedUsers.remove(user);
     }
 
-    public void incrementDownVotes() {
-        downVotes++;
+    public boolean decrementDownVotes(UserModel user) {
+        return downVotedUsers.remove(user);
     }
 
     public ForumPost getForumPost() {
@@ -68,5 +70,13 @@ public class VoteModel {
 
     public void setForumPost(ForumPost forumPost) {
         this.forumPost = forumPost;
+    }
+
+    public Set<UserModel> getUpVotedUsers() {
+        return upVotedUsers;
+    }
+
+    public Set<UserModel> getDownVotedUsers() {
+        return downVotedUsers;
     }
 }

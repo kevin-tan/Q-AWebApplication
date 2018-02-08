@@ -1,4 +1,4 @@
-//TODO Temporary class, remove when registration is implemented with encryption and all.
+//TODO Temporary class, remove when registration is implemented with encryption and all. issue#39
 
 package backend.controller;
 
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
+import static backend.controller.constants.ForumPostConstants.JSON;
 
 @RestController
 @CrossOrigin
@@ -22,7 +23,7 @@ public class RegisterController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping(path = "", produces = "application/json", consumes = "application/json")
+    @PostMapping(path = "", produces = JSON, consumes = JSON)
     public UserModel registerUser(@RequestBody UserModel userModel) {
         userModel.setDateJoined(new DateTime().toString(FORMAT));
         userRepository.save(userModel);

@@ -1,8 +1,6 @@
 package backend.model.qa.common;
 
-import backend.model.user.UserModel;
 import backend.model.vote.VoteModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -17,16 +15,13 @@ public abstract class ForumPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String updatedTime;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String postedDate;
     private String message;
-    @ManyToOne
-    @JsonIgnore
-    private UserModel user;
-    private String author;
+    protected String author;
     @OneToOne(cascade = CascadeType.ALL)
     private VoteModel votes;
 
@@ -60,13 +55,8 @@ public abstract class ForumPost {
         this.message = message;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setUser(UserModel userModel) {
-        this.user = userModel;
-        author = userModel.getUsername();
     }
 
     public String getAuthor() {

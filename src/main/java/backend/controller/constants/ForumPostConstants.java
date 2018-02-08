@@ -10,4 +10,5 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public abstract class ForumPostConstants {
     public static final DateTimeFormatter FORMAT = DateTimeFormat.mediumDateTime();
+    public static final String JSON = "application/json";
 }

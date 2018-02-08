@@ -2,9 +2,8 @@ package backend.model.user;
 
 import backend.model.qa.AnswerModel;
 import backend.model.qa.QuestionModel;
-import backend.model.vote.VoteModel;
 import backend.model.roles.RoleModel;
-
+import backend.model.vote.VoteModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -44,9 +43,9 @@ public class UserModel {
     private Set<VoteModel> downVotedVoteModels = new HashSet<>();
 
     //User credentials
-    @JsonIgnore
-    private String password;
     private String username;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
     private String firstName;
     private String lastName;
     private String email;

@@ -26,13 +26,12 @@ public class LoginController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    //TODO validation could use refactor, how is this going to communicate to the front end that something is valid or invalid
     //ID will be 0 if the login fails
     @RequestMapping(path = "", produces = JSON, consumes = JSON)
     public UserModel loginUser(@RequestBody UserModel userModel) {
         UserModel authenticate = userRepository.findByUsername(userModel.getUsername());
 
-        if (authenticate != null) {
+        if (userRepository.existsByUsername(userModel.getUsername())) {
             if (bCryptPasswordEncoder.matches(userModel.getPassword(), authenticate.getPassword())) {
                 System.err.println("Successful Login");
                 return authenticate;
@@ -45,6 +44,8 @@ public class LoginController {
             System.err.println("Invalid Username");
         }
 
+        userModel.setUsername("");
+        userModel.setPassword("");
         return userModel;
     }
 }

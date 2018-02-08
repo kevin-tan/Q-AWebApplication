@@ -29,22 +29,21 @@ public class RegisterController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    //TODO Need validation here (terrible way to go about it below)
     //Communicating to front end by returning empty Strings in the JSON (as well as ID 0)
     @PostMapping(path = "", produces = JSON, consumes = JSON)
     public UserModel registerUser(@RequestBody UserModel userModel) {
-        UserModel authenticateUsername = userRepository.findByUsername(userModel.getUsername());
-        UserModel authenticateEmail = userRepository.findByEmail(userModel.getEmail());
+        boolean userExists = userRepository.existsByUsername(userModel.getUsername());
+        boolean emailExists = userRepository.existsByEmail(userModel.getEmail());
 
-        if (authenticateUsername != null) {
+        if (userExists) {
             userModel.setUsername("");
             System.err.println("Username is already registered");
         }
-        if (authenticateEmail != null) {
+        if (emailExists) {
             userModel.setEmail("");
             System.err.println("Email is already being used");
         }
-        if (authenticateEmail == null && authenticateUsername == null) {
+        if (!userExists && !emailExists) {
             userModel.setDateJoined(new DateTime().toString(FORMAT));
             userModel.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
             RoleModel userRole = rolesRepository.findOne(USER);

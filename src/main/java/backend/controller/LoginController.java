@@ -31,17 +31,9 @@ public class LoginController {
     public UserModel loginUser(@RequestBody UserModel userModel) {
         UserModel authenticate = userRepository.findByUsername(userModel.getUsername());
 
-        if (userRepository.existsByUsername(userModel.getUsername())) {
-            if (bCryptPasswordEncoder.matches(userModel.getPassword(), authenticate.getPassword())) {
-                System.err.println("Successful Login");
-                return authenticate;
-            }
-            else {
-                System.err.println("Incorrect Password");
-            }
-        }
-        else {
-            System.err.println("Invalid Username");
+        if (userRepository.existsByUsername(userModel.getUsername()) &&
+            bCryptPasswordEncoder.matches(userModel.getPassword(), authenticate.getPassword())) {
+            return authenticate;
         }
 
         userModel.setUsername("");

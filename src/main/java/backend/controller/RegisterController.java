@@ -35,14 +35,10 @@ public class RegisterController {
         boolean userExists = userRepository.existsByUsername(userModel.getUsername());
         boolean emailExists = userRepository.existsByEmail(userModel.getEmail());
 
-        if (userExists) {
-            userModel.setUsername("");
-            System.err.println("Username is already registered");
-        }
-        if (emailExists) {
-            userModel.setEmail("");
-            System.err.println("Email is already being used");
-        }
+        if (userExists) userModel.setUsername("");
+
+        if (emailExists) userModel.setEmail("");
+
         if (!userExists && !emailExists) {
             userModel.setDateJoined(new DateTime().toString(FORMAT));
             userModel.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));

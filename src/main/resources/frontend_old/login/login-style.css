@@ -52,6 +52,7 @@ label{
 #submitButton:hover{
   background-color: black;
   color:#7df9ff;
+  border-bottom: 1.5px solid black;
 }
 
 #errorMessage{

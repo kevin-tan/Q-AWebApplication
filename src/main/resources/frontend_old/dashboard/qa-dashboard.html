@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Houston Answers</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dashboard.css">
+
+</head>
+
+
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+
+            <!-- Logo -->
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">
+                    <img src="..\icons\banner.jpg" class="img-rounded" width="200" height="50">
+                </a>
+            </div>
+
+            <!-- Menu Items -->
+            <div>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#dash">Dashboard</a>
+                    </li>
+                    <!-- drop down menu -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">Questions</a>
+                            </li>
+                            <li>
+                                <a href="#">Answers</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!--right align -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="questionInput" placeholder="Question">
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-1">
+                <div class="card">
+                    <a href="javascript:;" class="btn btn-primary btn-large">
+                        Ask your question
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1 col-s-1">
+
+                <ul class="list-group">
+
+                    <li class="list-group-item justify-content-between" id="#">
+                        <a href="#" id="#">Question Subject/Title</a>
+                        <span class="badge badge-default badge-pill" id="">+/- 99</span>
+                        <small>Submitted:
+                            <span id="#">#</span> days ago</small>
+                        <span>
+                            <a href="#">
+                                <i class="fas fa-reply"></i>
+                            </a>
+                        </span>
+                        <p class="" id="" style="overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;">Short summary of the first line or two of the question. For example, if the summary is very long
+                            and it spills over into a second line, like this, it will be truncated at the end of the second
+                            line as shown in this example, this is a list-group-item blah blah</p>
+
+                    </li>
+
+                    <li class="list-group-item justify-content-between" id="#">
+                        <a href="#" id="#">Question Subject/Title</a>
+                        <span class="badge badge-default badge-pill" id="">+/- 99</span>
+                        <small>Submitted:
+                            <span id="#">#</span> days ago</small>
+                        <span>
+                            <a href="#">
+                                <i class="fas fa-reply"></i>
+                            </a>
+                        </span>
+                        <p class="" id="#" style="overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;">Short summary of the first line or two of the question. For example, if the summary is very long
+                            and it spills over into a second line, like this, it will be truncated at the end of the second
+                            line as shown in this example, this is a list-group-item blah blah</p>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div id="right-side-bar" class="navbar navbar-default" role="navigation">
+
+                    <div class="navbar-header">
+                        <span class="navbar-brand" id="nav-categories">
+                            <h3>Browse by category</h3>
+                        </span>
+                    </div>
+
+                    <div class="collapse navbar-collapse" style="alight-left:auto;">
+
+                        <ul class="nav nav-pills nav-stacked" id="nav-categories-pills">
+                            <li>
+                                <a href="#">Category 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 3</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 4</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 5</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 6</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 7</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 8</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 9</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 10</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="wrap">
+        <div id="main"></div>
+    </div>
+
+    <div id="footer">
+        <p> All Rights Reserved.
+            <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span>
+        </p>
+    </div>
+
+</body>
+
+</html>

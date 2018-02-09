@@ -127,6 +127,23 @@ public class VoteController {
     public List<Long> getAllUpVotedUsersAnswers(@PathVariable long replyId) {
         return getAllUpVotedUserId(replyId);
     }
+    
+    //Update Best Answer for Question
+    @RequestMapping(value = "/questions/{questionId}/bestAnswer/{AnswerId}")
+    public AnswerModel setBestAnswer(@PathVariable long questionId, @PathVariable long AnswerId) {
+    	QuestionModel question = questionRepository.getOne(questionId);
+    	question.setBestAnswer(AnswerId);
+    	questionRepository.save(question);
+    	return answerRepository.findOne(AnswerId);
+    }
+    
+    //Get Best Answer for Question
+    @RequestMapping(value = "/questions/{questionId}/bestAnswer")
+    public AnswerModel getBestAnswer(@PathVariable long questionId) {
+    	QuestionModel question = questionRepository.getOne(questionId);
+    	Long answerId = question.getBestAnswer();
+    	return answerRepository.findOne(answerId);
+    }
 
     //Helper method tog et all up voted users
     private List<Long> getAllUpVotedUserId(long postId) {

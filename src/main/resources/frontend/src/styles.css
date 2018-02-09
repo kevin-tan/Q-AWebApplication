@@ -1,1 +1,126 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-image: url("/assets/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+  font-family: Sans-Serif;
+}
+li {
+  float: left;
+  padding-right: 4px;
+}
+.nav {
+  display: block;
+  color: #3f93b3;
+  text-align: center;
+  padding: 7px;
+  padding-top: 14px;
+  text-decoration: none;
+  height: 50px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.nav:hover {
+  background-color: #3f93b3;
+  color: white;
+}
+.icon {
+  display: block;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: white;
+  text-align: center;
+  text-decoration: none;
+  height: 50px;
+  width: 50px;
+  border: 1px;
+}
+
+.icon:hover {
+  background-color: #3f93b3;
+}
+
+
+.button {
+  height: 50px;
+  width: 125px;
+  background-color: #3f93b3;
+  color: white;
+  font-size: 17px;
+  text-align: center;
+  transition: all 0.5s;
+  cursor: pointer;
+  border: 2px;
+  font-weight: bold;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.button1 {
+  height: 50px;
+  width: 125px;
+  background-color: white;
+  color: #3f93b3;
+  font-size: 17px;
+  text-align: center;
+  transition: all 0.5s;
+  cursor: pointer;
+  border: 2px;
+  font-weight: bold;
+}
+
+.button1 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button1 span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button1:hover span {
+  padding-right: 25px;
+}
+
+.button1:hover span:after {
+  opacity: 1;
+  right: 0;
+}

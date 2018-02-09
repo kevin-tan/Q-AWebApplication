@@ -1,0 +1,65 @@
+.search-box-wrapper {
+  display: inline-list-item;
+  padding-top: 25px;
+  font-size: 20px;
+}
+.search-box-input:hover,
+.search-box-input:focus {
+  border-color: #0f2229;
+}
+.search-box-input {
+  width: 30vw;
+  height: 75px;
+  font-size: inherit;
+  border: 0.2em solid #0f2229;
+  border-radius: 0.5em 0 0 0.5em;
+  padding: 0.2em 0.5em;
+  outline: 0;
+}
+.search-box-button:hover,
+.search-box-button:focus {
+  border-color: #0f2229;
+  background: #377f9b;
+}
+.search-box-button {
+  width: 100px;
+  height: 90px;
+  text-align: center;
+  font-size: inherit;
+  font-weight: bold;
+  border: 0.2em solid #0f2229;
+  border-radius: 0 0.5em 0.5em 0;
+  background-color: #0f2229;
+  border-left: 0;
+  color: white;
+  outline: 0;
+  cursor: pointer;
+}
+.welcome p {
+  color: #e9e9e9;
+  font-size: 20px;
+  line-height: 15px;
+  text-align: inherit;
+}
+
+.welcome {
+  height: 100%;
+  width: 100%;
+  size: 20vw;
+  size: 20vh;
+  padding-top: 15%;
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+}
+
+.welcome h4 {
+  color: white;
+  font-size: 100px;
+  font-size: 12vw;
+  font-size: 12vh;
+  line-height: 50px;
+  text-align: inherit;
+  font-family: "Space Ranger";
+}

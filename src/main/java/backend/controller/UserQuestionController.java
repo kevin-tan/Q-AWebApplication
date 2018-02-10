@@ -51,6 +51,9 @@ public class UserQuestionController {
     @DeleteMapping(path = "/{questionId}")
     public void deletePost(@PathVariable long userId, @PathVariable long questionId) {
         questionRepository.delete(findQuestionById(userId, questionId));
+        UserModel userModel = userRepository.findOne(userId);
+        userModel.decrementReputation();
+        userRepository.save(userModel);
     }
 
     @PutMapping(value = "/{questionId}", produces = JSON, consumes = JSON)

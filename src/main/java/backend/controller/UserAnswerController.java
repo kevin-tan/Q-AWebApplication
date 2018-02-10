@@ -57,8 +57,11 @@ public class UserAnswerController {
     }
 
     @DeleteMapping(value = "/replies/{replyId}")
-    public void deleteReply(@PathVariable long replyId) {
+    public void deleteReply(@PathVariable long userId, @PathVariable long replyId) {
         answerRepository.delete(answerRepository.findOne(replyId));
+        UserModel userModel = userRepository.findOne(userId);
+        userModel.decrementReputation();
+        userRepository.save(userModel);
     }
 
 }

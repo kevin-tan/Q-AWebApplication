@@ -14,7 +14,7 @@ This project is currently **in progress**
 * Karthikan Jeyabalan (Front-end)
 * Kevin Tan (Team Lead, Back-end)
 * Luca Fiorilli (Back-end)
-* Sagar Patel (Scummaster, Back-end)
+* Sagar Patel (Scrummaster, Back-end)
 * Shane Philips (Front-end)
 * Shawn Guerra-Bautista (Front-end)
 * Shurid Biswas (Front-end)

@@ -11,13 +11,13 @@ This project is currently **in progress**
 - [ ] QA Section
 - [ ] TBA
 ## Team members
-* Karthikan Jeyabalan
-* Kevin Tan
-* Luca Fiorilli
-* Sagar Patel
-* Shane Philips
-* Shawn Guerra-Bautista
-* Shurid Biswas
+* Karthikan Jeyabalan (Front-end)
+* Kevin Tan (Team Lead, Back-end)
+* Luca Fiorilli (Back-end)
+* Sagar Patel (Scummaster, Back-end)
+* Shane Philips (Front-end)
+* Shawn Guerra-Bautista (Front-end)
+* Shurid Biswas (Front-end)
 ## Technologies
 * Front End
   * [HTML](https://www.w3schools.com/html/)

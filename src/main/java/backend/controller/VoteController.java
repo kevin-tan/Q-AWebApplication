@@ -129,12 +129,12 @@ public class VoteController {
     }
     
     //Update Best Answer for Question
-    @RequestMapping(value = "/questions/{questionId}/bestAnswer/{AnswerId}")
-    public AnswerModel setBestAnswer(@PathVariable long questionId, @PathVariable long AnswerId) {
+    @RequestMapping(value = "/questions/{questionId}/bestAnswer/{answerId}")
+    public AnswerModel setBestAnswer(@PathVariable long questionId, @PathVariable long answerId) {
     	QuestionModel question = questionRepository.getOne(questionId);
-    	question.setBestAnswer(AnswerId);
+    	question.setBestAnswer(answerId);
     	questionRepository.save(question);
-    	return answerRepository.findOne(AnswerId);
+    	return answerRepository.findOne(answerId);
     }
     
     //Get Best Answer for Question

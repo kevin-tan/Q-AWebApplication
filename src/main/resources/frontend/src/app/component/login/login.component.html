@@ -1,0 +1,28 @@
+<div id="wrapper">
+
+  <div id="logo">
+    <a href="">
+      <img src="../assets/login-logo.png" width="400px" alt="Houston Answers"></a>
+  </div>
+
+  <form id="user_login" (ngSubmit)="onLogin()" novalidate>
+    <div class="form-element">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" placeholder="Username" [(ngModel)]="user.username" required>
+    </div>
+
+    <div class="form-element">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" placeholder="Password" [(ngModel)]="user.password" required>
+    </div>
+
+    <div class="form-element">
+      <!--<button>Login</button>-->
+      <input type="submit" id="submitButton" value="Login">
+    </div>
+  </form>
+
+  <div id="successMessage" class="alert alert-success">Signed up successfully!</div>
+  <div id="errorMessage"></div>
+
+</div>

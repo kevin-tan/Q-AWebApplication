@@ -14,11 +14,14 @@ import { FooterComponent } from './component/footer/footer.component';
 import { HomeComponent } from './component/home/home.component';
 import { RegistrationComponent } from './component/registration/registration.component';
 import {AuthService} from "./service/auth.service";
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { StatusComponent } from './component/status/status.component';
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegistrationComponent}
+  {path: 'register', component: RegistrationComponent},
+  {path: 'status', component: StatusComponent}
 
 ];
 
@@ -31,7 +34,9 @@ const appRoutes: Routes =[
     LoginComponent,
     FooterComponent,
     HomeComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    DashboardComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,

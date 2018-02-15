@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {UserModel} from "../model/UserModel";
+import {FormGroup} from "@angular/forms";
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,9 @@ export class AuthService {
 
   register(user: UserModel): Promise<any>{
     let url: string = `${this.BaseUrl}/register`;
-    return this.http.post(url,user).toPromise();
+    return this.http.post(url, user).toPromise();
   }
-
+  logout(){
+    sessionStorage.clear();
+  }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../service/auth.service";
 import {UserModel} from "../../model/UserModel";
 import { Router} from "@angular/router";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -10,8 +11,10 @@ import { Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   user: UserModel = new UserModel();
+  public errorMsg = '';
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) {
+  }
 
   ngOnInit(){}
 
@@ -20,6 +23,7 @@ export class LoginComponent implements OnInit {
       sessionStorage.clear();
       if(user.json().id == null) {
         sessionStorage.setItem('status', 'false');
+        this.errorMsg = 'Invalid Login, please try again';
       }
       else {
         sessionStorage.setItem('status', 'true');
@@ -31,5 +35,7 @@ export class LoginComponent implements OnInit {
       }
       console.log(user.json());
     })
+
+
   }
 }

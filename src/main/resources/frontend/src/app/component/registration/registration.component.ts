@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {UserModel} from "../../model/UserModel";
 import {AuthService} from "../../service/auth.service";
+import {Router} from "@angular/router";
 
-@Component({
+  @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['../login/login.component.css']
@@ -10,18 +11,16 @@ import {AuthService} from "../../service/auth.service";
 export class RegistrationComponent implements OnInit {
   user: UserModel = new UserModel();
 
-  constructor(private auth: AuthService) { }
-
-  ngOnInit() {}
-
-  onRegister(): void{
-    this.auth.register(this.user).then((user) =>{
-      console.log(user.json());
-    })
-      .catch((err) =>{
-        console.log(err);
-      });
+  constructor(private auth: AuthService, private router: Router) {
   }
 
-
+  ngOnInit() {
+  }
+  onRegister(): void{
+    this.auth.register(this.user).then((user) =>{
+      this.router.navigateByUrl('/login');
+      console.log(user.json());
+    })
+    console.log(this.user);
+  }
 }

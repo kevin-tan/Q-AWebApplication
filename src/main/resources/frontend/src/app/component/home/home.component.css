@@ -23,14 +23,13 @@
 }
 .search-box-button {
   width: 100px;
-  height: 90px;
+  height: 75px;
   text-align: center;
   font-size: inherit;
   font-weight: bold;
   border: 0.2em solid #0f2229;
   border-radius: 0 0.5em 0.5em 0;
   background-color: #0f2229;
-  border-left: 0;
   color: white;
   outline: 0;
   cursor: pointer;

@@ -1,6 +1,5 @@
 input{
   position: relative;
-  left: 150px;
   font-size: 20px;
   border: none;
   border-bottom: 1.5px solid #3e93b2;
@@ -46,21 +45,15 @@ label{
 #submitButton:hover{
   background-color: black;
   color:#7df9ff;
-  border-bottom: 1.5px solid black;
+  border-color: #3e93b2;
+  font-weight: bold;
 }
 
 #errorMessage{
   color: red;
   font-size: 90% !important;
-  margin: 5%
 }
-#successMessage{
-  color: green;
-  font-size: 90% !important;
-  display: none;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
+
 .error{
   display: none;
   margin-bottom:5px;

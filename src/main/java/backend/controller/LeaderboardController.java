@@ -25,10 +25,7 @@ public class LeaderboardController {
     @RequestMapping("/leaderboard")
     public List<UserModel> getRanking() {
         List<UserModel> list = new LinkedList<>();
-        //Using Spring Framework Sort.java
         list.addAll(userRepository.findAll(new Sort(Sort.Direction.DESC, "reputation")));
-        //TODO figure a more efficient way
-
         return list;
     }
 }

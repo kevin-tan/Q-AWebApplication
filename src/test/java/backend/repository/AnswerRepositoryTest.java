@@ -62,7 +62,7 @@ public class AnswerRepositoryTest {
     }
 
     @Test
-    public void whenAnswerExist_andFindById_thenReturnAnswer() {
+    public void whenFindById_andExists_thenReturnAnswer() {
         AnswerModel answerFound = answerRepository.findOne(answer.getId());
         assertThat(answerFound.getId()).isEqualTo(answer.getId());
         assertThat(answerFound.getMessage()).isEqualTo(answer.getMessage());
@@ -70,12 +70,12 @@ public class AnswerRepositoryTest {
     }
 
     @Test
-    public void whenAnswerDoesNotExist_andFindById_thenReturnNull() {
+    public void whenFindById_andAnswerDoesNotExist_thenReturnNull() {
         assertThat(answerRepository.findOne(5L)).isNull();
     }
 
     @Test
-    public void whenAnswerExist_andDeleted_thenReturnNull() {
+    public void whenAnswerDeleted_andExists_thenReturnNull() {
         answerRepository.delete(answer.getId());
         assertThat(answerRepository.findOne(answer.getId())).isNull();
     }

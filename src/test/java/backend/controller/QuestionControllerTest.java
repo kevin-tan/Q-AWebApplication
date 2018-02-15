@@ -40,7 +40,7 @@ public class QuestionControllerTest {
     private QuestionRepository questionRepository;
     @Autowired
     private WebApplicationContext webApplicationContext;
-
+    
     private final QuestionModel question = new QuestionModel("Unit test message", new DateTime().toString(FORMAT));
     private final QuestionModel question2 = new QuestionModel("Unit test message 2", new DateTime().toString(FORMAT));
 

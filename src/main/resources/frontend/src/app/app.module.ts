@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
@@ -22,13 +21,16 @@ import {VerifyAuthenticationService} from "./login/verify-authentication.service
 import {LoginRedirectService} from "./login/login-redirect.service";
 import {GreetingComponent} from './greeting/greeting.component';
 import {DashboardService} from "./dashboard/dashboard.service";
+import {HttpModule} from "@angular/http";
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent, canActivate: [LoginRedirectService]},
   {path: 'register', component: RegistrationComponent, canActivate: [LoginRedirectService]},
   {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
-  {path: 'dashboard', component: DashboardComponent}
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'question/:id', component: QuestionsComponent},
+  {path: '**', component: HomeComponent}
 ];
 
 
@@ -48,10 +50,10 @@ const appRoutes: Routes =[
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
-    HttpModule,
     RouterModule.forRoot(appRoutes,{enableTracing: true})
   ],
   providers: [

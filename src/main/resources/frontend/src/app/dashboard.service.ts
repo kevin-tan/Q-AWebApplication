@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IDashboard } from './dashboard'
+import { Question } from './questions/question'
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class DashboardService {
 
     constructor(private http: HttpClient) {}
 
-    getDashboard(): Observable<IDashboard[]> {
-        return this.http.get<IDashboard[]>(this._getDashboardURL);
+    getDashboard(): Observable<Question[]> {
+        return this.http.get<Question[]>(this._getDashboardURL);
     }
 }

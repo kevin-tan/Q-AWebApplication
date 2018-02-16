@@ -3,6 +3,7 @@ package backend.controller;
 import backend.model.qa.QuestionModel;
 import backend.repository.qa.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ public class QuestionController {
     //Get all questions posted
     @RequestMapping(value = "")
     public List<QuestionModel> getAllQuestions() {
-        return questionRepository.findAll();
+        return questionRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
     }
 
     //Get question posted

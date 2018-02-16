@@ -36,9 +36,9 @@ public class QuestionRepositoryTest {
 
     @Before
     public void setup() {
-        question = new QuestionModel("test questions", new DateTime().toString(FORMAT));
-        question2 = new QuestionModel("test questions 2", new DateTime().toString(FORMAT));
-        question3 = new QuestionModel("test questions 3", new DateTime().toString(FORMAT));
+        question = new QuestionModel("Title 1","test questions", new DateTime().toString(FORMAT));
+        question2 = new QuestionModel("Title 2","test questions 2", new DateTime().toString(FORMAT));
+        question3 = new QuestionModel("Title 3","test questions 3", new DateTime().toString(FORMAT));
         userModel = new UserModel("JaneDoe", "Password", "Jane", "Doe", "Jane.Doe@Foo.com");
         question.setUserQuestion(userModel);
         question2.setUserQuestion(userModel);

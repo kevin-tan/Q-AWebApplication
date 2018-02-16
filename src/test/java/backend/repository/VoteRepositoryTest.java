@@ -36,9 +36,11 @@ public class VoteRepositoryTest {
         //Create user
         user = new UserModel("User", "Pass", "User", "One", "One@Foo.com");
         //Create question
-        question = new QuestionModel("Question one test", new DateTime().toString(FORMAT));
+        question = new QuestionModel("Title","Question one test", new DateTime().toString(FORMAT));
         //Create vote
         vote = new VoteModel(question, user);
+
+        question.setUserQuestion(user);
 
         //Save to DB
         testEntityManager.persist(user);

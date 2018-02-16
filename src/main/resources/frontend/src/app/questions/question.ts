@@ -11,5 +11,7 @@ export interface Question {
     totalVotes: number;
   },
   answerModel: Array<any>;
+  questionTitle: string,
+  bestAnswer: number
 }
 

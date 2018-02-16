@@ -7,7 +7,6 @@ import backend.repository.user.UserRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +34,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @WebAppConfiguration
 public class RegisterControllerTest {
 
-    private final String EMPTY = "";
+    private static boolean oneTimeSetup = false;
     private MediaType mediaType =
             new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
     private MockMvc mockMvc;
@@ -56,31 +55,22 @@ public class RegisterControllerTest {
     private final UserModel invalidUsername = new UserModel("user", "pass", "name", "lastname", "emailNEW@test.com");
     private final UserModel invalidUsernameEmail = new UserModel("user", "pass", "name", "lastname", "email@test.com");
 
-    private RoleModel adminRole;
-    private RoleModel userRole;
-
     private ObjectMapper objectMapper;
 
     @Before
     @SuppressWarnings("Duplicates")
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
-
         objectMapper = jackson2HttpMessageConverter.getObjectMapper();
+        if (!oneTimeSetup) {
+            RoleModel adminRole = new RoleModel("admin");
+            RoleModel userRole = new RoleModel("user");
+            rolesRepository.save(adminRole);
+            rolesRepository.save(userRole);
 
-        adminRole = new RoleModel("admin");
-        userRole = new RoleModel("user");
-        rolesRepository.save(adminRole);
-        rolesRepository.save(userRole);
-
-        userRepository.save(validateUser);
-    }
-
-    @After
-    @SuppressWarnings("Duplicates")
-    public void tearDown() {
-        rolesRepository.deleteAll();
-        userRepository.deleteAll();
+            userRepository.save(validateUser);
+            oneTimeSetup = true;
+        }
     }
 
     @Test
@@ -89,7 +79,7 @@ public class RegisterControllerTest {
                 .content(getContent(objectMapper, registerValidUser)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", is(notNullValue())))
+                .andExpect(jsonPath("$.id", notNullValue()))
                 .andExpect(jsonPath("$.username", is(registerValidUser.getUsername())))
                 .andExpect(jsonPath("$.firstName", is(registerValidUser.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(registerValidUser.getLastName())))
@@ -102,11 +92,11 @@ public class RegisterControllerTest {
                 .content(getContent(objectMapper, invalidEmail)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", is(nullValue())))
+                .andExpect(jsonPath("$.id", nullValue()))
                 .andExpect(jsonPath("$.username", is(invalidEmail.getUsername())))
                 .andExpect(jsonPath("$.firstName", is(invalidEmail.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(invalidEmail.getLastName())))
-                .andExpect(jsonPath("$.email", is(EMPTY)));
+                .andExpect(jsonPath("$.email", isEmptyString()));
     }
 
     @Test
@@ -115,11 +105,11 @@ public class RegisterControllerTest {
                 .content(getContent(objectMapper, invalidUsernameEmail)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", is(nullValue())))
-                .andExpect(jsonPath("$.username", is(EMPTY)))
+                .andExpect(jsonPath("$.id", nullValue()))
+                .andExpect(jsonPath("$.username", isEmptyString()))
                 .andExpect(jsonPath("$.firstName", is(invalidUsernameEmail.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(invalidUsernameEmail.getLastName())))
-                .andExpect(jsonPath("$.email", is(EMPTY)));
+                .andExpect(jsonPath("$.email", isEmptyString()));
     }
 
     @Test
@@ -128,8 +118,8 @@ public class RegisterControllerTest {
                 .content(getContent(objectMapper, invalidUsername)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", is(nullValue())))
-                .andExpect(jsonPath("$.username", is(EMPTY)))
+                .andExpect(jsonPath("$.id", nullValue()))
+                .andExpect(jsonPath("$.username", isEmptyString()))
                 .andExpect(jsonPath("$.firstName", is(invalidUsername.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(invalidUsername.getLastName())))
                 .andExpect(jsonPath("$.email", is(invalidUsername.getEmail())));
@@ -137,8 +127,8 @@ public class RegisterControllerTest {
 
     //Used to bypass password attribute being ignored by ObjectMapper
     private String getContent(ObjectMapper objectMapper, UserModel userModel) throws IOException {
-        JsonNode kms = objectMapper.readTree(objectMapper.writeValueAsString(userModel));
-        ((ObjectNode) kms).put("password", userModel.getPassword());
-        return objectMapper.writeValueAsString(kms);
+        JsonNode jsonNode = objectMapper.readTree(objectMapper.writeValueAsString(userModel));
+        ((ObjectNode) jsonNode).put("password", userModel.getPassword());
+        return objectMapper.writeValueAsString(jsonNode);
     }
 }

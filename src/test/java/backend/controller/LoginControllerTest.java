@@ -8,7 +8,6 @@ import backend.repository.user.UserRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +38,7 @@ public class LoginControllerTest {
 
     private MediaType mediaType =
             new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
-
+    private static boolean oneTimeSetup = false;
     private MockMvc mockMvc;
 
     @Autowired
@@ -60,32 +59,23 @@ public class LoginControllerTest {
     private UserModel invalidPassword = new UserModel("foo", "barINVALID", "", "", "");
     private UserModel invalidUserPassword = new UserModel("fooINVALID", "barINVALID", "", "", "");
 
-    private RoleModel adminRole;
-    private RoleModel userRole;
-
     private ObjectMapper objectMapper;
 
     @Before
     @SuppressWarnings("Duplicates")
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
-
         objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-
-        adminRole = new RoleModel("admin");
-        userRole = new RoleModel("user");
-        rolesRepository.save(adminRole);
-        rolesRepository.save(userRole);
-
         registerUser = new UserModel("foo", bCryptPasswordEncoder.encode("bar"), "name", "lastname", "foo@bar.com");
-        userRepository.save(registerUser);
-    }
+        if (!oneTimeSetup) {
+            RoleModel adminRole = new RoleModel("admin");
+            RoleModel userRole = new RoleModel("user");
+            rolesRepository.save(adminRole);
+            rolesRepository.save(userRole);
 
-    @After
-    @SuppressWarnings("Duplicates")
-    public void tearDown() {
-        rolesRepository.deleteAll();
-        userRepository.deleteAll();
+            userRepository.save(registerUser);
+            oneTimeSetup = true;
+        }
     }
 
     @Test
@@ -144,9 +134,9 @@ public class LoginControllerTest {
 
     //Used to bypass password attribute being ignored by ObjectMapper
     private String getContent(ObjectMapper objectMapper, UserModel userModel) throws IOException {
-        JsonNode kms = objectMapper.readTree(objectMapper.writeValueAsString(userModel));
-        ((ObjectNode) kms).put("password", userModel.getPassword());
-        return objectMapper.writeValueAsString(kms);
+        JsonNode jsonNode = objectMapper.readTree(objectMapper.writeValueAsString(userModel));
+        ((ObjectNode) jsonNode).put("password", userModel.getPassword());
+        return objectMapper.writeValueAsString(jsonNode);
     }
 
 }

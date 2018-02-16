@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 export class LoginComponent implements OnInit {
   user: UserModel = new UserModel();
   public errorMsg = '';
+  errorAlert: boolean;
 
   constructor(private auth: AuthService, private router: Router) {
   }
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
       sessionStorage.clear();
       if(user.json().id == null) {
         sessionStorage.setItem('status', 'false');
+        this.errorAlert = true;
         this.errorMsg = 'Invalid Login, please try again';
       }
       else {
@@ -30,11 +32,11 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('firstname', user.json().firstName);
         sessionStorage.setItem('lastname', user.json().lastName);
         //sessionStorage.setItem('user', JSON.stringify(user));
-        this.router.navigateByUrl('/status');
+        this.router.navigateByUrl('/welcome');
       }
       console.log(user.json());
     })
 
-
+    console.log(this.errorAlert);
   }
 }

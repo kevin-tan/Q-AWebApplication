@@ -17,10 +17,9 @@
     </div>
 
     <div class="form-element">
-      <button type="submit" id="submitButton">Login</button>
+      <button type="submit" class="submitButton" id="first">Login</button>
+      <button onclick="location.href='/register'" class="submitButton">Sign Up</button>
     </div>
-    <div class="form-element">
-      <span id="errorMessage"><small>{{errorMsg}}</small></span>
-    </div>
+    <div *ngIf="errorAlert" class="alert alert-danger errorMessage">{{errorMsg}}</div>
   </form>
 </div>

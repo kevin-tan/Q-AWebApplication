@@ -11,11 +11,9 @@ import {Router} from "@angular/router";
 export class RegistrationComponent implements OnInit {
   user: UserModel = new UserModel();
 
-  constructor(private auth: AuthService, private router: Router) {
-  }
+  constructor(private auth: AuthService, private router: Router) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   onRegister(): void{
     this.auth.register(this.user).then((user) =>{
       this.router.navigateByUrl('/login');

@@ -32,26 +32,32 @@ label{
 .form-element{
   margin-top: 20px
 }
-#submitButton{
+#first{
+  margin-left: 300px;
+  margin-top: 5%;
+}
+.submitButton{
   border-radius: 20px;
   border-width: 1px;
   width: 100px;
-  margin-left: 300px;
+  margin-left: 30px;
   margin-bottom: 20%;
   background-color: #7df9ff;
   color: black;
   opacity: .80;
 }
-#submitButton:hover{
+.submitButton:hover{
   background-color: black;
   color:#7df9ff;
   border-color: #3e93b2;
   font-weight: bold;
 }
 
-#errorMessage{
+.errorMessage{
   color: red;
-  font-size: 90% !important;
+  font-size: 110% !important;
+  text-align: center;
+  font-weight: bold;
 }
 
 .error{
@@ -75,4 +81,10 @@ input.invalid, textarea.invalid{
 input.valid, textarea.valid{
   border: 2px solid green;
   border-radius: 20px;
+}
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
 }

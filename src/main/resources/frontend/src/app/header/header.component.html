@@ -1,29 +1,39 @@
 <ul>
   <li>
-    <!-- Changing href later -->
     <a routerLink="/">
       <img src="assets/banner.jpg" class="img-rounded" width="200" height="50">
     </a>
   </li>
   <li style="float:left">
-    <!-- Changing href later -->
     <button class="button" type="button" style="vertical-align:middle">
             <a routerLink="/dashboard"><span>Dashboard</span></a>
-            
     </button>
   </li>
-  <li style="float:right">
+  <li *ngIf="isLogged" >
+    <a class="nav" href="#profile">Profile
+    </a>
+  </li>
+  <li *ngIf="isLogged"  style="float: right">
+    <button onclick="location.href='#Achievment'" class="icon" style="background-image: url('assets/ach.png')"></button>
+  </li>
+  <li *ngIf="isLogged" style="float: right">
+    <button onclick="location.href='#Notification'" class="icon" style="background-image: url('assets/notif.png')"></button>
+  </li>
+  <li *ngIf="!isLogged" style="float:right">
     <!-- Changing href later -->
     <button onclick="location.href='/register'" class="button" type="button" style="vertical-align:middle">
-            <span>Sign Up
-            </span>
+            <span>Sign Up</span>
     </button>
   </li>
-  <li style="float:right">
+  <li *ngIf="!isLogged" style="float:right">
     <!-- Changing href later -->
     <button onclick="location.href='/login'"  class="button1" type="button" style="vertical-align:middle">
-            <span>Log In
-            </span>
+            <span>Log In</span>
+    </button>
+  </li>
+  <li *ngIf="isLogged" style="float:right">
+    <button (click)="onLogout()" class="button" type="button" style="vertical-align:middle">
+      <span>Log Out</span>
     </button>
   </li>
 </ul>

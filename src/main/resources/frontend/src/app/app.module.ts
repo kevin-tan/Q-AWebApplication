@@ -50,6 +50,7 @@ const appRoutes: Routes =[
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserModule,
     HttpModule,
     RouterModule.forRoot(appRoutes,{enableTracing: true})
   ],

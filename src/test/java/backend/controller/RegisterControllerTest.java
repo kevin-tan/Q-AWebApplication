@@ -59,10 +59,14 @@ public class RegisterControllerTest {
     private RoleModel adminRole;
     private RoleModel userRole;
 
+    private ObjectMapper objectMapper;
+
     @Before
     @SuppressWarnings("Duplicates")
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
+
+        objectMapper = jackson2HttpMessageConverter.getObjectMapper();
 
         adminRole = new RoleModel("admin");
         userRole = new RoleModel("user");
@@ -83,8 +87,6 @@ public class RegisterControllerTest {
 
     @Test
     public void successfulRegister_thenReturnUserModel() throws Exception {
-        ObjectMapper objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-
         mockMvc.perform(post("/register").contentType(mediaType)
                 .content(getContent(objectMapper, registerValidUser)))
                 .andExpect(status().isOk())
@@ -98,8 +100,6 @@ public class RegisterControllerTest {
 
     @Test
     public void unsuccessfulRegisterInvalidEmail_thenReturnUserModelEmptyEmailNullId() throws Exception {
-        ObjectMapper objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-
         mockMvc.perform(post("/register").contentType(mediaType)
                 .content(getContent(objectMapper, invalidEmail)))
                 .andExpect(status().isOk())
@@ -113,8 +113,6 @@ public class RegisterControllerTest {
 
     @Test
     public void unsuccessfulRegisterInvalidUsernameInvalidEmail_thenReturnUserModelEmptyUsernameEmptyEmailNullId() throws Exception {
-        ObjectMapper objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-
         mockMvc.perform(post("/register").contentType(mediaType)
                 .content(getContent(objectMapper, invalidUsernameEmail)))
                 .andExpect(status().isOk())
@@ -128,8 +126,6 @@ public class RegisterControllerTest {
 
     @Test
     public void unsuccessfulRegisterInvalidUsername_thenReturnUserModelEmptyUsernameNullId() throws Exception {
-        ObjectMapper objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-
         mockMvc.perform(post("/register").contentType(mediaType)
                 .content(getContent(objectMapper, invalidUsername)))
                 .andExpect(status().isOk())

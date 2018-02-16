@@ -63,10 +63,14 @@ public class LoginControllerTest {
     private RoleModel adminRole;
     private RoleModel userRole;
 
+    private ObjectMapper objectMapper;
+
     @Before
     @SuppressWarnings("Duplicates")
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
+
+        objectMapper = jackson2HttpMessageConverter.getObjectMapper();
 
         adminRole = new RoleModel("admin");
         userRole = new RoleModel("user");
@@ -88,8 +92,6 @@ public class LoginControllerTest {
 
     @Test
     public void unsuccessfulLoginInvalidUserPassword_thenReturnEmptyJson() throws Exception {
-        ObjectMapper objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-
         mockMvc.perform(post("/login").contentType(mediaType)
                 .content(getContent(objectMapper, invalidUserPassword)))
                 .andExpect(status().isOk())
@@ -103,8 +105,6 @@ public class LoginControllerTest {
 
     @Test
     public void unsuccessfulLoginInvalidPassword_thenReturnEmptyJson() throws Exception {
-        ObjectMapper objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-
         mockMvc.perform(post("/login").contentType(mediaType)
                 .content(getContent(objectMapper, invalidPassword)))
                 .andExpect(status().isOk())
@@ -119,8 +119,6 @@ public class LoginControllerTest {
 
     @Test
     public void unsuccessfulLoginInvalidUser_thenReturnEmptyJson() throws Exception {
-        ObjectMapper objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-
         mockMvc.perform(post("/login").contentType(mediaType)
                 .content(getContent(objectMapper, invalidUser)))
                 .andExpect(status().isOk())
@@ -134,8 +132,6 @@ public class LoginControllerTest {
 
     @Test
     public void successfulLogin_thenReturnUserStoredInDatabase() throws Exception {
-        ObjectMapper objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-
         mockMvc.perform(post("/login").contentType(mediaType)
                 .content(getContent(objectMapper, successfulLogin)))
                 .andExpect(status().isOk())

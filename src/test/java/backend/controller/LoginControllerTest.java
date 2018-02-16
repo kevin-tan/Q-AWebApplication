@@ -84,10 +84,8 @@ public class LoginControllerTest {
     @After
     @SuppressWarnings("Duplicates")
     public void tearDown() {
-        rolesRepository.delete(adminRole.getId());
-        rolesRepository.delete(userRole.getId());
-
-        userRepository.delete(registerUser);
+        rolesRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test

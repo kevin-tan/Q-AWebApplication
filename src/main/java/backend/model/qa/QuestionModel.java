@@ -8,8 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,11 +19,13 @@ public class QuestionModel extends ForumPost {
     @ManyToOne
     @JsonIgnore
     private UserModel userQuestion;
-    
+
+    private String questionTitle;
     private Long bestAnswerId;
 
-    public QuestionModel(String message, String postedTime) {
+    public QuestionModel(String questionTitle, String message, String postedTime) {
         super(message, postedTime);
+        this.questionTitle = questionTitle;
     }
     
     public void setBestAnswer(long id){
@@ -53,4 +53,11 @@ public class QuestionModel extends ForumPost {
         return userQuestion;
     }
 
+    public String getQuestionTitle() {
+        return questionTitle;
+    }
+
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
+    }
 }

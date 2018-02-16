@@ -41,8 +41,8 @@ public class AnswerRepositoryTest {
         //User
         user = new UserModel("John", "Password", "John", "Doe", "John.Doe@Foo.com");
         //Questions
-        question = new QuestionModel("Question Test 1", new DateTime().toString(FORMAT));
-        question2 = new QuestionModel("Question Test 2", new DateTime().toString(FORMAT));
+        question = new QuestionModel("Title 1","Question Test 1", new DateTime().toString(FORMAT));
+        question2 = new QuestionModel("Title 2","Question Test 2", new DateTime().toString(FORMAT));
         //Answers
         answer = new AnswerModel(question, "Reply 1", new DateTime().toString(FORMAT));
         answer2 = new AnswerModel(question, "Reply 2", new DateTime().toString(FORMAT));

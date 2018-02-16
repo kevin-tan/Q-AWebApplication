@@ -1,0 +1,90 @@
+input{
+  position: relative;
+  font-size: 20px;
+  border: none;
+  border-bottom: 1.5px solid #3e93b2;
+  width: 320px;
+  color: white;
+  background-color: black;
+}
+label{
+  position: relative;
+  top: 4px;
+  left: 15%;
+  font-size: 20px;
+  width: 200px;
+  width: 300px;
+  color: #3e93b2;
+  font-weight: bold;
+}
+#wrapper{
+  background-color: black;
+  opacity: .75;
+  border-radius: 30px;
+  width: 700px;
+  margin: 10% auto;
+  box-shadow: 5px 10px 50px #3e93b2;
+}
+#logo{
+  padding-top: 10%;
+  margin-left: 23%;
+}
+.form-element{
+  margin-top: 20px
+}
+#first{
+  margin-left: 300px;
+  margin-top: 5%;
+}
+.submitButton{
+  border-radius: 20px;
+  border-width: 1px;
+  width: 100px;
+  margin-left: 30px;
+  margin-bottom: 20%;
+  background-color: #7df9ff;
+  color: black;
+  opacity: .80;
+}
+.submitButton:hover{
+  background-color: black;
+  color:#7df9ff;
+  border-color: #3e93b2;
+  font-weight: bold;
+}
+
+.errorMessage{
+  color: red;
+  font-size: 110% !important;
+  text-align: center;
+  font-weight: bold;
+}
+
+.error{
+  display: none;
+  margin-bottom:5px;
+}
+.error_show{
+  position: relative;
+  color: red;
+  margin-left: 45%;
+
+}
+textarea{
+  vertical-align: top;
+  height: 5em;
+}
+input.invalid, textarea.invalid{
+  border: 2px solid red;
+  border-radius: 20px;
+}
+input.valid, textarea.valid{
+  border: 2px solid green;
+  border-radius: 20px;
+}
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Question } from './questions/question'
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Question} from "../questions/question";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class DashboardService {

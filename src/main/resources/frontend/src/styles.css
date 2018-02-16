@@ -67,6 +67,7 @@ li {
   display: inline-block;
   position: relative;
   transition: 0.5s;
+  color: white;
 }
 
 .button span:after {

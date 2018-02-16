@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "./auth.service";
+import {UserModel} from "../UserModel";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -6,10 +9,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  user: UserModel = new UserModel();
+  public errorMsg = '';
+  errorAlert: boolean;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private auth: AuthService, private router: Router) {
   }
 
+  ngOnInit(){}
+
+  onLogin(): void{
+    this.auth.login(this.user).then((user) =>{
+      sessionStorage.clear();
+      if(user.json().id == null) {
+        sessionStorage.setItem('status', 'false');
+        this.errorAlert = true;
+        this.errorMsg = 'Invalid Login, please try again';
+      }
+      else {
+        sessionStorage.setItem('status', 'true');
+        sessionStorage.setItem('id', user.json().id);
+        sessionStorage.setItem('firstname', user.json().firstName);
+        sessionStorage.setItem('lastname', user.json().lastName);
+        //sessionStorage.setItem('user', JSON.stringify(user));
+        this.router.navigateByUrl('/welcome');
+      }
+      console.log(user.json());
+    })
+
+    console.log(this.errorAlert);
+  }
 }

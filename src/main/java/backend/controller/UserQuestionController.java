@@ -59,6 +59,7 @@ public class UserQuestionController {
     @PutMapping(value = "/{questionId}", produces = JSON, consumes = JSON)
     public void editQuestion(@PathVariable long userId, @PathVariable long questionId, @RequestBody QuestionModel questionModel) {
         QuestionModel question = findQuestionById(userId, questionId);
+        question.setQuestionTitle(question.getQuestionTitle());
         question.setMessage(questionModel.getMessage());
         question.setUpdatedTime(new DateTime().toString(FORMAT));
         questionRepository.save(question);
@@ -68,6 +69,5 @@ public class UserQuestionController {
         return questionRepository.findByUserQuestionId(userId).stream().filter(questionModel -> questionModel.getId() == questionId)
                                  .findFirst().get();
     }
-
 
 }

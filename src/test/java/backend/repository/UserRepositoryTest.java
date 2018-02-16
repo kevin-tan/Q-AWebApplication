@@ -46,13 +46,14 @@ public class UserRepositoryTest {
         user4 = new UserModel("User 4", "Pass", "User", "Four", "Four@Foo.com");
 
         //Create question
-        question = new QuestionModel("Question one", new DateTime().toString(FORMAT));
+        question = new QuestionModel("QuestionTitle" ,"Question one", new DateTime().toString(FORMAT));
 
         //Create vote
         vote = new VoteModel(question, user);
         vote.incrementUpVotes(user2);
         vote.incrementUpVotes(user3);
 
+        question.setUserQuestion(user);
         question.setVotes(vote);
 
         //Save to DB

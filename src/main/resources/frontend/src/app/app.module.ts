@@ -21,13 +21,16 @@ import {AuthService} from "./service/auth.service";
 import {VerifyAuthenticationService} from "./service/verify-authentication.service";
 import {LoginRedirectService} from "./service/login-redirect.service";
 import { GreetingComponent } from './component/greeting/greeting.component';
+import {DashboardService} from "./dashboard.service";
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent, canActivate: [LoginRedirectService]},
   {path: 'register', component: RegistrationComponent, canActivate: [LoginRedirectService]},
-  {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]}
+  {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
+  {path: 'dashboard', component: DashboardComponent}
 ];
+
 
 @NgModule({
   declarations: [
@@ -53,7 +56,8 @@ const appRoutes: Routes =[
   providers: [
     AuthService,
     VerifyAuthenticationService,
-    LoginRedirectService
+    LoginRedirectService,
+    DashboardService
   ],
   bootstrap: [AppComponent]
 })

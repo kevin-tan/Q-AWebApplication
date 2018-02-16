@@ -8,6 +8,7 @@ import backend.repository.user.UserRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +39,7 @@ public class LoginControllerTest {
 
     private MediaType mediaType =
             new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
-    private static boolean oneTimeSetup = false;
+    private static boolean setupRoles = false;
     private MockMvc mockMvc;
 
     @Autowired
@@ -67,15 +68,21 @@ public class LoginControllerTest {
         mockMvc = webAppContextSetup(webApplicationContext).build();
         objectMapper = jackson2HttpMessageConverter.getObjectMapper();
         registerUser = new UserModel("foo", bCryptPasswordEncoder.encode("bar"), "name", "lastname", "foo@bar.com");
-        if (!oneTimeSetup) {
+        userRepository.save(registerUser);
+        if (!setupRoles) {
             RoleModel adminRole = new RoleModel("admin");
             RoleModel userRole = new RoleModel("user");
             rolesRepository.save(adminRole);
             rolesRepository.save(userRole);
 
-            userRepository.save(registerUser);
-            oneTimeSetup = true;
+            setupRoles = true;
         }
+    }
+
+    @After
+    @SuppressWarnings("Duplicates")
+    public void tearDown() {
+        userRepository.deleteAll();
     }
 
     @Test

@@ -7,6 +7,7 @@ import backend.repository.user.UserRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @WebAppConfiguration
 public class RegisterControllerTest {
 
-    private static boolean oneTimeSetup = false;
+    private static boolean setupRoles = false;
     private MediaType mediaType =
             new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
     private MockMvc mockMvc;
@@ -62,15 +63,21 @@ public class RegisterControllerTest {
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
         objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-        if (!oneTimeSetup) {
+        userRepository.save(validateUser);
+        if (!setupRoles) {
             RoleModel adminRole = new RoleModel("admin");
             RoleModel userRole = new RoleModel("user");
             rolesRepository.save(adminRole);
             rolesRepository.save(userRole);
 
-            userRepository.save(validateUser);
-            oneTimeSetup = true;
+            setupRoles = true;
         }
+    }
+
+    @After
+    @SuppressWarnings("Duplicates")
+    public void tearDown() {
+        userRepository.deleteAll();
     }
 
     @Test

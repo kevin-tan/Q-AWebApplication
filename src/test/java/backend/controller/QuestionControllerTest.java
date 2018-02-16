@@ -77,18 +77,18 @@ public class QuestionControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(mediaType))
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id", is(question.getId()
+                .andExpect(jsonPath("$[0].id", is(question2.getId()
                         .intValue())))
-                .andExpect(jsonPath("$[0].questionTitle", is(question.getQuestionTitle())))
-                .andExpect(jsonPath("$[0].message", is(question.getMessage())))
-                .andExpect(jsonPath("$[0].postedDate", is(question.getPostedDate())))
-                .andExpect(jsonPath("$[0].updatedTime", is(question.getUpdatedTime())))
-                .andExpect(jsonPath("$[1].id", is(question2.getId()
+                .andExpect(jsonPath("$[0].questionTitle", is(question2.getQuestionTitle())))
+                .andExpect(jsonPath("$[0].message", is(question2.getMessage())))
+                .andExpect(jsonPath("$[0].postedDate", is(question2.getPostedDate())))
+                .andExpect(jsonPath("$[0].updatedTime", is(question2.getUpdatedTime())))
+                .andExpect(jsonPath("$[1].id", is(question.getId()
                         .intValue())))
-                .andExpect(jsonPath("$[1].questionTitle", is(question2.getQuestionTitle())))
-                .andExpect(jsonPath("$[1].message", is(question2.getMessage())))
-                .andExpect(jsonPath("$[1].postedDate", is(question2.getPostedDate())))
-                .andExpect(jsonPath("$[1].updatedTime", is(question2.getUpdatedTime())));
+                .andExpect(jsonPath("$[1].questionTitle", is(question.getQuestionTitle())))
+                .andExpect(jsonPath("$[1].message", is(question.getMessage())))
+                .andExpect(jsonPath("$[1].postedDate", is(question.getPostedDate())))
+                .andExpect(jsonPath("$[1].updatedTime", is(question.getUpdatedTime())));
     }
 
     @After

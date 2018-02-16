@@ -58,11 +58,11 @@
 //    public void setup() {
 //        mockMvc = webAppContextSetup(webApplicationContext).build();
 //        //Setup forum posts
-//        question = new QuestionModel("Question One", new DateTime().toString(FORMAT));
+//        question = new QuestionModel("Title","Question One", new DateTime().toString(FORMAT));
 //        answer = new AnswerModel(question, "Reply One", new DateTime().toString(FORMAT));
 //        //Setup users
-//        userQuestion = new UserModel("UserQ", "PassQ", "Q", "Q", "Q@Foom.com");
-//        userAnswer = new UserModel("UserA", "PassA", "A", "A", "A@Foom.com");
+//        userQuestion = new UserModel("UserQ", "PassQ", "Q", "Q", "Q@Foo.com");
+//        userAnswer = new UserModel("UserA", "PassA", "A", "A", "A@Foo.com");
 //        //Setup votes
 //        voteAnswer = new VoteModel(answer, userAnswer);
 //        voteQuestion = new VoteModel(question, userQuestion);

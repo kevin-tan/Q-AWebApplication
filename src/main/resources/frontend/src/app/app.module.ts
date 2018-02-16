@@ -1,27 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes} from "@angular/router";
-import { HttpModule } from '@angular/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from "@angular/router";
+import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AppComponent } from './app.component';
-import { HttpClientModule} from "@angular/common/http";
+import {AppComponent} from './app.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
-import { HeaderComponent } from './component/header/header.component';
-import { LoginComponent } from './component/login/login.component';
-import { FooterComponent } from './component/footer/footer.component';
-import { HomeComponent } from './component/home/home.component';
-import { RegistrationComponent } from './component/registration/registration.component';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
-import { StatusComponent } from './component/status/status.component';
-import { QuestionsComponent } from './component/questions/questions.component';
+import {HeaderComponent} from './header/header.component';
+import {LoginComponent} from './login/login.component';
+import {FooterComponent} from './footer/footer.component';
+import {HomeComponent} from './home/home.component';
+import {RegistrationComponent} from './registration/registration.component';
+import {DashboardComponent} from "./dashboard/dashboard.component";
+import {StatusComponent} from './component/status/status.component';
+import {QuestionsComponent} from './questions/questions.component';
 
 
-import {AuthService} from "./service/auth.service";
-import {VerifyAuthenticationService} from "./service/verify-authentication.service";
-import {LoginRedirectService} from "./service/login-redirect.service";
-import { GreetingComponent } from './component/greeting/greeting.component';
-import {DashboardService} from "./dashboard.service";
+import {AuthService} from "./login/auth.service";
+import {VerifyAuthenticationService} from "./login/verify-authentication.service";
+import {LoginRedirectService} from "./login/login-redirect.service";
+import {GreetingComponent} from './greeting/greeting.component';
+import {DashboardService} from "./dashboard/dashboard.service";
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},

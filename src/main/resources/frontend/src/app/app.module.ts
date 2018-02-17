@@ -20,7 +20,7 @@ import {AuthService} from "./login/auth.service";
 import {VerifyAuthenticationService} from "./login/verify-authentication.service";
 import {LoginRedirectService} from "./login/login-redirect.service";
 import {GreetingComponent} from './greeting/greeting.component';
-import {DashboardService} from "./dashboard/dashboard.service";
+import {QuestionsService} from "./questions/questions.service";
 import {HttpModule} from "@angular/http";
 
 const appRoutes: Routes =[
@@ -29,7 +29,7 @@ const appRoutes: Routes =[
   {path: 'register', component: RegistrationComponent, canActivate: [LoginRedirectService]},
   {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'question/:id', component: QuestionsComponent},
+  {path: 'dashboard/question/:id', component: QuestionsComponent, data: {currentQuestion: 'question'}},
   {path: '**', component: HomeComponent}
 ];
 
@@ -60,7 +60,7 @@ const appRoutes: Routes =[
     AuthService,
     VerifyAuthenticationService,
     LoginRedirectService,
-    DashboardService
+    QuestionsService,
   ],
   bootstrap: [AppComponent]
 })

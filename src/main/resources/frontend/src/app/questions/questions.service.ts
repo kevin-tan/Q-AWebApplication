@@ -1,30 +1,29 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
+import {HttpClient} from '@angular/common/http';
 import {Question} from "./question";
+import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class QuestionsService {
 
-  getQuestionURL = 'http://localhost:8080/questions';
+    getQuestionURL = 'http://localhost:8080/questions';
+    addQuestionURL = 'http://localhost:8080/user/1/questions';
 
-  addQuestionURL = 'http://localhost:8080/user/1/questions';
+    private sourceQuestion = new BehaviorSubject<Question>(null);
+    currentQuestion = this.sourceQuestion.asObservable();
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
-  //GET
-  getQuestions(): Observable<Question[]>{
-    return this.http.get<Question[]>(this.getQuestionURL);
-  }
-  //searchBasedOnID();
-  //searchQuestionByUser()
+    getQuestions(): Observable<Question[]> {
+        return this.http.get<Question[]>(this.getQuestionURL);
+    }
 
-  //POST
-  addQuestion(question: Question): Observable<Question>{
-    return this.http.post<Question>(this.addQuestionURL, question);
-  }
+    setCurrentQuestion(question: Question){
+      this.sourceQuestion.next(question);
+    }
 
-  //PUT
+    addAnswer(answer: String){
 
-  //DELETE
+    }
 }

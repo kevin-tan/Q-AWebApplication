@@ -13,9 +13,20 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  ngOnInit() {}
-  onRegister(): void{
-    this.auth.register(this.user).then((user) =>{
+  ngOnInit() {
+    this.user = {
+      id: null,
+      firstName: '',
+      lastName: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+      email: ''
+    }
+  }
+
+  onRegister(user: UserModel, isValid: boolean): void{
+    this.auth.register(user).then((user) =>{
       this.router.navigateByUrl('/login');
       console.log(user.json());
     })

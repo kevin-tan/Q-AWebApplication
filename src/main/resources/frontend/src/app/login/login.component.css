@@ -52,6 +52,9 @@ label{
   border-color: #3e93b2;
   font-weight: bold;
 }
+.registerErr{
+  margin-left: 300px;
+}
 
 .errorMessage{
   color: red;

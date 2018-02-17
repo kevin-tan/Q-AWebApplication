@@ -5,47 +5,52 @@
       <img src="assets/login-logo.png" width="400px" alt="Houston Answers"></a>
   </div>
 
-  <form id="new_user" #registerForm="ngForm" (ngSubmit)="onRegister()" novalidate>
+  <form #rForm="ngForm" (ngSubmit)="onRegister(rForm.value, rForm.valid)" novalidate>
+
         <div class="form-element">
-          <label for="firstname">First Name</label>
-          <input type="text" name="firstname" id="firstname"  placeholder="First Name" required #firstname="ngModel" [(ngModel)]="user.firstName">
-          <small class="errorMessage" [hidden]="firstname.valid || (firstname.pristine && !registerForm.submitted)">*First name is required</small>
+          <label>First Name</label>
+          <input type="text" name="firstName"  placeholder="First Name" required #firstName="ngModel" [ngModel]="user.firstName">
+          <small class="errorMessage registerErr" [hidden]="firstName.valid || (firstName.pristine && !rForm.submitted)">*First name is required</small>
           </div>
 
         <div class="form-element">
-          <label for="lastname">Last Name</label>
-          <input type="text" name="lastname" id="lastname" placeholder="Last Name" required #lastname="ngModel" [(ngModel)]="user.lastName" >
-          <small class="errorMessage" [hidden]="lastname.valid || (lastname.pristine && !registerForm.submitted)">*Last name is required</small>
+          <label>Last Name</label>
+          <input type="text" name="lastName" placeholder="Last Name" required #lastName="ngModel" [ngModel]="user.lastName" >
+          <small class="errorMessage registerErr" [hidden]="lastName.valid || (lastName.pristine && !rForm.submitted)">*Last name is required</small>
         </div>
 
         <div class="form-element">
-          <label for="email">Email</label>
-          <input type="text" name="email" id="email" placeholder="email@example.com"  required pattern="^[a-zA-Z0–9_.+-]+@[a-zA-Z0–9-]+.[a-zA-Z0–9-.]+$" #email="ngModel" [(ngModel)]="user.email" required>
-          <small class="errorMessage" [hidden]="email.valid || (email.pristine && !registerForm.submitted)">*A valid email address is required</small>
+          <label>Email</label>
+          <input placeholder="example@email.com" type="email" name="email" [ngModel]="user.email" required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+          <small class="errorMessage registerErr" [hidden]="email.valid || (email.pristine && !rForm.submitted)">*A valid email address is required</small>
         </div>
 
         <div class="form-element">
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" placeholder="Username" [(ngModel)]="user.username" required>
-          <span class="error">*Username is required</span>
+          <label>Username</label>
+          <input type="text" name="username" placeholder="Username" #username="ngModel" [ngModel]="user.username" required>
+          <small class="errorMessage registerErr" [hidden]="username.valid || (username.pristine && !rForm.submitted)">*A username is required</small>
         </div>
 
         <div class="form-element">
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" [(ngModel)]="user.password" required #password="ngModel" >
-          <small class="errorMessage" [hidden]="password.valid || (password.pristine && !registerForm.submitted)">*Password is required</small>
-          <span class="error">*Password is required</span>
+          <label>Password</label>
+          <input type="password" name="password" [ngModel]="user.password" required #password="ngModel">
+          <small class="errorMessage registerErr" [hidden]="password.valid || (password.pristine && !rForm.submitted)">*Password is required</small>
         </div>
 
         <div class="form-element">
-          <label for="passwordConfirm">Confirm Password</label>
-          <input type="password" name="passwordConfirm" id="passwordConfirm">
-          <span class="error">*Password don't match</span>
+          <label>Confirm Password</label>
+          <input type="password" name="passwordConfirm" [ngModel]="user.passwordConfirm" required #passwordConfirm="ngModel" >
+          <small class="errorMessage registerErr" [hidden]="passwordConfirm.valid || (passwordConfirm.pristine && !rForm.submitted)">*Password is required</small>
         </div>
 
         <div class="form-element">
           <button type="submit" class="submitButton" id="first">Sign Up</button>
         </div>
+    <div style="color: white;" *ngIf="rForm">
+      <pre style="color: white;">Is form valid?: <br>{{rForm.valid | json}}</pre>
+      <pre style="color: white;">Is form submitted?: <br>{{rForm.submitted | json}}</pre>
+      <pre style="color: white;">submitted value: <br>{{rForm.value | json}}</pre>
+    </div>
   </form>
 
   <div id="errorMessage"></div>

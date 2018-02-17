@@ -5,7 +5,16 @@
   <div class="card my-3 p-3">
     <h6 class="border-bottom border-gray pb-2 mb-0">{{currentQuestion.questionTitle}}</h6>
     <p class="border-bottom border-gray py-2 mb-0">{{currentQuestion.message}}</p>
-    <small>Submitted:<span>#</span> days ago</small>
+    <small class="border-bottom border-gray py-2 mb-0">Submitted:<span>#</span> days ago</small>
+  </div>
+
+  <div class="card my-3 p-3" *ngFor="let answer of currentQuestion.answerModel">
+    <h6>Answers ({{currentQuestion.answerModel.length}})</h6>
+    <div class="card my-3 p-3">
+      <h6 class="border-bottom border-gray pb-2 mb-0">{{answer.author}}</h6>
+      <p class="border-bottom border-gray py-2 mb-0">{{answer.message}}</p>
+      <small class="py-2 mb-0">Submitted:<span>#</span> days ago</small>
+    </div>
   </div>
   <div>
     <label>Message:

@@ -3,11 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {Question} from "./question";
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Answer} from "./answer";
 
 @Injectable()
 export class QuestionsService {
 
     getQuestionURL = 'http://localhost:8080/questions';
+    postAnswerURL: string = null;
+
 
     //addQuestionURL = 'http://localhost:8080/user/1/questions';
 
@@ -24,7 +27,9 @@ export class QuestionsService {
       this.sourceQuestion.next(question);
     }
 
-    addAnswerToQuestion(answer: String){
+    addAnswerToQuestion(answer: Answer, questionID: Number): Observable<Answer>{
+      this.postAnswerURL = 'http://localhost:8080/user/' + sessionStorage.getItem('id') + '/questions/' + questionID + '/replies';
 
+      return this.http.post<Answer>(this.postAnswerURL, answer);
     }
 }

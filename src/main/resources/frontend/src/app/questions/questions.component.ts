@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Question} from "./question";
 import {QuestionsService} from "./questions.service";
+import {Answer} from "./answer";
 
 @Component({
   selector: 'app-questions',
@@ -20,9 +21,9 @@ export class QuestionsComponent implements OnInit {
   addAnswer(message: string): void{
     if(!message){return;}
 
-    const newQuestion: Question = { message } as Question;
-    this.questionsService.addQuestion(newQuestion)
-      .subscribe(question => this.questions.push(question));
+    const newAnswer: Answer = { message } as Answer;
+    this.questionsService.addAnswerToQuestion(newAnswer, this.currentQuestion.id)
+      .subscribe(answer => this.currentQuestion.answerModel.push(answer));
   }
 
 }

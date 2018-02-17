@@ -8,7 +8,8 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 export class QuestionsService {
 
     getQuestionURL = 'http://localhost:8080/questions';
-    addQuestionURL = 'http://localhost:8080/user/1/questions';
+
+    //addQuestionURL = 'http://localhost:8080/user/1/questions';
 
     private sourceQuestion = new BehaviorSubject<Question>(null);
     currentQuestion = this.sourceQuestion.asObservable();
@@ -23,7 +24,7 @@ export class QuestionsService {
       this.sourceQuestion.next(question);
     }
 
-    addAnswer(answer: String){
+    addAnswerToQuestion(answer: String){
 
     }
 }

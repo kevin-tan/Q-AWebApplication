@@ -2,14 +2,16 @@
 
 
 <div class="container">
-  <div class="card py-md-3">
-    <p>{{currentQuestion.message}}</p>
+  <div class="card my-3 p-3">
+    <h6 class="border-bottom border-gray pb-2 mb-0">{{currentQuestion.questionTitle}}</h6>
+    <p class="border-bottom border-gray py-2 mb-0">{{currentQuestion.message}}</p>
+    <small>Submitted:<span>#</span> days ago</small>
   </div>
   <div>
     <label>Message:
       <input #message/>
     </label>
-    <button (click)="add(message.value); message.value=''">
+    <button (click)="addAnswer(message.value); message.value=''">
       add
     </button>
   </div>

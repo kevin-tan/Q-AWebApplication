@@ -17,13 +17,12 @@ export class QuestionsComponent implements OnInit {
     this.questionsService.currentQuestion.subscribe(currentQuestion => this.currentQuestion = currentQuestion)
   }
 
-  /*
-  add(message: string): void{
+  addAnswer(message: string): void{
     if(!message){return;}
 
     const newQuestion: Question = { message } as Question;
     this.questionsService.addQuestion(newQuestion)
       .subscribe(question => this.questions.push(question));
-  }*/
+  }
 
 }

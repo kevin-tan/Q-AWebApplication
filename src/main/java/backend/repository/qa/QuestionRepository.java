@@ -6,11 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by Kevin Tan 2018-01-29
- */
-
 @Transactional
 public interface QuestionRepository extends ForumPostRepository<QuestionModel> {
     List<QuestionModel> findByUserQuestionId(long id);
+
+    List<QuestionModel> findByQuestionTitleContains(String titleToken);
 }

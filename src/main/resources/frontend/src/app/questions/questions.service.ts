@@ -10,6 +10,7 @@ export class QuestionsService {
 
     getQuestionURL = 'http://localhost:8080/questions';
     getSearchURL;
+    getTagSearchURL;
     postAnswerURL: string = null;
 
 
@@ -40,5 +41,10 @@ export class QuestionsService {
     searchDashboard(searchTerm) {
       this.getSearchURL = 'http://localhost:8080/questions/search/' + searchTerm;
       return this.getQuestionsWithURL(this.getSearchURL);
+    }
+
+    searchTag(tag) {
+      this.getTagSearchURL = 'http://localhost:8080/questions/search/' + tag;
+      return this.getQuestionsWithURL(this.getTagSearchURL);
     }
 }

@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row" id="firstRow">
         <div class="col-md-7 col-md-offset-1">
-            <input style="width:100%;" [(ngModel)]="dashSearch" type="text" id="dashSearch" value="Search...">
+            <input style="width:100%;" [(ngModel)]="dashSearch" type="text" placeholder="Search...">
         </div>
         <div class="col-md-1">
             <button (click)="OnSearch(dashSearch)">Search</button>
@@ -37,6 +37,15 @@
                         <h3>Browse by category</h3>
                     </span>
                 </div>
+
+                <ul id="category-list" class="list-group">
+                    <button (click)="OnSearch(category1)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category1">Category 1</button>
+                    <button (click)="OnSearch(category2)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category2">Category 1</button>
+                    <button (click)="OnSearch(category3)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category3">Category 1</button>
+                    <button (click)="OnSearch(category4)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category4">Category 1</button>
+                    <button (click)="OnSearch(category5)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category5">Category 1</button>
+                </ul>
+
             </div>
         </div>
 

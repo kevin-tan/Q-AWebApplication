@@ -26,4 +26,8 @@ export class DashboardComponent implements OnInit {
     this.questionsService.searchDashboard(searchTerm).subscribe(data => this.questions = data);
   }
 
+  TagSearch(tag) {
+    this.questionsService.searchTag(tag).subscribe(data => this.questions = data);
+  }
+
 }

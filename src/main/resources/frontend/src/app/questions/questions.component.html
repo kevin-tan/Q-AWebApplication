@@ -1,17 +1,28 @@
-<p>
-  questions works!
-</p>
-<div *ngFor="let quest of questions">
-  <p>id = {{quest.id}}</p>
-  <p>message = {{quest.message}}</p>
-  <p>Date = {{quest.updatedTime}}</p>
-</div>
+<app-header></app-header>
 
-<div>
-  <label>Message:
-    <input #message />
-  </label>
-  <button (click)="add(message.value); message.value=''">
-    add
-  </button>
+
+<div class="container">
+  <div class="card my-3 p-3">
+    <h6 class="border-bottom border-gray pb-2 mb-0">{{currentQuestion.questionTitle}}</h6>
+    <p class="border-bottom border-gray py-2 mb-0">{{currentQuestion.message}}</p>
+    <small class="border-bottom border-gray py-2 mb-0">Submitted:<span>#</span> days ago</small>
+  </div>
+
+  <div class="card my-3 p-3">
+    <h6>Answers ({{currentQuestion.answerModel.length}})</h6>
+    <div class="card my-3 p-3" *ngFor="let answer of currentQuestion.answerModel">
+      <h6 class="border-bottom border-gray pb-2 mb-0">{{answer.author}}</h6>
+      <p class="border-bottom border-gray py-2 mb-0">{{answer.message}}</p>
+      <small class="py-2 mb-0">Submitted:<span>#</span> days ago</small>
+    </div>
+  </div>
+  <div>
+    <label>Message:
+      <input #message/>
+    </label>
+    <button (click)="addAnswer(message.value); message.value=''">
+      add
+    </button>
+  </div>
 </div>
+<app-footer></app-footer>

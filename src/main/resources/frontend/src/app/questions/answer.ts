@@ -1,6 +1,4 @@
-import {Answer} from "./answer";
-
-export interface Question {
+export interface Answer {
   id: number;
   updatedTime: string;
   postedDate: string;
@@ -11,9 +9,5 @@ export interface Question {
     upVotes: number;
     downVotes: number;
     totalVotes: number;
-  },
-  answerModel: Array<Answer>;
-  questionTitle: string,
-  bestAnswer: number
+  }
 }
-

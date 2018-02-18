@@ -122,7 +122,7 @@ navbar-right:hover{
     border-radius: 5px;
 }
 
-#category-list li{
+#category-list button{
     margin-top: 0px;
     background: transparent;
     background-color: black;

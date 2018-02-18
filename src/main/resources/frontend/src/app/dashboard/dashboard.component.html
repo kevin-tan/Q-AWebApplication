@@ -2,12 +2,11 @@
 
 <div class="container">
     <div class="row" id="firstRow">
-        <div class="col-md-8 col-md-offset-1">
-            <form>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="questionInput" placeholder="Search ...">
-                </div>
-            </form>
+        <div class="col-md-7 col-md-offset-1">
+            <input [(ngModel)]="dashSearch" type="text" id="dashSearch" value="Search...">
+        </div>
+        <div class="col-md-1">
+            <button (click)="OnSearch(dashSearch)">Search</button>
         </div>
         <div class="col-md-1">
             <div class="card">
@@ -37,7 +36,7 @@
                     <span class="navbar-brand" id="nav-categories">
                         <h3>Browse by category</h3>
                     </span>
-                </div>              
+                </div>
             </div>
         </div>
 

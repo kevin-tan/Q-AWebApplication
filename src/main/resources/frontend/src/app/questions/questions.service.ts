@@ -9,6 +9,8 @@ import {Answer} from "./answer";
 export class QuestionsService {
 
     getQuestionURL = 'http://localhost:8080/questions';
+    getSearchURL;
+    getTagSearchURL;
     postAnswerURL: string = null;
 
 
@@ -23,13 +25,26 @@ export class QuestionsService {
         return this.http.get<Question[]>(this.getQuestionURL);
     }
 
+    getQuestionsWithURL(URL): Observable<Question[]> {
+      return this.http.get<Question[]>(URL);
+  }
+
     setCurrentQuestion(question: Question){
       this.sourceQuestion.next(question);
     }
 
     addAnswerToQuestion(answer: Answer, questionID: Number): Observable<Answer>{
       this.postAnswerURL = 'http://localhost:8080/user/' + sessionStorage.getItem('id') + '/questions/' + questionID + '/replies';
-
       return this.http.post<Answer>(this.postAnswerURL, answer);
+    }
+
+    searchDashboard(searchTerm) {
+      this.getSearchURL = 'http://localhost:8080/questions/search/' + searchTerm;
+      return this.getQuestionsWithURL(this.getSearchURL);
+    }
+
+    searchTag(tag) {
+      this.getTagSearchURL = 'http://localhost:8080/questions/search/' + tag;
+      return this.getQuestionsWithURL(this.getTagSearchURL);
     }
 }

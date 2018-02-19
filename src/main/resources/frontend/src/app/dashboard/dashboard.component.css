@@ -122,6 +122,16 @@ navbar-right:hover{
     border-radius: 5px;
 }
 
+#category-list button{
+    margin-top: 0px;
+    background: transparent;
+    background-color: black;
+    opacity: 0.75; 
+    color: white;
+}
+
+
+
 #nav-categories h3{
     margin-left: 20px;
     

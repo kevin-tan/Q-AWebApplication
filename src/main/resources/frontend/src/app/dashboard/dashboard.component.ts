@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {QuestionsService} from "../questions/questions.service";
+import { Component, OnInit } from '@angular/core';
+import { QuestionsService } from "../questions/questions.service";
 import { Router } from '@angular/router'
 
 @Component({
@@ -21,4 +21,13 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/dashboard/question', question.id]);
     this.questionsService.setCurrentQuestion(question);
   }
+
+  OnSearch(searchTerm){
+    this.questionsService.searchDashboard(searchTerm).subscribe(data => this.questions = data);
+  }
+
+  TagSearch(tag) {
+    this.questionsService.searchTag(tag).subscribe(data => this.questions = data);
+  }
+
 }

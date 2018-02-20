@@ -23,6 +23,8 @@ import {LoginRedirectService} from "./login/login-redirect.service";
 import {GreetingComponent} from './greeting/greeting.component';
 import {DashboardService} from "./dashboard/dashboard.service";
 
+import { EqualValidator} from "./registration/equal-validator.directive";
+
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent, canActivate: [LoginRedirectService]},
@@ -44,6 +46,7 @@ const appRoutes: Routes =[
     DashboardComponent,
     StatusComponent,
     GreetingComponent,
+    EqualValidator
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ input{
   width: 320px;
   color: white;
   background-color: black;
+  text-indent: 10px;
 }
 label{
   position: relative;
@@ -52,42 +53,26 @@ label{
   border-color: #3e93b2;
   font-weight: bold;
 }
-.registerErr{
-  margin-left: 300px;
-}
-
 .errorMessage{
   color: red;
   font-size: 110% !important;
   text-align: center;
   font-weight: bold;
 }
-
+.successMessage{
+  color: green;
+  font-size: 110% !important;
+  text-align: center;
+  font-weight: bold;
+}
 .error{
-  display: none;
-  margin-bottom:5px;
-}
-.error_show{
-  position: relative;
-  color: red;
-  margin-left: 45%;
-
-}
-textarea{
-  vertical-align: top;
-  height: 5em;
-}
-input.invalid, textarea.invalid{
-  border: 2px solid red;
-  border-radius: 20px;
-}
-input.valid, textarea.valid{
-  border: 2px solid green;
-  border-radius: 20px;
+  margin-left: 300px;
 }
 .ng-valid[required], .ng-valid.required  {
-  border-left: 5px solid #42A948; /* green */
+  border: 2px solid #42A948; /* green */
+  border-radius: 20px;
 }
 .ng-invalid:not(form)  {
-  border-left: 5px solid #a94442; /* red */
+  border: 2px solid #a94442; /* red */
+  border-radius: 20px;
 }

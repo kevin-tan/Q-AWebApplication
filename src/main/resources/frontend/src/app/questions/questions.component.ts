@@ -1,34 +1,29 @@
 import {Component, OnInit} from '@angular/core';
 import {Question} from "./question";
 import {QuestionsService} from "./questions.service";
+import {Answer} from "./answer";
 
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.css'],
-  providers:[QuestionsService]
 })
 export class QuestionsComponent implements OnInit {
 
-  questions: Array<Question>;
+  currentQuestion: Question;
 
   constructor(private questionsService: QuestionsService) { }
 
   ngOnInit() {
-    this.getQuestions();
+    this.questionsService.currentQuestion.subscribe(currentQuestion => this.currentQuestion = currentQuestion)
   }
 
-  getQuestions(): void {
-    this.questionsService.getQuestions()
-      .subscribe(questions => this.questions = questions);
-  }
-
-  add(message: string): void{
+  addAnswer(message: string): void{
     if(!message){return;}
 
-    const newQuestion: Question = { message } as Question;
-    this.questionsService.addQuestion(newQuestion)
-      .subscribe(question => this.questions.push(question));
+    const newAnswer: Answer = { message } as Answer;
+    this.questionsService.addAnswerToQuestion(newAnswer, this.currentQuestion.id)
+      .subscribe(answer => this.currentQuestion.answerModel.push(answer));
   }
 
 }

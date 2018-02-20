@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {DashboardService} from "./dashboard.service";
+import { Component, OnInit } from '@angular/core';
+import { QuestionsService } from "../questions/questions.service";
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-dashboard',
@@ -8,12 +9,25 @@ import {DashboardService} from "./dashboard.service";
 })
 export class DashboardComponent implements OnInit {
 
-  public dashboards = [];
+  public questions = [];
 
-  constructor(private _dashboardService: DashboardService) { }
+  constructor(private questionsService: QuestionsService, private router: Router) { }
 
   ngOnInit() {
-    this._dashboardService.getDashboard().subscribe(data => this.dashboards = data);
+    this.questionsService.getQuestions().subscribe(data => this.questions = data);
+  }
+
+  OnSelect(question){
+    this.router.navigate(['/dashboard/question', question.id]);
+    this.questionsService.setCurrentQuestion(question);
+  }
+
+  OnSearch(searchTerm){
+    this.questionsService.searchDashboard(searchTerm).subscribe(data => this.questions = data);
+  }
+
+  TagSearch(tag) {
+    this.questionsService.searchTag(tag).subscribe(data => this.questions = data);
   }
 
 }

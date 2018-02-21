@@ -1,0 +1,33 @@
+#wrapper{
+  margin: 10% auto;
+  margin-top: 5%;
+  background: rgba(15,34,41,0.8);
+  padding: 35px;
+  max-width: 1242px;
+  overflow: auto;
+}
+
+#info-container{
+  width: 325px;
+  height: 400px;
+  background: rgba(183,214,226,0.9);
+
+  float: left;
+}
+
+#question-container{
+  background-color: #42A948;
+  height: 400px;
+  width: 800px;
+  float: right;
+
+}
+
+#reply-container{
+  background-color: #a94442;
+  height: 400px;
+  width: 800px;
+  float: right;
+  margin-top: 25px;
+
+}

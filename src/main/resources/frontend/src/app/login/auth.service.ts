@@ -11,14 +11,11 @@ export class AuthService {
 
   login(user: UserModel): Promise<any>{
     let url: string = `${this.BaseUrl}/login`;
-    return this.http.post(url,user).toPromise();
+    return this.http.post(url, user).toPromise();
   }
 
   register(user: UserModel): Promise<any>{
     let url: string = `${this.BaseUrl}/register`;
     return this.http.post(url, user).toPromise();
-  }
-  logout(){
-    sessionStorage.clear();
   }
 }

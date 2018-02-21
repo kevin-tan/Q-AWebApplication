@@ -23,6 +23,8 @@ import {GreetingComponent} from './greeting/greeting.component';
 import {QuestionsService} from "./questions/questions.service";
 import {HttpModule} from "@angular/http";
 
+import { EqualValidator} from "./registration/equal-validator.directive";
+
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent, canActivate: [LoginRedirectService]},
@@ -46,6 +48,7 @@ const appRoutes: Routes =[
     DashboardComponent,
     StatusComponent,
     GreetingComponent,
+    EqualValidator
   ],
   imports: [
     BrowserModule,

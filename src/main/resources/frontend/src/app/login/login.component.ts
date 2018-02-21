@@ -19,7 +19,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(){}
 
   onLogin(): void{
-    this.auth.login(this.user).then((user) =>{
+    this.auth.login(this.user)
+      .catch((err)=>{
+        this.errorAlert = true;
+        this.errorMsg = 'Username and password required';
+      })
+      .then((user) =>{
       sessionStorage.clear();
       if(user.json().id == null) {
         sessionStorage.setItem('status', 'false');
@@ -36,7 +41,5 @@ export class LoginComponent implements OnInit {
       }
       console.log(user.json());
     })
-
-    console.log(this.errorAlert);
   }
 }

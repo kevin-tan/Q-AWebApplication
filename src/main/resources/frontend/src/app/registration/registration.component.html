@@ -1,7 +1,7 @@
 <div id="wrapper">
 
   <div id="logo">
-    <a href=""><img src="assets/login-logo.png" width="400px" alt="Houston Answers"></a>
+    <a routerLink=""><img src="assets/login-logo.png" width="400px" alt="Houston Answers"></a>
   </div>
 
   <form #rForm="ngForm" (ngSubmit)="onRegister(rForm.value, rForm.valid)" novalidate>
@@ -36,7 +36,6 @@
           <small class="errorMessage error" [hidden]="password.valid || (password.pristine && !rForm.submitted)">*Password is required</small>
         </div>
 
-
         <div class="form-element">
           <label>Confirm Password</label>
           <input type="password" name="passwordConfirm" [ngModel]="user.passwordConfirm" required validateEqual="password" reverse="false" #passwordConfirm="ngModel" >
@@ -45,7 +44,7 @@
 
         <div class="form-element">
           <button type="submit" class="submitButton" id="first">Sign Up</button>
-          <button type="button" onclick="location.href='/login'" class="submitButton">Login</button>
+          <a routerLink="/login"> <button type="button" class="submitButton">Login</button></a>
         </div>
         <div [hidden]="!errorAlert"  class="alert alert-danger errorMessage">*Please choose another username</div>
         <div [hidden]="!successAlert"  class="alert alert-success successMessage">Successfully signed up!</div>

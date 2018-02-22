@@ -1,7 +1,7 @@
 <div id="wrapper">
 
   <div id="logo">
-    <a href="">
+    <a routerLink="">
       <img src="../assets/login-logo.png" width="400px" alt="Houston Answers"></a>
   </div>
 
@@ -20,7 +20,7 @@
 
     <div class="form-element">
       <button type="submit" class="submitButton" id="first">Login</button>
-      <button type="button" onclick="location.href='/register'" class="submitButton">Sign Up</button>
+      <a routerLink="/register"><button type="button" class="submitButton">Sign Up</button></a>
     </div>
     <div [hidden]="!errorAlert"  class="alert alert-danger errorMessage">{{errorMsg}}</div>
   </form>

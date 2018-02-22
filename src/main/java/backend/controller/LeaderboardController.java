@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -24,8 +23,6 @@ public class LeaderboardController {
 
     @RequestMapping("/leaderboard")
     public List<UserModel> getRanking() {
-        List<UserModel> list = new LinkedList<>();
-        list.addAll(userRepository.findAll(new Sort(Sort.Direction.DESC, "reputation")));
-        return list;
+        return userRepository.findAll(new Sort(Sort.Direction.DESC, "reputation"));
     }
 }

@@ -1,24 +1,17 @@
 package backend.controller;
 
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import backend.model.qa.AnswerModel;
 import backend.model.qa.QuestionModel;
 import backend.model.user.UserModel;
 import backend.repository.user.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
+
 import static backend.controller.constants.ForumPostConstants.JSON;
 
 @RestController
@@ -89,7 +82,7 @@ public class UserController {
     	return user.getDateJoined();
     }
     
-    @PutMapping(value = "/{userId}", produces = JSON, consumes = JSON)
+    @PutMapping(value = "/{userId}/changeInfo", produces = JSON, consumes = JSON)
     public void putUserModel(@PathVariable long userId, @RequestBody UserModel userModel){
     	UserModel user = userRepository.findOne(userId);
     	user.setEmail(userModel.getEmail());

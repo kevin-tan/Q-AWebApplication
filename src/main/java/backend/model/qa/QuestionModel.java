@@ -4,10 +4,8 @@ import backend.model.qa.common.ForumPost;
 import backend.model.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,12 +18,22 @@ public class QuestionModel extends ForumPost {
     @JsonIgnore
     private UserModel userQuestion;
 
+    @ElementCollection
+    private Set<String> questionTags = new HashSet<>();
     private String questionTitle;
     private Long bestAnswerId;
 
+    public QuestionModel(String questionTitle, String message, Set<String> tags, String postedTime) {
+        super(message, postedTime);
+        this.questionTitle = questionTitle;
+        questionTags.addAll(tags);
+    }
+
+    //TODO REMOVE -- ONLY HERE TO PREVENT COMPILATION ERRORS
     public QuestionModel(String questionTitle, String message, String postedTime) {
         super(message, postedTime);
         this.questionTitle = questionTitle;
+        questionTags.addAll(new HashSet<>(Arrays.asList("TEMP", "REMOVE")));
     }
     
     public void setBestAnswer(long id){
@@ -60,4 +68,13 @@ public class QuestionModel extends ForumPost {
     public void setQuestionTitle(String questionTitle) {
         this.questionTitle = questionTitle;
     }
+
+    public Set<String> getQuestionTags() {
+        return questionTags;
+    }
+
+    public void setQuestionTags(Set<String> questionTags) {
+        this.questionTags = questionTags;
+    }
+
 }

@@ -27,8 +27,8 @@ public class SearchController {
         return questionRepository.findByQuestionTitleContains(titleToken);
     }
 
-    @RequestMapping("searchByTag/{tag}")
-    public List<QuestionModel> getAllQuestionsByTag(@PathVariable String tag) {
-        return questionRepository.findByQuestionTags(tag);
+    @RequestMapping("searchByCategory/{category}")
+    public List<QuestionModel> getAllQuestionsByTag(@PathVariable String category) {
+        return questionRepository.findByQuestionCategories(category);
     }
 }

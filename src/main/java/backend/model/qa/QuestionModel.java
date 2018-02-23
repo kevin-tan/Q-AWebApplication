@@ -19,21 +19,22 @@ public class QuestionModel extends ForumPost {
     private UserModel userQuestion;
 
     @ElementCollection
-    private Set<String> questionTags = new HashSet<>();
+    private Set<String> questionCategories = new HashSet<>();
+
     private String questionTitle;
     private Long bestAnswerId;
 
-    public QuestionModel(String questionTitle, String message, Set<String> tags, String postedTime) {
+    public QuestionModel(String questionTitle, String message, Set<String> categories, String postedTime) {
         super(message, postedTime);
         this.questionTitle = questionTitle;
-        questionTags.addAll(tags);
+        questionCategories.addAll(categories);
     }
 
     //TODO REMOVE -- ONLY HERE TO PREVENT COMPILATION ERRORS
     public QuestionModel(String questionTitle, String message, String postedTime) {
         super(message, postedTime);
         this.questionTitle = questionTitle;
-        questionTags.addAll(new HashSet<>(Arrays.asList("TEMP", "REMOVE")));
+        questionCategories.addAll(new HashSet<>(Arrays.asList("TEMP", "REMOVE")));
     }
     
     public void setBestAnswer(long id){
@@ -69,12 +70,12 @@ public class QuestionModel extends ForumPost {
         this.questionTitle = questionTitle;
     }
 
-    public Set<String> getQuestionTags() {
-        return questionTags;
+    public Set<String> getQuestionCategories() {
+        return questionCategories;
     }
 
-    public void setQuestionTags(Set<String> questionTags) {
-        this.questionTags = questionTags;
+    public void setQuestionCategories(Set<String> questionCategories) {
+        this.questionCategories = questionCategories;
     }
 
 }

@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
-import static backend.controller.constants.ForumPostConstants.JSON;
-
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/users")
@@ -82,13 +80,14 @@ public class UserController {
     	return user.getDateJoined();
     }
     
-    @PutMapping(value = "/{userId}/changeInfo", produces = JSON, consumes = JSON)
-    public void putUserModel(@PathVariable long userId, @RequestBody UserModel userModel){
+    @PutMapping(value = "/{userId}/changeInfo")
+    public UserModel putUserModel(@PathVariable long userId, @RequestBody UserModel userModel){
     	UserModel user = userRepository.findOne(userId);
     	user.setEmail(userModel.getEmail());
     	user.setFirstName(userModel.getFirstName());
     	user.setLastName(userModel.getLastName());
     	user.setUsername(userModel.getUsername());
-    	userRepository.save(user);    	
+    	userRepository.save(user);
+    	return user;
     }
 }

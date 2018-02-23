@@ -114,32 +114,31 @@ public class VoteController {
     }
 
     //Get Id for all users who up voted for a question
-    @PutMapping(value = "/questions/{questionId}/upVotedUsers")
+    @GetMapping(value = "/questions/{questionId}/upVotedUsers")
     public List<Long> getAllUpVotedUsersQuestions(@PathVariable long questionId) {
         return getAllUpVotedUserId(questionId);
     }
 
     //Get Id for all users who up voted for a answer
-    @PutMapping(value = "/questions/{questionId}/replies/{replyId}/upVotedUsers")
+    @GetMapping(value = "/questions/{questionId}/replies/{replyId}/upVotedUsers")
     public List<Long> getAllUpVotedUsersAnswers(@PathVariable long replyId) {
         return getAllUpVotedUserId(replyId);
     }
-    
+
     //Update Best Answer for Question
-    @PutMapping(value = "/questions/{questionId}/bestAnswer/{answerId}")
-    public AnswerModel setBestAnswer(@PathVariable long questionId, @PathVariable long answerId) {
-    	QuestionModel question = questionRepository.getOne(questionId);
-    	question.setBestAnswer(answerId);
-    	questionRepository.save(question);
-    	return answerRepository.findOne(answerId);
+    @PutMapping(value = "/users/{userId}/questions/{questionId}/bestAnswer/{answerId}")
+    public AnswerModel setBestAnswer(@PathVariable long questionId, @PathVariable long answerId, @PathVariable long userId) {
+        QuestionModel question = questionRepository.getOne(questionId);
+        if (userId == question.getUserQuestion().getId()) question.setBestAnswer(answerId);
+        questionRepository.save(question);
+        return answerRepository.findOne(answerId);
     }
-    
+
     //Get Best Answer for Question
-    @PutMapping(value = "/questions/{questionId}/bestAnswer")
+    @GetMapping(value = "/questions/{questionId}/bestAnswer")
     public AnswerModel getBestAnswer(@PathVariable long questionId) {
-    	QuestionModel question = questionRepository.getOne(questionId);
-    	Long answerId = question.getBestAnswer();
-    	return answerRepository.findOne(answerId);
+        QuestionModel question = questionRepository.getOne(questionId);
+        return answerRepository.findOne(question.getBestAnswer());
     }
 
     //Helper method tog et all up voted users

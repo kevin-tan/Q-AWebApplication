@@ -5,7 +5,6 @@ import backend.model.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,13 +29,6 @@ public class QuestionModel extends ForumPost {
         questionCategories.addAll(categories);
     }
 
-    //TODO REMOVE -- ONLY HERE TO PREVENT COMPILATION ERRORS
-    public QuestionModel(String questionTitle, String message, String postedTime) {
-        super(message, postedTime);
-        this.questionTitle = questionTitle;
-        questionCategories.addAll(new HashSet<>(Arrays.asList("TEMP", "REMOVE")));
-    }
-    
     public void setBestAnswer(long id){
     	bestAnswerId = id;
     }

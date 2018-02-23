@@ -5,10 +5,7 @@ import backend.model.user.UserModel;
 import backend.repository.roles.RolesRepository;
 import backend.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -32,13 +29,13 @@ public class RolesController {
     //Roles: 1 = admin, 2 = user
 
     //Get roles
-    @RequestMapping(value = "")
+    @GetMapping(value = "")
     public List<RoleModel> getRolesByUserId(@PathVariable long userId) {
         return roleRepository.findByUsersId(userId);
     }
 
     //Promote to admin
-    @RequestMapping(path = "/promote")
+    @PutMapping(path = "/promote")
     public UserModel promote(@PathVariable long userId) {
         return roleMechanism(userId, (user, role) -> {
             role.addUser(user);
@@ -47,7 +44,7 @@ public class RolesController {
     }
 
     //Demote admin right
-    @RequestMapping(value = "/demote")
+    @PutMapping(value = "/demote")
     public UserModel demote(@PathVariable long userId) {
         return roleMechanism(userId, (user, role) -> {
             role.removeUser(user);

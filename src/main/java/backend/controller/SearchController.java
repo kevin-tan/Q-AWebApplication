@@ -3,10 +3,7 @@ package backend.controller;
 import backend.model.qa.QuestionModel;
 import backend.repository.qa.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class SearchController {
         this.questionRepository = questionRepository;
     }
 
-    @RequestMapping("/{titleToken}")
+    @GetMapping("/{titleToken}")
     public List<QuestionModel> getAllQuestionsWithTitleToken(@PathVariable String titleToken){
         return questionRepository.findByQuestionTitleContains(titleToken);
     }

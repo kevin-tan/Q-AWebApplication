@@ -29,54 +29,54 @@ public class UserController {
     }
 	
 	//Get all users
-    @RequestMapping(value = "")
+    @GetMapping(value = "")
     public List<UserModel> getUsers() {
         return userRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
     }
     
     //Get User by id
-    @RequestMapping(value = "/{userId}")
+    @GetMapping(value = "/{userId}")
     public UserModel getUserById(@PathVariable long userId){
     	return userRepository.findOne(userId);
     }
     
     //Get User reputation
-    @RequestMapping(value = "/{userId}/reputation")
+    @GetMapping(value = "/{userId}/reputation")
     public int getReputation(@PathVariable long userId){
     	UserModel user = userRepository.findOne(userId);
     	return user.getReputation();
     }
     
     //Get User questions
-    @RequestMapping(value = "/{userId}/questions")
+    @GetMapping(value = "/{userId}/questions")
     public Set<QuestionModel> getUserQuestions(@PathVariable long userId){
     	UserModel user = userRepository.findOne(userId);
     	return user.getQuestionModels();
     }
     
     //Get User replies
-    @RequestMapping(value = "/{userId}/replies")
+    @GetMapping(value = "/{userId}/replies")
     public Set<AnswerModel> getUserReplies(@PathVariable long userId){
     	UserModel user = userRepository.findOne(userId);
     	return user.getAnswerModels();
     }
     
     //Get Username
-    @RequestMapping(value = "/{userId}/username")
+    @GetMapping(value = "/{userId}/username")
     public String getUserName(@PathVariable long userId){
     	UserModel user = userRepository.findOne(userId);
     	return user.getUsername();
     }
     
     //Get User full name
-    @RequestMapping(value = "/{userId}/name")
+    @GetMapping(value = "/{userId}/name")
     public String getUserFullName(@PathVariable long userId){
     	UserModel user = userRepository.findOne(userId);
     	return user.getFirstName() + " " + user.getLastName();
     }
     
     //Get User date joined
-    @RequestMapping(value = "/{userId}/joined")
+    @GetMapping(value = "/{userId}/joined")
     public String getUserdateJoined(@PathVariable long userId){
     	UserModel user = userRepository.findOne(userId);
     	return user.getDateJoined();

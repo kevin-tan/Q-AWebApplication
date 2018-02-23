@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
-import static backend.controller.constants.ForumPostConstants.JSON;
 
 @RestController
 @CrossOrigin
@@ -29,7 +28,7 @@ public class UserQuestionController {
         this.voteRepository = voteRepository;
     }
 
-    @PostMapping(value = "", consumes = JSON, produces = JSON)
+    @PostMapping(value = "")
     public QuestionModel postQuestion(@RequestBody QuestionModel questionModel, @PathVariable long userId) {
         DateTime dateTime = new DateTime();
         UserModel user = (userRepository.findOne(userId));
@@ -43,7 +42,7 @@ public class UserQuestionController {
         return questionModel;
     }
 
-    @RequestMapping(value = "/{questionId}")
+    @GetMapping(value = "/{questionId}")
     public QuestionModel getQuestionsByUser(@PathVariable long userId, @PathVariable long questionId) {
         return findQuestionById(userId, questionId);
     }
@@ -56,7 +55,7 @@ public class UserQuestionController {
         userRepository.save(userModel);
     }
 
-    @PutMapping(value = "/{questionId}", produces = JSON, consumes = JSON)
+    @PutMapping(value = "/{questionId}")
     public void editQuestion(@PathVariable long userId, @PathVariable long questionId, @RequestBody QuestionModel questionModel) {
         QuestionModel question = findQuestionById(userId, questionId);
         question.setQuestionTitle(question.getQuestionTitle());

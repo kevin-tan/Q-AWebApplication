@@ -12,5 +12,5 @@ public interface QuestionRepository extends ForumPostRepository<QuestionModel> {
 
     List<QuestionModel> findByQuestionTitleContains(String titleToken);
 
-    List<QuestionModel> findByQuestionCategories(String tag);
+    List<QuestionModel> findByQuestionCategories(String category);
 }

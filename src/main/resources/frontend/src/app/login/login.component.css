@@ -76,3 +76,12 @@ label{
   border: 2px solid #a94442; /* red */
   border-radius: 20px;
 }
+#forgot-pass{
+  margin-left: 310px;
+  margin-top: 30px;
+  color: #3e93b2;
+  font-size: 15px;
+}
+#forgot-pass:hover{
+  color: white;
+}

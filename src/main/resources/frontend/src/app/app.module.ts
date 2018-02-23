@@ -25,10 +25,12 @@ import {HttpModule} from "@angular/http";
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { EqualValidator} from "./registration/equal-validator.directive";
+import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent, canActivate: [LoginRedirectService]},
+  {path: 'login/forgotPassword', component: ForgotPassComponent},
   {path: 'register', component: RegistrationComponent, canActivate: [LoginRedirectService]},
   {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
   {path: 'dashboard', component: DashboardComponent},
@@ -50,11 +52,9 @@ const appRoutes: Routes =[
     DashboardComponent,
     StatusComponent,
     GreetingComponent,
-<<<<<<< HEAD
     UserProfileComponent,
-=======
-    EqualValidator
->>>>>>> master
+    EqualValidator,
+    ForgotPassComponent
   ],
   imports: [
     BrowserModule,

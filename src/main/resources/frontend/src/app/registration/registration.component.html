@@ -8,7 +8,7 @@
 
         <div class="form-element">
           <label>First Name</label>
-          <input type="text" name="firstName"  placeholder="First Name" required #firstName="ngModel" [ngModel]="user.firstName">
+          <input type="text" name="firstName"  placeholder="First Name" required #firstName="ngModel" [(ngModel)]="user.firstName">
           <small class="errorMessage error" [hidden]="firstName.valid || (firstName.pristine && !rForm.submitted)">*First name is required</small>
           </div>
 

@@ -47,4 +47,12 @@ export class QuestionsService {
       this.getTagSearchURL = 'http://localhost:8080/questions/search/' + tag;
       return this.getQuestionsWithURL(this.getTagSearchURL);
     }
+
+    getUserQuestion(){
+
+    }
+
+    getUserReply(){
+
+    }
 }

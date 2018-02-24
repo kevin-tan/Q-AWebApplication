@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
@@ -41,8 +42,10 @@ public class AnswerRepositoryTest {
         //User
         user = new UserModel("John", "Password", "John", "Doe", "John.Doe@Foo.com");
         //Questions
-        question = new QuestionModel("Title 1","Question Test 1", new DateTime().toString(FORMAT));
-        question2 = new QuestionModel("Title 2","Question Test 2", new DateTime().toString(FORMAT));
+        question = new QuestionModel("Title 1", "Question Test 1", new HashSet<>(List.of("Programming", "Java")),
+                new DateTime().toString(FORMAT));
+        question2 = new QuestionModel("Title 2", "Question Test 2", new HashSet<>(List.of("Programming", "C++")),
+                new DateTime().toString(FORMAT));
         //Answers
         answer = new AnswerModel(question, "Reply 1", new DateTime().toString(FORMAT));
         answer2 = new AnswerModel(question, "Reply 2", new DateTime().toString(FORMAT));
@@ -83,34 +86,59 @@ public class AnswerRepositoryTest {
     @Test
     public void whenUserPostAnswers_andFindByUserId_thenReturnListOfAnswer() {
         List<AnswerModel> list = answerRepository.findByUserAnswerId(user.getId());
-        assertThat(list).size().isEqualTo(2);
-        assertThat(list.get(0).getId()).isEqualTo(answer.getId());
-        assertThat(list.get(0).getMessage()).isEqualTo(answer.getMessage());
-        assertThat(list.get(1).getId()).isEqualTo(answer2.getId());
-        assertThat(list.get(1).getMessage()).isEqualTo(answer2.getMessage());
-        assertThat(list.get(0).getUserAnswer().getId()).isEqualTo(list.get(1).getUserAnswer().getId());
+        assertThat(list).size()
+                .isEqualTo(2);
+        assertThat(list.get(0)
+                .getId()).isEqualTo(answer.getId());
+        assertThat(list.get(0)
+                .getMessage()).isEqualTo(answer.getMessage());
+        assertThat(list.get(1)
+                .getId()).isEqualTo(answer2.getId());
+        assertThat(list.get(1)
+                .getMessage()).isEqualTo(answer2.getMessage());
+        assertThat(list.get(0)
+                .getUserAnswer()
+                .getId()).isEqualTo(list.get(1)
+                .getUserAnswer()
+                .getId());
     }
 
     @Test
     public void whenFindByQuestionId_thenReturnListOfAnswersToQuestion() {
         List<AnswerModel> list = answerRepository.findByQuestionId(question.getId());
-        assertThat(list).size().isEqualTo(2);
-        assertThat(list.get(0).getId()).isEqualTo(answer.getId());
-        assertThat(list.get(0).getMessage()).isEqualTo(answer.getMessage());
-        assertThat(list.get(1).getId()).isEqualTo(answer2.getId());
-        assertThat(list.get(1).getMessage()).isEqualTo(answer2.getMessage());
-        assertThat(list.get(0).getQuestion().getId()).isEqualTo(list.get(1).getQuestion().getId());
+        assertThat(list).size()
+                .isEqualTo(2);
+        assertThat(list.get(0)
+                .getId()).isEqualTo(answer.getId());
+        assertThat(list.get(0)
+                .getMessage()).isEqualTo(answer.getMessage());
+        assertThat(list.get(1)
+                .getId()).isEqualTo(answer2.getId());
+        assertThat(list.get(1)
+                .getMessage()).isEqualTo(answer2.getMessage());
+        assertThat(list.get(0)
+                .getQuestion()
+                .getId()).isEqualTo(list.get(1)
+                .getQuestion()
+                .getId());
     }
 
     @Test
     public void whenFindAll_thenReturnAllAnswers() {
         List<AnswerModel> list = answerRepository.findAll();
-        assertThat(list).size().isEqualTo(3);
-        assertThat(list.get(0).getId()).isEqualTo(answer.getId());
-        assertThat(list.get(0).getMessage()).isEqualTo(answer.getMessage());
-        assertThat(list.get(1).getId()).isEqualTo(answer2.getId());
-        assertThat(list.get(1).getMessage()).isEqualTo(answer2.getMessage());
-        assertThat(list.get(2).getId()).isEqualTo(answer3.getId());
-        assertThat(list.get(2).getMessage()).isEqualTo(answer3.getMessage());
+        assertThat(list).size()
+                .isEqualTo(3);
+        assertThat(list.get(0)
+                .getId()).isEqualTo(answer.getId());
+        assertThat(list.get(0)
+                .getMessage()).isEqualTo(answer.getMessage());
+        assertThat(list.get(1)
+                .getId()).isEqualTo(answer2.getId());
+        assertThat(list.get(1)
+                .getMessage()).isEqualTo(answer2.getMessage());
+        assertThat(list.get(2)
+                .getId()).isEqualTo(answer3.getId());
+        assertThat(list.get(2)
+                .getMessage()).isEqualTo(answer3.getMessage());
     }
 }

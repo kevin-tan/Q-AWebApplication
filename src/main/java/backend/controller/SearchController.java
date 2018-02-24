@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("questions/")
+@RequestMapping("questions")
 public class SearchController {
 
     private final QuestionRepository questionRepository;
@@ -22,12 +22,12 @@ public class SearchController {
         this.questionRepository = questionRepository;
     }
 
-    @RequestMapping("searchByTitle/{titleToken}")
+    @RequestMapping("/searchByTitle/{titleToken}")
     public List<QuestionModel> getAllQuestionsWithTitleToken(@PathVariable String titleToken){
         return questionRepository.findByQuestionTitleContains(titleToken);
     }
 
-    @RequestMapping("searchByCategory/{category}")
+    @RequestMapping("/searchByCategory/{category}")
     public List<QuestionModel> getAllQuestionsByTag(@PathVariable String category) {
         return questionRepository.findByQuestionCategories(category);
     }

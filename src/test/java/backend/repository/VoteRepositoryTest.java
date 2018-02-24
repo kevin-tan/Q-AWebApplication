@@ -14,8 +14,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,7 +38,7 @@ public class VoteRepositoryTest {
         //Create user
         UserModel user = new UserModel("User", "Pass", "User", "One", "One@Foo.com");
         //Create question
-        question = new QuestionModel("Title", "Question one test", new HashSet<>(Arrays.asList("Programming", "Java")),
+        question = new QuestionModel("Title", "Question one test", new HashSet<>(List.of("Programming", "Java")),
                 new DateTime().toString(FORMAT));
         //Create vote
         vote = new VoteModel(question, user);

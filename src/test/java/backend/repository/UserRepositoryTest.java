@@ -14,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class UserRepositoryTest {
         user4 = new UserModel("User 4", "Pass", "User", "Four", "Four@Foo.com");
 
         //Create question
-        QuestionModel question = new QuestionModel("QuestionTitle", "Question one", new HashSet<>(Arrays.asList("Programming", "Java")),
+        QuestionModel question = new QuestionModel("QuestionTitle", "Question one", new HashSet<>(List.of("Programming", "Java")),
                 new DateTime().toString(FORMAT));
 
         //Create vote

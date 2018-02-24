@@ -17,8 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 import static org.hamcrest.Matchers.hasSize;
@@ -44,10 +44,10 @@ public class QuestionControllerTest {
     private WebApplicationContext webApplicationContext;
 
     private final QuestionModel question =
-            new QuestionModel("Title 1", "Unit test message", new HashSet<>(Arrays.asList("Programming", "Java")),
+            new QuestionModel("Title 1", "Unit test message", new HashSet<>(List.of("Programming", "Java")),
                     new DateTime().toString(FORMAT));
     private final QuestionModel question2 =
-            new QuestionModel("Title 2", "Unit test message 2", new HashSet<>(Arrays.asList("Programming", "C++")),
+            new QuestionModel("Title 2", "Unit test message 2", new HashSet<>(List.of("Programming", "C++")),
                     new DateTime().toString(FORMAT));
 
     @Before

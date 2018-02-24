@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -38,11 +37,11 @@ public class QuestionRepositoryTest {
 
     @Before
     public void setup() {
-        question = new QuestionModel("Title 1", "test questions", new HashSet<>(Arrays.asList("Programming", "Java")),
+        question = new QuestionModel("Title 1", "test questions", new HashSet<>(List.of("Programming", "Java")),
                 new DateTime().toString(FORMAT));
-        question2 = new QuestionModel("Title 2", "test questions 2", new HashSet<>(Arrays.asList("Programming", "C#")),
+        question2 = new QuestionModel("Title 2", "test questions 2", new HashSet<>(List.of("Programming", "C#")),
                 new DateTime().toString(FORMAT));
-        question3 = new QuestionModel("Title 3", "test questions 3", new HashSet<>(Arrays.asList("Programming", "C++")),
+        question3 = new QuestionModel("Title 3", "test questions 3", new HashSet<>(List.of("Programming", "C++")),
                 new DateTime().toString(FORMAT));
         userModel = new UserModel("JaneDoe", "Password", "Jane", "Doe", "Jane.Doe@Foo.com");
         question.setUserQuestion(userModel);

@@ -14,7 +14,7 @@ This project is currently **in progress**
 * Karthikan Jeyabalan (Front-end)
 * Kevin Tan (Team Lead, Back-end)
 * Luca Fiorilli (Back-end)
-* Sagar Patel (Scrummaster, Back-end)
+* Sagar Patel (Scrum master, Back-end)
 * Shane Philips (Front-end)
 * Shawn Guerra-Bautista (Front-end)
 * Shurid Biswas (Front-end)
@@ -22,6 +22,7 @@ This project is currently **in progress**
 * Front End
   * [HTML](https://www.w3schools.com/html/)
   * [CSS](https://www.w3schools.com/css/)
+  * [TypeScript](https://www.typescriptlang.org/)
   * [Angular](https://angular.io)
 * Back End
   * [Spring](https://spring.io)

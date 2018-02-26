@@ -22,11 +22,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
+import java.util.HashSet;
+import java.util.List;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -51,12 +53,12 @@ public class VoteControllerTest {
             new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
     //Questions and Answers
-    private QuestionModel question = new QuestionModel("Title", "Question One", new DateTime().toString(FORMAT));
+    private QuestionModel question = new QuestionModel("Title", "Question One",new HashSet<>(List.of("Etc")), new DateTime().toString(FORMAT));
     private AnswerModel answer = new AnswerModel(question, "Reply One", new DateTime().toString(FORMAT));
     //Users
-    private UserModel userQuestion = new UserModel("UserQ", "PassQ", "Q", "Q", "Q@Foo.com");
-    private UserModel userAnswer = new UserModel("UserA", "PassA", "A", "A", "A@Foo.com");
-    private UserModel userVoter = new UserModel("UserVoting", "PassVote", "Voter", "Voting", "Voter@Vote.com");
+    private UserModel userQuestion = new UserModel("UserQ", "PassQ", "Q", "Q", "Q@Foo.com","","");
+    private UserModel userAnswer = new UserModel("UserA", "PassA", "A", "A", "A@Foo.com","","");
+    private UserModel userVoter = new UserModel("UserVoting", "PassVote", "Voter", "Voting", "Voter@Vote.com","","");
     //Votes
     private VoteModel voteQuestion = new VoteModel(question, userQuestion);
     private VoteModel voteAnswer = new VoteModel(answer, userAnswer);

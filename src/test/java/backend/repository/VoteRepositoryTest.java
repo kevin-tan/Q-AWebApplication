@@ -36,7 +36,7 @@ public class VoteRepositoryTest {
     @Before
     public void setup() {
         //Create user
-        UserModel user = new UserModel("User", "Pass", "User", "One", "One@Foo.com");
+        UserModel user = new UserModel("User", "Pass", "User", "One", "One@Foo.com", "The answer is Foo", "Foo");
         //Create question
         question = new QuestionModel("Title", "Question one test", new HashSet<>(List.of("Programming", "Java")),
                 new DateTime().toString(FORMAT));

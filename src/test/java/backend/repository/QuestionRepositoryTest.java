@@ -43,7 +43,7 @@ public class QuestionRepositoryTest {
                 new DateTime().toString(FORMAT));
         question3 = new QuestionModel("Title 3", "test questions 3", new HashSet<>(List.of("Programming", "C++")),
                 new DateTime().toString(FORMAT));
-        userModel = new UserModel("JaneDoe", "Password", "Jane", "Doe", "Jane.Doe@Foo.com");
+        userModel = new UserModel("JaneDoe", "Password", "Jane", "Doe", "Jane.Doe@Foo.com", "The answer is Bar", "Bar");
         question.setUserQuestion(userModel);
         question2.setUserQuestion(userModel);
 

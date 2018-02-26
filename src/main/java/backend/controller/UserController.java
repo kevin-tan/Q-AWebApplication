@@ -91,4 +91,12 @@ public class UserController {
     	user.setUsername(userModel.getUsername());
     	userRepository.save(user);    	
     }
+    
+    //Updates user password
+    @PutMapping(value = "/{userId}/changePassword", produces = JSON, consumes = JSON)
+    public void changePassword(@PathVariable long userId, @RequestBody UserModel userModel) {
+        UserModel user = userRepository.findOne(userId);
+        user.setPassword(BCryptPasswordEncoder.encode(userModel.getPassword()));
+        userRepository.save(user);
+    }
 }

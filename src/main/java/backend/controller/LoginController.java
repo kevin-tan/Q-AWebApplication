@@ -1,22 +1,12 @@
 package backend.controller;
 
-import backend.model.qa.QuestionModel;
 import backend.model.user.UserModel;
 import backend.repository.user.UserRepository;
-
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import static backend.controller.constants.ForumPostConstants.FORMAT;
-import static backend.controller.constants.ForumPostConstants.JSON;
 import org.springframework.web.bind.annotation.*;
+
+import static backend.controller.constants.ForumPostConstants.JSON;
 
 @RestController
 @CrossOrigin

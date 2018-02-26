@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import static backend.controller.constants.ForumPostConstants.JSON;
-
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/login")
@@ -40,7 +38,7 @@ public class LoginController {
 
     //Validates Security Answer and Updates User Password
     //TODO: Handshake with FrontEnd on what parameters will be passed(username, email or ID)
-    @PutMapping(value = "/{userId}/resetPassword", produces = JSON, consumes = JSON)
+    @PutMapping(value = "/{userId}/resetPassword")
     public UserModel forgotPassword(@PathVariable long userId, @RequestBody UserModel userModel) {
         UserModel user = userRepository.findOne(userId);
         if (bCryptPasswordEncoder.matches(userModel.getSecurityAnswer(), user.getSecurityAnswer())){

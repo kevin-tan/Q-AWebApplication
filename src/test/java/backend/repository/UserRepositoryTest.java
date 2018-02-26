@@ -40,10 +40,10 @@ public class UserRepositoryTest {
     @Before
     public void setup() {
         //Create users
-        user = new UserModel("User 1", "Pass", "User", "One", "One@Foo.com");
-        user2 = new UserModel("User 2", "Pass", "User", "Two", "Two@Foo.com");
-        user3 = new UserModel("User 3", "Pass", "User", "Three", "Three@Foo.com");
-        user4 = new UserModel("User 4", "Pass", "User", "Four", "Four@Foo.com");
+        user = new UserModel("User 1", "Pass", "User", "One", "One@Foo.com", "The answer is Foo", "Foo");
+        user2 = new UserModel("User 2", "Pass", "User", "Two", "Two@Foo.com", "The answer is Foo", "Foo");
+        user3 = new UserModel("User 3", "Pass", "User", "Three", "Three@Foo.com", "The answer is Foo", "Foo");
+        user4 = new UserModel("User 4", "Pass", "User", "Four", "Four@Foo.com", "The answer is Foo", "Foo");
 
         //Create question
         QuestionModel question = new QuestionModel("QuestionTitle", "Question one", new HashSet<>(List.of("Programming", "Java")),

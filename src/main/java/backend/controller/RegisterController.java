@@ -42,6 +42,7 @@ public class RegisterController {
         if (!userExists && !emailExists) {
             userModel.setDateJoined(new DateTime().toString(FORMAT));
             userModel.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
+            userModel.setSecurityAnswer(bCryptPasswordEncoder.encode(userModel.getSecurityAnswer()));
             RoleModel userRole = rolesRepository.findOne(USER);
             userModel.addRole(userRole);
             userRole.addUser(userModel);

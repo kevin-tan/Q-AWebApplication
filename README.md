@@ -20,8 +20,7 @@ This project is currently **in progress**
 * Shurid Biswas (Front-end)
 ## Technologies
 * Front End
-  * [HTML](https://www.w3schools.com/html/)
-  * [CSS](https://www.w3schools.com/css/)
+  * [HTML/CSS](https://www.w3schools.com/html/)
   * [TypeScript](https://www.typescriptlang.org/)
   * [Angular](https://angular.io)
 * Back End

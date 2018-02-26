@@ -40,7 +40,7 @@ public class AnswerRepositoryTest {
     @Before
     public void setup() {
         //User
-        user = new UserModel("John", "Password", "John", "Doe", "John.Doe@Foo.com");
+        user = new UserModel("John", "Password", "John", "Doe", "John.Doe@Foo.com", "The Answer is Foo", "Foo");
         //Questions
         question = new QuestionModel("Title 1", "Question Test 1", new HashSet<>(List.of("Programming", "Java")),
                 new DateTime().toString(FORMAT));

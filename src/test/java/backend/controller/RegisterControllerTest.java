@@ -49,12 +49,12 @@ public class RegisterControllerTest {
     @Autowired
     private UserRepository userRepository;
 
-    private final UserModel registerValidUser = new UserModel("foo", "bar", "name", "lastname", "foo@bar.com");
+    private final UserModel registerValidUser = new UserModel("foo", "bar", "name", "lastname", "foo@bar.com", "The answer is Foo", "Foo");
 
-    private final UserModel validateUser = new UserModel("user", "pass", "name", "lastname", "email@test.com");
-    private final UserModel invalidEmail = new UserModel("userNEW", "pass", "name", "lastname", "email@test.com");
-    private final UserModel invalidUsername = new UserModel("user", "pass", "name", "lastname", "emailNEW@test.com");
-    private final UserModel invalidUsernameEmail = new UserModel("user", "pass", "name", "lastname", "email@test.com");
+    private final UserModel validateUser = new UserModel("user", "pass", "name", "lastname", "email@test.com", "The answer is Foo", "Foo");
+    private final UserModel invalidEmail = new UserModel("userNEW", "pass", "name", "lastname", "email@test.com", "The answer is Foo", "Foo");
+    private final UserModel invalidUsername = new UserModel("user", "pass", "name", "lastname", "emailNEW@test.com", "The answer is Foo", "Foo");
+    private final UserModel invalidUsernameEmail = new UserModel("user", "pass", "name", "lastname", "email@test.com", "The answer is Foo", "Foo");
 
     private ObjectMapper objectMapper;
 

@@ -39,7 +39,7 @@ public class RoleRepositoryTest {
         userRole = new RoleModel("user");
 
         //Create users
-        user = new UserModel("User One","Pass","User","One","One@Foo.com");
+        user = new UserModel("User One","Pass","User","One","One@Foo.com", "The answer is Foo", "Foo");
 
         //Set user roles
         user.addRole(userRole);

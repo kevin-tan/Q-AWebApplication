@@ -28,5 +28,6 @@ This project is currently **in progress**
   * [Java](https://www.oracle.com/java/java9.html)
 * Database
   * [MySQL](https://www.mysql.com)
+  * [H2](http://www.h2database.com/html/main.html) (For testing)
   
 The links direct to the official websites or guides

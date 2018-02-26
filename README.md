@@ -25,6 +25,7 @@ This project is currently **in progress**
   * [Angular](https://angular.io)
 * Back End
   * [Spring](https://spring.io)
+  * [Hibernate](http://hibernate.org/)
   * [Java](https://www.oracle.com/java/java9.html)
 * Database
   * [MySQL](https://www.mysql.com)

@@ -9,10 +9,7 @@ import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
 import backend.repository.vote.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,9 +34,9 @@ public class VoteController {
     }
 
     //Up vote a question by user
-    @RequestMapping(value = "/user/{userId}/questions/{questionId}/upVote")
-    public void upVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
-        questionVoting(questionId, (voteModel, questionModel) -> {
+    @PutMapping(value = "/user/{userId}/questions/{questionId}/upVote")
+    public QuestionModel upVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
+        return questionVoting(questionId, (voteModel, questionModel) -> {
             UserModel userVoting = userRepository.findOne(userId);
             UserModel author = questionModel.getUserQuestion();
             if (voteModel.incrementUpVotes(userVoting)) {
@@ -51,9 +48,9 @@ public class VoteController {
     }
 
     //Down vote a question by user
-    @RequestMapping(value = "/user/{userId}/questions/{questionId}/downVote")
-    public void downVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
-        questionVoting(questionId, (voteModel, questionModel) -> {
+    @PutMapping(value = "/user/{userId}/questions/{questionId}/downVote")
+    public QuestionModel downVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
+        return questionVoting(questionId, (voteModel, questionModel) -> {
             UserModel userVoting = userRepository.findOne(userId);
             UserModel author = questionModel.getUserQuestion();
             if (voteModel.incrementDownVotes(userVoting)) {
@@ -65,9 +62,9 @@ public class VoteController {
     }
 
     //Remove vote on a question by user
-    @RequestMapping(value = "/user/{userId}/questions/{questionId}/unVote")
-    public void unVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
-        questionVoting(questionId, (voteModel, questionModel) -> {
+    @PutMapping(value = "/user/{userId}/questions/{questionId}/unVote")
+    public QuestionModel unVoteQuestion(@PathVariable long userId, @PathVariable long questionId) {
+        return questionVoting(questionId, (voteModel, questionModel) -> {
             UserModel userVoting = userRepository.findOne(userId);
             UserModel author = questionModel.getUserQuestion();
             if (voteModel.decrementDownVotes(userVoting)) author.incrementReputation();
@@ -77,9 +74,9 @@ public class VoteController {
     }
 
     //Up vote an answer by user
-    @RequestMapping(value = "/user/{userId}/questions/{questionId}/replies/{replyId}/upVote")
-    public void upVoteAnswer(@PathVariable long userId, @PathVariable long replyId) {
-        answerVoting(replyId, ((voteModel, answerModel) -> {
+    @PutMapping(value = "/user/{userId}/questions/{questionId}/replies/{replyId}/upVote")
+    public AnswerModel upVoteAnswer(@PathVariable long userId, @PathVariable long replyId) {
+        return answerVoting(replyId, ((voteModel, answerModel) -> {
             UserModel userVoting = userRepository.findOne(userId);
             UserModel author = answerModel.getUserAnswer();
             if (voteModel.incrementUpVotes(userVoting)) {
@@ -91,9 +88,9 @@ public class VoteController {
     }
 
     //Down vote an answer by user
-    @RequestMapping(value = "/user/{userId}/questions/{questionId}/replies/{replyId}/downVote")
-    public void downVoteAnswer(@PathVariable long userId, @PathVariable long replyId) {
-        answerVoting(replyId, ((voteModel, answerModel) -> {
+    @PutMapping(value = "/user/{userId}/questions/{questionId}/replies/{replyId}/downVote")
+    public AnswerModel downVoteAnswer(@PathVariable long userId, @PathVariable long replyId) {
+        return answerVoting(replyId, ((voteModel, answerModel) -> {
             UserModel userVoting = userRepository.findOne(userId);
             UserModel author = answerModel.getUserAnswer();
             if (voteModel.incrementDownVotes(userVoting)) {
@@ -105,9 +102,9 @@ public class VoteController {
     }
 
     //Remove vote on answer by user
-    @RequestMapping(value = "/user/{userId}/questions/{questionId}/replies/{replyId}/unVote")
-    public void unVoteAnswer(@PathVariable long userId, @PathVariable long replyId) {
-        answerVoting(replyId, ((voteModel, answerModel) -> {
+    @PutMapping(value = "/user/{userId}/questions/{questionId}/replies/{replyId}/unVote")
+    public AnswerModel unVoteAnswer(@PathVariable long userId, @PathVariable long replyId) {
+        return answerVoting(replyId, ((voteModel, answerModel) -> {
             UserModel userVoting = userRepository.findOne(userId);
             UserModel author = answerModel.getUserAnswer();
             if (voteModel.decrementDownVotes(userVoting)) author.incrementReputation();
@@ -117,32 +114,31 @@ public class VoteController {
     }
 
     //Get Id for all users who up voted for a question
-    @RequestMapping(value = "/questions/{questionId}/upVotedUsers")
+    @GetMapping(value = "/questions/{questionId}/upVotedUsers")
     public List<Long> getAllUpVotedUsersQuestions(@PathVariable long questionId) {
         return getAllUpVotedUserId(questionId);
     }
 
     //Get Id for all users who up voted for a answer
-    @RequestMapping(value = "/questions/{questionId}/replies/{replyId}/upVotedUsers")
+    @GetMapping(value = "/questions/{questionId}/replies/{replyId}/upVotedUsers")
     public List<Long> getAllUpVotedUsersAnswers(@PathVariable long replyId) {
         return getAllUpVotedUserId(replyId);
     }
-    
+
     //Update Best Answer for Question
-    @RequestMapping(value = "/questions/{questionId}/bestAnswer/{answerId}")
-    public AnswerModel setBestAnswer(@PathVariable long questionId, @PathVariable long answerId) {
-    	QuestionModel question = questionRepository.getOne(questionId);
-    	question.setBestAnswer(answerId);
-    	questionRepository.save(question);
-    	return answerRepository.findOne(answerId);
+    @PutMapping(value = "/users/{userId}/questions/{questionId}/bestAnswer/{answerId}")
+    public AnswerModel setBestAnswer(@PathVariable long questionId, @PathVariable long answerId, @PathVariable long userId) {
+        QuestionModel question = questionRepository.getOne(questionId);
+        if (userId == question.getUserQuestion().getId()) question.setBestAnswer(answerId);
+        questionRepository.save(question);
+        return answerRepository.findOne(answerId);
     }
-    
+
     //Get Best Answer for Question
-    @RequestMapping(value = "/questions/{questionId}/bestAnswer")
+    @GetMapping(value = "/questions/{questionId}/bestAnswer")
     public AnswerModel getBestAnswer(@PathVariable long questionId) {
-    	QuestionModel question = questionRepository.getOne(questionId);
-    	Long answerId = question.getBestAnswer();
-    	return answerRepository.findOne(answerId);
+        QuestionModel question = questionRepository.getOne(questionId);
+        return answerRepository.findOne(question.getBestAnswer());
     }
 
     //Helper method tog et all up voted users
@@ -153,20 +149,22 @@ public class VoteController {
     }
 
     //Helper method for voting on questions
-    private void questionVoting(long postId, BiFunction<VoteModel, QuestionModel, UserModel> voting) {
+    private QuestionModel questionVoting(long postId, BiFunction<VoteModel, QuestionModel, UserModel> voting) {
         VoteModel vote = voteRepository.findByForumPostId(postId);
         QuestionModel question = questionRepository.findOne(postId);
         userRepository.save(voting.apply(vote, question));
         voteRepository.save(vote);
         questionRepository.save(question);
+        return question;
     }
 
     //Helper method for voting on answers
-    private void answerVoting(long postId, BiFunction<VoteModel, AnswerModel, UserModel> voting) {
+    private AnswerModel answerVoting(long postId, BiFunction<VoteModel, AnswerModel, UserModel> voting) {
         VoteModel vote = voteRepository.findByForumPostId(postId);
         AnswerModel answer = answerRepository.findOne(postId);
         userRepository.save(voting.apply(vote, answer));
         voteRepository.save(vote);
         answerRepository.save(answer);
+        return answer;
     }
 }

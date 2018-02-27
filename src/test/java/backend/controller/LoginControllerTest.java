@@ -55,10 +55,10 @@ public class LoginControllerTest {
 
     private UserModel registerUser;
 
-    private UserModel successfulLogin = new UserModel("foo", "bar", "", "", "");
-    private UserModel invalidUser = new UserModel("fooINVALID", "bar", "", "", "");
-    private UserModel invalidPassword = new UserModel("foo", "barINVALID", "", "", "");
-    private UserModel invalidUserPassword = new UserModel("fooINVALID", "barINVALID", "", "", "");
+    private UserModel successfulLogin = new UserModel("foo", "bar", "", "", "", "", "");
+    private UserModel invalidUser = new UserModel("fooINVALID", "bar", "", "", "", "", "");
+    private UserModel invalidPassword = new UserModel("foo", "barINVALID", "", "", "", "", "");
+    private UserModel invalidUserPassword = new UserModel("fooINVALID", "barINVALID", "", "", "", "", "");
 
     private ObjectMapper objectMapper;
 
@@ -67,7 +67,7 @@ public class LoginControllerTest {
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
         objectMapper = jackson2HttpMessageConverter.getObjectMapper();
-        registerUser = new UserModel("foo", bCryptPasswordEncoder.encode("bar"), "name", "lastname", "foo@bar.com");
+        registerUser = new UserModel("foo", bCryptPasswordEncoder.encode("bar"), "name", "lastname", "foo@bar.com", "", "");
         userRepository.save(registerUser);
         if (!setupRoles) {
             RoleModel adminRole = new RoleModel("admin");

@@ -49,18 +49,26 @@ public class UserModel {
     private String firstName;
     private String lastName;
     private String email;
-
-    public UserModel(String username, String password, String firstName, String lastName, String email) {
+   
+    //User security
+    private String securityQuestion;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String securityAnswer;
+    
+    public UserModel(String username, String password, String firstName, String lastName, String email, 
+    		String securityQuestion, String securityAnswer) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
         reputation = 0;
     }
 
     public UserModel() {
-        this("", "", "", "", "");
+        this("", "", "", "", "", "", "");
     }
 
     public Long getId() {
@@ -146,4 +154,21 @@ public class UserModel {
     public void removeRole(RoleModel roleModel) {
         roles.remove(roleModel);
     }
+    
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion= securityQuestion;
+    }   
+    
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
+    public void setSecurityAnswer(String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+    }
+    
 }

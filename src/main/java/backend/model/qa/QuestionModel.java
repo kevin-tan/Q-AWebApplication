@@ -4,10 +4,7 @@ import backend.model.qa.common.ForumPost;
 import backend.model.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,14 +17,18 @@ public class QuestionModel extends ForumPost {
     @JsonIgnore
     private UserModel userQuestion;
 
+    @ElementCollection
+    private Set<String> questionCategories = new HashSet<>();
+
     private String questionTitle;
     private Long bestAnswerId;
 
-    public QuestionModel(String questionTitle, String message, String postedTime) {
+    public QuestionModel(String questionTitle, String message, Set<String> categories, String postedTime) {
         super(message, postedTime);
         this.questionTitle = questionTitle;
+        questionCategories.addAll(categories);
     }
-    
+
     public void setBestAnswer(long id){
     	bestAnswerId = id;
     }
@@ -60,4 +61,13 @@ public class QuestionModel extends ForumPost {
     public void setQuestionTitle(String questionTitle) {
         this.questionTitle = questionTitle;
     }
+
+    public Set<String> getQuestionCategories() {
+        return questionCategories;
+    }
+
+    public void setQuestionCategories(Set<String> questionCategories) {
+        this.questionCategories = questionCategories;
+    }
+
 }

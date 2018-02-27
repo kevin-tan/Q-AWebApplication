@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
@@ -35,18 +36,18 @@ public class UserRepositoryTest {
     private UserModel user4;
 
     private VoteModel vote;
-    private QuestionModel question;
 
     @Before
     public void setup() {
         //Create users
-        user = new UserModel("User 1", "Pass", "User", "One", "One@Foo.com");
-        user2 = new UserModel("User 2", "Pass", "User", "Two", "Two@Foo.com");
-        user3 = new UserModel("User 3", "Pass", "User", "Three", "Three@Foo.com");
-        user4 = new UserModel("User 4", "Pass", "User", "Four", "Four@Foo.com");
+        user = new UserModel("User 1", "Pass", "User", "One", "One@Foo.com", "The answer is Foo", "Foo");
+        user2 = new UserModel("User 2", "Pass", "User", "Two", "Two@Foo.com", "The answer is Foo", "Foo");
+        user3 = new UserModel("User 3", "Pass", "User", "Three", "Three@Foo.com", "The answer is Foo", "Foo");
+        user4 = new UserModel("User 4", "Pass", "User", "Four", "Four@Foo.com", "The answer is Foo", "Foo");
 
         //Create question
-        question = new QuestionModel("QuestionTitle" ,"Question one", new DateTime().toString(FORMAT));
+        QuestionModel question = new QuestionModel("QuestionTitle", "Question one", new HashSet<>(List.of("Programming", "Java")),
+                new DateTime().toString(FORMAT));
 
         //Create vote
         vote = new VoteModel(question, user);
@@ -120,29 +121,45 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void whenFindByUpVotedVoteModelsId_andExists_thenReturnAllUser(){
+    public void whenFindByUpVotedVoteModelsId_andExists_thenReturnAllUser() {
         List<UserModel> list = userRepository.findByUpVotedVoteModelsId(vote.getId());
-        assertThat(list).size().isEqualTo(3);
-        assertThat(list.get(0).getId()).isEqualTo(user.getId());
-        assertThat(list.get(0).getUsername()).isEqualTo(user.getUsername());
-        assertThat(list.get(1).getId()).isEqualTo(user2.getId());
-        assertThat(list.get(1).getUsername()).isEqualTo(user2.getUsername());
-        assertThat(list.get(2).getId()).isEqualTo(user3.getId());
-        assertThat(list.get(2).getUsername()).isEqualTo(user3.getUsername());
+        assertThat(list).size()
+                .isEqualTo(3);
+        assertThat(list.get(0)
+                .getId()).isEqualTo(user.getId());
+        assertThat(list.get(0)
+                .getUsername()).isEqualTo(user.getUsername());
+        assertThat(list.get(1)
+                .getId()).isEqualTo(user2.getId());
+        assertThat(list.get(1)
+                .getUsername()).isEqualTo(user2.getUsername());
+        assertThat(list.get(2)
+                .getId()).isEqualTo(user3.getId());
+        assertThat(list.get(2)
+                .getUsername()).isEqualTo(user3.getUsername());
     }
 
     @Test
-    public void whenFindAll_andExists_thenReturnAllUserInDatabase(){
+    public void whenFindAll_andExists_thenReturnAllUserInDatabase() {
         List<UserModel> list = userRepository.findAll();
-        assertThat(list).size().isEqualTo(4);
-        assertThat(list.get(0).getId()).isEqualTo(user.getId());
-        assertThat(list.get(0).getUsername()).isEqualTo(user.getUsername());
-        assertThat(list.get(1).getId()).isEqualTo(user2.getId());
-        assertThat(list.get(1).getUsername()).isEqualTo(user2.getUsername());
-        assertThat(list.get(2).getId()).isEqualTo(user3.getId());
-        assertThat(list.get(2).getUsername()).isEqualTo(user3.getUsername());
-        assertThat(list.get(3).getId()).isEqualTo(user4.getId());
-        assertThat(list.get(3).getUsername()).isEqualTo(user4.getUsername());
+        assertThat(list).size()
+                .isEqualTo(4);
+        assertThat(list.get(0)
+                .getId()).isEqualTo(user.getId());
+        assertThat(list.get(0)
+                .getUsername()).isEqualTo(user.getUsername());
+        assertThat(list.get(1)
+                .getId()).isEqualTo(user2.getId());
+        assertThat(list.get(1)
+                .getUsername()).isEqualTo(user2.getUsername());
+        assertThat(list.get(2)
+                .getId()).isEqualTo(user3.getId());
+        assertThat(list.get(2)
+                .getUsername()).isEqualTo(user3.getUsername());
+        assertThat(list.get(3)
+                .getId()).isEqualTo(user4.getId());
+        assertThat(list.get(3)
+                .getUsername()).isEqualTo(user4.getUsername());
     }
 
 

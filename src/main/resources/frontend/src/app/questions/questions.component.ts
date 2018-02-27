@@ -13,6 +13,8 @@ export class QuestionsComponent implements OnInit {
 
   displayAnswerBox:boolean = (sessionStorage.getItem('status') == 'true');
   currentQuestion: Question;
+  userID;
+  questionID: Number;
 
   constructor(private questionsService: QuestionsService, private router: Router) { }
 
@@ -34,6 +36,20 @@ export class QuestionsComponent implements OnInit {
 
   loginButtonClick(){
     this.router.navigate(['/login']);
+  }
+
+  //Incorrect implementation
+  upVoteClick(){
+    this.userID = sessionStorage.getItem('id');
+    this.questionID = this.currentQuestion.id;
+    this.questionsService.upVoting(this.userID,this.questionID).subscribe();
+  }
+
+  //Incorrect implementation
+  downVoteClick(){
+    this.userID = sessionStorage.getItem('id');
+    this.questionID = this.currentQuestion.id;
+    this.questionsService.downVoting(this.userID,this.questionID).subscribe();
   }
 
 }

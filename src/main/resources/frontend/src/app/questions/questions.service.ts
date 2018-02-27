@@ -11,6 +11,8 @@ export class QuestionsService {
     getQuestionURL = 'http://localhost:8080/questions';
     getSearchURL;
     getTagSearchURL;
+    getUpvoteURL;
+    getDownvoteURL;
     postAnswerURL: string = null;
 
 
@@ -46,5 +48,15 @@ export class QuestionsService {
     searchTag(tag) {
       this.getTagSearchURL = 'http://localhost:8080/questions/search/' + tag;
       return this.getQuestionsWithURL(this.getTagSearchURL);
+    }
+
+    upVoting(userID, questionID){
+      this.getUpvoteURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/upVote';
+      return this.http.get(this.getUpvoteURL);
+    }
+
+    downVoting(userID, questionID){
+      this.getDownvoteURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/downVote';
+      return this.http.get(this.getDownvoteURL);
     }
 }

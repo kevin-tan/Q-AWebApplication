@@ -14,7 +14,7 @@ import static backend.controller.constants.RoleConstants.USER;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "")
+@RequestMapping(value = "/register")
 public class RegisterController {
 
     private final UserRepository userRepository;

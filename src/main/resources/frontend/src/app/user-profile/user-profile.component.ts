@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {UserModel} from "../UserModel";
+import {UserProfileService} from "./user-profile.service";
+import {User} from "./user";
+import {QuestionsService} from "../questions/questions.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-profile',
@@ -8,19 +11,20 @@ import {UserModel} from "../UserModel";
 })
 export class UserProfileComponent implements OnInit {
 
-  Username: string = sessionStorage.getItem('username');
-  FirstName: string = sessionStorage.getItem('firstname');
-  LastName: string = sessionStorage.getItem('lastname');
-  datejoined: string = sessionStorage.getItem('dateJoined');
-  Reputation: string = sessionStorage.getItem('reputation');
-  FirstL = this.FirstName.charAt(0).toUpperCase();
-  LastL = this.LastName.charAt(0).toUpperCase();
-  constructor() { }
+  public user : User;
+  public questions =[];
+  public answers =[];
+  url: string = 'http://localhost:8080/users/'+sessionStorage.getItem('id');
+  constructor(private userService: UserProfileService, private questionsService: QuestionsService, private router: Router) { }
 
   ngOnInit() {
-
+    this.userService.getUser(this.url).subscribe(user => this.user = user);
+    this.questionsService.getQuestionsWithURL(this.url+'/questions').subscribe(question =>this.questions = question);
+    this.questionsService.getAnswerWithURL(this.url+'/replies').subscribe(answer => this.answers = answer);
   }
-
-
+  OnSelect(question){
+    this.router.navigate(['/dashboard/question', question.id]);
+    this.questionsService.setCurrentQuestion(question);
+  }
 
 }

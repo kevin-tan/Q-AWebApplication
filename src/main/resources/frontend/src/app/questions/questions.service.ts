@@ -4,6 +4,7 @@ import {Question} from "./question";
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Answer} from "./answer";
+import {ObjectUnsubscribedError} from "rxjs/Rx";
 
 @Injectable()
 export class QuestionsService {
@@ -48,11 +49,7 @@ export class QuestionsService {
       return this.getQuestionsWithURL(this.getTagSearchURL);
     }
 
-    getUserQuestion(){
-
-    }
-
-    getUserReply(){
-
+    getAnswerWithURL(URL): Observable<Answer[]>{
+      return this.http.get<Answer[]>(URL);
     }
 }

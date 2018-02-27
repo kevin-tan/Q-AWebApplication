@@ -26,6 +26,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { EqualValidator} from "./registration/equal-validator.directive";
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
+import {UserProfileService} from "./user-profile/user-profile.service";
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
@@ -70,6 +71,7 @@ const appRoutes: Routes =[
     VerifyAuthenticationService,
     LoginRedirectService,
     QuestionsService,
+    UserProfileService
   ],
   bootstrap: [AppComponent]
 })

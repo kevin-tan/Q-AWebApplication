@@ -24,6 +24,7 @@
                     <a routerLink="" (click)="OnSelect(question)">{{question.questionTitle}}</a>
                     <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
                     <small>Submitted on: {{question.postedDate}} </small>
+                    <small style="float:right;">Author: <a href="#">{{question.author}}</a></small>
                     <p class="" id="" style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
                 </li>
             </ul>

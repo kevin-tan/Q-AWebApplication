@@ -37,14 +37,12 @@ export class QuestionsComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  //Incorrect implementation
   upVoteQuestionClick(){
     this.userID = sessionStorage.getItem('id');
     this.questionsService.upVotingQuestion(this.currentQuestion, this.userID)
       .subscribe(value => this.currentQuestion.votes = value.votes);
   }
 
-  //Incorrect implementation
   downVoteQuestionClick(){
     this.userID = sessionStorage.getItem('id');
     this.questionsService.downVotingQuestion(this.currentQuestion, this.userID)
@@ -57,7 +55,6 @@ export class QuestionsComponent implements OnInit {
       .subscribe(value => answer.votes = value.votes);
   }
 
-  //Incorrect implementation
   downVoteAnswerClick(answer: Answer){
     this.userID = sessionStorage.getItem('id');
     this.questionsService.downVotingAnswer(answer, this.currentQuestion.id, this.userID)

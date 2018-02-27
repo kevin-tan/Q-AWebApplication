@@ -24,6 +24,8 @@ import {QuestionsService} from "./questions/questions.service";
 import {HttpModule} from "@angular/http";
 
 import { EqualValidator} from "./registration/equal-validator.directive";
+import { AskingComponent } from './asking/asking.component';
+import {AskingService} from "./asking/asking.service";
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
@@ -31,6 +33,7 @@ const appRoutes: Routes =[
   {path: 'register', component: RegistrationComponent, canActivate: [LoginRedirectService]},
   {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
   {path: 'dashboard', component: DashboardComponent},
+  {path: 'dashboard/asking', component: AskingComponent},
   {path: 'dashboard/question/:id', component: QuestionsComponent, data: {currentQuestion: 'question'}},
   {path: '**', component: HomeComponent}
 ];
@@ -48,7 +51,8 @@ const appRoutes: Routes =[
     DashboardComponent,
     StatusComponent,
     GreetingComponent,
-    EqualValidator
+    EqualValidator,
+    AskingComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +68,7 @@ const appRoutes: Routes =[
     VerifyAuthenticationService,
     LoginRedirectService,
     QuestionsService,
+    AskingService,
   ],
   bootstrap: [AppComponent]
 })

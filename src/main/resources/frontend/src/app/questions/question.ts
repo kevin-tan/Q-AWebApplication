@@ -9,6 +9,7 @@ export interface Question {
   author: string;
   votes: votes;
   answerModel: Array<Answer>;
+  questionCategory: Array<string>;
   questionTitle: string,
   bestAnswer: number
 }

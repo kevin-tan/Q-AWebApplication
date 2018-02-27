@@ -17,9 +17,13 @@ export class DashboardComponent implements OnInit {
     this.questionsService.getQuestions().subscribe(data => this.questions = data);
   }
 
-  OnSelect(question){
+  OnSelectQuestion(question){
     this.router.navigate(['/dashboard/question', question.id]);
     this.questionsService.setCurrentQuestion(question);
+  }
+
+  OnSelectAsking(){
+    this.router.navigate(['/dashboard/asking']);
   }
 
   OnSearch(searchTerm){

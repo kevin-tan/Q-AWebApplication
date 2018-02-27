@@ -44,7 +44,8 @@ export class QuestionsService {
     searchDashboard(searchTerm) {
 
       if (searchTerm == "") {
-        return this.getQuestions();
+        this.getSearchURL = 'http://localhost:8080/questions';
+        return this.getQuestionsWithURL(this.getSearchURL);
       }
 
       this.getSearchURL = 'http://localhost:8080/questions/searchByTitle/' + searchTerm;

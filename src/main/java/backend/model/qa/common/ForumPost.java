@@ -5,10 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
-/**
- * Created by Kevin Tan 2018-01-30
- */
-
 @Entity
 @Inheritance
 public abstract class ForumPost {

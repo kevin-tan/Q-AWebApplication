@@ -2,11 +2,11 @@
 <div class="container">
   <div class="container my-3 p-3">
     <h3 class="texttitle">Title</h3>
-    <textarea cols="50" rows="1"  name="Title" style="resize:none" placeholder="Enter title here..."></textarea>
+    <textarea cols="50" rows="1"  name="Title" style="resize:none" placeholder="Enter title here..." #questionTitle></textarea>
   </div>
   <div class="container">
     <h3 class="textquestion">Question</h3>
-    <textarea rows="5" cols="50" name="Message" style="resize:none" placeholder="Enter question here..."></textarea>
+    <textarea rows="5" cols="50" name="Message" style="resize:none" placeholder="Enter question here..." #message></textarea>
   </div>
   <div class="container my-3 p-3" role="group" aria-label="Basic example">
     <h3 class="texttags">Tags</h3>
@@ -22,7 +22,7 @@
     <label class="form-check-label" for="exampleCheck1">Agree to all the terms and conditions</label>
   </div>
   <div class="container my-3 p-3">
-    <button type="button" class="btn btn-dark">Submit</button>
+    <button type="button" class="btn btn-dark" (click)="addQuestion(message.value, null, questionTitle.value);">Submit</button>
   </div>
 </div>
 <app-footer></app-footer>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Answer} from "../questions/answer";
 import {AskingService} from "./asking.service";
 import {Router} from "@angular/router";
+import {Question} from "../questions/question";
 
 @Component({
   selector: 'app-asking',
@@ -14,12 +15,16 @@ export class AskingComponent implements OnInit {
 
   ngOnInit() {
   }
-  /*
-  addQuestion(message: string): void{
-    if(!message){return;}
 
-    const newAnswer: Answer = { message } as Answer;
-    this.questionsService.addAnswerToQuestion(newAnswer, this.currentQuestion.id)
-      .subscribe(answer => this.currentQuestion.answerModel.push(answer));
-  }*/
+  //message, author, questionCate, QuestionTitle
+  addQuestion(message: string, questionCategory: string, questionTitle: string): void{
+    let author: string = sessionStorage.getItem('username');
+    const newQuestion: Question = { message, author, questionTitle} as Question;
+
+    this.askingService.addQuestion(newQuestion)
+      .subscribe(
+        () => this.router.navigate(['/dashboard'])
+      );
+
+  }
 }

@@ -46,6 +46,7 @@ label{
   background-color: #7df9ff;
   color: black;
   opacity: .80;
+  font-weight: bold;
 }
 .submitButton:hover{
   background-color: black;
@@ -84,4 +85,7 @@ label{
 }
 #forgot-pass:hover{
   color: white;
+}
+.forgot-question-input{
+
 }

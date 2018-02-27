@@ -5,25 +5,27 @@
       <img src="../assets/login-logo.png" width="400px" alt="Houston Answers"></a>
   </div>
 
-  <form #lForm="ngForm" (ngSubmit)="onLogin()" novalidate>
-    <div class="form-element">
-      <label>Username</label>
-      <input type="text" name="username" placeholder="Username" required #username="ngModel" [(ngModel)]="user.username" >
-      <small class="errorMessage error" [hidden]="username.valid || (username.pristine && !lForm.submitted)">*Username is required</small>
+  <form #forgotForm="ngForm" (ngSubmit)="submitEmail()" novalidate>
+      <div class="form-element">
+      <label>Enter email address</label>
+      <input type="text" name="email" placeholder="Email" required #email="ngModel" [(ngModel)]="user.username" >
     </div>
 
     <div class="form-element">
-      <label>Password</label>
-      <input type="password" name="password" placeholder="Password" required #password="ngModel" [(ngModel)]="user.password">
-      <small class="errorMessage error" [hidden]="password.valid || (password.pristine && !lForm.submitted)">*Password is required</small>
-      <a routerLink="forgotPassword"><small id="forgot-pass">Forgot Password</small></a>
-
+      <label>What is your car color</label>
+      <input type="text" class="forgot-question-input">
+    </div>
+    <div class="form-element">
+      <label>New Password</label>
+      <input type="text" class="forgot-question-input">
+    </div>
+    <div class="form-element">
+      <label>Confirm Password</label>
+      <input type="text" class="forgot-question-input">
     </div>
 
     <div class="form-element">
-      <button type="submit" class="submitButton" id="first">Login</button>
-      <a routerLink="/register"><button type="button" class="submitButton">Sign Up</button></a>
+      <button type="submit" class="submitButton" id="first">Submit</button>
     </div>
-    <div [hidden]="!errorAlert"  class="alert alert-danger errorMessage">{{errorMsg}}</div>
   </form>
 </div>

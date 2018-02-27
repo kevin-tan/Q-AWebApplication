@@ -4,11 +4,14 @@ import {Question} from "./question";
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Answer} from "./answer";
+import {userReputation} from "./userReputation";
 
 @Injectable()
 export class QuestionsService {
 
     getQuestionURL = 'http://localhost:8080/questions';
+    getLeaderboard = 'http://localhost:8080/leaderboard';
+
     getSearchURL;
     getTagSearchURL;
     postAnswerURL: string = null;
@@ -46,5 +49,9 @@ export class QuestionsService {
     searchTag(tag) {
       this.getTagSearchURL = 'http://localhost:8080/questions/search/' + tag;
       return this.getQuestionsWithURL(this.getTagSearchURL);
+    }
+
+    getLeaderBoard(): Observable<userReputation[]>  {
+      return this.http.get<userReputation[]>(this.getLeaderboard);
     }
 }

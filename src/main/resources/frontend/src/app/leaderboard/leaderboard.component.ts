@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { QuestionsService } from "../questions/questions.service";
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-leaderboard',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeaderboardComponent implements OnInit {
 
-  constructor() { }
+  public leaderboards = []
+
+
+  constructor(private questionsService: QuestionsService, private router: Router) { }
 
   ngOnInit() {
+    this.questionsService.getLeaderBoard().subscribe(data => this.leaderboards = data);
   }
 
 }

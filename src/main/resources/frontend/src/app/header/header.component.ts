@@ -17,6 +17,6 @@ export class HeaderComponent implements OnInit {
   }
   onLogout(): void{
     sessionStorage.clear();
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('/dashboard');
   }
 }

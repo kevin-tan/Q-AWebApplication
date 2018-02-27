@@ -3,6 +3,7 @@ import {UserProfileService} from "./user-profile.service";
 import {User} from "./user";
 import {QuestionsService} from "../questions/questions.service";
 import {Router} from "@angular/router";
+import {Question} from "../questions/question";
 
 @Component({
   selector: 'app-user-profile',
@@ -14,6 +15,7 @@ export class UserProfileComponent implements OnInit {
   public user : User;
   public questions =[];
   public answers =[];
+  public question :Question;
   url: string = 'http://localhost:8080/users/'+sessionStorage.getItem('id');
   constructor(private userService: UserProfileService, private questionsService: QuestionsService, private router: Router) { }
 
@@ -22,9 +24,15 @@ export class UserProfileComponent implements OnInit {
     this.questionsService.getQuestionsWithURL(this.url+'/questions').subscribe(question =>this.questions = question);
     this.questionsService.getAnswerWithURL(this.url+'/replies').subscribe(answer => this.answers = answer);
   }
-  OnSelect(question){
+  OnSelectQuestion(question){
     this.router.navigate(['/dashboard/question', question.id]);
     this.questionsService.setCurrentQuestion(question);
   }
+  OnSelectReply(answer){
+    this.router.navigate(['/dashboard/question', answer.questionModelId]);
+    this.questionsService.getQuestionWithID(answer.questionModelId).subscribe(data=>{
+      this.question = data;
+      this.questionsService.setCurrentQuestion(this.question)});
+  };
 
 }

@@ -52,4 +52,7 @@ export class QuestionsService {
     getAnswerWithURL(URL): Observable<Answer[]>{
       return this.http.get<Answer[]>(URL);
     }
+    getQuestionWithID(id): Observable<Question>{
+      return this.http.get<Question>(this.getQuestionURL+'/'+id);
+    }
 }

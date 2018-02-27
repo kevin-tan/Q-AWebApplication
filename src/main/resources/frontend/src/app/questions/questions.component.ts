@@ -14,7 +14,6 @@ export class QuestionsComponent implements OnInit {
   displayAnswerBox:boolean = (sessionStorage.getItem('status') == 'true');
   currentQuestion: Question;
   userID;
-  questionID: Number;
 
   constructor(private questionsService: QuestionsService, private router: Router) { }
 
@@ -39,17 +38,30 @@ export class QuestionsComponent implements OnInit {
   }
 
   //Incorrect implementation
-  upVoteClick(){
+  upVoteQuestionClick(){
     this.userID = sessionStorage.getItem('id');
-    this.questionID = this.currentQuestion.id;
-    this.questionsService.upVoting(this.userID,this.questionID).subscribe();
+    this.questionsService.upVotingQuestion(this.currentQuestion, this.userID)
+      .subscribe(value => this.currentQuestion.votes = value.votes);
   }
 
   //Incorrect implementation
-  downVoteClick(){
+  downVoteQuestionClick(){
     this.userID = sessionStorage.getItem('id');
-    this.questionID = this.currentQuestion.id;
-    this.questionsService.downVoting(this.userID,this.questionID).subscribe();
+    this.questionsService.downVotingQuestion(this.currentQuestion, this.userID)
+      .subscribe(value => this.currentQuestion.votes = value.votes);
+  }
+
+  upVoteAnswerClick(answer: Answer){
+    this.userID = sessionStorage.getItem('id');
+    this.questionsService.upVotingAnswer(answer, this.currentQuestion.id, this.userID)
+      .subscribe(value => answer.votes = value.votes);
+  }
+
+  //Incorrect implementation
+  downVoteAnswerClick(answer: Answer){
+    this.userID = sessionStorage.getItem('id');
+    this.questionsService.downVotingAnswer(answer, this.currentQuestion.id, this.userID)
+      .subscribe(value => answer.votes = value.votes);
   }
 
 }

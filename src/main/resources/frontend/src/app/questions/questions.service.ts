@@ -11,8 +11,10 @@ export class QuestionsService {
     getQuestionURL = 'http://localhost:8080/questions';
     getSearchURL;
     getTagSearchURL;
-    getUpvoteURL;
-    getDownvoteURL;
+    getUpvoteQuestionURL;
+    getDownvoteQuestionURL;
+    getUpvoteAnswerURL;
+    getDownvoteAnswerURL;
     postAnswerURL: string = null;
 
 
@@ -50,13 +52,23 @@ export class QuestionsService {
       return this.getQuestionsWithURL(this.getTagSearchURL);
     }
 
-    upVoting(userID, questionID){
-      this.getUpvoteURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/upVote';
-      return this.http.get(this.getUpvoteURL);
+    upVotingQuestion(question: Question, userID): Observable<Question>{
+      this.getUpvoteQuestionURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id + '/upVote';
+      return this.http.put<Question>(this.getUpvoteQuestionURL, question);
     }
 
-    downVoting(userID, questionID){
-      this.getDownvoteURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/downVote';
-      return this.http.get(this.getDownvoteURL);
+    downVotingQuestion(question: Question, userID): Observable<Question>{
+      this.getDownvoteQuestionURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id+ '/downVote';
+      return this.http.put<Question>(this.getDownvoteQuestionURL, question);
+    }
+
+    upVotingAnswer(answer: Answer, questionID, userID): Observable<Answer>{
+      this.getUpvoteAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/replies/' + answer.id + '/upVote';
+      return this.http.put<Answer>(this.getUpvoteAnswerURL, answer);
+    }
+
+    downVotingAnswer(answer: Answer, questionID, userID): Observable<Answer>{
+      this.getDownvoteAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/replies/' + answer.id + '/downVote';
+      return this.http.put<Answer>(this.getDownvoteAnswerURL, answer);
     }
 }

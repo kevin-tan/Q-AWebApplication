@@ -8,9 +8,9 @@
       <tr>
       <td class="votes" style="text-align: center; padding-right: 15px; width: 60px;">
         <div style="min-width: 46px; text-align: center">
-          <button (click)="upVoteClick();"><img src="../../assets/upvote.png" style="width: 50px; height: 50px"/></button>
-          <span>{{currentQuestion.votes.upVotes-currentQuestion.votes.downVotes}}</span>
-          <button (click)="downVoteClick();"><img src="../../assets/downvote.png" style="width: 50px; height: 50px"></button>
+          <input (click)="upVoteQuestionClick();" type="image" src="../../assets/upvote.png" style="width: 50px; height: 50px"/>
+          <span>{{currentQuestion.votes.totalVotes-currentQuestion.votes.downVotes}}</span>
+          <input (click)="downVoteQuestionClick();" type="image" src="../../assets/downvote.png" style="width: 50px; height: 50px"/>
         </div>
       </td>
       <td class="posts" style="width: 100%;">
@@ -31,9 +31,9 @@
         <tr>
         <td class="votes" style="text-align: center; padding-right: 15px; width: 60px;">
           <div style="min-width: 46px; text-align: center">
-            <a (click)="upVoteClick()"><img src="../../assets/upvote.png" style="width: 50px; height: 50px"></a>
-            <span>{{answer.votes.upVotes-answer.votes.downVotes}}</span>
-            <a (click)="downVoteClick()"><img src="../../assets/downvote.png" style="width: 50px; height: 50px"></a>
+            <input (click)="upVoteAnswerClick(answer);" type="image" src="../../assets/upvote.png" style="width: 50px; height: 50px"/>
+            <span>{{answer.votes.totalVotes-answer.votes.downVotes}}</span>
+            <input (click)="downVoteAnswerClick(answer);" type="image" src="../../assets/downvote.png" style="width: 50px; height: 50px"/>
           </div>
         </td>
         <td class="posts" style="width: 100%;">

@@ -111,7 +111,7 @@ public class QuestionControllerTest {
 
     @After
     public void tearDown() {
-        questionRepository.delete(question);
-        questionRepository.delete(question2);
+        questionRepository.delete(question.getId());
+        questionRepository.delete(question2.getId());
     }
 }

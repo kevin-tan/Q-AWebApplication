@@ -14,19 +14,21 @@ This project is currently **in progress**
 * Karthikan Jeyabalan (Front-end)
 * Kevin Tan (Team Lead, Back-end)
 * Luca Fiorilli (Back-end)
-* Sagar Patel (Scrummaster, Back-end)
+* Sagar Patel (Scrum master, Back-end)
 * Shane Philips (Front-end)
 * Shawn Guerra-Bautista (Front-end)
 * Shurid Biswas (Front-end)
 ## Technologies
 * Front End
-  * [HTML](https://www.w3schools.com/html/)
-  * [CSS](https://www.w3schools.com/css/)
+  * [HTML/CSS](https://www.w3schools.com/html/)
+  * [TypeScript](https://www.typescriptlang.org/)
   * [Angular](https://angular.io)
 * Back End
   * [Spring](https://spring.io)
+  * [Hibernate](http://hibernate.org/)
   * [Java](https://www.oracle.com/java/java9.html)
 * Database
   * [MySQL](https://www.mysql.com)
+  * [H2](http://www.h2database.com/html/main.html) (For testing)
   
 The links direct to the official websites or guides

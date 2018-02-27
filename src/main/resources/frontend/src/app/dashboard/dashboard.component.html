@@ -3,14 +3,14 @@
 <div class="container">
     <div class="row" id="firstRow">
         <div class="col-md-7 col-md-offset-1">
-            <input style="width:100%;" [(ngModel)]="dashSearch" type="text" placeholder="Search...">
+            <input style="width:100%;" [(ngModel)]="dashSearch" type="text" placeholder="Search..." value="">
         </div>
         <div class="col-md-1">
             <button (click)="OnSearch(dashSearch)">Search</button>
         </div>
         <div class="col-md-1">
             <div class="card" id="askButton">
-                <a href=""  class="btn btn-primary btn-large">
+                <a href="" class="btn btn-primary btn-large">
                     Ask your question
                 </a>
             </div>
@@ -23,8 +23,7 @@
                 <li class="list-group-item justify-content-between">
                     <a routerLink="" (click)="OnSelect(question)">{{question.questionTitle}}</a>
                     <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
-                    <small>Submitted:
-                        <span>#</span> days ago</small>
+                    <small>Submitted on: {{question.postedDate}} </small>
                     <p class="" id="" style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
                 </li>
             </ul>

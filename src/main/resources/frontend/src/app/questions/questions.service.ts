@@ -42,12 +42,17 @@ export class QuestionsService {
     }
 
     searchDashboard(searchTerm) {
-      this.getSearchURL = 'http://localhost:8080/questions/search/' + searchTerm;
+
+      if (searchTerm == "") {
+        return this.getQuestions();
+      }
+
+      this.getSearchURL = 'http://localhost:8080/questions/searchByTitle/' + searchTerm;
       return this.getQuestionsWithURL(this.getSearchURL);
     }
 
     searchTag(tag) {
-      this.getTagSearchURL = 'http://localhost:8080/questions/search/' + tag;
+      this.getTagSearchURL = 'http://localhost:8080/questions//searchByCategory/' + tag;
       return this.getQuestionsWithURL(this.getTagSearchURL);
     }
 

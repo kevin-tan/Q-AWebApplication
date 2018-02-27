@@ -1,5 +1,4 @@
 #leaderboard {
-    height: 700px;
     color: white;
     background-color: black;
     opacity: .80;
@@ -10,8 +9,8 @@
 }
 
 .list-group-item {
-    margin-top: 10px;
     border-radius: 20px;
+    margin-bottom: 10px;
 }
 
 #rank {

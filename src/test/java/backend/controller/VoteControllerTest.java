@@ -9,6 +9,7 @@ import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
 import backend.repository.vote.VoteRepository;
 import org.joda.time.DateTime;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -106,5 +107,11 @@ public class VoteControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.votes.downVotes", is(currentDownVotes + 1)));
         assertThat(userRepository.findOne(userQuestion.getId()).getReputation()).isEqualTo(rep - 1);
+    }
+
+    @After
+    public void tearDown(){
+        questionRepository.deleteAll();
+        answerRepository.deleteAll();
     }
 }

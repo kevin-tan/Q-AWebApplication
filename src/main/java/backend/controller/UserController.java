@@ -92,7 +92,7 @@ public class UserController {
     }
     
     //Updates user password
-    @PutMapping(value = "/{userId}/changePassword", produces = JSON, consumes = JSON)
+    @PutMapping(value = "/{userId}/changePassword")
     public void changePassword(@PathVariable long userId, @RequestBody UserModel userModel) {
         UserModel user = userRepository.findOne(userId);
         user.setPassword(BCryptPasswordEncoder.encode(userModel.getPassword()));

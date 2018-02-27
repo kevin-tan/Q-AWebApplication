@@ -2,22 +2,16 @@ package backend.model.roles;
 
 import backend.model.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Luca Fiorilli 2018-01-30
- */
-
 @Entity
 public class RoleModel {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;

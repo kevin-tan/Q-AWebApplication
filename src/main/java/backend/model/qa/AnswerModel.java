@@ -42,4 +42,12 @@ public class AnswerModel extends ForumPost {
     public UserModel getUserAnswer() {
         return userAnswer;
     }
+
+    public Long getQuestionModelId(){
+        return question.getId();
+    }
+
+    public String getQuestionModelTitle(){
+        return question.getQuestionTitle();
+    }
 }

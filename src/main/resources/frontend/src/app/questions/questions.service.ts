@@ -62,6 +62,16 @@ export class QuestionsService {
       return this.http.put<Answer>(this.getDownvoteAnswerURL, answer);
     }
 
+  unVotingQuestion(question: Question, userID): Observable<Question>{
+    this.getDownvoteQuestionURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id+ '/unVote';
+    return this.http.put<Question>(this.getDownvoteQuestionURL, question);
+  }
+
+  unVotingAnswer(answer: Answer, questionID, userID): Observable<Answer>{
+    this.getUpvoteAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/replies/' + answer.id + '/unVote';
+    return this.http.put<Answer>(this.getUpvoteAnswerURL, answer);
+  }
+
     getAnswerWithURL(URL): Observable<Answer[]>{
       return this.http.get<Answer[]>(URL);
     }

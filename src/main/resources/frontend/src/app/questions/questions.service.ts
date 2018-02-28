@@ -71,4 +71,11 @@ export class QuestionsService {
       this.getDownvoteAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/replies/' + answer.id + '/downVote';
       return this.http.put<Answer>(this.getDownvoteAnswerURL, answer);
     }
+
+    getAnswerWithURL(URL): Observable<Answer[]>{
+      return this.http.get<Answer[]>(URL);
+    }
+    getQuestionWithID(id): Observable<Question>{
+      return this.http.get<Question>(this.getQuestionURL+'/'+id);
+    }
 }

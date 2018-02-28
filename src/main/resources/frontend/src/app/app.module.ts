@@ -22,19 +22,24 @@ import {LoginRedirectService} from "./login/login-redirect.service";
 import {GreetingComponent} from './greeting/greeting.component';
 import {QuestionsService} from "./questions/questions.service";
 import {HttpModule} from "@angular/http";
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { EqualValidator} from "./registration/equal-validator.directive";
 import { AskingComponent } from './asking/asking.component';
 import {AskingService} from "./asking/asking.service";
+import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
+import {UserProfileService} from "./user-profile/user-profile.service";
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent, canActivate: [LoginRedirectService]},
+  {path: 'login/forgotPassword', component: ForgotPassComponent},
   {path: 'register', component: RegistrationComponent, canActivate: [LoginRedirectService]},
   {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'dashboard/asking', component: AskingComponent},
   {path: 'dashboard/question/:id', component: QuestionsComponent, data: {currentQuestion: 'question'}},
+  {path: 'profile', component: UserProfileComponent},
   {path: '**', component: HomeComponent}
 ];
 
@@ -52,7 +57,9 @@ const appRoutes: Routes =[
     StatusComponent,
     GreetingComponent,
     EqualValidator,
-    AskingComponent
+    AskingComponent,
+    UserProfileComponent,
+    ForgotPassComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +76,7 @@ const appRoutes: Routes =[
     LoginRedirectService,
     QuestionsService,
     AskingService,
+    UserProfileService
   ],
   bootstrap: [AppComponent]
 })

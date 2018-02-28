@@ -9,14 +9,14 @@
       <td class="votes" style="text-align: center; padding-right: 15px; width: 60px;">
         <div style="min-width: 46px; text-align: center">
           <input (click)="upVoteQuestionClick();" type="image" src="../../assets/upvote.png" style="width: 50px; height: 50px"/>
-          <span>{{currentQuestion.votes.totalVotes-currentQuestion.votes.downVotes}}</span>
+          <span>{{currentQuestion?.votes.totalVotes-currentQuestion?.votes.downVotes}}</span>
           <input (click)="downVoteQuestionClick();" type="image" src="../../assets/downvote.png" style="width: 50px; height: 50px"/>
         </div>
       </td>
       <td class="posts" style="width: 100%;">
-        <h6 class="border-bottom border-gray pb-2 mb-0">{{currentQuestion.questionTitle}}</h6>
-        <p class="border-bottom border-gray py-2 mb-0">{{currentQuestion.message}}</p>
-        <small class="py-2 mb-0">Submitted on: {{currentQuestion.postedDate}} by {{currentQuestion.author}}</small>
+        <h6 class="border-bottom border-gray pb-2 mb-0">{{currentQuestion?.questionTitle}}</h6>
+        <p class="border-bottom border-gray py-2 mb-0">{{currentQuestion?.message}}</p>
+        <small class="py-2 mb-0">Submitted on: {{currentQuestion?.postedDate}} by {{currentQuestion?.author}}</small>
       </td>
       <tr>
       <tbody>
@@ -24,8 +24,8 @@
   </div>
 
   <div class="card my-3 p-3">
-    <h6>Answers ({{currentQuestion.answerModel.length}})</h6>
-    <div class="card my-3 p-3" *ngFor="let answer of currentQuestion.answerModel">
+    <h6>Answers ({{currentQuestion?.answerModel.length}})</h6>
+    <div class="card my-3 p-3" *ngFor="let answer of currentQuestion?.answerModel">
       <table style="border-collapse:collapse">
         <tbody>
         <tr>

@@ -38,7 +38,7 @@ const appRoutes: Routes =[
   {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'dashboard/asking', component: AskingComponent},
-  {path: 'dashboard/question/:id', component: QuestionsComponent, data: {currentQuestion: 'question'}},
+  {path: 'dashboard/question/:id', component: QuestionsComponent},
   {path: 'profile', component: UserProfileComponent},
   {path: '**', component: HomeComponent}
 ];

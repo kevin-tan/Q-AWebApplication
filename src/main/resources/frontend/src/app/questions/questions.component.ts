@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Question} from "./question";
 import {QuestionsService} from "./questions.service";
 import {Answer} from "./answer";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-questions',
@@ -13,12 +13,12 @@ export class QuestionsComponent implements OnInit {
 
   displayAnswerBox:boolean = (sessionStorage.getItem('status') == 'true');
   currentQuestion: Question;
-  userID;
 
-  constructor(private questionsService: QuestionsService, private router: Router) { }
+  constructor(private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.questionsService.currentQuestion.subscribe(currentQuestion => this.currentQuestion = currentQuestion)
+    let id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.questionsService.getQuestionWithID(id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
   }
 
   addAnswer(message: string): void{
@@ -38,26 +38,26 @@ export class QuestionsComponent implements OnInit {
   }
 
   upVoteQuestionClick(){
-    this.userID = sessionStorage.getItem('id');
-    this.questionsService.upVotingQuestion(this.currentQuestion, this.userID)
+    let userID = sessionStorage.getItem('id');
+    this.questionsService.upVotingQuestion(this.currentQuestion, userID)
       .subscribe(value => this.currentQuestion.votes = value.votes);
   }
 
   downVoteQuestionClick(){
-    this.userID = sessionStorage.getItem('id');
-    this.questionsService.downVotingQuestion(this.currentQuestion, this.userID)
+    let userID = sessionStorage.getItem('id');
+    this.questionsService.downVotingQuestion(this.currentQuestion, userID)
       .subscribe(value => this.currentQuestion.votes = value.votes);
   }
 
   upVoteAnswerClick(answer: Answer){
-    this.userID = sessionStorage.getItem('id');
-    this.questionsService.upVotingAnswer(answer, this.currentQuestion.id, this.userID)
+    let userID = sessionStorage.getItem('id');
+    this.questionsService.upVotingAnswer(answer, this.currentQuestion.id, userID)
       .subscribe(value => answer.votes = value.votes);
   }
 
   downVoteAnswerClick(answer: Answer){
-    this.userID = sessionStorage.getItem('id');
-    this.questionsService.downVotingAnswer(answer, this.currentQuestion.id, this.userID)
+    let userID = sessionStorage.getItem('id');
+    this.questionsService.downVotingAnswer(answer, this.currentQuestion.id, userID)
       .subscribe(value => answer.votes = value.votes);
   }
 

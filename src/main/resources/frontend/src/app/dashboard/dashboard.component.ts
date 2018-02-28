@@ -19,7 +19,6 @@ export class DashboardComponent implements OnInit {
 
   OnSelectQuestion(question){
     this.router.navigate(['/dashboard/question', question.id]);
-    this.questionsService.setCurrentQuestion(question);
   }
 
   OnSelectAsking(){

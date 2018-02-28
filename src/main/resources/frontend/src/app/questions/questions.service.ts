@@ -2,40 +2,30 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Question} from "./question";
 import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Answer} from "./answer";
 
 @Injectable()
 export class QuestionsService {
 
-    getQuestionURL = 'http://localhost:8080/questions';
-    getSearchURL;
-    getTagSearchURL;
-    getUpvoteQuestionURL;
-    getDownvoteQuestionURL;
-    getUpvoteAnswerURL;
-    getDownvoteAnswerURL;
-    postAnswerURL: string = null;
-
-
-    //addQuestionURL = 'http://localhost:8080/user/1/questions';
-
-    private sourceQuestion = new BehaviorSubject<Question>(null);
-    currentQuestion = this.sourceQuestion.asObservable();
+    getQuestionURL: string;
+    getSearchURL: string;
+    getTagSearchURL: string;
+    getUpvoteQuestionURL: string;
+    getDownvoteQuestionURL: string;
+    getUpvoteAnswerURL: string;
+    getDownvoteAnswerURL: string;
+    postAnswerURL: string;
 
     constructor(private http: HttpClient) {}
 
     getQuestions(): Observable<Question[]> {
+        this.getQuestionURL = 'http://localhost:8080/questions';
         return this.http.get<Question[]>(this.getQuestionURL);
     }
 
     getQuestionsWithURL(URL): Observable<Question[]> {
       return this.http.get<Question[]>(URL);
   }
-
-    setCurrentQuestion(question: Question){
-      this.sourceQuestion.next(question);
-    }
 
     addAnswerToQuestion(answer: Answer, questionID: Number): Observable<Answer>{
       this.postAnswerURL = 'http://localhost:8080/user/' + sessionStorage.getItem('id') + '/questions/' + questionID + '/replies';
@@ -76,6 +66,7 @@ export class QuestionsService {
       return this.http.get<Answer[]>(URL);
     }
     getQuestionWithID(id): Observable<Question>{
-      return this.http.get<Question>(this.getQuestionURL+'/'+id);
+      this.getQuestionURL = 'http://localhost:8080/questions/' + id;
+      return this.http.get<Question>(this.getQuestionURL);
     }
 }

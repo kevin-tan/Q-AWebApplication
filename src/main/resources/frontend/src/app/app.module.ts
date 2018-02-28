@@ -22,16 +22,21 @@ import {LoginRedirectService} from "./login/login-redirect.service";
 import {GreetingComponent} from './greeting/greeting.component';
 import {QuestionsService} from "./questions/questions.service";
 import {HttpModule} from "@angular/http";
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { EqualValidator} from "./registration/equal-validator.directive";
+import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
+import {UserProfileService} from "./user-profile/user-profile.service";
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent, canActivate: [LoginRedirectService]},
+  {path: 'login/forgotPassword', component: ForgotPassComponent},
   {path: 'register', component: RegistrationComponent, canActivate: [LoginRedirectService]},
   {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'dashboard/question/:id', component: QuestionsComponent, data: {currentQuestion: 'question'}},
+  {path: 'profile', component: UserProfileComponent},
   {path: '**', component: HomeComponent}
 ];
 
@@ -48,7 +53,9 @@ const appRoutes: Routes =[
     DashboardComponent,
     StatusComponent,
     GreetingComponent,
-    EqualValidator
+    UserProfileComponent,
+    EqualValidator,
+    ForgotPassComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +71,7 @@ const appRoutes: Routes =[
     VerifyAuthenticationService,
     LoginRedirectService,
     QuestionsService,
+    UserProfileService
   ],
   bootstrap: [AppComponent]
 })

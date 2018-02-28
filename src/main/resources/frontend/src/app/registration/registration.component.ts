@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
       password: '',
       confirmPassword: '',
       email: ''
-    }
+    };
   }
 
   onRegister(user: UserModel, isValid: boolean): void{

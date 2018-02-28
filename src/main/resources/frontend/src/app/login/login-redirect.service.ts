@@ -8,7 +8,7 @@ export class LoginRedirectService implements CanActivate{
   constructor(private auth: AuthService, private router: Router) { }
   canActivate(): boolean{
     if(sessionStorage.getItem('status') == 'true'){
-      this.router.navigateByUrl('/welcome');
+      this.router.navigateByUrl('/dashboard');
       return false;
     }else{
       return true;

@@ -1,0 +1,31 @@
+<div id="wrapper">
+
+  <div id="logo">
+    <a routerLink="">
+      <img src="../assets/login-logo.png" width="400px" alt="Houston Answers"></a>
+  </div>
+
+  <form #forgotForm="ngForm" (ngSubmit)="submitEmail()" novalidate>
+      <div class="form-element">
+      <label>Enter email address</label>
+      <input type="text" name="email" placeholder="Email" required #email="ngModel" [(ngModel)]="user.username" >
+    </div>
+
+    <div class="form-element">
+      <label>What is your car color</label>
+      <input type="text" class="forgot-question-input">
+    </div>
+    <div class="form-element">
+      <label>New Password</label>
+      <input type="text" class="forgot-question-input">
+    </div>
+    <div class="form-element">
+      <label>Confirm Password</label>
+      <input type="text" class="forgot-question-input">
+    </div>
+
+    <div class="form-element">
+      <button type="submit" class="submitButton" id="first">Submit</button>
+    </div>
+  </form>
+</div>

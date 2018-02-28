@@ -1,0 +1,66 @@
+<app-header></app-header>
+
+<div *ngIf="user" id="wrapper" >
+  <div id="info-container">
+    <div id="user-avatar">{{user.firstName.charAt(0).toUpperCase()}}{{user.lastName.charAt(0).toUpperCase()}}</div>
+    <div class="info-group" id="first">
+      <p class="user-info-label">Username:</p>
+      <p class="user-info-data">{{user.username}}</p>
+    </div>
+    <div class="info-group">
+      <p class="user-info-label">First Name: </p>
+      <p class="user-info-data">{{user.firstName}}</p>
+    </div>
+    <div class="info-group">
+      <p class="user-info-label">Last Name: </p>
+      <p class="user-info-data">{{user.lastName}}</p>
+    </div>
+    <div class="info-group">
+      <p class="user-info-label">Date Joined: </p>
+      <p class="user-info-data">{{user.dateJoined}}</p>
+    </div>
+    <div class="info-group" id="last">
+      <p class="user-info-label">Reputation points: </p>
+      <p class="user-info-data">{{user.reputation}}</p>
+    </div>
+  </div>
+
+  <div id="name-container">
+    <p>{{user.username}}</p>
+  </div>
+
+  <div class="question-container" id="question-header">
+    <h1 class="title-header">Questions</h1>
+    <hr class="title-line">
+  </div>
+
+  <div class="question-container">
+
+      <div *ngFor="let question of questions" class="card">
+        <a routerLink="" (click)="OnSelectQuestion(question)">{{question.questionTitle}}</a>
+        <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
+        <small>Submitted: {{question.postedDate}}</small>
+        <p class="" id="" style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
+      </div>
+
+  </div>
+
+  <div class="reply-container" id="reply-header">
+    <h1 class="title-header">Replies</h1>
+    <hr class="title-line">
+  </div>
+
+  <div class="reply-container">
+
+    <div *ngFor="let answer of answers" class="card">
+      <a routerLink="" (click)="OnSelectReply(answer)">{{answer.questionModelTitle}}</a>
+      <span class="badge badge-default badge-pill">{{answer.votes.upVotes - answer.votes.downVotes}}</span>
+      <small>Submitted: {{answer.postedDate}}</small>
+      <p class="" id="" style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{answer.message}}</p>
+    </div>
+
+  </div>
+
+</div>
+
+<app-footer></app-footer>

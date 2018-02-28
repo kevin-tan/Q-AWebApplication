@@ -1,0 +1,101 @@
+#wrapper{
+  margin: 10% auto;
+  margin-top: 5%;
+  background: rgba(15,34,41,0.8);
+  padding: 35px;
+  max-width: 1242px;
+  overflow: auto;
+  margin-bottom: 500px;
+}
+
+#info-container{
+  width: 325px;
+  max-height: 600px;
+  background: rgba(183,214,226,1);
+  float: left;
+  overflow:auto;
+}
+#name-container{
+  font-size: 40px;
+  color: white;
+  margin-left: 47px;
+  margin-bottom: 40px;
+  float: left;
+}
+
+#question-header{
+  height: 100px;
+}
+.question-container{
+  background: rgba(27,109,133,.75);
+  height: 400px;
+  width: 800px;
+  float: right;
+  overflow: auto;
+}
+#reply-header{
+  height: 100px;
+  margin-top: 30px;
+}
+.reply-container{
+  background: rgba(27,109,133,.75);
+  height: 400px;
+  width: 800px;
+  float: right;
+  overflow: auto;
+}
+#user-avatar{
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 100px;
+  background-color: #7df9ff;
+}
+#first{
+  margin-top: 20px;
+}
+#last{
+  margin-bottom: 30px;
+}
+.info-group{
+  margin-left:25%;
+  margin-bottom: 20px;
+  width: 200px;
+}
+.user-info-label{
+  display: inline;
+  margin-right: 5px;
+  font-weight: bold;
+}
+.user-info-data{
+  display: inline;
+}
+.title-header{
+  font-size: 30px;
+  text-align: center;
+  color: white;
+  margin-top: 10px;
+}
+.title-line{
+  border-width: 2px;
+  border-color: white;
+}
+.card{
+  width: 730px;
+  min-height: 40px;
+  border-radius: 5px;
+  background-color: white;
+  margin:auto;
+  margin-bottom: 15px;
+  padding-left: 20px;
+  overflow: auto;
+}
+
+
+
+
+

@@ -1,7 +1,7 @@
 <div id="wrapper">
 
   <div id="logo">
-    <a href="">
+    <a routerLink="/dashboard">
       <img src="../assets/login-logo.png" width="400px" alt="Houston Answers"></a>
   </div>
 
@@ -16,11 +16,13 @@
       <label>Password</label>
       <input type="password" name="password" placeholder="Password" required #password="ngModel" [(ngModel)]="user.password">
       <small class="errorMessage error" [hidden]="password.valid || (password.pristine && !lForm.submitted)">*Password is required</small>
+      <a routerLink="forgotPassword"><small id="forgot-pass">Forgot Password</small></a>
+
     </div>
 
     <div class="form-element">
       <button type="submit" class="submitButton" id="first">Login</button>
-      <button type="button" onclick="location.href='/register'" class="submitButton">Sign Up</button>
+      <a routerLink="/register"><button type="button" class="submitButton">Sign Up</button></a>
     </div>
     <div [hidden]="!errorAlert"  class="alert alert-danger errorMessage">{{errorMsg}}</div>
   </form>

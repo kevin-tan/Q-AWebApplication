@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
       else {
         sessionStorage.setItem('status', 'true');
         sessionStorage.setItem('id', user.json().id);
+        sessionStorage.setItem('user', user.json().username);
         sessionStorage.setItem('firstname', user.json().firstName);
         sessionStorage.setItem('lastname', user.json().lastName);
         sessionStorage.setItem('dateJoined', user.json().dateJoined);

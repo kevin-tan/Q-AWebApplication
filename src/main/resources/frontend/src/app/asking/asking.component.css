@@ -1,0 +1,30 @@
+.btn-dark{
+  height: 50px;
+  width: 120px;
+  background-color: #0f0f0f;
+  color: #377f9b;
+}
+
+select{
+  background-color: #0f0f0f;
+  color: #377f9b;
+  width: 100px;
+  height: 30px;
+}
+
+textarea{
+  background-color: #0f0f0f;
+  color: #377f9b;
+}
+
+.texttitle{
+  color: white;
+}
+
+.textquestion{
+  color: white;
+}
+
+.texttags{
+  color: white;
+}

@@ -9,8 +9,8 @@
             <button (click)="OnSearch(dashSearch)">Search</button>
         </div>
         <div class="col-md-1">
-            <div class="card" id="askButton">
-                <a href="" class="btn btn-primary btn-large">
+            <div class="card">
+                <a (click)="OnSelectAsking();" id="askButton" class="btn btn-primary btn-large">
                     Ask your question
                 </a>
             </div>
@@ -21,7 +21,7 @@
         <div class="panel col-md-8">
             <ul *ngFor="let question of questions" class="list-group">
                 <li class="list-group-item justify-content-between">
-                    <a routerLink="" (click)="OnSelect(question)">{{question.questionTitle}}</a>
+                    <a routerLink="" (click)="OnSelectQuestion(question)">{{question.questionTitle}}</a>
                     <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
                     <small>Submitted on: {{question.postedDate}} </small>
                     <small style="float:right;">Author:
@@ -49,7 +49,6 @@
                 </ul>
             </div>
         </div>
-        
     </div>
 </div>
 <app-footer></app-footer>

@@ -2,32 +2,26 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Question} from "./question";
 import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Answer} from "./answer";
-
-  import {userReputation} from "./userReputation";
-import {ObjectUnsubscribedError} from "rxjs/Rx";
-
+import {userReputation} from "./userReputation";
 
 @Injectable()
 export class QuestionsService {
 
-    getQuestionURL = 'http://localhost:8080/questions';
-    getLeaderboard = 'http://localhost:8080/leaderboard';
-
-    getSearchURL;
-    getTagSearchURL;
-    postAnswerURL: string = null;
-
-
-    //addQuestionURL = 'http://localhost:8080/user/1/questions';
-
-    private sourceQuestion = new BehaviorSubject<Question>(null);
-    currentQuestion = this.sourceQuestion.asObservable();
+    getQuestionURL: string;
+    getSearchURL: string;
+    getTagSearchURL: string;
+    getUpvoteQuestionURL: string;
+    getDownvoteQuestionURL: string;
+    getUpvoteAnswerURL: string;
+    getDownvoteAnswerURL: string;
+    postAnswerURL: string;
+    getLeaderboardURL: string;
 
     constructor(private http: HttpClient) {}
 
     getQuestions(): Observable<Question[]> {
+        this.getQuestionURL = 'http://localhost:8080/questions';
         return this.http.get<Question[]>(this.getQuestionURL);
     }
 
@@ -35,17 +29,12 @@ export class QuestionsService {
       return this.http.get<Question[]>(URL);
   }
 
-    setCurrentQuestion(question: Question){
-      this.sourceQuestion.next(question);
-    }
-
     addAnswerToQuestion(answer: Answer, questionID: Number): Observable<Answer>{
       this.postAnswerURL = 'http://localhost:8080/user/' + sessionStorage.getItem('id') + '/questions/' + questionID + '/replies';
       return this.http.post<Answer>(this.postAnswerURL, answer);
     }
 
     searchDashboard(searchTerm) {
-
       if (searchTerm == "") {
         this.getSearchURL = 'http://localhost:8080/questions';
         return this.getQuestionsWithURL(this.getSearchURL);
@@ -60,14 +49,45 @@ export class QuestionsService {
       return this.getQuestionsWithURL(this.getTagSearchURL);
     }
 
-    getLeaderBoard(): Observable<userReputation[]>  {
-      return this.http.get<userReputation[]>(this.getLeaderboard);
-      
+    upVotingQuestion(question: Question, userID): Observable<Question>{
+      this.getUpvoteQuestionURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id + '/upVote';
+      return this.http.put<Question>(this.getUpvoteQuestionURL, question);
+    }
+
+    downVotingQuestion(question: Question, userID): Observable<Question>{
+      this.getDownvoteQuestionURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id+ '/downVote';
+      return this.http.put<Question>(this.getDownvoteQuestionURL, question);
+    }
+
+    upVotingAnswer(answer: Answer, questionID, userID): Observable<Answer>{
+      this.getUpvoteAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/replies/' + answer.id + '/upVote';
+      return this.http.put<Answer>(this.getUpvoteAnswerURL, answer);
+    }
+
+    downVotingAnswer(answer: Answer, questionID, userID): Observable<Answer>{
+      this.getDownvoteAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/replies/' + answer.id + '/downVote';
+      return this.http.put<Answer>(this.getDownvoteAnswerURL, answer);
+    }
+
+  unVotingQuestion(question: Question, userID): Observable<Question>{
+    this.getDownvoteQuestionURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id+ '/unVote';
+    return this.http.put<Question>(this.getDownvoteQuestionURL, question);
+  }
+
+  unVotingAnswer(answer: Answer, questionID, userID): Observable<Answer>{
+    this.getUpvoteAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/replies/' + answer.id + '/unVote';
+    return this.http.put<Answer>(this.getUpvoteAnswerURL, answer);
+  }
+
+    getLeaderBoard(): Observable<userReputation[]> {
+      this.getLeaderboardURL = 'http://localhost:8080/leaderboard';
+      return this.http.get<userReputation[]>(this.getLeaderboardURL);
+    }
     getAnswerWithURL(URL): Observable<Answer[]>{
       return this.http.get<Answer[]>(URL);
     }
     getQuestionWithID(id): Observable<Question>{
-      return this.http.get<Question>(this.getQuestionURL+'/'+id);
-
+      this.getQuestionURL = 'http://localhost:8080/questions/' + id;
+      return this.http.get<Question>(this.getQuestionURL);
     }
 }

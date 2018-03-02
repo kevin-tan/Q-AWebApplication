@@ -26,13 +26,8 @@ export class UserProfileComponent implements OnInit {
   }
   OnSelectQuestion(question){
     this.router.navigate(['/dashboard/question', question.id]);
-    this.questionsService.setCurrentQuestion(question);
   }
-  OnSelectReply(answer){
+  OnSelectReply(answer) {
     this.router.navigate(['/dashboard/question', answer.questionModelId]);
-    this.questionsService.getQuestionWithID(answer.questionModelId).subscribe(data=>{
-      this.question = data;
-      this.questionsService.setCurrentQuestion(this.question)});
-  };
-
+  }
 }

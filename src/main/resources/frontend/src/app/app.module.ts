@@ -14,6 +14,8 @@ import {RegistrationComponent} from './registration/registration.component';
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {StatusComponent} from './component/status/status.component';
 import {QuestionsComponent} from './questions/questions.component';
+import { AskingComponent } from './asking/asking.component';
+
 
 
 import {AuthService} from "./login/auth.service";
@@ -21,10 +23,9 @@ import {VerifyAuthenticationService} from "./login/verify-authentication.service
 import {LoginRedirectService} from "./login/login-redirect.service";
 import {GreetingComponent} from './greeting/greeting.component';
 import {QuestionsService} from "./questions/questions.service";
+import {AskingService} from "./asking/asking.service";
 import {HttpModule} from "@angular/http";
 import { UserProfileComponent } from './user-profile/user-profile.component';
-
-
 
 import { EqualValidator} from "./registration/equal-validator.directive";
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
@@ -38,12 +39,10 @@ const appRoutes: Routes =[
   {path: 'register', component: RegistrationComponent, canActivate: [LoginRedirectService]},
   {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'dashboard/question/:id', component: QuestionsComponent, data: {currentQuestion: 'question'}},
-
-  
-  {path: 'leaderboard', component: LeaderboardComponent},
   {path: 'profile', component: UserProfileComponent},
-
+  {path: 'leaderboard', component: LeaderboardComponent},
+  {path: 'dashboard/asking', component: AskingComponent},
+  {path: 'dashboard/question/:id', component: QuestionsComponent},
   {path: '**', component: HomeComponent}
 ];
 
@@ -60,12 +59,11 @@ const appRoutes: Routes =[
     DashboardComponent,
     StatusComponent,
     GreetingComponent,
-
     UserProfileComponent,
     EqualValidator,
-    ForgotPassComponent
+    AskingComponent,
+    ForgotPassComponent,
     LeaderboardComponent
-
   ],
   imports: [
     BrowserModule,
@@ -81,6 +79,7 @@ const appRoutes: Routes =[
     VerifyAuthenticationService,
     LoginRedirectService,
     QuestionsService,
+    AskingService,
     UserProfileService
   ],
   bootstrap: [AppComponent]

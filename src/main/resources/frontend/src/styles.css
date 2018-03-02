@@ -125,3 +125,7 @@ li {
   opacity: 1;
   right: 0;
 }
+body {
+  min-height: 90vh;
+  position: relative;
+}

@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
-import static backend.controller.constants.ForumPostConstants.JSON;
 import static backend.controller.constants.RoleConstants.USER;
 
 @RestController
@@ -30,7 +29,7 @@ public class RegisterController {
     }
 
     //Communicating to front end by returning empty Strings in the JSON (as well as ID 0)
-    @PostMapping(path = "", produces = JSON, consumes = JSON)
+    @PostMapping(path = "")
     public UserModel registerUser(@RequestBody UserModel userModel) {
         boolean userExists = userRepository.existsByUsername(userModel.getUsername());
         boolean emailExists = userRepository.existsByEmail(userModel.getEmail());

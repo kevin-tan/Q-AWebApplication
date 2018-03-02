@@ -1,21 +1,10 @@
 package backend.controller;
 
-import backend.model.qa.QuestionModel;
 import backend.model.user.UserModel;
 import backend.repository.user.UserRepository;
-
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import static backend.controller.constants.ForumPostConstants.FORMAT;
-import static backend.controller.constants.ForumPostConstants.JSON;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -33,7 +22,7 @@ public class LoginController {
     }
 
     //ID will be 0 if the login fails
-    @RequestMapping(path = "", produces = JSON, consumes = JSON)
+    @PostMapping(path = "")
     public UserModel loginUser(@RequestBody UserModel userModel) {
         UserModel authenticate = userRepository.findByUsername(userModel.getUsername());
 
@@ -46,10 +35,10 @@ public class LoginController {
         userModel.setPassword("");
         return userModel;
     }
-    
+
     //Validates Security Answer and Updates User Password
     //TODO: Handshake with FrontEnd on what parameters will be passed(username, email or ID)
-    @PutMapping(value = "/{userId}/resetPassword", produces = JSON, consumes = JSON)
+    @PutMapping(value = "/{userId}/resetPassword")
     public UserModel forgotPassword(@PathVariable long userId, @RequestBody UserModel userModel) {
         UserModel user = userRepository.findOne(userId);
         if (bCryptPasswordEncoder.matches(userModel.getSecurityAnswer(), user.getSecurityAnswer())){

@@ -4,10 +4,7 @@ import backend.model.qa.QuestionModel;
 import backend.repository.qa.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,13 +21,13 @@ public class QuestionController {
     }
 
     //Get all questions posted
-    @RequestMapping(value = "")
+    @GetMapping(value = "")
     public List<QuestionModel> getAllQuestions() {
         return questionRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
     }
 
     //Get question posted
-    @RequestMapping(value = "/{questionId}")
+    @GetMapping(value = "/{questionId}")
     public QuestionModel getByPostId(@PathVariable long questionId) {
         return questionRepository.findOne(questionId);
     }

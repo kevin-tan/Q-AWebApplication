@@ -36,8 +36,11 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('id', user.json().id);
         sessionStorage.setItem('firstname', user.json().firstName);
         sessionStorage.setItem('lastname', user.json().lastName);
+        sessionStorage.setItem('dateJoined', user.json().dateJoined);
+        sessionStorage.setItem('reputation',user.json().reputation);
+        sessionStorage.setItem('username',user.json().username);
         //sessionStorage.setItem('user', JSON.stringify(user));
-        this.router.navigateByUrl('/welcome');
+        this.router.navigateByUrl('/dashboard');
       }
       console.log(user.json());
     })

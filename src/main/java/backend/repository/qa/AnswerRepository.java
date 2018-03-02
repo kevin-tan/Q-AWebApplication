@@ -6,10 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by Kevin Tan 2018-01-30
- */
-
 @Transactional
 public interface AnswerRepository extends ForumPostRepository<AnswerModel> {
     List<AnswerModel> findByQuestionId(long questionId);

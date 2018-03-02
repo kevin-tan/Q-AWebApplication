@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Answer} from "../questions/answer";
 import {AskingService} from "./asking.service";
 import {Router} from "@angular/router";
 import {Question} from "../questions/question";
@@ -16,10 +15,21 @@ export class AskingComponent implements OnInit {
   ngOnInit() {
   }
 
+  questionTitle: string;
+  message: string;
+  questionCategories: Array<string>;
+  acceptance: boolean;
+
+  categories = ['Java', 'C++',
+    'C#', 'Python', 'C'];
+
   //message, author, questionCate, QuestionTitle
-  addQuestion(message: string, questionCategory: string, questionTitle: string): void{
+  addQuestion(): void{
     let author: string = sessionStorage.getItem('username');
-    const newQuestion: Question = { message, author, questionTitle} as Question;
+    let questionTitle = this.questionTitle;
+    let message = this.message;
+    let questionCategories = this.questionCategories;
+    const newQuestion: Question = { message, author, questionCategories, questionTitle} as Question;
 
     this.askingService.addQuestion(newQuestion)
       .subscribe(

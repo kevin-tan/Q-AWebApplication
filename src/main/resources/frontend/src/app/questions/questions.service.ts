@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Question} from "./question";
 import {Observable} from 'rxjs/Observable';
 import {Answer} from "./answer";
+import {userReputation} from "./userReputation";
 
 @Injectable()
 export class QuestionsService {
@@ -15,6 +16,7 @@ export class QuestionsService {
     getUpvoteAnswerURL: string;
     getDownvoteAnswerURL: string;
     postAnswerURL: string;
+    getLeaderboardURL: string;
 
     constructor(private http: HttpClient) {}
 
@@ -33,12 +35,17 @@ export class QuestionsService {
     }
 
     searchDashboard(searchTerm) {
-      this.getSearchURL = 'http://localhost:8080/questions/search/' + searchTerm;
+      if (searchTerm == "") {
+        this.getSearchURL = 'http://localhost:8080/questions';
+        return this.getQuestionsWithURL(this.getSearchURL);
+      }
+
+      this.getSearchURL = 'http://localhost:8080/questions/searchByTitle/' + searchTerm;
       return this.getQuestionsWithURL(this.getSearchURL);
     }
 
     searchTag(tag) {
-      this.getTagSearchURL = 'http://localhost:8080/questions/search/' + tag;
+      this.getTagSearchURL = 'http://localhost:8080/questions//searchByCategory/' + tag;
       return this.getQuestionsWithURL(this.getTagSearchURL);
     }
 
@@ -72,6 +79,10 @@ export class QuestionsService {
     return this.http.put<Answer>(this.getUpvoteAnswerURL, answer);
   }
 
+    getLeaderBoard(): Observable<userReputation[]> {
+      this.getLeaderboardURL = 'http://localhost:8080/leaderboard';
+      return this.http.get<userReputation[]>(this.getLeaderboardURL);
+    }
     getAnswerWithURL(URL): Observable<Answer[]>{
       return this.http.get<Answer[]>(URL);
     }

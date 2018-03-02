@@ -4,12 +4,17 @@ import {Question} from "./question";
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Answer} from "./answer";
+
+  import {userReputation} from "./userReputation";
 import {ObjectUnsubscribedError} from "rxjs/Rx";
+
 
 @Injectable()
 export class QuestionsService {
 
     getQuestionURL = 'http://localhost:8080/questions';
+    getLeaderboard = 'http://localhost:8080/leaderboard';
+
     getSearchURL;
     getTagSearchURL;
     postAnswerURL: string = null;
@@ -40,19 +45,29 @@ export class QuestionsService {
     }
 
     searchDashboard(searchTerm) {
-      this.getSearchURL = 'http://localhost:8080/questions/search/' + searchTerm;
+
+      if (searchTerm == "") {
+        this.getSearchURL = 'http://localhost:8080/questions';
+        return this.getQuestionsWithURL(this.getSearchURL);
+      }
+
+      this.getSearchURL = 'http://localhost:8080/questions/searchByTitle/' + searchTerm;
       return this.getQuestionsWithURL(this.getSearchURL);
     }
 
     searchTag(tag) {
-      this.getTagSearchURL = 'http://localhost:8080/questions/search/' + tag;
+      this.getTagSearchURL = 'http://localhost:8080/questions//searchByCategory/' + tag;
       return this.getQuestionsWithURL(this.getTagSearchURL);
     }
 
+    getLeaderBoard(): Observable<userReputation[]>  {
+      return this.http.get<userReputation[]>(this.getLeaderboard);
+      
     getAnswerWithURL(URL): Observable<Answer[]>{
       return this.http.get<Answer[]>(URL);
     }
     getQuestionWithID(id): Observable<Question>{
       return this.http.get<Question>(this.getQuestionURL+'/'+id);
+
     }
 }

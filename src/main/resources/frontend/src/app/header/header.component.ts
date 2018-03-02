@@ -13,10 +13,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     const status = sessionStorage.getItem('status');
     this.isLogged = new Boolean(status).valueOf();
-    console.log(this.isLogged);
   }
   onLogout(): void{
     sessionStorage.clear();
+    this.isLogged = false;
     this.router.navigateByUrl('/dashboard');
   }
 }

@@ -39,7 +39,7 @@ const appRoutes: Routes =[
   {path: 'register', component: RegistrationComponent, canActivate: [LoginRedirectService]},
   {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'profile', component: UserProfileComponent},
+  {path: 'profile/:id', component: UserProfileComponent},
   {path: 'leaderboard', component: LeaderboardComponent},
   {path: 'dashboard/asking', component: AskingComponent},
   {path: 'dashboard/question/:id', component: QuestionsComponent},

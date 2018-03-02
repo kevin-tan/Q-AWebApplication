@@ -43,6 +43,18 @@
         </div>
 
         <div class="form-element">
+          <label>Security Question</label>
+          <input type="text" name="securityQuestion" placeholder="Security Question" [ngModel]="user.securityQuestion" required #securityQuestion="ngModel" >
+          <small class="errorMessage error" [hidden]="securityQuestion.valid || (securityQuestion.pristine && !rForm.submitted)">*Security question required</small>
+        </div>
+
+        <div class="form-element">
+          <label>Security Answer</label>
+          <input type="text" placeholder="Security Answer" name="securityAnswer" [ngModel]="user.securityAnswer" required #securityAnswer="ngModel" >
+          <small class="errorMessage error" [hidden]="securityAnswer.valid || (securityAnswer.pristine && !rForm.submitted)">*Security answer required</small>
+        </div>
+
+        <div class="form-element">
           <button type="submit" class="submitButton" id="first">Sign Up</button>
           <a routerLink="/login"> <button type="button" class="submitButton">Login</button></a>
         </div>

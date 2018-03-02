@@ -5,28 +5,30 @@
       <img src="../assets/login-logo.png" width="300px" alt="Houston Answers"></a>
   </div>
 
-  <form #forgotForm="ngForm" (ngSubmit)="submitEmail()" novalidate>
-      <div class="form-element">
+  <form #forgotForm="ngForm" (ngSubmit)="submitValues()" novalidate>
+
+    <div *ngIf="!emailValid" class="form-element">
       <label>Enter Email</label>
-      <input placeholder="example@email.com" type="email" name="email" [(ngModel)]="user.email" required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
-        <small class="errorMessage error" [hidden]="email.valid || (email.pristine && !forgotForm.submitted)">*A valid email address is required</small>
+      <input placeholder="example@email.com" type="email" name="email" [(ngModel)]="user.email" required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"><small class="errorMessage error" [hidden]="email.valid || (email.pristine && !forgotForm.submitted)">*A valid email address is required</small>
     </div>
 
-    <!--<div class="form-element">-->
-      <!--<label>What is your car color</label>-->
-      <!--<input type="text" class="forgot-question-input">-->
-    <!--</div>-->
-    <!--<div class="form-element">-->
-      <!--<label>New Password</label>-->
-      <!--<input type="text" class="forgot-question-input">-->
-    <!--</div>-->
-    <!--<div class="form-element">-->
-      <!--<label>Confirm Password</label>-->
-      <!--<input type="text" class="forgot-question-input">-->
-    <!--</div>-->
+    <div *ngIf="answerValid" class="form-element">
+      <label>What is your car color</label>
+      <input type="text" class="forgot-question-input">
+    </div>
+    <div *ngIf="reset" class="form-element">
+      <label>New Password</label>
+      <input type="text" class="forgot-question-input">
+    </div>
+    <div *ngIf="reset" class="form-element">
+      <label>Confirm Password</label>
+      <input type="text" class="forgot-question-input">
+    </div>
 
     <div class="form-element">
-      <button type="submit" class="submitButton" id="first">Submit</button>
+      <button *ngIf="!emailValid" type="submit" (click)="submitEmail()" class="submitButton" id="first">Submit</button>
+      <button *ngIf="!reset && emailValid" type="submit" (click)="submitAnswer()" class="submitButton" id="first" >Submit</button>
+      <button *ngIf="reset && !answerValid" type="submit" class="submitButton" id="first"  >Submit</button>
     </div>
   </form>
 </div>

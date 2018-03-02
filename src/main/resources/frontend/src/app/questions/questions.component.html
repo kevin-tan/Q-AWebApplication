@@ -3,26 +3,63 @@
 
 <div class="container">
   <div class="card my-3 p-3">
-    <h6 class="border-bottom border-gray pb-2 mb-0">{{currentQuestion.questionTitle}}</h6>
-    <p class="border-bottom border-gray py-2 mb-0">{{currentQuestion.message}}</p>
-    <small class="border-bottom border-gray py-2 mb-0">Submitted:<span>#</span> days ago</small>
+    <table style="border-collapse:collapse">
+      <tbody>
+      <tr>
+      <td class="votes" style="text-align: center; padding-right: 15px; width: 60px;">
+        <div style="min-width: 46px; text-align: center">
+          <input (click)="upVoteQuestionClick();" type="image" src="../../assets/upvote.png" style="width: 50px; height: 50px"/>
+          <span>{{currentQuestion?.votes.upVotes-currentQuestion?.votes.downVotes}}</span>
+          <input (click)="downVoteQuestionClick();" type="image" src="../../assets/downvote.png" style="width: 50px; height: 50px"/>
+        </div>
+      </td>
+      <td class="posts" style="width: 100%;">
+        <h6 class="border-bottom border-gray pb-2 mb-0">{{currentQuestion?.questionTitle}}</h6>
+        <p class="border-bottom border-gray py-2 mb-0">{{currentQuestion?.message}}</p>
+        <small class="py-2 mb-0">Submitted on: {{currentQuestion?.postedDate}} by {{currentQuestion?.author}}</small>
+      </td>
+      <tr>
+      <tbody>
+    </table>
   </div>
 
   <div class="card my-3 p-3">
-    <h6>Answers ({{currentQuestion.answerModel.length}})</h6>
-    <div class="card my-3 p-3" *ngFor="let answer of currentQuestion.answerModel">
-      <h6 class="border-bottom border-gray pb-2 mb-0">{{answer.author}}</h6>
-      <p class="border-bottom border-gray py-2 mb-0">{{answer.message}}</p>
-      <small class="py-2 mb-0">Submitted:<span>#</span> days ago</small>
+    <h6>Answers ({{currentQuestion?.answerModel.length}})</h6>
+    <div class="card my-3 p-3" *ngFor="let answer of currentQuestion?.answerModel">
+      <table style="border-collapse:collapse">
+        <tbody>
+        <tr>
+        <td class="votes" style="text-align: center; padding-right: 15px; width: 60px;">
+          <div style="min-width: 46px; text-align: center">
+            <input (click)="upVoteAnswerClick(answer);" type="image" src="../../assets/upvote.png" style="width: 50px; height: 50px"/>
+            <span>{{answer.votes.upVotes-answer.votes.downVotes}}</span>
+            <input (click)="downVoteAnswerClick(answer);" type="image" src="../../assets/downvote.png" style="width: 50px; height: 50px"/>
+          </div>
+        </td>
+        <td class="posts" style="width: 100%;">
+          <h6 class="border-bottom border-gray pb-2 mb-0">{{answer.author}}</h6>
+          <p class="border-bottom border-gray py-2 mb-0">{{answer.message}}</p>
+          <small class="py-2 mb-0">Submitted on: {{answer.postedDate}} by {{answer.author}}</small>
+        </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div>
-    <label>Message:
-      <input #message/>
+  <div *ngIf="displayAnswerBox; else displayLoginButton">
+    <label style="color: white">Reply:
+      <textarea #message required cols="155"></textarea>
     </label>
-    <button (click)="addAnswer(message.value); message.value=''">
-      add
+    <button (click)="addAnswer(message.value);" class="btn btn-default">
+      Reply
     </button>
   </div>
+  <ng-template #displayLoginButton>
+    <div>
+      <h2 style="color: white">Please sign in to post an answer</h2>
+      <button class="btn btn-info" (click)="registerButtonClick();">Register</button>
+      <button class="btn btn-info" (click)="loginButtonClick();">Login</button>
+    </div>
+  </ng-template>
 </div>
 <app-footer></app-footer>

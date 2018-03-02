@@ -1,0 +1,24 @@
+#leaderboard {
+    color: white;
+    background-color: black;
+    opacity: .80;
+    text-align: center;
+    border: 2px solid black;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+.list-group-item {
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+#rank {
+    float: left;
+    color: black;
+}
+
+#userinfo {
+    float:right;
+    color: black;
+}

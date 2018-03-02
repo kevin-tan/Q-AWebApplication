@@ -1,4 +1,5 @@
 import {Answer} from "./answer";
+import {votes} from "./votes";
 
 export interface Question {
   id: number;
@@ -6,13 +7,9 @@ export interface Question {
   postedDate: string;
   message: string;
   author: string;
-  votes: {
-    id: number;
-    upVotes: number;
-    downVotes: number;
-    totalVotes: number;
-  },
+  votes: votes;
   answerModel: Array<Answer>;
+  questionCategory: Array<string>;
   questionTitle: string,
   bestAnswer: number
 }

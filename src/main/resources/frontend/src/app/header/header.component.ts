@@ -11,12 +11,11 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    const status = sessionStorage.getItem('status');
-    this.isLogged = new Boolean(status).valueOf();
-    console.log(this.isLogged);
+    this.isLogged = new Boolean(sessionStorage.getItem('status')).valueOf();
   }
   onLogout(): void{
     sessionStorage.clear();
+    this.isLogged = false;
     this.router.navigateByUrl('/dashboard');
   }
 }

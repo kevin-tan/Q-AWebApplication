@@ -13,6 +13,6 @@ export class ForgotPassComponent implements OnInit {
   ngOnInit() {
   }
   submitEmail(){
-    this.router.navigateByUrl('/loginQuestion');
+    this.router.navigateByUrl('/login');
   }
 }

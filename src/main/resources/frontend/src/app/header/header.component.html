@@ -19,10 +19,15 @@
       </a>
     </button>
   </li>
-  <li *ngIf="isLogged" >
-    <a class="nav" routerLink="/profile">Profile</a>
 
+  <li *ngIf="isLogged" style="float:left">
+    <button class="button" type="button" style="vertical-align:middle;">
+      <a routerLink="/profile">
+        <span>Profile</span>
+      </a>
+    </button>
   </li>
+
   <li *ngIf="isLogged" style="float: right">
     <button onclick="location.href='#Achievment'" class="icon" style="background-image: url('assets/ach.png')"></button>
   </li>

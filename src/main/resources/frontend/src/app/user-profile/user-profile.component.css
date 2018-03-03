@@ -1,11 +1,10 @@
 #wrapper{
   margin: 10% auto;
-  margin-top: 5%;
+  margin-top: 20px;
   background: rgba(15,34,41,0.8);
   padding: 35px;
   max-width: 1242px;
   overflow: auto;
-  margin-bottom: 500px;
 }
 
 #info-container{
@@ -91,11 +90,7 @@
   background-color: white;
   margin:auto;
   margin-bottom: 15px;
-  padding-left: 20px;
+  padding: 15px;
   overflow: auto;
+  display: list-item;
 }
-
-
-
-
-

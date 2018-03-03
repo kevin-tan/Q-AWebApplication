@@ -47,18 +47,10 @@
   size: 20vw;
   size: 20vh;
   padding-top: 15%;
-  position: absolute;
+  position: relative;
   text-align: center;
   vertical-align: middle;
   line-height: 50px;
+  padding-bottom: 50px;
 }
 
-.welcome h4 {
-  color: white;
-  font-size: 100px;
-  font-size: 12vw;
-  font-size: 12vh;
-  line-height: 50px;
-  text-align: inherit;
-  font-family: "Space Ranger";
-}

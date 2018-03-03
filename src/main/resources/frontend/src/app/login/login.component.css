@@ -1,40 +1,41 @@
 input{
   position: relative;
-  font-size: 20px;
+  font-size: 15px;
   border: none;
   border-bottom: 1.5px solid #3e93b2;
-  width: 320px;
+  width: 250px;
   color: white;
-  background-color: black;
+  background-color: rgba(0,0,0, 0.5);
   text-indent: 10px;
+  left: 60px;
 }
 label{
   position: relative;
   top: 4px;
-  left: 15%;
-  font-size: 20px;
-  width: 200px;
-  width: 300px;
-  color: #3e93b2;
+  left: 60px;
+  font-size: 18px;
+  width: 100px;
+  color: #5ad3ff;
   font-weight: bold;
 }
 #wrapper{
-  background-color: black;
-  opacity: .75;
+  background: rgba(0,0,0, 0.7);
   border-radius: 30px;
-  width: 700px;
-  margin: 10% auto;
+  width: 500px;
+  margin: auto;
+  margin-top: 10vh;
   box-shadow: 5px 10px 50px #3e93b2;
+  position: relative;
 }
 #logo{
-  padding-top: 10%;
+  padding-top: 5%;
   margin-left: 23%;
 }
 .form-element{
   margin-top: 20px
 }
 #first{
-  margin-left: 300px;
+  margin-left: 180px;
   margin-top: 5%;
 }
 .submitButton{
@@ -43,20 +44,19 @@ label{
   width: 100px;
   margin-left: 30px;
   margin-bottom: 20%;
-  background-color: #7df9ff;
+  background-color: #5ad3ff;
   color: black;
-  opacity: .80;
   font-weight: bold;
 }
 .submitButton:hover{
   background-color: black;
-  color:#7df9ff;
+  color:#5ad3ff;
   border-color: #3e93b2;
   font-weight: bold;
 }
 .errorMessage{
   color: red;
-  font-size: 110% !important;
+  font-size: 15px !important;
   text-align: center;
   font-weight: bold;
 }
@@ -67,7 +67,7 @@ label{
   font-weight: bold;
 }
 .error{
-  margin-left: 300px;
+  margin-left: 180px;
 }
 .ng-valid[required], .ng-valid.required  {
   border: 2px solid #42A948; /* green */
@@ -78,7 +78,7 @@ label{
   border-radius: 20px;
 }
 #forgot-pass{
-  margin-left: 310px;
+  margin-left: 180px;
   margin-top: 30px;
   color: #3e93b2;
   font-size: 15px;

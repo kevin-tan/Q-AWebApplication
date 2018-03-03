@@ -11,8 +11,7 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    const status = sessionStorage.getItem('status');
-    this.isLogged = new Boolean(status).valueOf();
+    this.isLogged = new Boolean(sessionStorage.getItem('status')).valueOf();
   }
   onLogout(): void{
     sessionStorage.clear();

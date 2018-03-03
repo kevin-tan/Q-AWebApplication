@@ -21,7 +21,7 @@
     </div>
 
     <div class="form-element">
-      <button type="submit" class="submitButton" id="first">Login</button>
+      <button [disabled]="!lForm.form.valid" type="submit" class="submitButton" id="first">Login</button>
       <a routerLink="/register"><button type="button" class="submitButton">Sign Up</button></a>
     </div>
     <div [hidden]="!errorAlert"  class="alert alert-danger errorMessage">{{errorMsg}}</div>

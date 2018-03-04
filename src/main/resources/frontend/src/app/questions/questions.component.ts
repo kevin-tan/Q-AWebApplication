@@ -4,6 +4,8 @@ import {QuestionsService} from "./questions.service";
 import {Answer} from "./answer";
 import {ActivatedRoute, Router} from "@angular/router";
 import {votes} from "./votes";
+import {UserProfileService} from "../user-profile/user-profile.service";
+import {User} from "../user-profile/user";
 
 @Component({
   selector: 'app-questions',
@@ -14,11 +16,15 @@ export class QuestionsComponent implements OnInit {
 
   displayAnswerBox:boolean = (sessionStorage.getItem('status') == 'true');
   currentQuestion: Question;
+  currentUser: string;
 
-  constructor(private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private questionsService: QuestionsService, private userService: UserProfileService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
+    if(sessionStorage.getItem('id') != null){
+      this.currentUser = sessionStorage.getItem('username');
+    }
     this.questionsService.getQuestionWithID(id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
   }
 

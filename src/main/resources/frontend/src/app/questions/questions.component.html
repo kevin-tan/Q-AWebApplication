@@ -17,6 +17,9 @@
         <h6 class="border-bottom border-gray pb-2 mb-0">{{currentQuestion?.questionTitle}}</h6>
         <p class="border-bottom border-gray py-2 mb-0">{{currentQuestion?.message}}</p>
         <small class="py-2 mb-0">Submitted on: {{currentQuestion?.postedDate}} by {{currentQuestion?.author}}</small>
+        <div *ngIf="currentUser === currentQuestion?.author">
+          <small><a routerLink="">Edit</a></small> <small><a routerLink="">Delete</a></small>
+        </div>
       </td>
       <tr>
       <tbody>
@@ -39,7 +42,10 @@
         <td class="posts" style="width: 100%;">
           <h6 class="border-bottom border-gray pb-2 mb-0">{{answer.author}}</h6>
           <p class="border-bottom border-gray py-2 mb-0">{{answer.message}}</p>
-          <small class="py-2 mb-0">Submitted on: {{answer.postedDate}} by {{answer.author}}</small>
+          <small class="py-2 mb-0">Submitted on: {{answer.postedDate}}</small>
+          <div *ngIf="currentUser === answer.author">
+            <small><a routerLink="">Edit</a></small> <small><a routerLink="">Delete</a></small>
+          </div>
         </td>
         </tr>
         </tbody>

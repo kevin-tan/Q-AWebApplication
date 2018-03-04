@@ -4,6 +4,7 @@ import {Question} from "./question";
 import {Observable} from 'rxjs/Observable';
 import {Answer} from "./answer";
 import {userReputation} from "./userReputation";
+import {User} from "../user-profile/user";
 
 @Injectable()
 export class QuestionsService {

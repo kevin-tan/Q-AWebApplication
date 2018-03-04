@@ -50,7 +50,7 @@ public class QuestionModel extends ForumPost {
         author = userModel.getUsername();
     }
 
-    public long getUserId(){
+    public Long getUserId(){
         return userQuestion.getId();
     }
 

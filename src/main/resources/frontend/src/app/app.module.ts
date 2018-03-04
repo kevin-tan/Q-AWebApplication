@@ -31,7 +31,6 @@ import { EqualValidator} from "./registration/equal-validator.directive";
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
 import {UserProfileService} from "./user-profile/user-profile.service";
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
-import { EditingComponent } from './editing/editing.component';
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
@@ -65,7 +64,6 @@ const appRoutes: Routes =[
     AskingComponent,
     ForgotPassComponent,
     LeaderboardComponent,
-    EditingComponent
   ],
   imports: [
     BrowserModule,

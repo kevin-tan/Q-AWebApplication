@@ -80,6 +80,13 @@ public class UserController {
     	return user.getDateJoined();
     }
     
+    //Get User security question
+    @GetMapping(value = "/{userEmail}/securityQuestion")
+    public String getUserSecurityQuestion(@PathVariable String userEmail){
+        UserModel user = userRepository.findByEmail(userEmail);
+        return user.getSecurityQuestion();
+    }
+
     @PutMapping(value = "/{userId}/changeInfo")
     public UserModel putUserModel(@PathVariable long userId, @RequestBody UserModel userModel){
     	UserModel user = userRepository.findOne(userId);

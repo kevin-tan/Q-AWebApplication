@@ -26,7 +26,8 @@ export class QuestionsComponent implements OnInit {
     if(!message){return;}
 
     const newAnswer: Answer = { message } as Answer;
-    this.questionsService.addAnswerToQuestion(newAnswer, this.currentQuestion.id)
+    let userID = parseInt(sessionStorage.getItem('id'));
+    this.questionsService.addAnswerToQuestion(newAnswer, this.currentQuestion.id, userID)
       .subscribe(answer => this.currentQuestion.answerModel.push(answer));
   }
 

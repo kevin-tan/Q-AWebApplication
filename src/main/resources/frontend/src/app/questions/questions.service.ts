@@ -29,8 +29,8 @@ export class QuestionsService {
       return this.http.get<Question[]>(URL);
   }
 
-    addAnswerToQuestion(answer: Answer, questionID: Number): Observable<Answer>{
-      this.postAnswerURL = 'http://localhost:8080/user/' + sessionStorage.getItem('id') + '/questions/' + questionID + '/replies';
+    addAnswerToQuestion(answer: Answer, questionID: Number, userID: Number): Observable<Answer>{
+      this.postAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/replies';
       return this.http.post<Answer>(this.postAnswerURL, answer);
     }
 

@@ -14,10 +14,10 @@
 
     <div class="form-group my-3 p-3">
       <label for="question">Question</label>
-      <input type="text" class="form-control" id="question"
+      <textarea type="text" class="form-control" id="question" rows="4"
              required
              [(ngModel)]="message" name="question"
-             #currentQuestion="ngModel">
+                #currentQuestion="ngModel"></textarea>
       <div [hidden]="currentQuestion.valid || currentQuestion.pristine" class="alert alert-danger">
         Question is required!
       </div>

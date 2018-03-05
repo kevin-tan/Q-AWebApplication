@@ -4,6 +4,8 @@ import {QuestionsService} from "./questions.service";
 import {Answer} from "./answer";
 import {ActivatedRoute, Router} from "@angular/router";
 import {votes} from "./votes";
+import {UserProfileService} from "../user-profile/user-profile.service";
+import {User} from "../user-profile/user";
 
 @Component({
   selector: 'app-questions',
@@ -14,11 +16,16 @@ export class QuestionsComponent implements OnInit {
 
   displayAnswerBox:boolean = (sessionStorage.getItem('status') == 'true');
   currentQuestion: Question;
+  currentUser: string;
+  editing: Number = 0;
 
   constructor(private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
+    if(sessionStorage.getItem('id') != null){
+      this.currentUser = sessionStorage.getItem('username');
+    }
     this.questionsService.getQuestionWithID(id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
   }
 
@@ -26,7 +33,8 @@ export class QuestionsComponent implements OnInit {
     if(!message){return;}
 
     const newAnswer: Answer = { message } as Answer;
-    this.questionsService.addAnswerToQuestion(newAnswer, this.currentQuestion.id)
+    let userID = parseInt(sessionStorage.getItem('id'));
+    this.questionsService.addAnswerToQuestion(newAnswer, this.currentQuestion.id, userID)
       .subscribe(answer => this.currentQuestion.answerModel.push(answer));
   }
 
@@ -37,6 +45,42 @@ export class QuestionsComponent implements OnInit {
   loginButtonClick(){
     this.router.navigate(['/login']);
   }
+
+  editQuestion(editedQuestion: string){
+    let userID = parseInt(sessionStorage.getItem('id'));
+    this.currentQuestion.message = editedQuestion;
+    this.questionsService.editingQuestion(userID, this.currentQuestion)
+      .subscribe();
+    this.editing = 0;
+  }
+
+
+  deleteQuestion(){
+    let userID = parseInt(sessionStorage.getItem('id'));
+    this.questionsService.deletingQuestion(userID, this.currentQuestion)
+      .subscribe(null, null, ()=> {
+        this.router.navigate(['/dashboard'])
+      });
+  }
+
+  editAnswer(answer: Answer, editedAnswer: string){
+    let userID = parseInt(sessionStorage.getItem('id'));
+    answer.message = editedAnswer;
+    this.questionsService.editingAnswer(answer, userID, this.currentQuestion)
+      .subscribe();
+    this.editing = 0;
+  }
+
+
+  deleteAnswer(answer: Answer){
+    let userID = parseInt(sessionStorage.getItem('id'));
+
+    this.questionsService.deletingAnswer(answer, userID, this.currentQuestion)
+      .subscribe(null, null, ()=> {
+        location.reload();
+      });
+  }
+
 
   upVoteQuestionClick() {
     let userID = sessionStorage.getItem('id');

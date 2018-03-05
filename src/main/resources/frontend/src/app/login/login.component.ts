@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       .then((user) =>{
       sessionStorage.clear();
       if(user.json().id == null) {
-        sessionStorage.setItem('status', 'false');
+        sessionStorage.clear();
         this.errorAlert = true;
         this.errorMsg = 'Invalid Login, please try again';
       }

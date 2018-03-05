@@ -12,7 +12,6 @@ import {FooterComponent} from './footer/footer.component';
 import {HomeComponent} from './home/home.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {DashboardComponent} from "./dashboard/dashboard.component";
-import {StatusComponent} from './component/status/status.component';
 import {QuestionsComponent} from './questions/questions.component';
 import { AskingComponent } from './asking/asking.component';
 
@@ -57,7 +56,6 @@ const appRoutes: Routes =[
     HomeComponent,
     RegistrationComponent,
     DashboardComponent,
-    StatusComponent,
     GreetingComponent,
     UserProfileComponent,
     EqualValidator,

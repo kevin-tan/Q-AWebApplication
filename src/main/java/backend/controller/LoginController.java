@@ -38,9 +38,9 @@ public class LoginController {
 
     //Validates Security Answer and Updates User Password
     //TODO: Handshake with FrontEnd on what parameters will be passed(username, email or ID)
-    @PutMapping(value = "/{userId}/resetPassword")
-    public UserModel forgotPassword(@PathVariable long userId, @RequestBody UserModel userModel) {
-        UserModel user = userRepository.findOne(userId);
+    @PutMapping(value = "/resetPassword")
+    public UserModel forgotPassword(@RequestBody UserModel userModel) {
+        UserModel user = userRepository.findByEmail(userModel.getEmail());
         if (bCryptPasswordEncoder.matches(userModel.getSecurityAnswer(), user.getSecurityAnswer())){
         	user.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
         	userRepository.save(user);

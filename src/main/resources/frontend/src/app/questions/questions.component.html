@@ -42,8 +42,13 @@
             <td class="posts" style="width: 100%;">
               <h6 class="border-bottom border-gray pb-2 mb-0">{{answer.author}}</h6>
               <p class="border-bottom border-gray py-2 mb-0">{{answer.message}}</p>
-              <small class="py-2 mb-0">Submitted on: {{answer.postedDate}} by {{answer.author}}</small>
-              <input *ngIf="currentPoster" (click)="chooseBestAnswer(answer);" type="image" src="../../assets/bestAnswer.png" style="width: 50px; height: 50px; float: right;"/>
+              <span>
+                <small class="py-2 mb-0">Submitted on: {{answer.postedDate}} by {{answer.author}}</small>
+                <br>
+                <small class="py-2 mb-0" style="cursor: pointer; color:blue;" (click)="chooseBestAnswer(answer);" *ngIf="currentPoster">Rate As Best Answer</small>
+              </span>
+              <input *ngIf="currentQuestion.bestAnswer == answer.id" type="image" src="../../assets/bestAnswer.png" style="width: 50px; height: 50px; float: right;"
+              />
             </td>
           </tr>
         </tbody>

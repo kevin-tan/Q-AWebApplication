@@ -12,18 +12,23 @@ import {votes} from "./votes";
 })
 export class QuestionsComponent implements OnInit {
 
-  displayAnswerBox:boolean = (sessionStorage.getItem('status') == 'true');
-  currentQuestion: Question;
-  currentPoster:boolean = false;
+  public displayAnswerBox: boolean = (sessionStorage.getItem('status') == 'true');
+  public currentQuestion: Question;
+  public currentPoster: boolean = false;
+  public id: number;
+  public currentUserID = sessionStorage.getItem('id');
 
   constructor(private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.questionsService.getQuestionWithID(id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
 
-    if (this.currentQuestion.author == sessionStorage.getItem('id')) {
-      this.currentPoster = true;
+    console.log(this.currentUserID);
+        
+    this.id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
+     
+    if (this.id ==  parseInt(sessionStorage.getItem('id'))) {
+    this.currentPoster = true;
     }
 
   }
@@ -103,7 +108,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   chooseBestAnswer(answer: Answer) {
-    this.questionsService.bestAnswer(answer, this.currentQuestion.id)
+    this.questionsService.bestAnswer(answer, this.id, this.currentUserID).subscribe(answer => answer = answer);
   }
 
 }

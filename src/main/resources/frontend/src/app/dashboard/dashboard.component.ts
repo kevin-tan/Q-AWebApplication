@@ -22,7 +22,6 @@ export class DashboardComponent implements OnInit {
   }
 
   OnSelectUser(userID){
-    console.log(userID);
     this.router.navigate(['profile',{data:userID}]);
   }
 

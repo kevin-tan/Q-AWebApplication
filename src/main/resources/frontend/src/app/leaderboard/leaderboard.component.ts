@@ -9,7 +9,7 @@ import { Router } from '@angular/router'
 })
 export class LeaderboardComponent implements OnInit {
 
-  public leaderboards = []
+  public leaderboards = [];
 
 
   constructor(private questionsService: QuestionsService, private router: Router) { }
@@ -21,5 +21,7 @@ export class LeaderboardComponent implements OnInit {
   OnSelectUser(userID) {
     this.router.navigate(['profile',{data:userID}]);
   }
+
+  
 
 }

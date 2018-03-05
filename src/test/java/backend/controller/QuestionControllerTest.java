@@ -1,7 +1,9 @@
 package backend.controller;
 
 import backend.model.qa.QuestionModel;
+import backend.model.user.UserModel;
 import backend.repository.qa.QuestionRepository;
+import backend.repository.user.UserRepository;
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
@@ -41,6 +43,8 @@ public class QuestionControllerTest {
     @Autowired
     private QuestionRepository questionRepository;
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private WebApplicationContext webApplicationContext;
 
     private final QuestionModel question =
@@ -49,10 +53,14 @@ public class QuestionControllerTest {
     private final QuestionModel question2 =
             new QuestionModel("Title 2", "Unit test message 2", new HashSet<>(List.of("Programming", "C++")),
                     new DateTime().toString(FORMAT));
+    private final UserModel user = new UserModel("","","","","","","");
 
     @Before
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
+        question.setUserQuestion(user);
+        question2.setUserQuestion(user);
+        userRepository.save(user);
         questionRepository.save(question);
         questionRepository.save(question2);
     }
@@ -78,7 +86,8 @@ public class QuestionControllerTest {
                         .toArray()[1])))
                 .andExpect(jsonPath("$.message", is(question.getMessage())))
                 .andExpect(jsonPath("$.postedDate", is(question.getPostedDate())))
-                .andExpect(jsonPath("$.updatedTime", is(question.getUpdatedTime())));
+                .andExpect(jsonPath("$.updatedTime", is(question.getUpdatedTime())))
+                .andExpect(jsonPath("$.userId", is(question.getUserId().intValue())));
     }
 
     @Test
@@ -97,6 +106,7 @@ public class QuestionControllerTest {
                 .andExpect(jsonPath("$[0].message", is(question2.getMessage())))
                 .andExpect(jsonPath("$[0].postedDate", is(question2.getPostedDate())))
                 .andExpect(jsonPath("$[0].updatedTime", is(question2.getUpdatedTime())))
+                .andExpect(jsonPath("$[0].userId", is(question2.getUserId().intValue())))
                 .andExpect(jsonPath("$[1].id", is(question.getId()
                         .intValue())))
                 .andExpect(jsonPath("$[1].questionTitle", is(question.getQuestionTitle())))
@@ -106,7 +116,8 @@ public class QuestionControllerTest {
                         .toArray()[1])))
                 .andExpect(jsonPath("$[1].message", is(question.getMessage())))
                 .andExpect(jsonPath("$[1].postedDate", is(question.getPostedDate())))
-                .andExpect(jsonPath("$[1].updatedTime", is(question.getUpdatedTime())));
+                .andExpect(jsonPath("$[1].updatedTime", is(question.getUpdatedTime())))
+                .andExpect(jsonPath("$[1].userId", is(question.getUserId().intValue())));
     }
 
     @After

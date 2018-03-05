@@ -14,6 +14,7 @@ export class QuestionsComponent implements OnInit {
 
   public displayAnswerBox: boolean = (sessionStorage.getItem('status') == 'true');
   public currentQuestion: Question;
+  public currentQuestionPosterId: number;
   public currentPoster: boolean = false;
   public id: number;
   public currentUserID = sessionStorage.getItem('id');
@@ -26,8 +27,13 @@ export class QuestionsComponent implements OnInit {
         
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
+    this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => {if(currentQuestion.userId ==  parseInt(sessionStorage.getItem('id'))) {
+      this.currentPoster = true;
+      }});
      
-    if (this.id ==  parseInt(sessionStorage.getItem('id'))) {
+    console.log(this.currentQuestionPosterId);
+
+    if (this.currentQuestionPosterId ==  parseInt(sessionStorage.getItem('id'))) {
     this.currentPoster = true;
     }
 

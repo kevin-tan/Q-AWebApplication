@@ -14,12 +14,18 @@ export class QuestionsComponent implements OnInit {
 
   displayAnswerBox:boolean = (sessionStorage.getItem('status') == 'true');
   currentQuestion: Question;
+  currentPoster:boolean = false;
 
   constructor(private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.questionsService.getQuestionWithID(id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
+
+    if (this.currentQuestion.author == sessionStorage.getItem('id')) {
+      this.currentPoster = true;
+    }
+
   }
 
   addAnswer(message: string): void{
@@ -94,6 +100,10 @@ export class QuestionsComponent implements OnInit {
           answer.votes = value.votes;
         }
       });
+  }
+
+  chooseBestAnswer(answer: Answer) {
+    this.questionsService.bestAnswer(answer, this.currentQuestion.id)
   }
 
 }

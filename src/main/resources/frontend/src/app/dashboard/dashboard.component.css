@@ -111,6 +111,7 @@ navbar-right:hover{
 
 .list-group-item {
     margin-top: 10px;
+    border-radius: 20px;
 }
 
 #right-side-bar {
@@ -177,4 +178,12 @@ html, body, container {
 
 #firstRow {
     margin-top: 10px;
+}
+
+.panel {
+    background-color: black;
+    opacity: .80;
+    margin-top: 10px;
+    border-radius: 20px;
+    padding-bottom: 10px;
 }

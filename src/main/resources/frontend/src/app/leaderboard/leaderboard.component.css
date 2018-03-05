@@ -19,6 +19,13 @@
 }
 
 #userinfo {
+    float:left;
+    color: black;
+    margin-left: 20px;
+}
+
+#bestQuestion {
     float:right;
     color: black;
+    margin-left: 20px;
 }

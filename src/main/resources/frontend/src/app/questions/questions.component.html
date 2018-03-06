@@ -63,9 +63,6 @@
           <small *ngIf="answer.postedDate !== answer.updatedTime">
             <br>Updated on: {{answer.updatedTime}}
           </small>
-          <small class="py-2 mb-0" style="cursor: pointer; color:blue;" (click)="chooseBestAnswer(answer);" *ngIf="currentPoster">
-            <br>Rate As Best Answer
-          </small>
           <div *ngIf="currentUser === answer.author && editing == 0">
             <small><button class="btn btn-primary btn-sm" (click)="editing = answer.id">Edit</button></small> <small><button class="btn btn-danger btn-sm" (click)="deleteAnswer(answer)">Delete</button></small>
           </div>

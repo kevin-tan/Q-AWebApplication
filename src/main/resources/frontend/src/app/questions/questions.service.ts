@@ -93,17 +93,7 @@ export class QuestionsService {
   }
 
   bestAnswer(answer: Answer, questionID, userID) {
-    // console.log("HERE!!!!!");
-    // console.log("question id = " + questionID);
-    // console.log("answer id = " + answer.id);
-    // console.log("user id = " + userID);
-    // console.log('http://localhost:8080/users/' + userID + '/questions/' + questionID + '/bestAnswer/' + answer.id);
-
     this.bestAnswerURL = 'http://localhost:8080/users/' + userID + '/questions/' + questionID + '/bestAnswer/' + answer.id;
-    //this.bestAnswerURL = 'http://localhost:8080/users/1/questions/1/bestAnswer/6'
-    
-    // this.http.put(this.bestAnswerURL, answer);
-
     return this.http.put<Answer>(this.bestAnswerURL, answer.id);
   }
 }

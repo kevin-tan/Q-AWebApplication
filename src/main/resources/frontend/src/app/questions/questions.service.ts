@@ -1,13 +1,24 @@
+<<<<<<< userRouting+bestanswer
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Question } from "./question";
 import { Observable } from 'rxjs/Observable';
 import { Answer } from "./answer";
 import { userReputation } from "./userReputation";
+=======
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Question} from "./question";
+import {Observable} from 'rxjs/Observable';
+import {Answer} from "./answer";
+import {userReputation} from "./userReputation";
+import {User} from "../user-profile/user";
+>>>>>>> master
 
 @Injectable()
 export class QuestionsService {
 
+<<<<<<< userRouting+bestanswer
   getQuestionURL: string;
   getSearchURL: string;
   getTagSearchURL: string;
@@ -34,6 +45,63 @@ export class QuestionsService {
     this.postAnswerURL = 'http://localhost:8080/user/' + sessionStorage.getItem('id') + '/questions/' + questionID + '/replies';
     return this.http.post<Answer>(this.postAnswerURL, answer);
   }
+=======
+    getQuestionURL: string;
+    getSearchURL: string;
+    getTagSearchURL: string;
+    getUpvoteQuestionURL: string;
+    getDownvoteQuestionURL: string;
+    getUpvoteAnswerURL: string;
+    getDownvoteAnswerURL: string;
+    postAnswerURL: string;
+    getLeaderboardURL: string
+    putQuestionURL: string;
+    deleteQuestionURL: string;
+    putAnswerURL: string;
+    deleteAnswerURL: string;
+
+    constructor(private http: HttpClient) {}
+
+    getQuestions(): Observable<Question[]> {
+        this.getQuestionURL = 'http://localhost:8080/questions';
+        return this.http.get<Question[]>(this.getQuestionURL);
+    }
+
+    getQuestionsWithURL(URL): Observable<Question[]> {
+      return this.http.get<Question[]>(URL);
+  }
+
+    addAnswerToQuestion(answer: Answer, questionID: Number, userID: Number): Observable<Answer>{
+      this.postAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/replies';
+      return this.http.post<Answer>(this.postAnswerURL, answer);
+    }
+
+    editingQuestion(userID: Number, question: Question): Observable<Question>{
+      this.putQuestionURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id;
+      return this.http.put<Question>(this.putQuestionURL, question);
+    }
+
+    deletingQuestion(userID: Number, question: Question): Observable<{}>{
+      this.deleteQuestionURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id;
+      return this.http.delete(this.deleteQuestionURL);
+    }
+
+    editingAnswer(answer: Answer, userID: Number, question: Question){
+      this.putAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id + '/replies/' + answer.id;
+      return this.http.put<Question>(this.putAnswerURL, answer);
+    }
+
+    deletingAnswer(answer: Answer, userID: Number, question: Question){
+      this.deleteAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id + '/replies/' + answer.id;
+      return this.http.delete(this.deleteAnswerURL);
+    }
+
+    searchDashboard(searchTerm) {
+      if (searchTerm == "") {
+        this.getSearchURL = 'http://localhost:8080/questions';
+        return this.getQuestionsWithURL(this.getSearchURL);
+      }
+>>>>>>> master
 
   searchDashboard(searchTerm) {
     if (searchTerm == "") {

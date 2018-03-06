@@ -12,11 +12,6 @@ select{
   height: 30px;
 }
 
-textarea{
-  background-color: #0f0f0f;
-  color: #377f9b;
-}
-
 label{
   color: white;
 }

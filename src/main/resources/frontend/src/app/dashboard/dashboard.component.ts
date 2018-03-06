@@ -10,7 +10,6 @@ import { Router } from '@angular/router'
 export class DashboardComponent implements OnInit {
 
   public questions = [];
-  public tags = ["Category 1","Category 2","Category 3","Category 4","Category 5","Category 6","Category 7"];
 
   constructor(private questionsService: QuestionsService, private router: Router) { }
 
@@ -20,6 +19,10 @@ export class DashboardComponent implements OnInit {
 
   OnSelectQuestion(question){
     this.router.navigate(['/dashboard/question', question.id]);
+  }
+
+  OnSelectUser(userID){
+    this.router.navigate(['profile',{data:userID}]);
   }
 
   OnSelectAsking(){

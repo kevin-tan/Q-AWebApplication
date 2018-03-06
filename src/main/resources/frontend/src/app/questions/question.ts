@@ -7,6 +7,7 @@ export interface Question {
   postedDate: string;
   message: string;
   author: string;
+  userId: number;
   votes: votes;
   answerModel: Array<Answer>;
   questionCategories: Array<string>;

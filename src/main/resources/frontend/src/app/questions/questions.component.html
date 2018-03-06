@@ -15,8 +15,21 @@
       </td>
       <td class="posts" style="width: 100%;">
         <h6 class="border-bottom border-gray pb-2 mb-0">{{currentQuestion?.questionTitle}}</h6>
-        <p class="border-bottom border-gray py-2 mb-0">{{currentQuestion?.message}}</p>
+        <p *ngIf="editing != currentQuestion?.id; else nowEditing"class="border-bottom border-gray py-2 mb-0">{{currentQuestion?.message}}</p>
+        <ng-template #nowEditing>
+          <div class="border-bottom border-gray pb-2 mb-0">
+            <textarea #editedMessage cols="100">{{currentQuestion.message}}</textarea>
+            <br/>
+            <button class="btn btn-success" (click)="editQuestion(editedMessage.value)">Save</button> <button class="btn btn-warning" (click)="editing = 0">Cancel</button>
+          </div>
+        </ng-template>
         <small class="py-2 mb-0">Submitted on: {{currentQuestion?.postedDate}} by {{currentQuestion?.author}}</small>
+        <small *ngIf="currentQuestion?.postedDate !== currentQuestion?.updatedTime">
+          <br>Updated on: {{currentQuestion.updatedTime}}
+        </small>
+        <div *ngIf="currentUser === currentQuestion?.author && !editing">
+          <small><button class="btn btn-primary btn-sm" (click)="editing = currentQuestion.id">Edit</button></small> <small><button class="btn btn-danger btn-sm" (click)="deleteQuestion()">Delete</button></small>
+        </div>
       </td>
       <tr>
       <tbody>
@@ -38,8 +51,21 @@
         </td>
         <td class="posts" style="width: 100%;">
           <h6 class="border-bottom border-gray pb-2 mb-0">{{answer.author}}</h6>
-          <p class="border-bottom border-gray py-2 mb-0">{{answer.message}}</p>
-          <small class="py-2 mb-0">Submitted on: {{answer.postedDate}} by {{answer.author}}</small>
+          <p *ngIf="editing != answer.id; else nowEditing"class="border-bottom border-gray py-2 mb-0">{{answer.message}}</p>
+          <ng-template #nowEditing>
+            <div class="border-bottom border-gray pb-2 mb-0">
+              <textarea #editedMessage cols="100">{{answer.message}}</textarea>
+              <br/>
+              <button class="btn btn-success" (click)="editAnswer(answer, editedMessage.value)">Save</button> <button class="btn btn-warning" (click)="editing = 0">Cancel</button>
+            </div>
+          </ng-template>
+          <small class="py-2 mb-0">Submitted on: {{answer.postedDate}}</small>
+          <small *ngIf="answer.postedDate !== answer.updatedTime">
+            <br>Updated on: {{answer.updatedTime}}
+          </small>
+          <div *ngIf="currentUser === answer.author && editing == 0">
+            <small><button class="btn btn-primary btn-sm" (click)="editing = answer.id">Edit</button></small> <small><button class="btn btn-danger btn-sm" (click)="deleteAnswer(answer)">Delete</button></small>
+          </div>
         </td>
         </tr>
         </tbody>
@@ -50,7 +76,7 @@
     <label style="color: white">Reply:
       <textarea #message required cols="155"></textarea>
     </label>
-    <button (click)="addAnswer(message.value);" class="btn btn-default">
+    <button type="submit" (click)="addAnswer(message.value); message.value='';" class="btn btn-default">
       Reply
     </button>
   </div>

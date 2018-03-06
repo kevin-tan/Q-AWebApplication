@@ -61,7 +61,7 @@ const appRoutes: Routes =[
     EqualValidator,
     AskingComponent,
     ForgotPassComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
   ],
   imports: [
     BrowserModule,

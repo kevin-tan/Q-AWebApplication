@@ -4,6 +4,7 @@ import {Question} from "./question";
 import {Observable} from 'rxjs/Observable';
 import {Answer} from "./answer";
 import {userReputation} from "./userReputation";
+import {User} from "../user-profile/user";
 
 @Injectable()
 export class QuestionsService {
@@ -16,7 +17,11 @@ export class QuestionsService {
     getUpvoteAnswerURL: string;
     getDownvoteAnswerURL: string;
     postAnswerURL: string;
-    getLeaderboardURL: string;
+    getLeaderboardURL: string
+    putQuestionURL: string;
+    deleteQuestionURL: string;
+    putAnswerURL: string;
+    deleteAnswerURL: string;
 
     constructor(private http: HttpClient) {}
 
@@ -29,9 +34,29 @@ export class QuestionsService {
       return this.http.get<Question[]>(URL);
   }
 
-    addAnswerToQuestion(answer: Answer, questionID: Number): Observable<Answer>{
-      this.postAnswerURL = 'http://localhost:8080/user/' + sessionStorage.getItem('id') + '/questions/' + questionID + '/replies';
+    addAnswerToQuestion(answer: Answer, questionID: Number, userID: Number): Observable<Answer>{
+      this.postAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + questionID + '/replies';
       return this.http.post<Answer>(this.postAnswerURL, answer);
+    }
+
+    editingQuestion(userID: Number, question: Question): Observable<Question>{
+      this.putQuestionURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id;
+      return this.http.put<Question>(this.putQuestionURL, question);
+    }
+
+    deletingQuestion(userID: Number, question: Question): Observable<{}>{
+      this.deleteQuestionURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id;
+      return this.http.delete(this.deleteQuestionURL);
+    }
+
+    editingAnswer(answer: Answer, userID: Number, question: Question){
+      this.putAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id + '/replies/' + answer.id;
+      return this.http.put<Question>(this.putAnswerURL, answer);
+    }
+
+    deletingAnswer(answer: Answer, userID: Number, question: Question){
+      this.deleteAnswerURL = 'http://localhost:8080/user/' + userID + '/questions/' + question.id + '/replies/' + answer.id;
+      return this.http.delete(this.deleteAnswerURL);
     }
 
     searchDashboard(searchTerm) {

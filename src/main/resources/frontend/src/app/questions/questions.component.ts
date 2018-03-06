@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Question} from "./question";
-import {QuestionsService} from "./questions.service";
-import {Answer} from "./answer";
-import {ActivatedRoute, Router} from "@angular/router";
-import {votes} from "./votes";
+import { Component, OnInit } from '@angular/core';
+import { Question } from "./question";
+import { QuestionsService } from "./questions.service";
+import { Answer } from "./answer";
+import { ActivatedRoute, Router } from "@angular/router";
+import { votes } from "./votes";
 
 @Component({
   selector: 'app-questions',
@@ -25,25 +25,27 @@ export class QuestionsComponent implements OnInit {
 
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
-    this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => {if(currentQuestion.userId ==  parseInt(sessionStorage.getItem('id'))) {
-      this.currentPoster = true;
-      }});
-      
+    this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => {
+      if (currentQuestion.userId == parseInt(sessionStorage.getItem('id'))) {
+        this.currentPoster = true;
+      }
+    });
+
   }
 
-  addAnswer(message: string): void{
-    if(!message){return;}
+  addAnswer(message: string): void {
+    if (!message) { return; }
 
     const newAnswer: Answer = { message } as Answer;
     this.questionsService.addAnswerToQuestion(newAnswer, this.currentQuestion.id, this.currentQuestion.userId)
       .subscribe(answer => this.currentQuestion.answerModel.push(answer));
   }
 
-  registerButtonClick(){
+  registerButtonClick() {
     this.router.navigate(['/register']);
   }
 
-  loginButtonClick(){
+  loginButtonClick() {
     this.router.navigate(['/login']);
   }
 
@@ -62,7 +64,7 @@ export class QuestionsComponent implements OnInit {
       });
   }
 
-  downVoteQuestionClick(){
+  downVoteQuestionClick() {
     let userID = sessionStorage.getItem('id');
     let initialVotes: votes = this.currentQuestion.votes;
 
@@ -77,29 +79,29 @@ export class QuestionsComponent implements OnInit {
       });
   }
 
-  upVoteAnswerClick(answer: Answer){
+  upVoteAnswerClick(answer: Answer) {
     let userID = sessionStorage.getItem('id');
     let initialVotes = answer.votes;
     this.questionsService.upVotingAnswer(answer, this.currentQuestion.id, userID)
       .subscribe(value => {
-        if(initialVotes.upVotes == value.votes.upVotes){
+        if (initialVotes.upVotes == value.votes.upVotes) {
           this.questionsService.unVotingAnswer(answer, this.currentQuestion.id, userID)
             .subscribe(value => answer.votes = value.votes);
-        }else{
+        } else {
           answer.votes = value.votes;
         }
       });
   }
 
-  downVoteAnswerClick(answer: Answer){
+  downVoteAnswerClick(answer: Answer) {
     let userID = sessionStorage.getItem('id');
     let initialVotes = answer.votes;
     this.questionsService.downVotingAnswer(answer, this.currentQuestion.id, userID)
       .subscribe(value => {
-        if(initialVotes.downVotes == value.votes.downVotes){
+        if (initialVotes.downVotes == value.votes.downVotes) {
           this.questionsService.unVotingAnswer(answer, this.currentQuestion.id, userID)
             .subscribe(value => answer.votes = value.votes);
-        }else{
+        } else {
           answer.votes = value.votes;
         }
       });

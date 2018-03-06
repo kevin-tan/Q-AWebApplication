@@ -22,6 +22,7 @@ export class QuestionsService {
     deleteQuestionURL: string;
     putAnswerURL: string;
     deleteAnswerURL: string;
+    bestAnswerURL: string;
 
     constructor(private http: HttpClient) {}
 
@@ -104,15 +105,20 @@ export class QuestionsService {
     return this.http.put<Answer>(this.getUpvoteAnswerURL, answer);
   }
 
-    getLeaderBoard(): Observable<userReputation[]> {
-      this.getLeaderboardURL = 'http://localhost:8080/leaderboard';
-      return this.http.get<userReputation[]>(this.getLeaderboardURL);
-    }
-    getAnswerWithURL(URL): Observable<Answer[]>{
-      return this.http.get<Answer[]>(URL);
-    }
-    getQuestionWithID(id): Observable<Question>{
-      this.getQuestionURL = 'http://localhost:8080/questions/' + id;
-      return this.http.get<Question>(this.getQuestionURL);
-    }
+  getLeaderBoard(): Observable<userReputation[]> {
+    this.getLeaderboardURL = 'http://localhost:8080/leaderboard';
+    return this.http.get<userReputation[]>(this.getLeaderboardURL);
+  }
+  getAnswerWithURL(URL): Observable<Answer[]> {
+    return this.http.get<Answer[]>(URL);
+  }
+  getQuestionWithID(id): Observable<Question> {
+    this.getQuestionURL = 'http://localhost:8080/questions/' + id;
+    return this.http.get<Question>(this.getQuestionURL);
+  }
+
+  bestAnswer(answer: Answer, questionID, userID) {
+    this.bestAnswerURL = 'http://localhost:8080/users/' + userID + '/questions/' + questionID + '/bestAnswer/' + answer.id;
+    return this.http.put<Answer>(this.bestAnswerURL, answer.id);
+  }
 }

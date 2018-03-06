@@ -26,6 +26,10 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/dashboard/asking']);
   }
 
+  OnSelectUser(userID){
+    this.router.navigate(['profile',{data:userID}]);
+  }
+
   OnSearch(searchTerm){
     this.questionsService.searchDashboard(searchTerm).subscribe(data => this.questions = data);
   }

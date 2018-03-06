@@ -19,6 +19,7 @@
 }
 
 #userinfo {
-    float:right;
+    margin-left: 10px;
+    float:left;
     color: black;
 }

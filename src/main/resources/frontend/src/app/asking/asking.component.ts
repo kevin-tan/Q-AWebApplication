@@ -17,7 +17,7 @@ export class AskingComponent implements OnInit {
 
   questionTitle: string;
   message: string;
-  questionCategories: Array<string>;
+  questionCategory: string;
   acceptance: boolean;
 
   categories = ['Java', 'C++',
@@ -28,7 +28,7 @@ export class AskingComponent implements OnInit {
     let author: string = sessionStorage.getItem('username');
     let questionTitle = this.questionTitle;
     let message = this.message;
-    let questionCategories = this.questionCategories;
+    let questionCategories: Array<string> = [this.questionCategory];
     const newQuestion: Question = { message, author, questionCategories, questionTitle} as Question;
 
     this.askingService.addQuestion(newQuestion)

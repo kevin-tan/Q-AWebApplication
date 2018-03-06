@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
       else {
         sessionStorage.setItem('status', 'true');
         sessionStorage.setItem('id', user.json().id);
+        //This is needed!
+        sessionStorage.setItem('username',user.json().username);
         this.router.navigateByUrl('/dashboard');
       }
       console.log(user.json());

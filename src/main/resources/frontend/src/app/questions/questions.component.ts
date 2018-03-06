@@ -23,27 +23,19 @@ export class QuestionsComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.currentUserID);
-        
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
     this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => {if(currentQuestion.userId ==  parseInt(sessionStorage.getItem('id'))) {
       this.currentPoster = true;
       }});
-     
-    console.log(this.currentQuestionPosterId);
-
-    if (this.currentQuestionPosterId ==  parseInt(sessionStorage.getItem('id'))) {
-    this.currentPoster = true;
-    }
-
+      
   }
 
   addAnswer(message: string): void{
     if(!message){return;}
 
     const newAnswer: Answer = { message } as Answer;
-    this.questionsService.addAnswerToQuestion(newAnswer, this.currentQuestion.id)
+    this.questionsService.addAnswerToQuestion(newAnswer, this.currentQuestion.id, this.currentQuestion.userId)
       .subscribe(answer => this.currentQuestion.answerModel.push(answer));
   }
 

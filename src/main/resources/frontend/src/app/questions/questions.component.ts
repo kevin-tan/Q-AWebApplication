@@ -14,46 +14,19 @@ import {User} from "../user-profile/user";
 })
 export class QuestionsComponent implements OnInit {
 
-<<<<<<< userRouting+bestanswer
-  public displayAnswerBox: boolean = (sessionStorage.getItem('status') == 'true');
-  public currentQuestion: Question;
-  public currentQuestionPosterId: number;
-  public currentPoster: boolean = false;
-  public id: number;
-  public currentUserID = sessionStorage.getItem('id');
-=======
   displayAnswerBox:boolean = (sessionStorage.getItem('status') == 'true');
   currentQuestion: Question;
   currentUser: string;
   editing: Number = 0;
->>>>>>> master
 
   constructor(private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-<<<<<<< userRouting+bestanswer
-
-    console.log(this.currentUserID);
-        
-    this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
-    this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => {if(currentQuestion.userId ==  parseInt(sessionStorage.getItem('id'))) {
-      this.currentPoster = true;
-      }});
-     
-    console.log(this.currentQuestionPosterId);
-
-    if (this.currentQuestionPosterId ==  parseInt(sessionStorage.getItem('id'))) {
-    this.currentPoster = true;
-    }
-
-=======
     let id = parseInt(this.route.snapshot.paramMap.get('id'));
     if(sessionStorage.getItem('id') != null){
       this.currentUser = sessionStorage.getItem('username');
     }
     this.questionsService.getQuestionWithID(id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
->>>>>>> master
   }
 
   addAnswer(message: string): void{
@@ -165,10 +138,6 @@ export class QuestionsComponent implements OnInit {
           answer.votes = value.votes;
         }
       });
-  }
-
-  chooseBestAnswer(answer: Answer) {
-    this.questionsService.bestAnswer(answer, this.id, this.currentUserID).subscribe(answer => answer = answer);
   }
 
 }

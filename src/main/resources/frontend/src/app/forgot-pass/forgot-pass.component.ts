@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {UserProfileService} from "../user-profile/user-profile.service";
+import {User} from "../user-profile/user";
 
 @Component({
   selector: 'app-forgot-pass',
@@ -9,42 +10,48 @@ import {UserProfileService} from "../user-profile/user-profile.service";
 })
 
 export class ForgotPassComponent implements OnInit {
-  emailValid: boolean = false;
-  answerValid: boolean = false;
-  resetPass: boolean = false;
-  emailErr; dirty: boolean;
-  email: string = 'BBob@gmail.com';
-  securityQuestion: string;
-  emailData; answerData: string;
-
+  emailValid; answerValid; resetValid: boolean = false;
+  emailErr; answerErr: boolean;
+  securityQuestion; emailData; answerData; passData; passConfirmData: string;
+  userResp; userAccess: User;
 
   constructor(private router: Router,private userProfileService: UserProfileService) { }
 
-  ngOnInit() {
-    this.dirty = false;
-  }
-
-  submitValues(): void{
-    this.submitEmail()
-  }
+  ngOnInit() {}
 
   submitEmail(){
-    if(this.emailErr == false){
-      this.emailValid = true;
-      this.answerValid = true;
-      this.dirty = false;
-    }
     this.userProfileService.getSecurityQuestion(this.emailData).subscribe(
       securityQuestion => {
         this.securityQuestion = securityQuestion;
         this.emailErr = false;
-        this.dirty = true;},
-      error => this.emailErr = true );
+        if(!this.emailErr){
+          this.emailValid = true;
+          this.answerValid = true;
+        }}, error => this.emailErr = true );
   }
 
   submitAnswer(){
-    console.log(this.answerData);
-    // this.answerValid = false;
-    // this.resetPass= true;
+    let email = this.emailData;
+    let securityAnswer = this.answerData;
+    const user: User = {email,securityAnswer} as User;
+
+    this.userProfileService.postSecurityAnswer(user).subscribe(
+      res => {this.userResp = res;
+        if(this.userResp.id == null){
+          this.answerErr = true;
+        }else {
+          this.answerErr = false;
+          this.answerValid = false;
+          this.resetValid= true;
+          this.userAccess = user;}
+      });
   }
+
+  resetPassword(){
+    this.userAccess.password  = this.passData;
+    this.userProfileService.postSecurityAnswer(this.userAccess).subscribe();
+    this.router.navigateByUrl('/login');
+
+  }
+
 }

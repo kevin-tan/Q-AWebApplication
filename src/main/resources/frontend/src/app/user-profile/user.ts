@@ -15,4 +15,5 @@ export interface User {
   roleModel: Array<Role>;
   securityQuestion: string;
   securityAnswer: string;
+  password: string;
 }

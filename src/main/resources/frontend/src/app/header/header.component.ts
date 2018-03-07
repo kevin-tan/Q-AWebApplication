@@ -20,4 +20,7 @@ export class HeaderComponent implements OnInit {
     this.isLogged = false;
     this.router.navigateByUrl('/dashboard');
   }
+  navigateProfile():void{
+    this.router.navigateByUrl('/profile/'+this.id);
+  }
 }

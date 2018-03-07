@@ -20,14 +20,16 @@
 
         <div class="form-element">
           <label>Email</label>
-          <input placeholder="example@email.com" type="email" name="email" [ngModel]="user.email" required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+          <input placeholder="example@email.com" type="email" name="email" [(ngModel)]="user.email" required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
           <small class="errorMessage error" [hidden]="email.valid || (email.pristine && !rForm.submitted)">*A valid email address is required</small>
+          <small class="errorMessage error" *ngIf="emailAlert">*This email is already registered</small>
         </div>
 
         <div class="form-element">
           <label>Username</label>
-          <input type="text" name="username" placeholder="Username" #username="ngModel" [ngModel]="user.username" required>
+          <input type="text" name="username" placeholder="Username" #username="ngModel" [(ngModel)]="user.username" required>
           <small class="errorMessage error" [hidden]="username.valid || (username.pristine && !rForm.submitted)">*A username is required</small>
+          <small class="errorMessage error" *ngIf="userAlert">*This username is taken</small>
         </div>
 
         <div class="form-element">
@@ -55,10 +57,10 @@
         </div>
 
         <div class="form-element">
-          <button type="submit" class="submitButton" id="first">Sign Up</button>
+          <button type="submit" [disabled]="!rForm.form.valid" class="submitButton" id="first">Sign Up</button>
           <a routerLink="/login"> <button type="button" class="submitButton">Login</button></a>
         </div>
-        <div [hidden]="!errorAlert"  class="alert alert-danger errorMessage">*Please choose another username</div>
+        <div *ngIf="userAlert ||emailAlert"  class="alert alert-danger errorMessage">Verify Errors!</div>
         <div [hidden]="!successAlert"  class="alert alert-success successMessage">Successfully signed up!</div>
   </form>
 </div>

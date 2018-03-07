@@ -18,15 +18,26 @@ export class QuestionsComponent implements OnInit {
   currentQuestion: Question;
   currentUser: string;
   editing: Number = 0;
+  id: number;
+  currentPoster: boolean = false;
+  currentUserID: string = sessionStorage.getItem('id');
 
   constructor(private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.id = parseInt(this.route.snapshot.paramMap.get('id'));
+
+    this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => {
+      if (currentQuestion.userId == parseInt(sessionStorage.getItem('id'))) {
+        this.currentPoster = true;
+      }
+    });
+
+
     if(sessionStorage.getItem('id') != null){
       this.currentUser = sessionStorage.getItem('username');
     }
-    this.questionsService.getQuestionWithID(id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
+    this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
   }
 
   addAnswer(message: string): void{
@@ -138,6 +149,10 @@ export class QuestionsComponent implements OnInit {
           answer.votes = value.votes;
         }
       });
+  }
+
+  chooseBestAnswer(answer: Answer) {
+    this.questionsService.bestAnswer(answer, this.id, this.currentUserID).subscribe(answer => answer = answer);
   }
 
 }

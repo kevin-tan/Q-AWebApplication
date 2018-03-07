@@ -22,6 +22,7 @@ export class QuestionsService {
     deleteQuestionURL: string;
     putAnswerURL: string;
     deleteAnswerURL: string;
+    bestAnswerURL: string;
 
     constructor(private http: HttpClient) {}
 
@@ -114,5 +115,9 @@ export class QuestionsService {
     getQuestionWithID(id): Observable<Question>{
       this.getQuestionURL = 'http://localhost:8080/questions/' + id;
       return this.http.get<Question>(this.getQuestionURL);
+    }
+    bestAnswer(answer: Answer, questionID, userID) {
+      this.bestAnswerURL = 'http://localhost:8080/users/' + userID + '/questions/' + questionID + '/bestAnswer/' + answer.id;
+      return this.http.put<Answer>(this.bestAnswerURL, answer.id);
     }
 }

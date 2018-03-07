@@ -11,6 +11,7 @@ export interface Question {
   answerModel: Array<Answer>;
   questionCategories: Array<string>;
   questionTitle: string,
-  bestAnswer: number
+  bestAnswer: number,
+  userId: number
 }
 

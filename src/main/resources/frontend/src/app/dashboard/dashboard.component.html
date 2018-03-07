@@ -25,7 +25,7 @@
                     <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
                     <small>Submitted on: {{question.postedDate}} </small>
                     <small style="float:right;">Author:
-                        <a href="#">{{question.author}}</a>
+                        <a routerLink="" (click)="OnSelectUser(question.userId)"> {{question.author}}</a>
                     </small>
                     <p class="" id="" style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
                 </li>
@@ -41,7 +41,7 @@
                 </div>
 
                 <ul id="category-list" class="list-group">
-                    <button (click)="OnSearch(category1)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category1">Category 1</button>
+                    <button (click)="OnSearch(Java)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="java">Java</button>
                     <button (click)="OnSearch(category2)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category2">Category 2</button>
                     <button (click)="OnSearch(category3)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category3">Category 3</button>
                     <button (click)="OnSearch(category4)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category4">Category 4</button>

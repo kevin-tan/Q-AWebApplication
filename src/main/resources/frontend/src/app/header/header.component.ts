@@ -21,6 +21,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/dashboard');
   }
   navigateProfile():void{
-    this.router.navigateByUrl('/profile/'+this.id);
+    this.router.navigate(['profile', { data: this.id }]);
   }
 }

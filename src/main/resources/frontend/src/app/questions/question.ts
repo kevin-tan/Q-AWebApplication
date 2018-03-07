@@ -12,6 +12,5 @@ export interface Question {
   questionCategories: Array<string>;
   questionTitle: string,
   bestAnswer: number
-  userId: number;
 }
 

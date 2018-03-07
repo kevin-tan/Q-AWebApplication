@@ -19,5 +19,4 @@ export class AuthService {
     return this.http.post(url, user).toPromise();
   }
 
-  validateEmail(){}
 }

@@ -28,8 +28,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { EqualValidator} from "./registration/equal-validator.directive";
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
-import {UserProfileService} from "./user-profile/user-profile.service";
-import {LeaderboardComponent} from './leaderboard/leaderboard.component';
+import { UserProfileService } from "./user-profile/user-profile.service";
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
@@ -78,7 +78,7 @@ const appRoutes: Routes =[
     LoginRedirectService,
     QuestionsService,
     AskingService,
-    UserProfileService
+    UserProfileService,
   ],
   bootstrap: [AppComponent]
 })

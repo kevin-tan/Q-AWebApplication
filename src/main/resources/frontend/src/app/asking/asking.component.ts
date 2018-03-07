@@ -35,6 +35,5 @@ export class AskingComponent implements OnInit {
       .subscribe(
         () => this.router.navigate(['/dashboard'])
       );
-
   }
 }

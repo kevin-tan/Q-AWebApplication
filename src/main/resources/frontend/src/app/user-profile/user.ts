@@ -13,4 +13,6 @@ export interface User {
   lastName: string;
   email: string;
   roleModel: Array<Role>;
+  securityQuestion: string;
+  securityAnswer: string;
 }

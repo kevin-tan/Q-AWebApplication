@@ -18,8 +18,4 @@ export class LeaderboardComponent implements OnInit {
     this.questionsService.getLeaderBoard().subscribe(data => this.leaderboards = data);
   }
 
-  OnSelectUser(userID) {
-    this.router.navigate(['profile', { data: userID }]);
-  }
-
 }

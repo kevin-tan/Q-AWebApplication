@@ -43,9 +43,11 @@
 #reply-header{
   height: 100px;
   margin-top: 30px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 }
 .reply-container{
-  background: rgba(27,109,133,.75);
+  background: rgba(30, 87, 118, 0.60);
   height: 400px;
   width: 700px;
   float: right;

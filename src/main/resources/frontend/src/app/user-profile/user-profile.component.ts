@@ -27,6 +27,10 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserProfileService, private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.update();
+
+  }
+  update(){
     this.isLogged = new Boolean(sessionStorage.getItem('status')).valueOf();
     this.profileID = sessionStorage.getItem('id');
     this.route.params.subscribe(params => this.linkedUserID = params['data']);

@@ -58,7 +58,7 @@
       <!--<textarea #usernameData cols="20" rows="1" [(ngModel)]="usernameData">{{user.username}}</textarea>-->
     <!--</div>-->
 
-    <button *ngIf="!edit" class="editbtn" (click)="onEdit()">Edit Profile</button>
+    <button *ngIf="!edit&& (profileID==linkedUserID)" class="editbtn" (click)="onEdit()">Edit Profile</button>
     <button *ngIf="edit&&selectInput!=''" class="editbtn" (click)="save()">Save</button>
   </div>
 

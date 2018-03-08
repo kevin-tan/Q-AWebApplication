@@ -66,7 +66,6 @@ public class UserModel {
         this.securityAnswer = securityAnswer;
         reputation = 0;
     }
-
     public UserModel() {
         this("", "", "", "", "", "", "");
     }

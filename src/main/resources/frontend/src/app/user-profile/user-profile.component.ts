@@ -23,9 +23,9 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe(params => this.linkedUserURL = params['data']);
-  
+
     if (this.linkedUserURL != undefined) {
-      this.url = 'http://localhost:8080/users/' + this.linkedUserURL; 
+      this.url = 'http://localhost:8080/users/' + this.linkedUserURL;
     }
 
 

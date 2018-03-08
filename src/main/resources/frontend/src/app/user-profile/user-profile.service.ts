@@ -29,8 +29,8 @@ export class UserProfileService {
   postSecurityAnswer(user: User): Observable<User>{
     return this.http.put<User>('http://localhost:8080/login/resetPassword', user);
   }
-  changePassword(user:User){
-    return this.http.put(this.baseUserURL+user.id+'/changePassword', user);
+  changeUserInfo(id: string, user: User){
+    return this.http.put(this.baseUserURL+id+'/changeInfo',user);
   }
 
 }

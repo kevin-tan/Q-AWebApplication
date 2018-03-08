@@ -1,28 +1,65 @@
 <app-header></app-header>
 
-<div *ngIf="user" id="wrapper" >
+<div *ngIf="user" id="wrapper" class="my-3">
   <div id="info-container">
-    <div id="user-avatar">{{user.firstName.charAt(0).toUpperCase()}}{{user.lastName.charAt(0).toUpperCase()}}</div>
-    <div class="info-group" id="first">
+    <div  (click)="userInfoMenu()" id="user-avatar">{{user.firstName.charAt(0).toUpperCase()}}{{user.lastName.charAt(0).toUpperCase()}}</div>
+
+    <div *ngIf="!edit" class="info-group" id="first">
       <p class="user-info-label">Username:</p>
       <p class="user-info-data">{{user.username}}</p>
     </div>
-    <div *ngIf="(userID==profileID)" class="info-group">
+    <div *ngIf="!edit" class="info-group" >
       <p class="user-info-label">First Name: </p>
       <p class="user-info-data">{{user.firstName}}</p>
     </div>
-    <div *ngIf="(userID==profileID)" class="info-group">
+    <div *ngIf="!edit" class="info-group">
       <p class="user-info-label">Last Name: </p>
       <p class="user-info-data">{{user.lastName}}</p>
     </div>
-    <div class="info-group">
+    <div *ngIf="!edit" class="info-group">
       <p class="user-info-label">Date Joined: </p>
       <p class="user-info-data">{{user.dateJoined}}</p>
     </div>
-    <div class="info-group" id="last">
+    <div *ngIf="!edit" class="info-group" id="last">
       <p class="user-info-label">Reputation points: </p>
       <p class="user-info-data">{{user.reputation}}</p>
     </div>
+
+    <div *ngIf="edit" class="info-group" id="first">
+      <p class="user-info-label">Select the field to edit</p>
+      <p class="user-info-label">{{selectInput}}</p>
+    </div>
+    <!--Method1-->
+    <div *ngIf="edit" class="info-group">
+      <button *ngIf="!selected" (click)="popInput('Username')">Username</button>
+      <input *ngIf="selectInput=='Username'" placeholder="{{user.username}}" type="text" [(ngModel)]="data">
+      <small *ngIf="selectInput=='Username'" class="errorMessage error" >*This username is taken</small>
+    </div>
+    <div *ngIf="edit" class="info-group">
+      <button *ngIf="!selected" (click)="popInput('Email')">Email</button>
+      <input *ngIf="selectInput=='Email'" placeholder="{{user.email}}" type="text" [(ngModel)]="data">
+      <small *ngIf="selectInput=='Email'" class="errorMessage error" >*Not a valid email</small>
+      <small *ngIf="selectInput=='Email'" class="errorMessage error" >*This email is taken</small>
+    </div>
+    <div *ngIf="edit" class="info-group">
+      <button *ngIf="!selected" (click)="popInput('Name')">Name</button>
+      <input *ngIf="selectInput=='Name'" placeholder="{{user.firstName}}" type="text" [(ngModel)]="data">
+      <input *ngIf="selectInput=='Name'" placeholder="{{user.lastName}}" type="text" [(ngModel)]="data1">
+    </div>
+    <div *ngIf="edit" class="info-group">
+      <button *ngIf="!selected" (click)="popInput('Password')">Password</button>
+      <input *ngIf="selectInput=='Password'" type="password" [(ngModel)]="data">
+      <input *ngIf="selectInput=='Password'" type="password">
+      <small *ngIf="selectInput=='Password'" class="errorMessage error" >*Password don't match</small>
+    </div>
+
+    <!--<div *ngIf="edit" class="info-group" id="first">-->
+      <!--<p class="user-info-label">Username:</p>-->
+      <!--<textarea #usernameData cols="20" rows="1" [(ngModel)]="usernameData">{{user.username}}</textarea>-->
+    <!--</div>-->
+
+    <button *ngIf="!edit" class="editbtn" (click)="onEdit()">Edit Profile</button>
+    <button *ngIf="edit&&selectInput!=''" class="editbtn" (click)="save()">Save</button>
   </div>
 
   <div id="name-container">
@@ -34,7 +71,7 @@
     <hr class="title-line">
   </div>
 
-  <div class="question-container">
+  <div class="question-container card-container">
 
       <div *ngFor="let question of questions" class="card">
         <a routerLink="" (click)="OnSelectQuestion(question)">{{question.questionTitle}}</a>

@@ -58,7 +58,7 @@ public class UserQuestionController {
     @PutMapping(value = "/{questionId}")
     public void editQuestion(@PathVariable long userId, @PathVariable long questionId, @RequestBody QuestionModel questionModel) {
         QuestionModel question = findQuestionById(userId, questionId);
-        question.setQuestionTitle(question.getQuestionTitle());
+        question.setQuestionTitle(questionModel.getQuestionTitle());
         question.setMessage(questionModel.getMessage());
         question.setUpdatedTime(new DateTime().toString(FORMAT));
         questionRepository.save(question);

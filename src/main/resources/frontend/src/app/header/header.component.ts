@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
+import {UserProfileComponent} from "../user-profile/user-profile.component";
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,10 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  userComponent: UserProfileComponent;
   isLogged: boolean = false;
   id: string;
-  constructor(private router: Router) { }
+  constructor(private router: Router ) { }
 
   ngOnInit() {
     this.isLogged = new Boolean(sessionStorage.getItem('status')).valueOf();
@@ -21,6 +23,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/dashboard');
   }
   navigateProfile():void{
-    this.router.navigate(['profile', { data: this.id }]);
+    location.reload();
+    this.router.navigate(['profile', this.id]);
+
   }
 }

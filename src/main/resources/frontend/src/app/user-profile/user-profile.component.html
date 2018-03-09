@@ -53,11 +53,6 @@
       <small *ngIf="selectInput=='Password'" class="errorMessage error" >*Password don't match</small>
     </div>
 
-    <!--<div *ngIf="edit" class="info-group" id="first">-->
-      <!--<p class="user-info-label">Username:</p>-->
-      <!--<textarea #usernameData cols="20" rows="1" [(ngModel)]="usernameData">{{user.username}}</textarea>-->
-    <!--</div>-->
-
     <button *ngIf="!edit&& (profileID==linkedUserID)" class="editbtn" (click)="onEdit()">Edit Profile</button>
     <button *ngIf="edit&&selectInput!=''" class="editbtn" (click)="save()">Save</button>
   </div>

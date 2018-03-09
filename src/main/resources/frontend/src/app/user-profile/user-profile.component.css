@@ -3,7 +3,7 @@
   margin-top: 20px;
   background: rgba(0,0,0,0.75);
   padding: 35px;
-  max-width: 1242px;
+  max-width: 1142px;
   overflow: auto;
   border-radius: 25px;
 }
@@ -19,9 +19,8 @@
   position: relative;
   font-size: 40px;
   color: white;
-  margin-left: 100px;
-  margin-bottom: 40px;
-  float: top;
+  margin-left: 30px;
+  float: left;
 }
 
 #question-header{

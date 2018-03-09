@@ -32,5 +32,19 @@ export class UserProfileService {
   changeUserInfo(id: string, user: User){
     return this.http.put(this.baseUserURL+id+'/changeInfo',user);
   }
-
+  changePassword(id: string, user: User){
+    return this.http.put(this.baseUserURL+id+'/changePassword',user);
+  }
+  changeUsername(id: string, user: User) {
+    return this.http.put(this.baseUserURL + id + '/changeUsername', user);
+  }
+  changeEmail(id: string, user: User) {
+    return this.http.put(this.baseUserURL + id + '/changeEmail', user);
+  }
+  changeFirstName(id: string, user: User) {
+    return this.http.put(this.baseUserURL + id + '/changeFirstName', user);
+  }
+  changeLastName(id: string, user: User) {
+    return this.http.put(this.baseUserURL + id + '/changeLastName', user);
+  }
 }

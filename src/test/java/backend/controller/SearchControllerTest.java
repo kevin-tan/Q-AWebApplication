@@ -38,7 +38,6 @@ public class SearchControllerTest {
 
     private MediaType mediaType =
             new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
-
     private MockMvc mockMvc;
 
     @Autowired
@@ -58,9 +57,7 @@ public class SearchControllerTest {
             new QuestionModel("Title 3", "Unit test message3", new HashSet<>(List.of("Java", "C#")),
                     new DateTime().toString(FORMAT));
 
-
     private final UserModel user = new UserModel("", "", "", "", "", "", "");
-
 
     @Before
     public void setUp() {
@@ -99,5 +96,22 @@ public class SearchControllerTest {
             .andExpect(jsonPath("$[2].id", is(question3.getId().intValue())));
     }
 
+    @Test
+    public void ifNoQuestionFoundWithTitle_thenReturnEmptyList() throws Exception {
+        mockMvc.perform(get("/questions/searchByTitle/Title 4").content("")
+            .contentType(mediaType))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(0)));
+    }
 
+    @Test
+    public void ifQuestionsFoundWithTitle_thenReturnListWithThoseQuestions() throws Exception {
+        mockMvc.perform(get("/questions/searchByTitle/Title").content("")
+                .contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].id", is(question1.getId().intValue())))
+                .andExpect(jsonPath("$[1].id", is(question2.getId().intValue())))
+                .andExpect(jsonPath("$[2].id", is(question3.getId().intValue())));
+    }
 }

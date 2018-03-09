@@ -23,8 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -91,9 +90,9 @@ public class SearchControllerTest {
             .contentType(mediaType))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$", hasSize(3)))
-            .andExpect(jsonPath("$[0].id", is(question1.getId().intValue())))
-            .andExpect(jsonPath("$[1].id", is(question2.getId().intValue())))
-            .andExpect(jsonPath("$[2].id", is(question3.getId().intValue())));
+            .andExpect(jsonPath("$[0].questionCategories", hasItem("Java")))
+            .andExpect(jsonPath("$[1].questionCategories", hasItem("Java")))
+            .andExpect(jsonPath("$[2].questionCategories", hasItem("Java")));
     }
 
     @Test
@@ -110,8 +109,8 @@ public class SearchControllerTest {
                 .contentType(mediaType))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].id", is(question1.getId().intValue())))
-                .andExpect(jsonPath("$[1].id", is(question2.getId().intValue())))
-                .andExpect(jsonPath("$[2].id", is(question3.getId().intValue())));
+                .andExpect(jsonPath("$[0].questionTitle", containsString("Title")))
+                .andExpect(jsonPath("$[1].questionTitle", containsString("Title")))
+                .andExpect(jsonPath("$[2].questionTitle", containsString("Title")));
     }
 }

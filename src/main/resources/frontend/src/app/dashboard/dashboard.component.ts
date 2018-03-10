@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   }
 
   TagSearch(tag) {
+    console.log(tag);
     this.questionsService.searchTag(tag).subscribe(data => this.questions = data);
   }
 

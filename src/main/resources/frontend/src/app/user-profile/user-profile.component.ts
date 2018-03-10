@@ -24,17 +24,22 @@ export class UserProfileComponent implements OnInit {
   profileID: string;
   data; data1 : string;
   private sub: any;
-  url: string = 'http://localhost:8080/users/'+sessionStorage.getItem('id');
-  constructor(private userService: UserProfileService, private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
+  //url: string = 'http://localhost:8080/users/'+sessionStorage.getItem('id');
+  constructor(private userService: UserProfileService, private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) {
+    route.params.subscribe(value => {
+      this.update();
+    });
+  }
 
   ngOnInit() {
     this.update();
-    console.log('test');
   }
   update(){
     this.isLogged = new Boolean(sessionStorage.getItem('status')).valueOf();
     this.profileID = sessionStorage.getItem('id');
-    this.linkedUserID = this.route.snapshot.paramMap.get('userID');
+    //this.linkedUserID = this.route.snapshot.paramMap.get('userID');
+    const routeID = this.route.snapshot.paramMap.get('userID');
+    const url = 'http://localhost:8080/users/' + routeID;
 
 
     // this.sub = this.route.params.subscribe(params =>{
@@ -45,16 +50,10 @@ export class UserProfileComponent implements OnInit {
     //     this.linkedUserID = this.profileID;
     //   }
     // });
-
-      this.url = 'http://localhost:8080/users/' + this.linkedUserID;
-
-
-    if(this.profileID == this.linkedUserID){
-    }
-    this.userService.getUser(this.url).subscribe(user => {this.user = user;
-      console.log(this.user);});
-    this.questionsService.getQuestionsWithURL(this.url+'/questions').subscribe(question =>this.questions = question);
-    this.questionsService.getAnswerWithURL(this.url+'/replies').subscribe(answer => this.answers = answer);
+    console.log(url);
+    this.userService.getUser(url).subscribe(user => this.user = user);
+    this.questionsService.getQuestionsWithURL(url+'/questions').subscribe(question =>this.questions = question);
+    this.questionsService.getAnswerWithURL(url+'/replies').subscribe(answer => this.answers = answer);
   }
 
   OnSelectQuestion(question){

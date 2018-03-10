@@ -20,6 +20,7 @@ export class LeaderboardComponent implements OnInit {
 
   OnSelectUser(userID) {
     this.router.navigate(['profile', userID]);
+
   }
 
 }

@@ -6,4 +6,6 @@ export class UserModel {
   password: string;
   confirmPassword: string;
   email: string;
+  securityQuestion: string;
+  securityAnswer: string;
 }

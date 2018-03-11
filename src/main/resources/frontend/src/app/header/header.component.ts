@@ -8,14 +8,19 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
   isLogged: boolean = false;
+  id: string;
   constructor(private router: Router) { }
 
   ngOnInit() {
     this.isLogged = new Boolean(sessionStorage.getItem('status')).valueOf();
+    this.id = sessionStorage.getItem('id');
   }
   onLogout(): void{
     sessionStorage.clear();
     this.isLogged = false;
     this.router.navigateByUrl('/dashboard');
+  }
+  navigateProfile():void{
+    this.router.navigate(['profile', { data: this.id }]);
   }
 }

@@ -9,19 +9,8 @@ select{
   background-color: #0f0f0f;
   color: #377f9b;
   width: 100px;
-  height: 50px;
+  height: 30px;
 }
-
-textarea{
-  background-color: #0f0f0f;
-  color: #377f9b;
-}
-
-input{
-  background-color: #0f0f0f;
-  color: #377f9b;
-}
-
 
 label{
   color: white;

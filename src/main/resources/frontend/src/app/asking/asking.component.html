@@ -1,25 +1,25 @@
 <app-header></app-header>
 <div class="container my-3 py-3">
-  <form (submit)="addQuestion();" #heroForm="ngForm">
+  <form (submit)="addQuestion();" #askForm="ngForm">
     <div class="form-group my-3 p-3">
-      <label for="title">Title</label>
+      <label for="title">Question Title</label>
       <input type="text" class="form-control" id="title"
              required
              [(ngModel)]="questionTitle" name="title"
              #currentTitle="ngModel">
       <div [hidden]="currentTitle.valid || currentTitle.pristine" class="alert alert-danger">
-        Title is required!
+        A Title is required!
       </div>
     </div>
 
     <div class="form-group my-3 p-3">
-      <label for="question">Question</label>
-      <textarea type="text" class="form-control" id="question" rows="4"
-             required
-             [(ngModel)]="message" name="question"
+      <label for="question">Question Description</label>
+      <textarea type="text" class="form-control" id="question"
+                required
+                [(ngModel)]="message" name="question"
                 #currentQuestion="ngModel"></textarea>
       <div [hidden]="currentQuestion.valid || currentQuestion.pristine" class="alert alert-danger">
-        Question is required!
+        A Question Description is required!
       </div>
     </div>
 
@@ -27,7 +27,7 @@
       <label for="category">Categories</label>
       <select class="form-control" id="category"
               required
-              [(ngModel)]="questionCategories" name="category"
+              [(ngModel)]="questionCategory" name="category"
               #currentCategory="ngModel">
         <option *ngFor="let categ of categories" [value]="categ">{{categ}}</option>
       </select>
@@ -46,7 +46,7 @@
     </div>
 
     <div class="container my-3 p-3">
-      <button type="submit" class="btn btn-dark" [disabled]="!heroForm.form.valid || !acceptance">Submit</button>
+      <button type="submit" class="btn btn-dark" [disabled]="!askForm.form.valid || !acceptance">Submit</button>
     </div>
   </form>
 </div>

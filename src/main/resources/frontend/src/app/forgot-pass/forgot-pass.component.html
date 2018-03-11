@@ -5,28 +5,40 @@
       <img src="../assets/login-logo.png" width="300px" alt="Houston Answers"></a>
   </div>
 
-  <form #forgotForm="ngForm" (ngSubmit)="submitEmail()" novalidate>
-      <div class="form-element">
-      <label>Enter Email</label>
-      <input placeholder="example@email.com" type="email" name="email" [(ngModel)]="user.email" required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
-        <small class="errorMessage error" [hidden]="email.valid || (email.pristine && !forgotForm.submitted)">*A valid email address is required</small>
+  <form #forgotForm="ngForm">
+
+    <div *ngIf="!emailValid" class="form-element">
+      <label for="email">Enter Email</label>
+      <input id="email" type="email" name="email" placeholder="example@email.com" [(ngModel)]="emailData"
+             required #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+      <small class="errorMessage error" [hidden]="email.valid || (email.pristine && !forgotForm.submitted)">*A valid email address is required</small>
     </div>
 
-    <!--<div class="form-element">-->
-      <!--<label>What is your car color</label>-->
-      <!--<input type="text" class="forgot-question-input">-->
-    <!--</div>-->
-    <!--<div class="form-element">-->
-      <!--<label>New Password</label>-->
-      <!--<input type="text" class="forgot-question-input">-->
-    <!--</div>-->
-    <!--<div class="form-element">-->
-      <!--<label>Confirm Password</label>-->
-      <!--<input type="text" class="forgot-question-input">-->
-    <!--</div>-->
+    <div *ngIf="answerValid" class="form-element">
+      <label for="answer">{{securityQuestion}}</label>
+      <input id="answer" name="answer" type="text" [(ngModel)]="answerData" required #answer="ngModel">
+      <small class="errorMessage error" [hidden]="answer.valid || (answer.pristine && !forgotForm.submitted)">*An answer is required</small>
+    </div>
+
+    <div *ngIf="resetValid" class="form-element">
+      <label>New Password</label>
+      <input id="password" name="password" type="password" [(ngModel)]="passData" required validateEqual="passwordConfirm" reverse="true" #password="ngModel">
+      <small class="errorMessage error" [hidden]="password.valid || (password.pristine && !forgotForm.submitted)">*Password is required</small>
+    </div>
+
+    <div *ngIf="resetValid" class="form-element">
+      <label>Confirm Password</label>
+      <input id="passwordConfirm" name="passwordConfirm" type="password" [(ngModel)]="passConfirmData" required validateEqual="password" reverse="false" #passwordConfirm="ngModel">
+      <small class="errorMessage error" [hidden]="passwordConfirm.valid || (passwordConfirm.pristine && !forgotForm.submitted)">*Password does not match</small>
+    </div>
 
     <div class="form-element">
-      <button type="submit" class="submitButton" id="first">Submit</button>
+      <button *ngIf="!emailValid" [disabled]="!forgotForm.form.valid" type="submit" (click)="submitEmail(email)" class="submitButton" id="first">Submit</button>
+      <button *ngIf="!resetValid && emailValid" [disabled]="!forgotForm.form.valid" type="submit" (click)="submitAnswer()" class="submitButton" id="first" >Submit</button>
+      <button *ngIf="resetValid && !answerValid" type="submit" [disabled]="!forgotForm.form.valid" (click)="resetPassword()" class="submitButton" id="first"  >Submit</button>
     </div>
+    <div *ngIf="emailErr" class="alert alert-danger errorMessage">Email not registered</div>
+    <div *ngIf="answerErr"class="alert alert-danger errorMessage">Incorrect answer</div>
   </form>
 </div>
+

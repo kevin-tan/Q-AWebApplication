@@ -1,34 +1,71 @@
 <app-header></app-header>
 
 <div class="container">
-  <div class="row">
-    <div class="col-8" id="firstRow">
-      <div>
-        <!--div class="col-md-7 col-md-offset-1"-->
+    <div class="row" >
+      <div class="col-8" id="firstRow">
+        <div>
+          <!--div class="col-md-7 col-md-offset-1"-->
           <select style="display:inline-block" class="form-control" id="categories">
             <option>Title - Alphabetical</option>
             <option>Time - Ascending</option>
             <option>Time - Descending</option>
             <option>Score - Top Rated</option>
             <option>Score - Lowest Rated</option>
-            </select>
-            <input class="form-control" style="display:inline-block; padding-right: 1px" id="searchbar" [(ngModel)]="dashSearch" type="text" placeholder="Search...">
-            <button class="form-control" style="display: inline-block; "  id="searchbtn" (click)="OnSearch(dashSearch)">Search</button>
-        <div class="btn-group" role="group" aria-label="Basic example" style="padding-top: 4px">
-          <label id="catLabel">Categories:</label>
-          <button (click)="OnSearch(catAll)" type="button" class="btn btn-secondary" id="catAll" [(ngModel)]="catAll" style="background-color: #377f9b">All</button>
-          <button (click)="OnSearch(catJava)" type="button" class="btn btn-secondary" id="catJava" [(ngModel)]="catJava" style="background-color: #296a84">Java</button>
-          <button (click)="OnSearch(catCplus)" type="button" class="btn btn-secondary" id="catCplus" [(ngModel)]="catCplus" style="background-color: #215b72">C++</button>
-          <button (click)="OnSearch(catCsharp)" type="button" class="btn btn-secondary" id="catCsharp" [(ngModel)]="catCsharp" style="background-color: #1d5368">C#</button>
-          <button (click)="OnSearch(catPy)" type="button" class="btn btn-secondary" id="catPy" [(ngModel)]="catPy" style="background-color: 	#194c60">Python</button>
-          <button (click)="OnSearch(catC)" type="button" class="btn btn-secondary" id="catC" [(ngModel)]="catC" style="background-color: #123d4f">C</button>
+          </select>
+          <input class="form-control" style="display:inline-block; padding-right: 1px" id="searchbar" [(ngModel)]="dashSearch" type="text" placeholder="Search...">
+          <button class="form-control" style="display: inline-block; "  id="searchbtn" (click)="OnSearch(dashSearch)">Search</button>
+          <div class="btn-group" role="group" aria-label="Basic example" style="padding-top: 4px">
+            <label id="catLabel">Categories:</label>
+            <button (click)="OnSearch('All')" type="button" class="btn btn-secondary" id="catAll" ngDefaultControl style="background-color: #377f9b">All</button>
+            <button (click)="OnSearch('Java')" type="button" class="btn btn-secondary" id="catJava" ngDefaultControl style="background-color: #296a84">Java</button>
+            <button (click)="OnSearch('C++')" type="button" class="btn btn-secondary" id="catCplus" ngDefaultControl style="background-color: #215b72">C++</button>
+            <button (click)="OnSearch('C#')" type="button" class="btn btn-secondary" id="catCsharp" ngDefaultControl style="background-color: #1d5368">C#</button>
+            <button (click)="OnSearch('Python')" type="button" class="btn btn-secondary" id="catPy" ngDefaultControl style="background-color: 	#194c60">Python</button>
+            <button (click)="OnSearch('C')" type="button" class="btn btn-secondary" id="catC" ngDefaultControl style="background-color: #123d4f">C</button>
+          </div>
         </div>
-        </div>
+      </div>
+
+      <div class="col-4"><button (click)="OnSelectAsking();" id="askButton" class="btn btn-info"></button></div>
+
+      <div class="col-8" id="secondrow">
+        <ul *ngFor="let question of questions" class="list-group">
+
+
+
+          <li class="list-group-item">
+            <table>
+              <tr>
+                <td id="vote">
+                  <label id="votelab">Votes</label>
+                  <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
+                </td>
+            <td id="question">
+            <a id="questiontitle" routerLink="" (click)="OnSelectQuestion(question)">{{question.questionTitle}}</a>
+            <p class="" id="" style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
+            </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td id="stamp">
+                  <small>Submitted on by: {{question.postedDate}}  <a routerLink="" (click)="OnSelectUser(question.userId)"> {{question.author}}</a> </small>
+                </td>
+              </tr>
+
+            </table>
+          </li>
+        </ul>
+      </div>
+
+
+
     </div>
+</div>
+<app-footer></app-footer>
 
-    <div class="col-4"><button (click)="OnSelectAsking();" id="askButton" class="btn btn-info"></button></div>
+<!-- OLD CODE -->
+        <!--div class="col-md-7 col-md-offset-1">
 
-  </div>
     <div class="row">
         <div class="panel col-md-8">
             <ul *ngFor="let question of questions" class="list-group">
@@ -37,14 +74,18 @@
                     <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
                     <small>Submitted on: {{question.postedDate}} </small>
                     <small style="float:right;">Author:
-                        <a href="#">{{question.author}}</a>
+                        <a routerLink="" (click)="OnSelectUser(question.userId)"> {{question.author}}</a>
                     </small>
                     <p class="" id="" style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
                 </li>
             </ul>
         </div>
 
-        <!--div class="col-md-4 col-md-offset-8">
+
+
+
+
+          <div class="col-md-4 col-md-offset-8">
             <div id="right-side-bar" class="navbar navbar-default" role="navigation">
                 <div class="navbar-header">
                     <span class="navbar-brand" id="nav-categories">
@@ -53,15 +94,27 @@
                 </div>
 
                 <ul id="category-list" class="list-group">
-                    <button (click)="OnSearch(category1)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category1">Category 1</button>
-                    <button (click)="OnSearch(category2)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category2">Category 2</button>
-                    <button (click)="OnSearch(category3)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category3">Category 3</button>
-                    <button (click)="OnSearch(category4)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category4">Category 4</button>
-                    <button (click)="OnSearch(category5)" type="button" class="list-group-item list-group-item-action" [(ngModel)]="category5">Category 5</button>
+                    <button (click)="OnSearch('Java')" type="button" class="list-group-item list-group-item-action" ngDefaultControl>Java</button>
+                    <button (click)="OnSearch('Python')" type="button" class="list-group-item list-group-item-action" ngDefaultControl>Python</button>
+                    <button (click)="OnSearch('C')" type="button" class="list-group-item list-group-item-action" ngDefaultControl>C</button>
+                    <button (click)="OnSearch('C++')" type="button" class="list-group-item list-group-item-action" ngDefaultControl>C++</button>
+                    <button (click)="OnSearch('C#')" type="button" class="list-group-item list-group-item-action" ngDefaultControl>C#</button>
                 </ul>
             </div>
-        </div-->
-    </div>
-</div>
+        </div>
 
-<app-footer></app-footer>
+
+            <input style="width:100%;" [(ngModel)]="dashSearch" type="text" placeholder="Search...">
+        </div>
+        <div class="col-md-1">
+            <button (click)="OnSearch(dashSearch)">Search</button>
+        </div>
+
+        <div class="col-md-1">
+            <div class="card">
+                <a (click)="OnSelectAsking();" id="askButton" class="btn btn-primary btn-large">
+                    Ask your question
+                </a>
+            </div>
+        </div>
+    </div-->

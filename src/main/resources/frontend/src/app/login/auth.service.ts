@@ -18,4 +18,5 @@ export class AuthService {
     let url: string = `${this.BaseUrl}/register`;
     return this.http.post(url, user).toPromise();
   }
+
 }

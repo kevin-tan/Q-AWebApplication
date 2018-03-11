@@ -176,16 +176,6 @@ html, body, container {
     border: none;
 }
 
-.panel {
-    background-color: black;
-    opacity: .80;
-    margin-top: 10px;
-    border-radius: 20px;
-    padding-bottom: 10px;
-}
-
-
-
 
 
 
@@ -307,7 +297,12 @@ html, body, container {
 
 
 
-
-
+.panel {
+    background-color: black;
+    opacity: .80;
+    margin-top: 10px;
+    border-radius: 20px;
+    padding-bottom: 10px;
+}
 
 

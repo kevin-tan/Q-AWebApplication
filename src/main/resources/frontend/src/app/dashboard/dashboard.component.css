@@ -1,5 +1,4 @@
 
-
 .navbar-brand{
     padding: 0.05px;
 }
@@ -36,11 +35,11 @@ navbar-right:hover{
     margin-top: 10%;
 }
 .stylish-input-group .input-group-addon{
-    background: white !important;
+    background: white !important; 
 }
 .stylish-input-group .form-control{
-	border-right:0;
-	box-shadow:0 0 0;
+	border-right:0; 
+	box-shadow:0 0 0; 
 	border-color:#ccc;
 }
 .stylish-input-group button{
@@ -67,38 +66,95 @@ navbar-right:hover{
     float:right;
 }
 
+.nav li:hover{
+    background-color: #3f93b3;
+}
+
+#nav-categories {
+    color: white;
+}
+
+#nav-categories-pills li a{
+    font-weight: bold;
+    color: white;
+    
+}
+
+#nav-categories-pills li a:hover{
+    background-color: #3f93b3;
+}
+
+.btn-primary{
+    width: 350px;
+    height: 75px;
+    padding-top: 17px;
+    font-size: 25px;
+    background-color: #3f93b3;
+}
+.btn-primary:hover{
+    background-color: white;
+    color: #3f93b3;
+}
+
+.btn-primary:active{
+    background-color: white;
+    color: #1b6d85;
+}
+
+.btn-outline-primary{
+    height: 50px;
+    width: 120px;
+    font-weight: bold;
+    background-color: #3f93b3;
+    color: white;
+}
 
 .list-group-item {
     margin-top: 10px;
     border-radius: 20px;
 }
 
+#right-side-bar {
+    margin-top: 10px;
+    background: transparent;
+    background-color: black;
+    opacity: 0.75; 
+    border: 0px;
+    border-radius: 20px;
+}
 
+#category-list button{
+    margin-top: 0px;
+    background: transparent;
+    background-color: black;
+    opacity: 0.75; 
+    color: white;
+}
 
 #nav-categories h3{
     margin-left: 20px;
-
+    
 }
 
 #nav-categories-pills {
     margin-bottom: 10px;
     clear: both;
 }
-
+  
 html, body, container {
     height: 100%;
 }
-
+  
 #wrap {
     min-height:40%;
 }
-
+  
 #main {
     overflow: auto;
     padding-bottom: 40px;
     /* must be same height as the footer */
 }
-
+  
 #footer{
     position: relative;
     bottom:0;
@@ -120,8 +176,13 @@ html, body, container {
     border: none;
 }
 
-
-
+.panel {
+    background-color: black;
+    opacity: .80;
+    margin-top: 10px;
+    border-radius: 20px;
+    padding-bottom: 10px;
+}
 
 
 

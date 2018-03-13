@@ -4,17 +4,28 @@
   <div id="info-container">
     <div  (click)="userInfoMenu()" id="user-avatar">{{user.firstName.charAt(0).toUpperCase()}}{{user.lastName.charAt(0).toUpperCase()}}</div>
 
-    <div *ngIf="!edit" class="info-group" id="first">
+    <div class="info-group" [class.group-edit]="edit" id="first">
       <p class="user-info-label">Username:</p>
-      <p class="user-info-data">{{user.username}}</p>
+      <p *ngIf="!edit" class="user-info-data">{{user.username}}</p>
+      <input *ngIf="edit" type="text" [(ngModel)]="user.username">
+      <small *ngIf="edit" class="errorMessage error" >*This username is taken</small>
     </div>
-    <div *ngIf="!edit" class="info-group" >
+    <div *ngIf="isLogged" class="info-group" [class.group-edit]="edit">
+      <p class="user-info-label">Email:</p>
+      <p *ngIf="!edit" class="user-info-data">{{user.email}}</p>
+      <input *ngIf="edit" type="text" [(ngModel)]="user.email">
+      <small *ngIf="edit" class="errorMessage error" >*This email is taken</small>
+      <small *ngIf="edit" class="errorMessage error" >*Not a valid email</small>
+    </div>
+    <div class="info-group" [class.group-edit]="edit" >
       <p class="user-info-label">First Name: </p>
-      <p class="user-info-data">{{user.firstName}}</p>
+      <p *ngIf="!edit" class="user-info-data">{{user.firstName}}</p>
+      <input *ngIf="edit" type="text" [(ngModel)]="user.firstName">
     </div>
-    <div *ngIf="!edit" class="info-group">
+    <div class="info-group" [class.group-edit]="edit">
       <p class="user-info-label">Last Name: </p>
-      <p class="user-info-data">{{user.lastName}}</p>
+      <p *ngIf="!edit" class="user-info-data">{{user.lastName}}</p>
+      <input *ngIf="edit" type="text" [(ngModel)]="user.lastName">
     </div>
     <div *ngIf="!edit" class="info-group">
       <p class="user-info-label">Date Joined: </p>
@@ -25,36 +36,16 @@
       <p class="user-info-data">{{user.reputation}}</p>
     </div>
 
-    <div *ngIf="edit" class="info-group" id="first">
-      <p class="user-info-label">Select the field to edit</p>
-      <p class="user-info-label">{{selectInput}}</p>
-    </div>
-    <!--Method1-->
     <div *ngIf="edit" class="info-group">
-      <button *ngIf="!selected" (click)="popInput('Username')">Username</button>
-      <input *ngIf="selectInput=='Username'" placeholder="{{user.username}}" type="text" [(ngModel)]="data">
-      <small *ngIf="selectInput=='Username'" class="errorMessage error" >*This username is taken</small>
-    </div>
-    <div *ngIf="edit" class="info-group">
-      <button *ngIf="!selected" (click)="popInput('Email')">Email</button>
-      <input *ngIf="selectInput=='Email'" placeholder="{{user.email}}" type="text" [(ngModel)]="data">
-      <small *ngIf="selectInput=='Email'" class="errorMessage error" >*Not a valid email</small>
-      <small *ngIf="selectInput=='Email'" class="errorMessage error" >*This email is taken</small>
-    </div>
-    <div *ngIf="edit" class="info-group">
-      <button *ngIf="!selected" (click)="popInput('Name')">Name</button>
-      <input *ngIf="selectInput=='Name'" placeholder="{{user.firstName}}" type="text" [(ngModel)]="data">
-      <input *ngIf="selectInput=='Name'" placeholder="{{user.lastName}}" type="text" [(ngModel)]="data1">
-    </div>
-    <div *ngIf="edit" class="info-group">
-      <button *ngIf="!selected" (click)="popInput('Password')">Password</button>
+      <button *ngIf="!selected" (click)="popInput('Password')">Change Password</button>
+      <input *ngIf="selectInput=='Password'" type="password">
       <input *ngIf="selectInput=='Password'" type="password" [(ngModel)]="data">
       <input *ngIf="selectInput=='Password'" type="password">
       <small *ngIf="selectInput=='Password'" class="errorMessage error" >*Password don't match</small>
     </div>
 
-    <button *ngIf="!edit&& (profileID==linkedUserID)" class="editbtn" (click)="onEdit()">Edit Profile</button>
-    <button *ngIf="edit&&selectInput!=''" class="editbtn" (click)="save()">Save</button>
+    <button *ngIf="!edit&&isLogged" class="editbtn" (click)="onEdit()">Edit Profile</button>
+    <button *ngIf="edit" class="editbtn" (click)="save()">Save</button>
   </div>
 
   <div id="name-container">

@@ -74,6 +74,9 @@
   margin-bottom: 20px;
   width: 200px;
 }
+.group-edit{
+  margin-left: 5%;
+}
 .user-info-label{
   display: inline;
   margin-right: 5px;
@@ -107,3 +110,4 @@
   margin-left:35%;
   margin-bottom: 20px;
 }
+

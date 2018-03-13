@@ -35,11 +35,11 @@ navbar-right:hover{
     margin-top: 10%;
 }
 .stylish-input-group .input-group-addon{
-    background: white !important; 
+    background: white !important;
 }
 .stylish-input-group .form-control{
-	border-right:0; 
-	box-shadow:0 0 0; 
+	border-right:0;
+	box-shadow:0 0 0;
 	border-color:#ccc;
 }
 .stylish-input-group button{
@@ -77,7 +77,7 @@ navbar-right:hover{
 #nav-categories-pills li a{
     font-weight: bold;
     color: white;
-    
+
 }
 
 #nav-categories-pills li a:hover{
@@ -118,7 +118,7 @@ navbar-right:hover{
     margin-top: 10px;
     background: transparent;
     background-color: black;
-    opacity: 0.75; 
+    opacity: 0.75;
     border: 0px;
     border-radius: 20px;
 }
@@ -127,34 +127,34 @@ navbar-right:hover{
     margin-top: 0px;
     background: transparent;
     background-color: black;
-    opacity: 0.75; 
+    opacity: 0.75;
     color: white;
 }
 
 #nav-categories h3{
     margin-left: 20px;
-    
+
 }
 
 #nav-categories-pills {
     margin-bottom: 10px;
     clear: both;
 }
-  
+
 html, body, container {
     height: 100%;
 }
-  
+
 #wrap {
     min-height:40%;
 }
-  
+
 #main {
     overflow: auto;
     padding-bottom: 40px;
     /* must be same height as the footer */
 }
-  
+
 #footer{
     position: relative;
     bottom:0;
@@ -175,10 +175,6 @@ html, body, container {
 .card {
     border: none;
 }
-
-
-
-
 
 #firstRow{
   margin-top: 10px;
@@ -273,10 +269,7 @@ html, body, container {
   border-collapse: collapse;
   width: 30px;
   line-height: 1px;
-
 }
-
-
 #questiontitle{
   font-weight: bold;
   font-size: larger;
@@ -295,8 +288,6 @@ html, body, container {
   width: 100%;
 }
 
-
-
 .panel {
     background-color: black;
     opacity: .80;
@@ -304,5 +295,3 @@ html, body, container {
     border-radius: 20px;
     padding-bottom: 10px;
 }
-
-

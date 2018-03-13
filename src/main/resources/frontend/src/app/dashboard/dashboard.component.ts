@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
   }
 
   OnSelectUser(userID){
-    this.router.navigate(['profile',{data:userID}]);
+    this.router.navigate(['profile',userID]);
   }
 
   OnSearch(searchTerm){

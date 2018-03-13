@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isLogged: boolean = false;
+  isLogged: boolean;
   id: string;
   constructor(private router: Router) { }
 
@@ -19,8 +19,5 @@ export class HeaderComponent implements OnInit {
     sessionStorage.clear();
     this.isLogged = false;
     this.router.navigateByUrl('/dashboard');
-  }
-  navigateProfile():void{
-    this.router.navigate(['profile', { data: this.id }]);
   }
 }

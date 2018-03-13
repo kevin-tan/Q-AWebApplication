@@ -16,27 +16,79 @@ export class UserProfileComponent implements OnInit {
   public questions =[];
   public answers =[];
   public question: Question;
-  public linkedUserURL: String;
-  url: string = 'http://localhost:8080/users/'+sessionStorage.getItem('id');
-  constructor(private userService: UserProfileService, private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  edit: boolean = false;
+  selected; isLogged: boolean;
+  selectInput: string ='';
+  loggedID; routeID: string;
+  passwordData; data: string;
 
-    this.route.params.subscribe(params => this.linkedUserURL = params['data']);
+  constructor(private userService: UserProfileService, private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) {
+    route.params.subscribe(value => {this.update();});
+  }
+  ngOnInit() {}
+  update(){
+    this.loggedID = sessionStorage.getItem('id');
+    this.routeID = this.route.snapshot.paramMap.get('userID');
+    const url = 'http://localhost:8080/users/' + this.routeID;
+    this.userService.getUser(url).subscribe(user => {
+      this.user = user;
+      if(this.loggedID==this.routeID)
+        this.isLogged= true;
+      this.questionsService.getQuestionsWithURL(url+'/questions').subscribe(question =>this.questions = question);
+      this.questionsService.getAnswerWithURL(url+'/replies').subscribe(answer => this.answers = answer);
+    });
 
-    if (this.linkedUserURL != undefined) {
-      this.url = 'http://localhost:8080/users/' + this.linkedUserURL;
-    }
-
-
-    this.userService.getUser(this.url).subscribe(user => this.user = user);
-    this.questionsService.getQuestionsWithURL(this.url+'/questions').subscribe(question =>this.questions = question);
-    this.questionsService.getAnswerWithURL(this.url+'/replies').subscribe(answer => this.answers = answer);
   }
   OnSelectQuestion(question){
     this.router.navigate(['/dashboard/question', question.id]);
   }
   OnSelectReply(answer) {
     this.router.navigate(['/dashboard/question', answer.questionModelId]);
+  }
+  onEdit(){
+    this.edit = true;
+  }
+  userInfoMenu(){
+    this.edit = false;
+    this.selected = false;
+    this.selectInput ='';
+  }
+  popInput(select: string){
+    this.selectInput = select;
+    this.selected = true;
+    console.log(this.selectInput);
+  }
+  save(){
+    let username = this.user.username;
+    let email = this.user.email;
+    let firstName = this.user.firstName;
+    let lastName = this.user.lastName;
+
+    this.userService.changeUsername(this.loggedID,this.user.username).subscribe();
+
+    if(this.selectInput =='Username'){
+      username = this.data;
+      const user: User ={username, email, firstName, lastName} as User;
+      this.userService.changeUserInfo(this.loggedID,user).subscribe();
+    }
+    else if(this.selectInput =='Email'){
+      email = this.data;
+      const user: User ={username, email, firstName, lastName} as User;
+      this.userService.changeUserInfo(this.loggedID,user).subscribe();
+    }
+    else if(this.selectInput =='Name'){
+      let firstName = this.user.firstName;
+      let lastName = this.user.lastName;
+      const user: User ={username, email, firstName, lastName} as User;
+      this.userService.changeUserInfo(this.loggedID,user).subscribe();
+    }
+    else if(this.selectInput =='Password'){
+
+    }
+    this.userInfoMenu();
+  }
+  getUserInput(usernameEdit: string){
+    console.log(usernameEdit);
   }
 }

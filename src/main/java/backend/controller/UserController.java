@@ -75,7 +75,7 @@ public class UserController {
 
     //Get User date joined
     @GetMapping(value = "/{userId}/joined")
-    public String getUserdateJoined(@PathVariable long userId) {
+    public String getUserDateJoined(@PathVariable long userId) {
         UserModel user = userRepository.findOne(userId);
         return user.getDateJoined();
     }

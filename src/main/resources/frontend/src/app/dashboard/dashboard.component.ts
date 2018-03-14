@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
   }
 
   OnSelectUser(userID){
-    this.router.navigate(['profile',{data:userID}]);
+    this.router.navigate(['profile',userID]);
   }
 
   OnSearch(searchTerm){
@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   }
 
   TagSearch(tag) {
+    console.log(tag);
     this.questionsService.searchTag(tag).subscribe(data => this.questions = data);
   }
 

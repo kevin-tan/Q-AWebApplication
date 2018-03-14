@@ -12,7 +12,6 @@ import {FooterComponent} from './footer/footer.component';
 import {HomeComponent} from './home/home.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {DashboardComponent} from "./dashboard/dashboard.component";
-import {StatusComponent} from './component/status/status.component';
 import {QuestionsComponent} from './questions/questions.component';
 import { AskingComponent } from './asking/asking.component';
 
@@ -29,8 +28,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { EqualValidator} from "./registration/equal-validator.directive";
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
-import {UserProfileService} from "./user-profile/user-profile.service";
-import {LeaderboardComponent} from './leaderboard/leaderboard.component';
+import { UserProfileService } from "./user-profile/user-profile.service";
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
@@ -39,7 +38,7 @@ const appRoutes: Routes =[
   {path: 'register', component: RegistrationComponent, canActivate: [LoginRedirectService]},
   {path: 'welcome', component: GreetingComponent, canActivate: [VerifyAuthenticationService]},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'profile', component: UserProfileComponent},
+  {path: 'profile/:userID', component: UserProfileComponent},
   {path: 'leaderboard', component: LeaderboardComponent},
   {path: 'dashboard/asking', component: AskingComponent},
   {path: 'dashboard/question/:id', component: QuestionsComponent},
@@ -57,7 +56,6 @@ const appRoutes: Routes =[
     HomeComponent,
     RegistrationComponent,
     DashboardComponent,
-    StatusComponent,
     GreetingComponent,
     UserProfileComponent,
     EqualValidator,
@@ -80,7 +78,7 @@ const appRoutes: Routes =[
     LoginRedirectService,
     QuestionsService,
     AskingService,
-    UserProfileService
+    UserProfileService,
   ],
   bootstrap: [AppComponent]
 })

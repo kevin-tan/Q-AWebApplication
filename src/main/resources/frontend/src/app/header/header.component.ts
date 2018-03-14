@@ -7,11 +7,13 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isLogged: boolean = false;
+  isLogged: boolean;
+  id: string;
   constructor(private router: Router) { }
 
   ngOnInit() {
     this.isLogged = new Boolean(sessionStorage.getItem('status')).valueOf();
+    this.id = sessionStorage.getItem('id');
   }
   onLogout(): void{
     sessionStorage.clear();

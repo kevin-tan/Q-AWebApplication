@@ -5,50 +5,39 @@
     </a>
   </li>
   <li style="float:left">
-    <button class="button" type="button" style="vertical-align:middle">
-      <a routerLink="/dashboard">
+    <a routerLink="/dashboard">
+      <button class="button" type="button" style="vertical-align:middle">
         <span>Dashboard</span>
-      </a>
-    </button>
+      </button>
+    </a>
   </li>
-
-    <li style="float:left">
-    <button class="button" type="button" style="vertical-align:middle; width:150px;">
-      <a routerLink="/leaderboard">
+  <li style="float:left">
+    <a routerLink="/leaderboard">
+      <button class="button" type="button" style="vertical-align:middle; width:150px;">
         <span>Leaderboards</span>
-      </a>
-    </button>
+      </button>
+    </a>
   </li>
-
   <li *ngIf="isLogged" style="float:left">
-    <button class="button" type="button" style="vertical-align:middle;">
-      <a routerLink="/profile">
+    <a routerLink="/profile/{{id}}">
+      <button class="button" type="button" style="vertical-align:middle;">
         <span>Profile</span>
-      </a>
-    </button>
-  </li>
-
-  <li *ngIf="isLogged" style="float: right">
-    <button onclick="location.href='#Achievment'" class="icon" style="background-image: url('assets/ach.png')"></button>
-  </li>
-  <li *ngIf="isLogged" style="float: right">
-    <button onclick="location.href='#Notification'" class="icon" style="background-image: url('assets/notif.png')"></button>
+      </button>
+    </a>
   </li>
   <li *ngIf="!isLogged" style="float:right">
-    <!-- Changing href later -->
-
     <a routerLink="/register">
       <button class="button" type="button" style="vertical-align:middle">
-            <span>Sign Up</span>
-    </button></a>
+        <span>Sign Up</span>
+      </button>
+    </a>
   </li>
   <li *ngIf="!isLogged" style="float:right">
-    <!-- Changing href later -->
     <a routerLink="/login">
       <button class="button1" type="button" style="vertical-align:middle">
-            <span>Log In</span>
-    </button></a>
-
+        <span>Log In</span>
+      </button>
+    </a>
   </li>
   <li *ngIf="isLogged" style="float:right">
     <button (click)="onLogout()" class="button" type="button" style="vertical-align:middle">

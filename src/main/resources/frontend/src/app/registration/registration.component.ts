@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {UserModel} from "../UserModel";
-import {AuthService} from "../login/auth.service";
 import {Router} from "@angular/router";
+import {UserProfileService} from "../user-profile/user-profile.service";
+import {User} from "../user-profile/user";
 
 @Component({
   selector: 'app-registration',
@@ -9,40 +9,42 @@ import {Router} from "@angular/router";
   styleUrls: ['../login/login.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  user: UserModel = new UserModel();
+  usernameData: string;
+  firstNameData: string;
+  lastNameData: string;
+  emailData: string;
+  passwordData: string;
+  securityQuestionData: string;
+  securityAnswerData: string;
   userAlert;emailAlert; successAlert: boolean =  false;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private router: Router, private  userService: UserProfileService) {}
 
-  ngOnInit() {
-    this.user = {
-      id: null,
-      firstName: '',
-      lastName: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-      email: '',
-      securityQuestion: '',
-      securityAnswer: ''
-    };
-  }
+  ngOnInit() {}
 
-  onRegister(user: UserModel): void{
-      this.auth.register(user).then((user) => {
-        if(user.json().username == '') {
-          this.userAlert = true;
-        }else this.userAlert = false;
-        if (user.json().email == '') {
-          this.emailAlert = true;
-        }else this.emailAlert = false;
-        if (user.json().id != null) {
-          this.successAlert = true;
-          sessionStorage.setItem('status', 'true');
-          sessionStorage.setItem('id', user.json().id);
-          this.router.navigateByUrl('/dashboard');
-        }
-        console.log(user.json());
-      })
+  onRegister(): void{
+    let firstName = this.firstNameData;
+    let lastName = this.lastNameData;
+    let email = this.emailData;
+    let username = this.usernameData;
+    let password = this.passwordData;
+    let securityQuestion = this.securityQuestionData;
+    let securityAnswer = this.securityAnswerData;
+    const user: User = {firstName, lastName, email, username, password, securityQuestion, securityAnswer} as User;
+    console.log(user);
+    this.userService.register(user).subscribe(user =>{
+      if(user.username == '') {
+        this.userAlert = true;
+      }else this.userAlert = false;
+      if (user.email == '') {
+        this.emailAlert = true;
+      }else this.emailAlert = false;
+      if (user.id != null) {
+        this.successAlert = true;
+        sessionStorage.setItem('status', 'true');
+        sessionStorage.setItem('id', user.id.toString());
+        this.router.navigateByUrl('/dashboard');
+      }
+    });
     }
 }

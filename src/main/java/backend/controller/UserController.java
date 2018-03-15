@@ -98,42 +98,6 @@ public class UserController {
         return user;
     }
 
-    @PutMapping(value = "/{userId}/changeFirstName")
-    public UserModel changeFirstName(@PathVariable long userId, @RequestBody UserModel userModel){
-        UserModel user = userRepository.findOne(userId);
-        user.setFirstName(userModel.getFirstName());
-        userRepository.save(user);
-        return user;
-    }
-
-    @PutMapping(value = "/{userId}/changeLastName")
-    public UserModel changeLastName(@PathVariable long userId, @RequestBody UserModel userModel){
-        UserModel user = userRepository.findOne(userId);
-        user.setLastName(userModel.getLastName());
-        userRepository.save(user);
-        return user;
-    }
-
-    @PutMapping(value = "/{userId}/changeEmail")
-    public UserModel changeEmail(@PathVariable long userId, @RequestBody UserModel userModel){
-        UserModel user = userRepository.findOne(userId);
-        if (userRepository.findByEmail(userModel.getEmail()) == null) {
-            user.setEmail(userModel.getEmail());
-            userRepository.save(user);
-        }
-        return user;
-    }
-
-    @PutMapping(value = "/{userId}/changeUsername")
-    public UserModel changeUsername(@PathVariable long userId, @RequestBody UserModel userModel){
-        UserModel user = userRepository.findOne(userId);
-        if (userRepository.findByUsername(userModel.getUsername()) == null) {
-            user.setUsername(userModel.getUsername());
-            userRepository.save(user);
-        }
-        return user;
-    }
-
     //Updates user password
     @PutMapping(value = "/{userId}/changePassword")
     public void changePassword(@PathVariable long userId, @RequestBody UserModel userModel) {

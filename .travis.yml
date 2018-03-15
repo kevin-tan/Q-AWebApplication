@@ -2,6 +2,13 @@ language: java
 sudo: false
 jdk: oraclejdk9
 script: mvn clean verify
-node_js: "0.10"
-install: "npm install"
-script: "npm test"
+
+language: node_js
+node_js:
+  - '4.2'
+before_script:
+  - 'npm install -g angular-cli'
+  - npm install -g karma
+  - npm install
+  - ng build
+script: karma start config/karma.conf.js --single-run

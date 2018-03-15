@@ -6,6 +6,8 @@ import backend.model.user.UserModel;
 import backend.repository.qa.AnswerRepository;
 import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
@@ -23,9 +25,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashSet;
@@ -33,10 +32,9 @@ import java.util.List;
 
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -201,70 +199,70 @@ public class UserControllerTest {
         .andExpect(jsonPath("$.email", is(user2.getEmail())))
         .andExpect(jsonPath("$.securityQuestion", is(user.getSecurityQuestion())));
     }  
-    
-    @Test
-    public void changeUserFirstName() throws IOException, Exception {
-    	putJson.put("firstName", user2.getFirstName());
-    	
-    	mockMvc.perform(put("/users/" + user.getId() + "/changeFirstName").contentType(mediaType)
-    			.content(objectMapper.writeValueAsString(putJson)))
-    	.andExpect(status().isOk())
-    	.andExpect(content().contentType(mediaType))
-    	.andExpect(jsonPath("$.id", notNullValue()))
-        .andExpect(jsonPath("$.username", is(user.getUsername())))
-        .andExpect(jsonPath("$.firstName", is(user2.getFirstName())))
-        .andExpect(jsonPath("$.lastName", is(user.getLastName())))
-        .andExpect(jsonPath("$.email", is(user.getEmail())))
-        .andExpect(jsonPath("$.securityQuestion", is(user.getSecurityQuestion())));
-    }  
-    
-    @Test
-    public void changeUserUserName() throws IOException, Exception {
-    	putJson.put("username", user2.getUsername());
-    	
-    	mockMvc.perform(put("/users/" + user.getId() + "/changeUsername").contentType(mediaType)
-    			.content(objectMapper.writeValueAsString(putJson)))
-    	.andExpect(status().isOk())
-    	.andExpect(content().contentType(mediaType))
-    	.andExpect(jsonPath("$.id", notNullValue()))
-        .andExpect(jsonPath("$.username", is(user2.getUsername())))
-        .andExpect(jsonPath("$.firstName", is(user.getFirstName())))
-        .andExpect(jsonPath("$.lastName", is(user.getLastName())))
-        .andExpect(jsonPath("$.email", is(user.getEmail())))
-        .andExpect(jsonPath("$.securityQuestion", is(user.getSecurityQuestion())));
-    } 
-    
-    @Test
-    public void changeUserLastName() throws IOException, Exception {
-    	putJson.put("lastName", user2.getLastName());
-    	
-    	mockMvc.perform(put("/users/" + user.getId() + "/changeLastName").contentType(mediaType)
-    			.content(objectMapper.writeValueAsString(putJson)))
-    	.andExpect(status().isOk())
-    	.andExpect(content().contentType(mediaType))
-    	.andExpect(jsonPath("$.id", notNullValue()))
-        .andExpect(jsonPath("$.username", is(user.getUsername())))
-        .andExpect(jsonPath("$.firstName", is(user.getFirstName())))
-        .andExpect(jsonPath("$.lastName", is(user2.getLastName())))
-        .andExpect(jsonPath("$.email", is(user.getEmail())))
-        .andExpect(jsonPath("$.securityQuestion", is(user.getSecurityQuestion())));
-    }
-    
-    @Test
-    public void changeUserEmail() throws IOException, Exception {
-    	putJson.put("email", user2.getEmail());
-    	
-    	mockMvc.perform(put("/users/" + user.getId() + "/changeEmail").contentType(mediaType)
-    			.content(objectMapper.writeValueAsString(putJson)))
-    	.andExpect(status().isOk())
-    	.andExpect(content().contentType(mediaType))
-    	.andExpect(jsonPath("$.id", notNullValue()))
-        .andExpect(jsonPath("$.username", is(user.getUsername())))
-        .andExpect(jsonPath("$.firstName", is(user.getFirstName())))
-        .andExpect(jsonPath("$.lastName", is(user.getLastName())))
-        .andExpect(jsonPath("$.email", is(user2.getEmail())))
-        .andExpect(jsonPath("$.securityQuestion", is(user.getSecurityQuestion())));
-    }
+//
+//    @Test
+//    public void changeUserFirstName() throws IOException, Exception {
+//    	putJson.put("firstName", user2.getFirstName());
+//
+//    	mockMvc.perform(put("/users/" + user.getId() + "/changeFirstName").contentType(mediaType)
+//    			.content(objectMapper.writeValueAsString(putJson)))
+//    	.andExpect(status().isOk())
+//    	.andExpect(content().contentType(mediaType))
+//    	.andExpect(jsonPath("$.id", notNullValue()))
+//        .andExpect(jsonPath("$.username", is(user.getUsername())))
+//        .andExpect(jsonPath("$.firstName", is(user2.getFirstName())))
+//        .andExpect(jsonPath("$.lastName", is(user.getLastName())))
+//        .andExpect(jsonPath("$.email", is(user.getEmail())))
+//        .andExpect(jsonPath("$.securityQuestion", is(user.getSecurityQuestion())));
+//    }
+//
+//    @Test
+//    public void changeUserUserName() throws IOException, Exception {
+//    	putJson.put("username", user2.getUsername());
+//
+//    	mockMvc.perform(put("/users/" + user.getId() + "/changeUsername").contentType(mediaType)
+//    			.content(objectMapper.writeValueAsString(putJson)))
+//    	.andExpect(status().isOk())
+//    	.andExpect(content().contentType(mediaType))
+//    	.andExpect(jsonPath("$.id", notNullValue()))
+//        .andExpect(jsonPath("$.username", is(user2.getUsername())))
+//        .andExpect(jsonPath("$.firstName", is(user.getFirstName())))
+//        .andExpect(jsonPath("$.lastName", is(user.getLastName())))
+//        .andExpect(jsonPath("$.email", is(user.getEmail())))
+//        .andExpect(jsonPath("$.securityQuestion", is(user.getSecurityQuestion())));
+//    }
+//
+//    @Test
+//    public void changeUserLastName() throws IOException, Exception {
+//    	putJson.put("lastName", user2.getLastName());
+//
+//    	mockMvc.perform(put("/users/" + user.getId() + "/changeLastName").contentType(mediaType)
+//    			.content(objectMapper.writeValueAsString(putJson)))
+//    	.andExpect(status().isOk())
+//    	.andExpect(content().contentType(mediaType))
+//    	.andExpect(jsonPath("$.id", notNullValue()))
+//        .andExpect(jsonPath("$.username", is(user.getUsername())))
+//        .andExpect(jsonPath("$.firstName", is(user.getFirstName())))
+//        .andExpect(jsonPath("$.lastName", is(user2.getLastName())))
+//        .andExpect(jsonPath("$.email", is(user.getEmail())))
+//        .andExpect(jsonPath("$.securityQuestion", is(user.getSecurityQuestion())));
+//    }
+//
+//    @Test
+//    public void changeUserEmail() throws IOException, Exception {
+//    	putJson.put("email", user2.getEmail());
+//
+//    	mockMvc.perform(put("/users/" + user.getId() + "/changeEmail").contentType(mediaType)
+//    			.content(objectMapper.writeValueAsString(putJson)))
+//    	.andExpect(status().isOk())
+//    	.andExpect(content().contentType(mediaType))
+//    	.andExpect(jsonPath("$.id", notNullValue()))
+//        .andExpect(jsonPath("$.username", is(user.getUsername())))
+//        .andExpect(jsonPath("$.firstName", is(user.getFirstName())))
+//        .andExpect(jsonPath("$.lastName", is(user.getLastName())))
+//        .andExpect(jsonPath("$.email", is(user2.getEmail())))
+//        .andExpect(jsonPath("$.securityQuestion", is(user.getSecurityQuestion())));
+//    }
     
     @Test
     public void changePassword() throws IOException, Exception {

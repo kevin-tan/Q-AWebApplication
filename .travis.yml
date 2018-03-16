@@ -1,15 +1,16 @@
 matrix:
-include:
--language: java
-sudo: false
-jdk: oraclejdk9
-script: mvn clean verify
--language: node_js
-node_js:
--'4.2'
-before_script:
--cd src/main/resources/frontend
--'npm install -g angular-cli'
-script: 
--ng build
--ng test
+  include:
+    - language: java
+      sudo: false
+      jdk: oraclejdk9
+      script: mvn clean verify
+      
+    - language: node_js
+      node_js:
+        -'4.2'
+      before_script:
+        - cd src/main/resources/frontend
+        - 'npm install -g angular-cli'
+      script: 
+        - ng build
+        - ng test

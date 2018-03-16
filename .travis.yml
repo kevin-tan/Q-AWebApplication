@@ -1,14 +1,17 @@
-language: java
-sudo: false
-jdk: oraclejdk9
-script: mvn clean verify
+matrix:
+	include:
+		- language: java
+		  sudo: false
+		  jdk: oraclejdk9
+		  script: mvn clean verify
 
-language: node_js
-node_js:
-  - '4.2'
-before_script:
-  - 'npm install -g angular-cli'
-  - npm install -g karma
-  - npm install
-  - ng build
-script: karma start config/karma.conf.js --single-run
+		- language: node_js
+		 node_js:
+ 			 - '4.2'
+		 before_script:
+		  - cd src/main/resources/frontend
+		  - 'npm install -g angular-cli'
+		  - npm install -g karma
+  		  - npm install
+ 		  - ng build
+		script: karma start config/karma.conf.js --single-run

@@ -10,7 +10,7 @@ matrix:
         - "4.2"
       before_script:
         - cd src/main/resources/frontend
-        - 'npm install -g angular-cli'
+        - npm install -g angular-cli
       script: 
         - ng build
         - ng test

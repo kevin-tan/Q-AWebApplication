@@ -7,10 +7,10 @@ matrix:
       
     - language: node_js
       node_js:
-        - "4.2"
+        - "8.9.4"
       before_script:
-        - cd src/main/resources/frontend
-        - npm install -g angular-cli
-      script: 
+       - cd src/main/resources/frontend/
+       - npm install @angular/cli
+      script:
         - ng build
         - ng test

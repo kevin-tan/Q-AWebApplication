@@ -29,7 +29,7 @@ import java.util.List;
 import static backend.controller.constants.ForumPostConstants.FORMAT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -107,6 +107,144 @@ public class VoteControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.votes.downVotes", is(currentDownVotes + 1)));
         assertThat(userRepository.findOne(userQuestion.getId()).getReputation()).isEqualTo(rep - 1);
+    }
+
+    @Test
+    public void whenQuestionExists_andDownVoted_thenUnVotedByUser_VotesAndAuthorReputationIncrementByOne() throws Exception {
+        int currentDownVotes = question.getVotes().getDownVotes();
+        int rep = userRepository.findOne(userQuestion.getId()).getReputation();
+        //Down vote
+        mockMvc.perform(put("/user/" + userVoter.getId() + "/questions/" + question.getId() + "/downVote"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.votes.downVotes", is(currentDownVotes + 1)));
+        assertThat(userRepository.findOne(userQuestion.getId()).getReputation()).isEqualTo(rep - 1);
+        //UnVote
+        mockMvc.perform(put("/user/" + userVoter.getId() + "/questions/" + question.getId() + "/unVote"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.votes.downVotes", is(currentDownVotes)));
+        assertThat(userRepository.findOne(userQuestion.getId()).getReputation()).isEqualTo(rep);
+    }
+
+    @Test
+    public void whenQuestionExists_andUpVoted_thenUnVotedByUser_VotesAndAuthorReputationDecrementByOne() throws Exception {
+        int currentUpVote = question.getVotes().getUpVotes();
+        int rep = userRepository.findOne(userQuestion.getId()).getReputation();
+        //Down vote
+        mockMvc.perform(put("/user/" + userVoter.getId() + "/questions/" + question.getId() + "/upVote"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.votes.upVotes", is(currentUpVote + 1)));
+        assertThat(userRepository.findOne(userQuestion.getId()).getReputation()).isEqualTo(rep + 1);
+        //UnVote
+        mockMvc.perform(put("/user/" + userVoter.getId() + "/questions/" + question.getId() + "/unVote"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.votes.upVotes", is(currentUpVote)));
+        assertThat(userRepository.findOne(userQuestion.getId()).getReputation()).isEqualTo(rep);
+    }
+
+    @Test
+    public void whenAnswerExists_andUpVotedByUser_thenAnswerVotesAndAnswerAuthorReputation_incrementByOne() throws Exception {
+        int currentUpVotes = answer.getVotes().getUpVotes();
+        int rep = userRepository.findOne(userAnswer.getId()).getReputation();
+        mockMvc.perform(put("/user/" + userVoter.getId() + "/questions/" + question.getId() + "/replies/" + answer.getId() + "/upVote"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.votes.upVotes", is(currentUpVotes + 1)));
+        assertThat(userRepository.findOne(userAnswer.getId()).getReputation()).isEqualTo(rep + 1);
+    }
+
+    @Test
+    public void whenAnswerExists_andDownVotedByUser_thenAnswerVotesAndAnswerAuthorReputation_decrementByOne() throws Exception {
+        int currentDownVotes = answer.getVotes().getDownVotes();
+        int rep = userRepository.findOne(userAnswer.getId()).getReputation();
+        mockMvc.perform(put("/user/" + userVoter.getId() + "/questions/" + question.getId() + "/replies/" + answer.getId() + "/downVote"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.votes.downVotes", is(currentDownVotes + 1)));
+        assertThat(userRepository.findOne(userAnswer.getId()).getReputation()).isEqualTo(rep - 1);
+    }
+
+    @Test
+    public void whenAnswerExists_andDownVoted_thenUnVotedByUser_VotesAndAuthorReputationIncrementByOne() throws Exception {
+        int currentDownVotes = answer.getVotes().getDownVotes();
+        int rep = userRepository.findOne(userAnswer.getId()).getReputation();
+        //Down vote
+        mockMvc.perform(put("/user/" + userVoter.getId() + "/questions/" + question.getId() + "/replies/" + answer.getId() + "/downVote"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.votes.downVotes", is(currentDownVotes + 1)));
+        assertThat(userRepository.findOne(userAnswer.getId()).getReputation()).isEqualTo(rep - 1);
+        //UnVote
+        mockMvc.perform(put("/user/" + userVoter.getId() + "/questions/" + question.getId() + "/replies/" + answer.getId() + "/unVote"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.votes.downVotes", is(currentDownVotes)));
+        assertThat(userRepository.findOne(userAnswer.getId()).getReputation()).isEqualTo(rep);
+    }
+
+    @Test
+    public void whenAnswerExists_andUpVoted_thenUnVotedByUser_VotesAndAuthorReputationDecrementByOne() throws Exception {
+        int currentUpVote = answer.getVotes().getUpVotes();
+        int rep = userRepository.findOne(userAnswer.getId()).getReputation();
+        //Down vote
+        mockMvc.perform(put("/user/" + userVoter.getId() + "/questions/" + question.getId() + "/replies/" + answer.getId() + "/upVote"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.votes.upVotes", is(currentUpVote + 1)));
+        assertThat(userRepository.findOne(userAnswer.getId()).getReputation()).isEqualTo(rep + 1);
+        //UnVote
+        mockMvc.perform(put("/user/" + userVoter.getId() + "/questions/" + question.getId() + "/replies/" + answer.getId() + "/unVote"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.votes.upVotes", is(currentUpVote)));
+        assertThat(userRepository.findOne(userAnswer.getId()).getReputation()).isEqualTo(rep);
+    }
+
+    @Test
+    public void whenGetAllUpVotedUsers_onQuestion_thenReturnAllUsersUpVoted() throws Exception {
+        mockMvc.perform(get("/questions/" + question.getId() + "/upVotedUsers"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0]", is(userQuestion.getId().intValue())));
+    }
+
+    @Test
+    public void whenGetAllUpVotedUsers_onAnswer_thenReturnAllUsersUpVoted() throws Exception {
+        mockMvc.perform(get("/questions/" + question.getId() + "/replies/" + answer.getId() + "/upVotedUsers"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0]", is(userAnswer.getId().intValue())));
+    }
+
+    @Test
+    public void whenSelectingBestAnswerByUser_thenReturnBestAnswerChosen() throws Exception {
+        mockMvc.perform(put("/users/" + userQuestion.getId() + "/questions/"+ question.getId() + "/bestAnswer/" + answer.getId()))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userId", is(userAnswer.getId().intValue())))
+                .andExpect(jsonPath("$.message", is(answer.getMessage())))
+                .andExpect(jsonPath("$.questionModelId", is(question.getId().intValue())));
+    }
+
+    @Test
+    public void whenSelectedBestAnswerByUser_andRequestGetBestAnswer_thenReturnBestAnswerModel() throws Exception {
+        mockMvc.perform(put("/users/" + userQuestion.getId() + "/questions/"+ question.getId() + "/bestAnswer/" + answer.getId()))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userId", is(userAnswer.getId().intValue())))
+                .andExpect(jsonPath("$.message", is(answer.getMessage())))
+                .andExpect(jsonPath("$.questionModelId", is(question.getId().intValue())));
+
+        mockMvc.perform(get("/questions/" + question.getId() + "/bestAnswer"))
+                .andExpect(content().contentType(mediaType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userId", is(userAnswer.getId().intValue())))
+                .andExpect(jsonPath("$.message", is(answer.getMessage())))
+                .andExpect(jsonPath("$.questionModelId", is(question.getId().intValue())));
+
     }
 
     @After

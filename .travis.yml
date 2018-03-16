@@ -10,7 +10,7 @@ matrix:
         - "8.9.4"
       before_script:
        - cd src/main/resources/frontend/
-       - npm install @angular/cli
+       - npm install
       script:
         - ng build
         - ng test

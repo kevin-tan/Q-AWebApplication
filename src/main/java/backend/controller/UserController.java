@@ -46,12 +46,8 @@ public class UserController {
     @GetMapping(value = "/{userId}/highestRatedQuestion")
     public QuestionModel getHighestRatedQuestion(@PathVariable long userId) {
         List<QuestionModel> questions = questionRepository.findByUserQuestionId(userId);
-        return questions.stream().max((question, question2) -> {
-            if(question.getVotes().getUpVotedUsers().size() > question2.getVotes().getUpVotedUsers().size())
-                return 1;
-            else
-                return 0;
-        }).get();
+        return questions.stream().max((question, question2) ->
+                (question.getVotes().getUpVotedUsers().size() > question2.getVotes().getUpVotedUsers().size()) ? 1 : 0).get();
     }
 
     //Get User reputation

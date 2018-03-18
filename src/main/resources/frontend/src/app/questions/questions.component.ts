@@ -21,12 +21,14 @@ export class QuestionsComponent implements OnInit {
   id: number;
   currentPoster: boolean = false;
   currentUserID: string = sessionStorage.getItem('id');
+  answerArray = [];
 
   constructor(private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
 
+    // this code checks if the current user is the same as the poster of the current question
     this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => {
       if (currentQuestion.userId == parseInt(sessionStorage.getItem('id'))) {
         this.currentPoster = true;
@@ -37,7 +39,12 @@ export class QuestionsComponent implements OnInit {
     if(sessionStorage.getItem('id') != null){
       this.currentUser = sessionStorage.getItem('username');
     }
+
     this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
+
+    this.initAnswersAndSort(); // this line stores the answerModel into an arra and sorts it so that the best answer is at index 0
+
+
   }
 
   addAnswer(message: string): void{
@@ -151,9 +158,25 @@ export class QuestionsComponent implements OnInit {
       });
   }
 
+  // allows the user to choose the best answer. calls the question service passing the answer to mark as best, the user and poster's ids, then reloads the page
   chooseBestAnswer(answer: Answer) {
     this.questionsService.bestAnswer(answer, this.id, this.currentUserID).subscribe(answer => answer = answer);
     location.reload();
+  }
+
+  // stores the answers in and array and moves the best answer to index 0
+  initAnswersAndSort() {
+    this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => {
+      this.answerArray = this.currentQuestion.answerModel;
+
+        for(let i=0; i<this.answerArray.length; i++){
+          if (this.answerArray[i].id == currentQuestion.bestAnswer) {
+            let store = this.answerArray[0];
+            this.answerArray[0] = this.answerArray[i];
+            this.answerArray[i] = store;
+          } 
+      }
+    });
   }
 
 }

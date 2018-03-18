@@ -153,6 +153,7 @@ export class QuestionsComponent implements OnInit {
 
   chooseBestAnswer(answer: Answer) {
     this.questionsService.bestAnswer(answer, this.id, this.currentUserID).subscribe(answer => answer = answer);
+    location.reload();
   }
 
 }

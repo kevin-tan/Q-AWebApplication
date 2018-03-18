@@ -87,6 +87,7 @@ public class UserControllerTest {
     @Before
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         question.setUserQuestion(user);
         answer.setUserAnswer(user);
         userRepository.save(user);
@@ -276,7 +277,25 @@ public class UserControllerTest {
     	assertThat(bCryptPasswordEncoder.matches(user2.getPassword(), afterPut.getPassword()));
     }
     
+    @Test
+    public void validatePassword_ReceiveTrue() throws IOException, Exception {
+    	putJson.put("password", "pass");
+    	
+    	mockMvc.perform(put("/users/" + user.getId() + "/validatePassword").contentType(mediaType)
+    			.content(objectMapper.writeValueAsString(putJson)))
+    	.andExpect(status().isOk())
+    	.andExpect(content().string("true"));
+    } 
     
+    @Test
+    public void validatePassword_ReceiveFalse() throws IOException, Exception {
+    	putJson.put("password", "pass2");
+    	
+    	mockMvc.perform(put("/users/" + user.getId() + "/validatePassword").contentType(mediaType)
+    			.content(objectMapper.writeValueAsString(putJson)))
+    	.andExpect(status().isOk())
+    	.andExpect(content().string("false"));
+    }     
     
     @After
     public void tearDown() {

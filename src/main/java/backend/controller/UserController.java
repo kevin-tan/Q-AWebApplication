@@ -97,6 +97,13 @@ public class UserController {
         userRepository.save(user);
         return user;
     }
+    
+    //Validates if passwords match
+    @PutMapping(value = "/{userId}/validatePassword")
+    public boolean validatePassword(@PathVariable long userId, @RequestBody UserModel userModel) {
+        UserModel user = userRepository.findOne(userId);
+        return BCryptPasswordEncoder.matches(userModel.getPassword(), user.getPassword());
+    }
 
     //Updates user password
     @PutMapping(value = "/{userId}/changePassword")

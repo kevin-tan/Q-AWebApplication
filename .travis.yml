@@ -16,5 +16,3 @@ matrix:
       script:
         - ng build
         - ng test
-
-

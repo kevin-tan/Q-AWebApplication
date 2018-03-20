@@ -3,3 +3,4 @@ target
 Q-AWebApplication.iml
 src/main/resources/frontend/src/assets/nasalization-rg.ttf
 src/test/frontend/node_modules/.bin/browser-pack.cmd
+src/main/resources/frontend/package-lock.json

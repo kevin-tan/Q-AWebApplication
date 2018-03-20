@@ -94,34 +94,41 @@ public class QuestionRepositoryTest {
     }
 
     @Test
+    public void whenFindByQuestionTitleContains_thenReturnAllQuestionContainingKeyword(){
+        String keyword = "Title";
+        List<QuestionModel> list = questionRepository.findByQuestionTitleContains(keyword);
+        assertThat(list).size().isEqualTo(3);
+        assertThat(list.get(0).getQuestionTitle()).contains(keyword);
+        assertThat(list.get(1).getQuestionTitle()).contains(keyword);
+        assertThat(list.get(2).getQuestionTitle()).contains(keyword);
+    }
+
+    @Test
+    public void whenFindByQuestionCategory_thenReturnAllQuestionContainingCategory(){
+        String category = "Programming";
+        List<QuestionModel> list = questionRepository.findByQuestionCategories(category);
+        assertThat(list).size().isEqualTo(3);
+        assertThat(list.get(0).getQuestionCategories()).contains(category);
+        assertThat(list.get(1).getQuestionCategories()).contains(category);
+        assertThat(list.get(2).getQuestionCategories()).contains(category);
+    }
+
+    @Test
     public void whenFindAll_thenReturnAllQuestions() {
         List<QuestionModel> list = questionRepository.findAll();
-        assertThat(list).size()
-                .isEqualTo(3);
-        assertThat(list.get(0)
-                .getId()).isEqualTo(question.getId());
-        assertThat(list.get(0)
-                .getMessage()).isEqualTo(question.getMessage());
-        assertThat(list.get(0)
-                .getQuestionTitle()).isEqualTo(question.getQuestionTitle());
-        assertThat(list.get(0)
-                .getQuestionCategories()).isEqualTo(question.getQuestionCategories());
-        assertThat(list.get(1)
-                .getId()).isEqualTo(question2.getId());
-        assertThat(list.get(1)
-                .getMessage()).isEqualTo(question2.getMessage());
-        assertThat(list.get(1)
-                .getQuestionTitle()).isEqualTo(question2.getQuestionTitle());
-        assertThat(list.get(1)
-                .getQuestionCategories()).isEqualTo(question2.getQuestionCategories());
-        assertThat(list.get(2)
-                .getId()).isEqualTo(question3.getId());
-        assertThat(list.get(2)
-                .getMessage()).isEqualTo(question3.getMessage());
-        assertThat(list.get(2)
-                .getQuestionTitle()).isEqualTo(question3.getQuestionTitle());
-        assertThat(list.get(2)
-                .getQuestionCategories()).isEqualTo(question3.getQuestionCategories());
+        assertThat(list).size().isEqualTo(3);
+        assertThat(list.get(0).getId()).isEqualTo(question.getId());
+        assertThat(list.get(0).getMessage()).isEqualTo(question.getMessage());
+        assertThat(list.get(0).getQuestionTitle()).isEqualTo(question.getQuestionTitle());
+        assertThat(list.get(0).getQuestionCategories()).isEqualTo(question.getQuestionCategories());
+        assertThat(list.get(1).getId()).isEqualTo(question2.getId());
+        assertThat(list.get(1).getMessage()).isEqualTo(question2.getMessage());
+        assertThat(list.get(1).getQuestionTitle()).isEqualTo(question2.getQuestionTitle());
+        assertThat(list.get(1).getQuestionCategories()).isEqualTo(question2.getQuestionCategories());
+        assertThat(list.get(2).getId()).isEqualTo(question3.getId());
+        assertThat(list.get(2).getMessage()).isEqualTo(question3.getMessage());
+        assertThat(list.get(2).getQuestionTitle()).isEqualTo(question3.getQuestionTitle());
+        assertThat(list.get(2).getQuestionCategories()).isEqualTo(question3.getQuestionCategories());
     }
 
 }

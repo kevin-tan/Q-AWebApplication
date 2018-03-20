@@ -3,6 +3,7 @@ package backend.controller;
 import backend.model.qa.AnswerModel;
 import backend.model.qa.QuestionModel;
 import backend.model.user.UserModel;
+import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -18,11 +19,14 @@ import java.util.Set;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final QuestionRepository questionRepository;
     private final BCryptPasswordEncoder BCryptPasswordEncoder;
 
     @Autowired
-    public UserController(UserRepository userRepository, BCryptPasswordEncoder BCryptPasswordEncoder) {
+    public UserController(UserRepository userRepository, QuestionRepository questionRepository,
+                          BCryptPasswordEncoder BCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.questionRepository = questionRepository;
         this.BCryptPasswordEncoder = BCryptPasswordEncoder;
     }
 
@@ -36,6 +40,14 @@ public class UserController {
     @GetMapping(value = "/{userId}")
     public UserModel getUserById(@PathVariable long userId) {
         return userRepository.findOne(userId);
+    }
+
+    //Get highest rated user question
+    @GetMapping(value = "/{userId}/highestRatedQuestion")
+    public QuestionModel getHighestRatedQuestion(@PathVariable long userId) {
+        List<QuestionModel> questions = questionRepository.findByUserQuestionId(userId);
+        return questions.stream().max((question, question2) ->
+                (question.getVotes().getUpVotedUsers().size() > question2.getVotes().getUpVotedUsers().size()) ? 1 : 0).get();
     }
 
     //Get User reputation
@@ -75,7 +87,7 @@ public class UserController {
 
     //Get User date joined
     @GetMapping(value = "/{userId}/joined")
-    public String getUserdateJoined(@PathVariable long userId) {
+    public String getUserDateJoined(@PathVariable long userId) {
         UserModel user = userRepository.findOne(userId);
         return user.getDateJoined();
     }
@@ -98,40 +110,11 @@ public class UserController {
         return user;
     }
 
-    @PutMapping(value = "/{userId}/changeFirstName")
-    public UserModel changeFirstName(@PathVariable long userId, @RequestBody UserModel userModel){
+    //Validates if passwords match
+    @PutMapping(value = "/{userId}/validatePassword")
+    public boolean validatePassword(@PathVariable long userId, @RequestBody UserModel userModel) {
         UserModel user = userRepository.findOne(userId);
-        user.setFirstName(userModel.getFirstName());
-        userRepository.save(user);
-        return user;
-    }
-
-    @PutMapping(value = "/{userId}/changeLastName")
-    public UserModel changeLastName(@PathVariable long userId, @RequestBody UserModel userModel){
-        UserModel user = userRepository.findOne(userId);
-        user.setLastName(userModel.getLastName());
-        userRepository.save(user);
-        return user;
-    }
-
-    @PutMapping(value = "/{userId}/changeEmail")
-    public UserModel changeEmail(@PathVariable long userId, @RequestBody UserModel userModel){
-        UserModel user = userRepository.findOne(userId);
-        if (userRepository.findByEmail(userModel.getEmail()) == null) {
-            user.setEmail(userModel.getEmail());
-            userRepository.save(user);
-        }
-        return user;
-    }
-
-    @PutMapping(value = "/{userId}/changeUsername")
-    public UserModel changeUsername(@PathVariable long userId, @RequestBody UserModel userModel){
-        UserModel user = userRepository.findOne(userId);
-        if (userRepository.findByUsername(userModel.getUsername()) == null) {
-            user.setUsername(userModel.getUsername());
-            userRepository.save(user);
-        }
-        return user;
+        return BCryptPasswordEncoder.matches(userModel.getPassword(), user.getPassword());
     }
 
     //Updates user password

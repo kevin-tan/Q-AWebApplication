@@ -1,12 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserProfileComponent } from './user-profile.component';
+import { UserProfileComponent } from '../app/user-profile/user-profile.component';
 import {RouterTestingModule} from "@angular/router/testing";
-import {HeaderComponent} from "../header/header.component";
-import {FooterComponent} from "../footer/footer.component";
+import {HeaderComponent} from "../app/header/header.component";
+import {FooterComponent} from "../app/footer/footer.component";
 import {FormsModule} from "@angular/forms";
-import {UserProfileService} from "./user-profile.service";
+import {UserProfileService} from "../app/user-profile/user-profile.service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {QuestionsService} from "../app/questions/questions.service";
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -16,7 +17,7 @@ describe('UserProfileComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ UserProfileComponent, HeaderComponent, FooterComponent ],
       imports: [ RouterTestingModule, FormsModule, HttpClientTestingModule ],
-      providers: [ UserProfileService ]
+      providers: [ UserProfileService, QuestionsService ]
     })
     .compileComponents();
   }));

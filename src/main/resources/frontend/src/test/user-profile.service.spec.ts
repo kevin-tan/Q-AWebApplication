@@ -1,8 +1,8 @@
 import {TestBed, inject, getTestBed} from '@angular/core/testing';
 
-import { UserProfileService } from './user-profile.service';
+import { UserProfileService } from '../app/user-profile/user-profile.service';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {User} from "./user";
+import {User} from "../app/user-profile/user";
 import {isNumber} from "util";
 
 describe('UserProfileService', () => {

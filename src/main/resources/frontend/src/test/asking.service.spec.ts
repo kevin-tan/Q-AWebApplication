@@ -1,11 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { AskingService } from './asking.service';
+import { AskingService } from '../app/asking/asking.service';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('AskingService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AskingService]
+      providers: [AskingService],
+      imports:[HttpClientTestingModule]
     });
   });
 

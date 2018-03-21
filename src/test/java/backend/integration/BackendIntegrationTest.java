@@ -3,6 +3,8 @@ package backend.integration;
 
 import backend.repository.roles.RolesRepository;
 import backend.repository.user.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -35,6 +37,10 @@ public class BackendIntegrationTest {
     private RolesRepository rolesRepository;
     @Autowired
     private UserRepository userRepository;
+
+    private ObjectMapper objectMapper;
+    //TODO figure out if i can use the objectMapper only
+    private ObjectNode putJson;
 
     @Before
     public void setUp() {

@@ -7,10 +7,11 @@ The goal of this project is to develop a software whilst demonstrating and using
 Houston Answers is a Q&A website that allows users to ask and/or answer a variety of questions of many topics. The core features will include voting on answers, and accepting or rejecting answers. 
 
 # Roadmap
-This project is currently
+This project is currently **in progress**
 - [X] Login feature
 - [X] QA Section
 - [X] Leaderboard
+- [ ] Testing
 ## Team members
 * Karthikan Jeyabalan (Front-end)
 * Kevin Tan (Team Lead, Back-end)

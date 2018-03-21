@@ -59,7 +59,8 @@ public class BackendIntegrationTest {
     private QuestionRepository questionRepository;
 
     private final UserModel user = new UserModel("john123", "abc123", "John", "Doe", "JDoe@foo.com", "Where were you born?", "Arkansas");
-    private final UserModel searchUser = new UserModel("bill3", "pass", "Bill", "Brown", "BBrown@foo.com", "What's your mother's maiden name?", "Jill");
+    private final UserModel searchUser =
+            new UserModel("bill3", "pass", "Bill", "Brown", "BBrown@foo.com", "What's your mother's maiden name?", "Jill");
 
     private final QuestionModel question1 =
             new QuestionModel("Title 1", "Message1", new HashSet<>(List.of("C#", "Java")), new DateTime().toString(FORMAT));
@@ -78,6 +79,10 @@ public class BackendIntegrationTest {
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
         objectMapper = jackson2HttpMessageConverter.getObjectMapper();
+
+        rolesRepository.dropTable();
+        rolesRepository.createRoleModelTable();
+        rolesRepository.createRoleModelUsersTable();
 
         //Roles need to be added before execution
         RoleModel adminRole = new RoleModel("admin");
@@ -106,42 +111,26 @@ public class BackendIntegrationTest {
     @Test
     public void integrationTest() throws Exception {
         //Register a user
-        mockMvc.perform(post("/register").contentType(mediaType)
-                .content(getContent(objectMapper, user)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", notNullValue()))
-                .andExpect(jsonPath("$.username", is(user.getUsername())))
-                .andExpect(jsonPath("$.firstName", is(user.getFirstName())))
-                .andExpect(jsonPath("$.lastName", is(user.getLastName())))
-                .andExpect(jsonPath("$.email", is(user.getEmail())));
+        mockMvc.perform(post("/register").contentType(mediaType).content(getContent(objectMapper, user))).andExpect(status().isOk())
+                .andExpect(content().contentType(mediaType)).andExpect(jsonPath("$.id", notNullValue()))
+                .andExpect(jsonPath("$.username", is(user.getUsername()))).andExpect(jsonPath("$.firstName", is(user.getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(user.getLastName()))).andExpect(jsonPath("$.email", is(user.getEmail())));
 
         //Login as registered user
-        mockMvc.perform(post("/login").contentType(mediaType)
-                .content(getContent(objectMapper, user)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", notNullValue()))
-                .andExpect(jsonPath("$.username", is(user.getUsername())))
-                .andExpect(jsonPath("$.firstName", is(user.getFirstName())))
-                .andExpect(jsonPath("$.lastName", is(user.getLastName())))
-                .andExpect(jsonPath("$.email", is(user.getEmail())));
+        mockMvc.perform(post("/login").contentType(mediaType).content(getContent(objectMapper, user))).andExpect(status().isOk())
+                .andExpect(content().contentType(mediaType)).andExpect(jsonPath("$.id", notNullValue()))
+                .andExpect(jsonPath("$.username", is(user.getUsername()))).andExpect(jsonPath("$.firstName", is(user.getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(user.getLastName()))).andExpect(jsonPath("$.email", is(user.getEmail())));
 
         //Search posted questions by category
-        mockMvc.perform(get("/questions/searchByCategory/Java").content("")
-                .contentType(mediaType))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].questionCategories", hasItem("Java")))
+        mockMvc.perform(get("/questions/searchByCategory/Java").content("").contentType(mediaType)).andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3))).andExpect(jsonPath("$[0].questionCategories", hasItem("Java")))
                 .andExpect(jsonPath("$[1].questionCategories", hasItem("Java")))
                 .andExpect(jsonPath("$[2].questionCategories", hasItem("Java")));
 
         //Search posted questions by title
-        mockMvc.perform(get("/questions/searchByTitle/Title").content("")
-                .contentType(mediaType))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].questionTitle", containsString("Title")))
+        mockMvc.perform(get("/questions/searchByTitle/Title").content("").contentType(mediaType)).andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2))).andExpect(jsonPath("$[0].questionTitle", containsString("Title")))
                 .andExpect(jsonPath("$[1].questionTitle", containsString("Title")));
     }
 

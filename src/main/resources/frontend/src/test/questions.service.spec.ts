@@ -3,6 +3,8 @@ import {inject, TestBed, getTestBed} from '@angular/core/testing';
 import {QuestionsService} from '../app/questions/questions.service';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {Question} from "../app/questions/question";
+import {votes} from "../app/questions/votes";
+import {Answer} from "../app/questions/answer";
 
 describe('QuestionsService', () => {
   let injector: TestBed;
@@ -117,4 +119,167 @@ describe('QuestionsService', () => {
       request.flush(mockData);
     });
   });
+  //================================================================================================================
+  //Voting Start
+  //================================================================================================================
+  describe('#upVotingQuestion', () => {
+    it('should return an observable<Question> via PUT', () => {
+
+      let userID = 1;
+
+      let id = 1;
+      let message = "gg";
+
+      let upVotes = 0;
+      let downVotes = 0;
+      let totalVotes = 0;
+      let votes: votes = {id, upVotes, downVotes, totalVotes} as votes;
+      const question: Question = {id, message, votes} as Question;
+
+      questionsService.upVotingQuestion(question, userID).subscribe(data => {
+        expect(data.votes.upVotes+1).toEqual(question.votes.upVotes+1);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id + '/upVote');
+      expect(request.request.method).toBe('PUT');
+      request.flush(question);
+    });
+  });
+  describe('#downVotingQuestion', () => {
+    it('should return an observable<Question> via PUT', () => {
+      let userID = 1;
+
+      let id = 1;
+      let message = "gg";
+
+      let upVotes = 0;
+      let downVotes = 0;
+      let totalVotes = 0;
+      let votes: votes = {id, upVotes, downVotes, totalVotes} as votes;
+      const question: Question = {id, message, votes} as Question;
+
+      questionsService.downVotingQuestion(question, userID).subscribe(data => {
+        expect(data.votes.downVotes+1).toEqual(question.votes.downVotes+1);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id + '/downVote');
+      expect(request.request.method).toBe('PUT');
+      request.flush(question);
+    });
+  });
+  describe('#upVotingAnswer', () => {
+    it('should return an observable<Question> via PUT', () => {
+      let userID = 1;
+
+      let id = 2;
+      let message = "gg";
+      let upVotes = 0;
+      let downVotes = 0;
+      let totalVotes = 0;
+
+      let votes: votes = {id, upVotes, downVotes, totalVotes} as votes;
+      let answer: Answer = { id, message, votes } as Answer;
+      let answerModel: Array<Answer> = [answer];
+
+      id = 1;
+      message = "gg";
+      upVotes = 0;
+      downVotes = 0;
+      totalVotes = 0;
+
+      votes = {id, upVotes, downVotes, totalVotes} as votes;
+      const question: Question = {id, message, answerModel, votes} as Question;
+
+      questionsService.upVotingAnswer(answer, question.id, userID).subscribe(data => {
+        expect(data.votes.upVotes+1).toBe(answer.votes.upVotes+1);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id + '/replies/' + answer.id + '/upVote');
+      expect(request.request.method).toBe('PUT');
+      request.flush(answer);
+    });
+  });
+  describe('#downVotingAnswer', () => {
+    it('should return an observable<Question> via PUT', () => {
+      let userID = 1;
+
+      let id = 2;
+      let message = "gg";
+      let upVotes = 0;
+      let downVotes = 0;
+      let totalVotes = 0;
+
+      let votes: votes = {id, upVotes, downVotes, totalVotes} as votes;
+      let answer: Answer = { id, message, votes } as Answer;
+      let answerModel: Array<Answer> = [answer];
+
+      id = 1;
+      message = "gg";
+      upVotes = 0;
+      downVotes = 0;
+      totalVotes = 0;
+
+      votes = {id, upVotes, downVotes, totalVotes} as votes;
+      const question: Question = {id, message, answerModel, votes} as Question;
+
+      questionsService.downVotingAnswer(answer, question.id, userID).subscribe(data => {
+        expect(data.votes.downVotes+1).toBe(answer.votes.downVotes+1);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id + '/replies/' + answer.id + '/downVote');
+      expect(request.request.method).toBe('PUT');
+      request.flush(answer);
+    });
+  });
+  describe('#unVotingQuestion', () => {
+    it('should return an observable<Question> via PUT', () => {
+      let userID = 1;
+
+      let id = 1;
+      let message = "gg";
+
+      let upVotes = 0;
+      let downVotes = 0;
+      let totalVotes = 1;
+      let votes: votes = {id, upVotes, downVotes, totalVotes} as votes;
+      const question: Question = {id, message, votes} as Question;
+
+      questionsService.unVotingQuestion(question, userID).subscribe(data => {
+        expect(data.votes.totalVotes-1).toEqual(question.votes.totalVotes-1);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id + '/unVote');
+      expect(request.request.method).toBe('PUT');
+      request.flush(question);
+    });
+  });
+  describe('#unVotingAnswer', () => {
+    it('should return an observable<Question> via PUT', () => {
+      let userID = 1;
+
+      let id = 2;
+      let message = "gg";
+      let upVotes = 0;
+      let downVotes = 0;
+      let totalVotes = 1;
+
+      let votes: votes = {id, upVotes, downVotes, totalVotes} as votes;
+      let answer: Answer = { id, message, votes } as Answer;
+      let answerModel: Array<Answer> = [answer];
+
+      id = 1;
+      message = "gg";
+      upVotes = 0;
+      downVotes = 0;
+      totalVotes = 0;
+
+      votes = {id, upVotes, downVotes, totalVotes} as votes;
+      const question: Question = {id, message, answerModel, votes} as Question;
+
+      questionsService.unVotingAnswer(answer, question.id, userID).subscribe(data => {
+        expect(data.votes.totalVotes-1).toBe(answer.votes.totalVotes-1);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id + '/replies/' + answer.id + '/unVote');
+      expect(request.request.method).toBe('PUT');
+      request.flush(answer);
+    });
+  });
+  //================================================================================================================
+  //Voting End
+  //================================================================================================================
 });

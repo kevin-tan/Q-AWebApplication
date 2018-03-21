@@ -10,7 +10,7 @@ import 'rxjs/add/operator/catch';
 export class UserProfileService {
 
   baseURL: string = 'http://localhost:8080/';
-  baseUserURL: string = 'http://localhost:8080/users/';
+  userURL: string = 'http://localhost:8080/users/';
 
   constructor(private http: HttpClient) { }
 
@@ -24,27 +24,27 @@ export class UserProfileService {
     return this.http.get<User>(URL,{responseType: 'json'});
   }
   getSecurityQuestion(email: string){
-    return this.http.get(this.baseUserURL+email+'/securityQuestion',{responseType: 'text'})
+    return this.http.get(this.userURL+email+'/securityQuestion',{responseType: 'text'})
   }
   postSecurityAnswer(user: User): Observable<User>{
     return this.http.put<User>('http://localhost:8080/login/resetPassword', user);
   }
   changeUserInfo(id: string, user: User){
-    return this.http.put(this.baseUserURL+id+'/changeInfo',user);
+    return this.http.put(this.userURL+id+'/changeInfo',user);
   }
   changePassword(id: string, user: User){
-    return this.http.put(this.baseUserURL+id+'/changePassword',user);
+    return this.http.put(this.userURL+id+'/changePassword',user);
   }
   changeUsername(id: string, user: string) {
-    return this.http.put(this.baseUserURL + id + '/changeUsername', user);
+    return this.http.put(this.userURL + id + '/changeUsername', user);
   }
   changeEmail(id: string, user: User) {
-    return this.http.put(this.baseUserURL + id + '/changeEmail', user);
+    return this.http.put(this.userURL + id + '/changeEmail', user);
   }
   changeFirstName(id: string, user: User) {
-    return this.http.put(this.baseUserURL + id + '/changeFirstName', user);
+    return this.http.put(this.userURL + id + '/changeFirstName', user);
   }
   changeLastName(id: string, user: User) {
-    return this.http.put(this.baseUserURL + id + '/changeLastName', user);
+    return this.http.put(this.userURL + id + '/changeLastName', user);
   }
 }

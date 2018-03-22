@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, getTestBed, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from '../app/dashboard/dashboard.component';
 import { HeaderComponent } from "../app/header/header.component";
@@ -8,16 +8,12 @@ import { QuestionsService } from "../app/questions/questions.service";
 import { FormsModule } from "@angular/forms";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { Question } from '../app/questions/question'
-import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { tick } from '@angular/core/testing';
-import { Location } from '@angular/common';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let service: QuestionsService;
-  let http: HttpClientTestingModule;
   let injector: TestBed;
   let router: Router;
 
@@ -81,37 +77,35 @@ describe('DashboardComponent', () => {
     it('should return an array of Questions if there are questions in the server', () => {
       spyOn(service, 'getQuestions').and.returnValue(this.mockData);
       expect(component.getAllQuestions()).toEqual(this.mockData);
-    })
+    });
     it('should return an empty array  if there are no questions in the server', () => {
       spyOn(service, 'getQuestions').and.returnValue(this.mockEmpty);
       expect(component.getAllQuestions()).toEqual(this.mockEmpty);
-    })
-
-  })
+    });
+  });
 
   describe('#OnSearch(var)', () => {
     it('should return an array of Questions if there is a matching search in the server', () => {
       spyOn(service, 'searchDashboard').and.returnValue(this.mockData);
       expect(component.OnSearch("any")).toEqual(this.mockData);
-    })
+    });
     it('should return an empty array  if there are no questions in the server', () => {
       spyOn(service, 'searchDashboard').and.returnValue(this.mockEmpty);
       expect(component.OnSearch("any")).toEqual(this.mockEmpty);
-    })
-
-  })
+    });
+  });
 
   describe('#TagSearch(var)', () => {
     it('should return an array of Questions if there are matching tags in the server', () => {
       spyOn(service, 'searchTag').and.returnValue(this.mockData);
       expect(component.TagSearch("any")).toEqual(this.mockData);
-    })
+    });
     it('should return an empty array  if there are no questions in the server', () => {
       spyOn(service, 'searchTag').and.returnValue(this.mockEmpty);
       expect(component.TagSearch("any")).toEqual(this.mockEmpty);
-    })
-  })
-
+    });
+  });
+  
   // describe('#OnSelectAsking', () => {
   //   it('should navigate you the asking page /dashboard/asking/', fakeAsync(() => {
   //     let path: String = 'dashboard/asking';

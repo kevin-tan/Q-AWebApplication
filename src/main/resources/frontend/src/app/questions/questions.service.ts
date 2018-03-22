@@ -23,6 +23,7 @@ export class QuestionsService {
   putAnswerURL: string;
   deleteAnswerURL: string;
   bestAnswerURL: string;
+  leaderBoardHighestQuestion: string;
 
   constructor(private http: HttpClient) { }
 
@@ -75,7 +76,7 @@ export class QuestionsService {
 
   // querys the server to return an array of questions matching the given tag attribute
   searchTag(tag) {
-    this.getTagSearchURL = 'http://localhost:8080/questions//searchByCategory/' + tag;
+    this.getTagSearchURL = 'http://localhost:8080/questions/searchByCategory/' + tag;
     return this.getQuestionsWithURL(this.getTagSearchURL);
   }
 
@@ -130,5 +131,10 @@ export class QuestionsService {
   bestAnswer(answer: Answer, questionID, userID) {
     this.bestAnswerURL = 'http://localhost:8080/users/' + userID + '/questions/' + questionID + '/bestAnswer/' + answer.id;
     return this.http.put<Answer>(this.bestAnswerURL, answer.id);
+  }
+
+  getHighestVotedQuestion(leaderUserId): Observable<Question> {
+    this.leaderBoardHighestQuestion = 'http://localhost:8080/users/' + leaderUserId + '/highestRatedQuestion';
+    return this.http.get<Question>(this.leaderBoardHighestQuestion);
   }
 }

@@ -17,6 +17,11 @@ export class DashboardComponent implements OnInit {
     this.questionsService.getQuestions().subscribe(data => this.questions = data); // calls the question service to retrieve all questions from the server
   }
 
+  // calls the question service to retrieve all questions from the server
+  getAllQuestions() {
+    this.questionsService.getQuestions().subscribe(data => this.questions = data); 
+  }
+
   // routes the user to the chosen question's display page
   OnSelectQuestion(question){
     this.router.navigate(['/dashboard/question', question.id]);

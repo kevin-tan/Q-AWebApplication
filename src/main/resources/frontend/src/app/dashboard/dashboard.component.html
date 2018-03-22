@@ -16,7 +16,7 @@
           <button class="form-control" style="display: inline-block; "  id="searchbtn" (click)="OnSearch(dashSearch)">Search</button>
           <div class="btn-group" role="group" aria-label="Basic example" style="padding-top: 4px">
             <label id="catLabel">Categories:</label>
-            <button (click)="OnSearch('All')" type="button" class="btn btn-secondary" id="catAll" ngDefaultControl style="background-color: #377f9b">All</button>
+            <button (click)="getAllQuestions()" type="button" class="btn btn-secondary" id="catAll" ngDefaultControl style="background-color: #377f9b">All</button>
             <button (click)="OnSearch('Java')" type="button" class="btn btn-secondary" id="catJava" ngDefaultControl style="background-color: #296a84">Java</button>
             <button (click)="OnSearch('C++')" type="button" class="btn btn-secondary" id="catCplus" ngDefaultControl style="background-color: #215b72">C++</button>
             <button (click)="OnSearch('C#')" type="button" class="btn btn-secondary" id="catCsharp" ngDefaultControl style="background-color: #1d5368">C#</button>

@@ -30,6 +30,7 @@ describe('LeaderboardComponent', () => {
     fixture.detectChanges();
     service = new QuestionsService(this.http);
 
+    let mockEmpty: userReputation[];
     let mockData: userReputation[] = [
       {
         "id": 1,
@@ -61,9 +62,13 @@ describe('LeaderboardComponent', () => {
   });
 
   describe('#getTheLeaderBoard()', () => {
-    it('should return an array of UserReputation', () => {
+    it('should return an array of UserReputation if there are users in the leaderboard', () => {
       spyOn(service, 'getLeaderBoard').and.returnValue(this.mockData);
       expect(component.getTheLeaderBoard()).toEqual(this.mockData);
+    })
+    it('should return empty array if there are no user in the leaderboard', () => {
+      spyOn(service, 'getLeaderBoard').and.returnValue(this.mockEmpty);
+      expect(component.getTheLeaderBoard()).toEqual(this.mockEmpty);
     })
   })
 });

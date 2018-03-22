@@ -6,10 +6,8 @@
   </div>
   <div class="row">
 
-    <div id="loader"></div>
-    <div  class="col-md-12" id="leaderboard" style="display: none">
+    <div class="col-md-12" id="leaderboard">
       <h2>User Reputation Leaderboards</h2>
-      <div  style="text-align: start; color: #d7bf31"><h2>FIRST PLACE</h2></div>
         <div *ngFor="let leaderboard of leaderboards; let i = index" class="list-group">
           <a routerLink="" (click)="OnSelectUser(leaderboard.id)" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-20 justify-content-between" id="rank">

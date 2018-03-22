@@ -10,25 +10,23 @@ import { Router } from '@angular/router'
 export class LeaderboardComponent implements OnInit {
 
   public leaderboards = [] // array used to store the leaderboard for display
-  public time;
 
 
   constructor(private questionsService: QuestionsService, private router: Router) { }
 
   ngOnInit() {
-    this.time = setTimeout(this.showPage, 5000);
-    this.questionsService.getLeaderBoard().subscribe(data => this.leaderboards = data); // calls the question service to return a leaderboard
+    this.getTheLeaderBoard()
+  }
+
+   // calls the question service to return a leaderboard
+  getTheLeaderBoard() {
+    this.questionsService.getLeaderBoard().subscribe(data => this.leaderboards = data);
   }
 
   // routes the user to the chosen user's profile
   OnSelectUser(userID) {
     this.router.navigate(['profile', userID]);
 
-  }
-
-  showPage() {
-    document.getElementById("loader").style.display = "none";
-    document.getElementById("leaderboard").style.display = "block";
   }
 
 }

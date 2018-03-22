@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from '../app/dashboard/dashboard.component';
 import { HeaderComponent } from "../app/header/header.component";
@@ -8,12 +8,14 @@ import { QuestionsService } from "../app/questions/questions.service";
 import { FormsModule } from "@angular/forms";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { Question } from '../app/questions/question'
+import { Injectable } from '@angular/core';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let service: QuestionsService;
   let http: HttpClientTestingModule;
+  let injector: TestBed;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,6 +24,10 @@ describe('DashboardComponent', () => {
       providers: [QuestionsService]
     })
       .compileComponents();
+
+      injector = getTestBed();
+      service = injector.get(QuestionsService);
+
   }));
 
   beforeEach(() => {

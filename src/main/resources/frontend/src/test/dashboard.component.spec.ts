@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed, fakeAsync } from '@angular/core/testing';
 
 import { DashboardComponent } from '../app/dashboard/dashboard.component';
 import { HeaderComponent } from "../app/header/header.component";
@@ -9,6 +9,9 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { Question } from '../app/questions/question'
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { tick } from '@angular/core/testing';
+import { Location } from '@angular/common';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -16,6 +19,7 @@ describe('DashboardComponent', () => {
   let service: QuestionsService;
   let http: HttpClientTestingModule;
   let injector: TestBed;
+  let router: Router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,8 +29,9 @@ describe('DashboardComponent', () => {
     })
       .compileComponents();
 
-      injector = getTestBed();
-      service = injector.get(QuestionsService);
+    injector = getTestBed();
+    router = TestBed.get(Router);
+    router.initialNavigation();
 
   }));
 
@@ -92,4 +97,12 @@ describe('DashboardComponent', () => {
     })
   })
 
+  // describe('#OnSelectAsking', () => {
+  //   it('should navigate you the asking page /dashboard/asking/', fakeAsync(() => {
+  //     let path: String = 'dashboard/asking';
+  //     router.navigate([path])
+  //     tick();
+  //     expect(router.url).toEqual(path)
+  // }))
+  // })
 });

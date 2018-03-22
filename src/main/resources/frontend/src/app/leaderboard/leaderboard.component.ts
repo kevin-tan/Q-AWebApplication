@@ -15,7 +15,12 @@ export class LeaderboardComponent implements OnInit {
   constructor(private questionsService: QuestionsService, private router: Router) { }
 
   ngOnInit() {
-    this.questionsService.getLeaderBoard().subscribe(data => this.leaderboards = data); // calls the question service to return a leaderboard
+    this.getTheLeaderBoard()
+  }
+
+   // calls the question service to return a leaderboard
+  getTheLeaderBoard() {
+    this.questionsService.getLeaderBoard().subscribe(data => this.leaderboards = data);
   }
 
   // routes the user to the chosen user's profile

@@ -24,14 +24,14 @@ export class UserProfileService {
   getIsLoggedIn(): boolean{
     return this.isLoggedIn;
   }
-  getUser(URL): Observable<User>{
-    return this.http.get<User>(URL,{responseType: 'json'});
+  getUserByID(id): Observable<User>{
+    return this.http.get<User>(this.userURL+id,{responseType: 'json'});
   }
   getSecurityQuestion(email: string){
     return this.http.get(this.userURL+email+'/securityQuestion',{responseType: 'text'})
   }
-  postSecurityAnswer(user: User): Observable<User>{
-    return this.http.put<User>('http://localhost:8080/login/resetPassword', user);
+  resetPassword(user: User): Observable<User>{
+    return this.http.put<User>(this.baseURL+'login/resetPassword', user);
   }
   changeUserInfo(id: string, user: User){
     return this.http.put(this.userURL+id+'/changeInfo',user);

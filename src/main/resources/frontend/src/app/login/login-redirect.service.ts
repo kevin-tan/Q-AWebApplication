@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from "@angular/router";
-import {UserProfileService} from "../user-profile/user-profile.service";
 
 @Injectable()
 export class LoginRedirectService implements CanActivate{
 
-  constructor(private router: Router, private userService: UserProfileService) { }
+  constructor(private router: Router) {}
+  getStatus():boolean{
+    return new Boolean(sessionStorage.getItem('status')).valueOf();
+  }
   canActivate(): boolean{
-    if(this.userService.isLoggedIn){
+    if(this.getStatus()== true){
       this.router.navigate(['dashboard']);
       return false;
     }else{

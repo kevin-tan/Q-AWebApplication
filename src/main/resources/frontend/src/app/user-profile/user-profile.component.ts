@@ -31,8 +31,9 @@ export class UserProfileComponent implements OnInit {
     this.loggedID = sessionStorage.getItem('id');
     this.routeID = this.route.snapshot.paramMap.get('userID');
     const url = 'http://localhost:8080/users/' + this.routeID;
-    this.userService.getUser(url).subscribe(user => {
+    this.userService.getUserByID(this.routeID).subscribe(user => {
       this.user = user;
+      console.log(user);
       if(this.loggedID==this.routeID)
         this.isLogged= true;
       this.questionsService.getQuestionsWithURL(url+'/questions').subscribe(question =>this.questions = question);

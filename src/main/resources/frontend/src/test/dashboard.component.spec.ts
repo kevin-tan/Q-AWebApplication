@@ -47,7 +47,8 @@ describe('DashboardComponent', () => {
         "answerModel": null,
         "questionCategories": null,
         "questionTitle": "TestTitle1",
-        "bestAnswer": 1
+        "bestAnswer": 1,
+        "userId": 1
       },
       {
         "id": 2,
@@ -59,7 +60,8 @@ describe('DashboardComponent', () => {
         "answerModel": null,
         "questionCategories": null,
         "questionTitle": "TestTitle2",
-        "bestAnswer": 2
+        "bestAnswer": 2,
+        "userId": 2
       }
     ] as Question[];
 
@@ -73,6 +75,20 @@ describe('DashboardComponent', () => {
     it('should return an array of Questions', () => {
       spyOn(service, 'getQuestions').and.returnValue(this.mockData);
       expect(component.getAllQuestions()).toEqual(this.mockData);
+    })
+  })
+
+  describe('#OnSearch(var)', () => {
+    it('should return an array of Questions', () => {
+      spyOn(service, 'searchDashboard').and.returnValue(this.mockData);
+      expect(component.OnSearch("any")).toEqual(this.mockData);
+    })
+  })
+
+  describe('#TagSearch(var)', () => {
+    it('should return an array of Questions', () => {
+      spyOn(service, 'searchTag').and.returnValue(this.mockData);
+      expect(component.TagSearch("any")).toEqual(this.mockData);
     })
   })
 

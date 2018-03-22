@@ -41,7 +41,6 @@
 
 
 
-    <div *ngIf="displayAnswerBox; else displayLoginButton">
 
       <div class="form-group my-3 p-3">
         <label for="terms"><h4>Terms & Conditions</h4></label>
@@ -182,17 +181,6 @@
 
 
 
-    </div>
-
-    <div class="from-group my-3 p-3" >
-    <ng-template #displayLoginButton>
-      <div style="left: 15px; position: relative">
-        <h2 style="color: white">Please sign in to post an answer</h2>
-        <button class="btn btn-info" (click)="registerButtonClick();">Register</button>
-        <button class="btn btn-info" (click)="loginButtonClick();">Login</button>
-      </div>
-    </ng-template>
-    </div>
 
 
   </form>

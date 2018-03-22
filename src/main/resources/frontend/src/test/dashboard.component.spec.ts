@@ -41,6 +41,7 @@ describe('DashboardComponent', () => {
     fixture.detectChanges();
     service = new QuestionsService(this.http);
 
+    let mockEmpty: Question[];
     let mockData: Question[] = [
       {
         "id": 1,
@@ -77,23 +78,37 @@ describe('DashboardComponent', () => {
   });
 
   describe('#getAllQuestions()', () => {
-    it('should return an array of Questions', () => {
+    it('should return an array of Questions if there are questions in the server', () => {
       spyOn(service, 'getQuestions').and.returnValue(this.mockData);
       expect(component.getAllQuestions()).toEqual(this.mockData);
     })
+    it('should return an empty array  if there are no questions in the server', () => {
+      spyOn(service, 'getQuestions').and.returnValue(this.mockEmpty);
+      expect(component.getAllQuestions()).toEqual(this.mockEmpty);
+    })
+
   })
 
   describe('#OnSearch(var)', () => {
-    it('should return an array of Questions', () => {
+    it('should return an array of Questions if there is a matching search in the server', () => {
       spyOn(service, 'searchDashboard').and.returnValue(this.mockData);
       expect(component.OnSearch("any")).toEqual(this.mockData);
     })
+    it('should return an empty array  if there are no questions in the server', () => {
+      spyOn(service, 'searchDashboard').and.returnValue(this.mockEmpty);
+      expect(component.OnSearch("any")).toEqual(this.mockEmpty);
+    })
+
   })
 
   describe('#TagSearch(var)', () => {
-    it('should return an array of Questions', () => {
+    it('should return an array of Questions if there are matching tags in the server', () => {
       spyOn(service, 'searchTag').and.returnValue(this.mockData);
       expect(component.TagSearch("any")).toEqual(this.mockData);
+    })
+    it('should return an empty array  if there are no questions in the server', () => {
+      spyOn(service, 'searchTag').and.returnValue(this.mockEmpty);
+      expect(component.TagSearch("any")).toEqual(this.mockEmpty);
     })
   })
 

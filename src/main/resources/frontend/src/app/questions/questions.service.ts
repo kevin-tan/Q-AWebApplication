@@ -133,8 +133,8 @@ export class QuestionsService {
     return this.http.put<Answer>(this.bestAnswerURL, answer.id);
   }
 
-  getHighestVotedQuestion(leaderUserId): Observable<Question> {
-    this.leaderBoardHighestQuestion = 'http://localhost:8080/users/' + leaderUserId + '/highestRatedQuestion';
-    return this.http.get<Question>(this.leaderBoardHighestQuestion);
-  }
+  // getHighestVotedQuestion(leaderUserId): Observable<Question> {
+  //   this.leaderBoardHighestQuestion = 'http://localhost:8080/users/' + leaderUserId + '/highestRatedQuestion';
+  //   return this.http.get<Question>(this.leaderBoardHighestQuestion);
+  // }
 }

@@ -90,7 +90,7 @@ describe('DashboardComponent', () => {
   })
 
   describe('#OnSearch(var)', () => {
-    it('should return an array of Questions', () => {
+    it('should return an array of Questions if there is a matching search in the server', () => {
       spyOn(service, 'searchDashboard').and.returnValue(this.mockData);
       expect(component.OnSearch("any")).toEqual(this.mockData);
     })
@@ -102,7 +102,7 @@ describe('DashboardComponent', () => {
   })
 
   describe('#TagSearch(var)', () => {
-    it('should return an array of Questions', () => {
+    it('should return an array of Questions if there are matching tags in the server', () => {
       spyOn(service, 'searchTag').and.returnValue(this.mockData);
       expect(component.TagSearch("any")).toEqual(this.mockData);
     })

@@ -52,7 +52,7 @@ describe('LeaderboardComponent', () => {
         "reputation": 2,
         "username": "Test2"
       }
-    ]
+    ];
 
 
   });

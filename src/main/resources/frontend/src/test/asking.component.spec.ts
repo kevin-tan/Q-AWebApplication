@@ -40,16 +40,16 @@ describe('AskingComponent', () => {
     htmlTitle = debugTitle.nativeElement;
 
     debugDescription = fixture.debugElement.query(By.css('#question'));
-    htmlDescription = debugTitle.nativeElement;
+    htmlDescription = debugDescription.nativeElement;
 
     debugDropdown = fixture.debugElement.query(By.css('#category'));
-    htmlDropdown = debugTitle.nativeElement;
+    htmlDropdown = debugDropdown.nativeElement;
 
     debugCheckBox = fixture.debugElement.query(By.css('#terms'));
-    htmlCheckBox = debugTitle.nativeElement;
+    htmlCheckBox = debugCheckBox.nativeElement;
 
     debugSubmit = fixture.debugElement.query(By.css('#submission'));
-    htmlSubmit = debugTitle.nativeElement;
+    htmlSubmit = debugSubmit.nativeElement;
   });
 
   it('should create', () => {

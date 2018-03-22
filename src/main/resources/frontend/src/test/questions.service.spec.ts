@@ -119,6 +119,116 @@ describe('QuestionsService', () => {
       request.flush(mockData);
     });
   });
+
+  //================================================================================================================
+  //Editing/Deleting Start
+  //================================================================================================================
+
+  describe('#edditingQuestion', () => {
+    it('should return an observable<Question> via PUT', () => {
+      let userID = 1;
+
+      let id = 2;
+      let message = "gg";
+
+      const question: Question = {id, message} as Question;
+
+      questionsService.editingQuestion(userID, question).subscribe(data => {
+        expect(data).toBe(question);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id);
+      expect(request.request.method).toBe('PUT');
+      request.flush(question);
+    });
+  });
+
+  describe('#deletingQuestion', () => {
+    it('should return an observable<Question> via DELETE', () => {
+      let userID = 1;
+
+      let id = 1;
+      let message = "gg";
+      const question: Question = {id, message,} as Question;
+
+      questionsService.deletingQuestion(userID, question).subscribe(data => {
+        expect(data).toBe(question);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id);
+      expect(request.request.method).toBe('DELETE');
+      request.flush(question);
+    });
+  });
+
+  describe('#editingAnswer', () => {
+    it('should return an observable<Question> via PUT', () => {
+      let userID = 1;
+
+      let id = 2;
+      let message = "gg";
+      let answer: Answer = {id, message} as Answer;
+      let answerModel: Array<Answer> = [answer];
+
+      id = 1;
+      message = "gg";
+      const question: Question = {id, message, answerModel} as Question;
+
+      questionsService.editingAnswer(answer, userID, question).subscribe(data => {
+        expect(data).toBe(question);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id + '/replies/' + answer.id);
+      expect(request.request.method).toBe('PUT');
+      request.flush(question);
+    });
+  });
+
+  describe('#deletingAnswer', () => {
+    it('should return an observable<Question> via DELETE', () => {
+      let userID = 1;
+
+      let id = 2;
+      let message = "gg";
+      let answer: Answer = {id, message} as Answer;
+      let answerModel: Array<Answer> = [answer];
+
+      id = 1;
+      message = "gg";
+      const question: Question = {id, message, answerModel} as Question;
+
+      questionsService.deletingAnswer(answer, userID, question).subscribe(data => {
+        expect(data).toBe(question);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id + '/replies/' + answer.id);
+      expect(request.request.method).toBe('DELETE');
+      request.flush(question);
+    });
+  });
+
+  describe('#addAnswerToQuestion', () => {
+    it('should return an observable<Question> via POST', () => {
+      let userID = 1;
+
+      let id = 2;
+      let message = "gg";
+      let answer: Answer = {id, message} as Answer;
+      let answerModel: Array<Answer> = [answer];
+
+      id = 1;
+      message = "gg";
+      const question: Question = {id, message, answerModel} as Question;
+
+      questionsService.addAnswerToQuestion(answer, question.id, userID).subscribe(data => {
+        expect(data).toBe(question);
+      });
+      const request = httpMock.expectOne('http://localhost:8080/user/' + userID + '/questions/' + question.id + '/replies');
+      expect(request.request.method).toBe('POST');
+      request.flush(question);
+    });
+  });
+
+  //================================================================================================================
+  //Editing/Deleting End
+  //================================================================================================================
+
   //================================================================================================================
   //Voting Start
   //================================================================================================================

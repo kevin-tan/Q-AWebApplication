@@ -8,13 +8,13 @@
   <form #lForm="ngForm" (ngSubmit)="onLogin()" novalidate>
   <div class="form-element">
       <label>Username</label>
-      <input type="text" name="username" placeholder="Username" required #username="ngModel" [(ngModel)]="user.username" >
+      <input type="text" name="username" placeholder="Username" required #username="ngModel" [(ngModel)]="usernameData" >
       <small class="errorMessage error" [hidden]="username.valid || (username.pristine)">*Username is required</small>
     </div>
 
     <div class="form-element">
       <label>Password</label>
-      <input type="password" name="password" placeholder="Password" required #password="ngModel" [(ngModel)]="user.password">
+      <input type="password" name="password" placeholder="Password" required #password="ngModel" [(ngModel)]="passwordData">
       <small class="errorMessage error" [hidden]="password.valid || (password.pristine)">*Password is required</small>
 
       <a routerLink="forgotPassword"><small id="forgot-pass">Forgot Password</small></a>

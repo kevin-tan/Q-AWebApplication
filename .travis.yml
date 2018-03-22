@@ -1,4 +1,18 @@
-language: java
-sudo: false
-jdk: oraclejdk9
-script: mvn clean verify
+matrix:
+  include:
+    - language: java
+      sudo: false
+      jdk: oraclejdk9
+      script: mvn clean verify
+      
+    - language: node_js
+      node_js:
+        - "8.9.4"
+      addons:
+        chrome: stable
+      before_script:
+       - cd src/main/resources/frontend/
+       - npm install
+      script:
+        - ng build
+        - ng test

@@ -4,55 +4,55 @@
     <a routerLink="/dashboard"><img src="assets/login-logo.png" width="300px" alt="Houston Answers"></a>
   </div>
 
-  <form #rForm="ngForm" (ngSubmit)="onRegister(rForm.value, rForm.valid)" novalidate>
+  <form #rForm="ngForm" (ngSubmit)="onRegister()" novalidate>
 
         <div class="form-element">
           <label>First Name</label>
-          <input type="text" name="firstName"  placeholder="First Name" required #firstName="ngModel" [(ngModel)]="user.firstName">
+          <input type="text" name="firstName"  placeholder="First Name" required #firstName="ngModel" [(ngModel)]="firstNameData">
           <small class="errorMessage error" [hidden]="firstName.valid || (firstName.pristine && !rForm.submitted)">*First name is required</small>
           </div>
 
         <div class="form-element">
           <label>Last Name</label>
-          <input type="text" name="lastName" placeholder="Last Name" required #lastName="ngModel" [ngModel]="user.lastName" >
+          <input type="text" name="lastName" placeholder="Last Name" required #lastName="ngModel" [(ngModel)]="lastNameData" >
           <small class="errorMessage error" [hidden]="lastName.valid || (lastName.pristine && !rForm.submitted)">*Last name is required</small>
         </div>
 
         <div class="form-element">
           <label>Email</label>
-          <input placeholder="example@email.com" type="email" name="email" [(ngModel)]="user.email" required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+          <input placeholder="example@email.com" type="email" name="email" [(ngModel)]="emailData" required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
           <small class="errorMessage error" [hidden]="email.valid || (email.pristine && !rForm.submitted)">*A valid email address is required</small>
           <small class="errorMessage error" *ngIf="emailAlert">*This email is already registered</small>
         </div>
 
         <div class="form-element">
           <label>Username</label>
-          <input type="text" name="username" placeholder="Username" #username="ngModel" [(ngModel)]="user.username" required>
+          <input type="text" name="username" placeholder="Username" #username="ngModel" [(ngModel)]="usernameData" required>
           <small class="errorMessage error" [hidden]="username.valid || (username.pristine && !rForm.submitted)">*A username is required</small>
           <small class="errorMessage error" *ngIf="userAlert">*This username is taken</small>
         </div>
 
         <div class="form-element">
           <label>Password</label>
-          <input type="password" name="password" [ngModel]="user.password" required validateEqual="passwordConfirm" reverse="true" #password="ngModel">
+          <input type="password" name="password" [(ngModel)]="passwordData" required validateEqual="passwordConfirm" reverse="true" #password="ngModel">
           <small class="errorMessage error" [hidden]="password.valid || (password.pristine && !rForm.submitted)">*Password is required</small>
         </div>
 
         <div class="form-element">
           <label>Confirm Password</label>
-          <input type="password" name="passwordConfirm" [ngModel]="user.passwordConfirm" required validateEqual="password" reverse="false" #passwordConfirm="ngModel" >
+          <input type="password" name="passwordConfirm" (ngModel)="passwordData" required validateEqual="password" reverse="false" #passwordConfirm="ngModel" >
           <small class="errorMessage error" [hidden]="passwordConfirm.valid || (passwordConfirm.pristine && !rForm.submitted)">*Password does not match</small>
         </div>
 
         <div class="form-element">
           <label>Security Question</label>
-          <input type="text" name="securityQuestion" placeholder="Security Question" [ngModel]="user.securityQuestion" required #securityQuestion="ngModel" >
+          <input type="text" name="securityQuestion" placeholder="Security Question" [(ngModel)]="securityQuestionData" required #securityQuestion="ngModel" >
           <small class="errorMessage error" [hidden]="securityQuestion.valid || (securityQuestion.pristine && !rForm.submitted)">*Security question required</small>
         </div>
 
         <div class="form-element">
           <label>Security Answer</label>
-          <input type="text" placeholder="Security Answer" name="securityAnswer" [ngModel]="user.securityAnswer" required #securityAnswer="ngModel" >
+          <input type="text" placeholder="Security Answer" name="securityAnswer" [(ngModel)]="securityAnswerData" required #securityAnswer="ngModel" >
           <small class="errorMessage error" [hidden]="securityAnswer.valid || (securityAnswer.pristine && !rForm.submitted)">*Security answer required</small>
         </div>
 

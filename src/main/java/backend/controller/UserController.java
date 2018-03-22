@@ -3,6 +3,7 @@ package backend.controller;
 import backend.model.qa.AnswerModel;
 import backend.model.qa.QuestionModel;
 import backend.model.user.UserModel;
+import backend.repository.qa.QuestionRepository;
 import backend.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -18,11 +19,14 @@ import java.util.Set;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final QuestionRepository questionRepository;
     private final BCryptPasswordEncoder BCryptPasswordEncoder;
 
     @Autowired
-    public UserController(UserRepository userRepository, BCryptPasswordEncoder BCryptPasswordEncoder) {
+    public UserController(UserRepository userRepository, QuestionRepository questionRepository,
+                          BCryptPasswordEncoder BCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.questionRepository = questionRepository;
         this.BCryptPasswordEncoder = BCryptPasswordEncoder;
     }
 
@@ -36,6 +40,14 @@ public class UserController {
     @GetMapping(value = "/{userId}")
     public UserModel getUserById(@PathVariable long userId) {
         return userRepository.findOne(userId);
+    }
+
+    //Get highest rated user question
+    @GetMapping(value = "/{userId}/highestRatedQuestion")
+    public QuestionModel getHighestRatedQuestion(@PathVariable long userId) {
+        List<QuestionModel> questions = questionRepository.findByUserQuestionId(userId);
+        return questions.stream().max((question, question2) ->
+                (question.getVotes().getUpVotedUsers().size() > question2.getVotes().getUpVotedUsers().size()) ? 1 : 0).get();
     }
 
     //Get User reputation
@@ -97,7 +109,7 @@ public class UserController {
         userRepository.save(user);
         return user;
     }
-    
+
     //Validates if passwords match
     @PutMapping(value = "/{userId}/validatePassword")
     public boolean validatePassword(@PathVariable long userId, @RequestBody UserModel userModel) {

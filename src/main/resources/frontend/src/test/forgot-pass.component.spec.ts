@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForgotPassComponent } from './forgot-pass.component';
+import { ForgotPassComponent } from '../app/forgot-pass/forgot-pass.component';
+import {FormsModule} from "@angular/forms";
+import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {UserProfileService} from "../app/user-profile/user-profile.service";
 
 describe('ForgotPassComponent', () => {
   let component: ForgotPassComponent;
@@ -8,7 +12,9 @@ describe('ForgotPassComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForgotPassComponent ]
+      declarations: [ ForgotPassComponent ],
+      imports: [FormsModule, RouterTestingModule, HttpClientTestingModule],
+      providers: [UserProfileService]
     })
     .compileComponents();
   }));

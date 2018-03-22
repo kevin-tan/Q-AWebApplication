@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -21,10 +21,10 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
-    "@ng": "latest",
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
+    "ssri": "^5.3.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
@@ -35,16 +35,24 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
-    "jasmine-core": "~2.8.0",
+    "jasmine-core": "^2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~2.0.0",
-    "karma-chrome-launcher": "~2.2.0",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-coverage-istanbul-reporter": "^1.2.1",
-    "karma-jasmine": "~1.1.0",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-jasmine": "^1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3"
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6.",
+  "main": "karma.conf.js",
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevin-tan/Q-AWebApplication/tree/master/src/main/resources/frontend"
   }
 }

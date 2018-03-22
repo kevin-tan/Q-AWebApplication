@@ -1,35 +1,30 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from "@angular/router";
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent} from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from "@angular/router";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+import { HttpClientModule } from "@angular/common/http";
 
-
-import {HeaderComponent} from './header/header.component';
-import {LoginComponent} from './login/login.component';
-import {FooterComponent} from './footer/footer.component';
-import {HomeComponent} from './home/home.component';
-import {RegistrationComponent} from './registration/registration.component';
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {QuestionsComponent} from './questions/questions.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { FooterComponent } from './footer/footer.component';
+import { HomeComponent } from './home/home.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { QuestionsComponent } from './questions/questions.component';
 import { AskingComponent } from './asking/asking.component';
-
-
-
-import {AuthService} from "./login/auth.service";
-import {VerifyAuthenticationService} from "./login/verify-authentication.service";
-import {LoginRedirectService} from "./login/login-redirect.service";
-import {GreetingComponent} from './greeting/greeting.component';
-import {QuestionsService} from "./questions/questions.service";
-import {AskingService} from "./asking/asking.service";
-import {HttpModule} from "@angular/http";
 import { UserProfileComponent } from './user-profile/user-profile.component';
-
-import { EqualValidator} from "./registration/equal-validator.directive";
-import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
-import { UserProfileService } from "./user-profile/user-profile.service";
+import { GreetingComponent } from './greeting/greeting.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
+
+import { VerifyAuthenticationService } from "./login/verify-authentication.service";
+import { LoginRedirectService } from "./login/login-redirect.service";
+import { QuestionsService } from "./questions/questions.service";
+import { AskingService } from "./asking/asking.service";
+import { UserProfileService } from "./user-profile/user-profile.service";
+
+import { EqualValidator } from "./registration/equal-validator.directive";
 
 const appRoutes: Routes =[
   {path: '', component: HomeComponent},
@@ -66,14 +61,12 @@ const appRoutes: Routes =[
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes,{enableTracing: true})
   ],
   providers: [
-    AuthService,
     VerifyAuthenticationService,
     LoginRedirectService,
     QuestionsService,

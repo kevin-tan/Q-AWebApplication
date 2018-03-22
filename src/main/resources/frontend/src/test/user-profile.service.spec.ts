@@ -42,6 +42,14 @@ describe('UserProfileService', () => {
 
   describe('#registerService',() => {
     it('should return an Observable<User>',()=>{
+      let firstName = 'John';
+      let lastName = 'Doe';
+      let email = 'JohnDoe@gmail.com';
+      let username = 'john';
+      let password = 'pass';
+      let securityQuestion = 'where was I born';
+      let securityAnswer = 'Montreal';
+      const dummyUser: User = {firstName, lastName, email, username, password, securityQuestion, securityAnswer} as User;
 
     })
   });

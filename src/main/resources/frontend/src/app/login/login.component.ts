@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   usernameData ;passwordData: string;
   errorMsg = '';
   errorAlert: boolean;
+  isLogged: boolean;
 
   constructor(private router: Router, private userProfileService: UserProfileService ) {}
 
@@ -21,11 +22,18 @@ export class LoginComponent implements OnInit {
     let username = this.usernameData;
     let password = this.passwordData;
     const user: User = {username, password} as User;
+    this.firstReq(user);
+    this.fetchData(user);
+    console.log(this.isLogged);
 
+  }
+
+  fetchData(user){
     this.userProfileService.login(user).subscribe(
       user => {
         sessionStorage.clear();
         if(user.id == null) {
+          this.isLogged = false;
           sessionStorage.clear();
           this.errorAlert = true;
           this.errorMsg = 'Invalid Login, please try again';
@@ -39,10 +47,16 @@ export class LoginComponent implements OnInit {
         }
         console.log(user);
       },
-        error => {
-        this.errorAlert = true;
-        this.errorMsg = 'Username and password required';
-      }
-      );
+    );
+
+  }
+
+  firstReq(user){
+    this.userProfileService.login(user).subscribe(user=>{
+      if(user.id == null)
+        this.isLogged = false;
+      else
+        this.isLogged = true;
+    });
   }
 }

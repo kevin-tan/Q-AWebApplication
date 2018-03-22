@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   constructor(private questionsService: QuestionsService, private router: Router) { }
 
   ngOnInit() {
-    this.questionsService.getQuestions().subscribe(data => this.questions = data); // calls the question service to retrieve all questions from the server
+    this.getAllQuestions();
   }
 
   // calls the question service to retrieve all questions from the server

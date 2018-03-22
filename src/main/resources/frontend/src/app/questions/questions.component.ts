@@ -43,8 +43,6 @@ export class QuestionsComponent implements OnInit {
     this.questionsService.getQuestionWithID(this.id).subscribe(currentQuestion => this.currentQuestion = currentQuestion);
 
     this.initAnswersAndSort(); // this line stores the answerModel into an arra and sorts it so that the best answer is at index 0
-
-
   }
 
   addAnswer(message: string): void{

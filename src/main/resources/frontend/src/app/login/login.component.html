@@ -7,22 +7,22 @@
 
   <form #lForm="ngForm" (ngSubmit)="onLogin()" novalidate>
   <div class="form-element">
-      <label>Username</label>
+      <label id="userlabel" style="top: -1px">Username</label>
       <input type="text" name="username" placeholder="Username" required #username="ngModel" [(ngModel)]="usernameData" >
       <small class="errorMessage error" [hidden]="username.valid || (username.pristine)">*Username is required</small>
     </div>
 
     <div class="form-element">
-      <label>Password</label>
+      <label id="passlabel" style="top: 0px">Password</label>
       <input type="password" name="password" placeholder="Password" required #password="ngModel" [(ngModel)]="passwordData">
       <small class="errorMessage error" [hidden]="password.valid || (password.pristine)">*Password is required</small>
-
-      <a routerLink="forgotPassword"><small id="forgot-pass">Forgot Password</small></a>
+      <p></p>
+      <a routerLink="forgotPassword" id="fpl">Forgot Password</a>
     </div>
 
     <div class="form-element">
-      <button [disabled]="!lForm.form.valid" type="submit" class="submitButton" id="first">Login</button>
-      <a routerLink="/register"><button type="button" class="submitButton">Sign Up</button></a>
+      <button  [disabled]="!lForm.form.valid" type="submit" class="submitButton" id="first">LOGIN</button>
+      <button onclick="location.href='/register'"  type="button" class="submitButton">SIGN UP</button>
     </div>
     <div [hidden]="!errorAlert"  class="alert alert-danger errorMessage">{{errorMsg}}</div>
   </form>

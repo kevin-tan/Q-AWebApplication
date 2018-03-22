@@ -39,9 +39,13 @@
     </div>
 
 
-    <div class="form-group my-3 p-3">
-      <label for="terms"><h4>Terms & Conditions</h4></label>
-      <textarea type="text" class="form-control" id="textterm" disabled>                                                  Welcome to Houston Answers
+
+
+    <div *ngIf="displayAnswerBox; else displayLoginButton">
+
+      <div class="form-group my-3 p-3">
+        <label for="terms"><h4>Terms & Conditions</h4></label>
+        <textarea type="text" class="form-control" id="textterm" disabled>                                                  Welcome to Houston Answers
 
         These terms and conditions outline the rules and regulations for the use of Houston Answers's Website.
         Houston Answers is located at:
@@ -161,20 +165,35 @@
         To the extent that the website and the information and services on the website are provided free of charge,
         we will not be liable for any loss or damage of any nature.
       </textarea>
-    </div>
+      </div>
 
+
+      <div class="from-group my-3 p-3" >
+        <label for="terms">
+          <input type="checkbox" id="terms"
+                 required
+                 [checked]="acceptance"
+                 (change)="acceptance = !acceptance">       Agree to all the terms and conditions
+        </label>
+        <p></p>
+        <button type="submit" class="btn btn-dark" id="askButton" [disabled]="!askForm.form.valid || !acceptance"></button>
+
+      </div>
+
+
+
+    </div>
 
     <div class="from-group my-3 p-3" >
-      <label for="terms">
-        <input type="checkbox" id="terms"
-               required
-               [checked]="acceptance"
-               (change)="acceptance = !acceptance">       Agree to all the terms and conditions
-      </label>
-      <p></p>
-      <button type="submit" class="btn btn-dark" id="askButton" [disabled]="!askForm.form.valid || !acceptance"></button>
-
+    <ng-template #displayLoginButton>
+      <div style="left: 15px; position: relative">
+        <h2 style="color: white">Please sign in to post an answer</h2>
+        <button class="btn btn-info" (click)="registerButtonClick();">Register</button>
+        <button class="btn btn-info" (click)="loginButtonClick();">Login</button>
+      </div>
+    </ng-template>
     </div>
+
 
   </form>
 </div>

@@ -126,7 +126,7 @@ public class UserQuestionControllerTest {
     public void putQuestion() throws Exception {
     	mockMvc.perform(put("/user/" + user.getId() + "/questions/" + question.getId()).contentType(mediaType)
                 .content(objectMapper.writeValueAsString(putJson)))
-    	.andExpect(status().isOk());
+    	        .andExpect(status().isOk());
     	
     	QuestionModel afterPut = questionRepository.findOne(question.getId());
     	assertThat(afterPut.getMessage()).isEqualTo(validQuestion.getMessage());

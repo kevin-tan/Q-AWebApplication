@@ -34,8 +34,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ActiveProfiles("test")
 @WebAppConfiguration
 public class RegisterControllerTest {
-
-    private static boolean setupRoles = false;
     private MediaType mediaType =
             new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
     private MockMvc mockMvc;
@@ -52,41 +50,41 @@ public class RegisterControllerTest {
     private final UserModel registerValidUser = new UserModel("foo", "bar", "name", "lastname", "foo@bar.com", "The answer is Foo", "Foo");
 
     private final UserModel validateUser = new UserModel("user", "pass", "name", "lastname", "email@test.com", "The answer is Foo", "Foo");
-    private final UserModel invalidEmail = new UserModel("userNEW", "pass", "name", "lastname", "email@test.com", "The answer is Foo", "Foo");
-    private final UserModel invalidUsername = new UserModel("user", "pass", "name", "lastname", "emailNEW@test.com", "The answer is Foo", "Foo");
-    private final UserModel invalidUsernameEmail = new UserModel("user", "pass", "name", "lastname", "email@test.com", "The answer is Foo", "Foo");
+    private final UserModel invalidEmail =
+            new UserModel("userNEW", "pass", "name", "lastname", "email@test.com", "The answer is Foo", "Foo");
+    private final UserModel invalidUsername =
+            new UserModel("user", "pass", "name", "lastname", "emailNEW@test.com", "The answer is Foo", "Foo");
+    private final UserModel invalidUsernameEmail =
+            new UserModel("user", "pass", "name", "lastname", "email@test.com", "The answer is Foo", "Foo");
 
     private ObjectMapper objectMapper;
 
     @Before
-    @SuppressWarnings("Duplicates")
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
         objectMapper = jackson2HttpMessageConverter.getObjectMapper();
         userRepository.save(validateUser);
-        if (!setupRoles) {
-            RoleModel adminRole = new RoleModel("admin");
-            RoleModel userRole = new RoleModel("user");
-            rolesRepository.save(adminRole);
-            rolesRepository.save(userRole);
 
-            setupRoles = true;
-        }
+        rolesRepository.dropTable();
+        rolesRepository.createRoleModelTable();
+        rolesRepository.createRoleModelUsersTable();
+
+        RoleModel adminRole = new RoleModel("admin");
+        RoleModel userRole = new RoleModel("user");
+        rolesRepository.save(adminRole);
+        rolesRepository.save(userRole);
+
     }
 
     @After
-    @SuppressWarnings("Duplicates")
     public void tearDown() {
         userRepository.deleteAll();
     }
 
     @Test
     public void successfulRegister_thenReturnUserModel() throws Exception {
-        mockMvc.perform(post("/register").contentType(mediaType)
-                .content(getContent(objectMapper, registerValidUser)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", notNullValue()))
+        mockMvc.perform(post("/register").contentType(mediaType).content(getContent(objectMapper, registerValidUser)))
+                .andExpect(status().isOk()).andExpect(content().contentType(mediaType)).andExpect(jsonPath("$.id", notNullValue()))
                 .andExpect(jsonPath("$.username", is(registerValidUser.getUsername())))
                 .andExpect(jsonPath("$.firstName", is(registerValidUser.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(registerValidUser.getLastName())))
@@ -95,39 +93,27 @@ public class RegisterControllerTest {
 
     @Test
     public void unsuccessfulRegisterInvalidEmail_thenReturnUserModelEmptyEmailNullId() throws Exception {
-        mockMvc.perform(post("/register").contentType(mediaType)
-                .content(getContent(objectMapper, invalidEmail)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", nullValue()))
+        mockMvc.perform(post("/register").contentType(mediaType).content(getContent(objectMapper, invalidEmail))).andExpect(status().isOk())
+                .andExpect(content().contentType(mediaType)).andExpect(jsonPath("$.id", nullValue()))
                 .andExpect(jsonPath("$.username", is(invalidEmail.getUsername())))
                 .andExpect(jsonPath("$.firstName", is(invalidEmail.getFirstName())))
-                .andExpect(jsonPath("$.lastName", is(invalidEmail.getLastName())))
-                .andExpect(jsonPath("$.email", isEmptyString()));
+                .andExpect(jsonPath("$.lastName", is(invalidEmail.getLastName()))).andExpect(jsonPath("$.email", isEmptyString()));
     }
 
     @Test
     public void unsuccessfulRegisterInvalidUsernameInvalidEmail_thenReturnUserModelEmptyUsernameEmptyEmailNullId() throws Exception {
-        mockMvc.perform(post("/register").contentType(mediaType)
-                .content(getContent(objectMapper, invalidUsernameEmail)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", nullValue()))
+        mockMvc.perform(post("/register").contentType(mediaType).content(getContent(objectMapper, invalidUsernameEmail)))
+                .andExpect(status().isOk()).andExpect(content().contentType(mediaType)).andExpect(jsonPath("$.id", nullValue()))
                 .andExpect(jsonPath("$.username", isEmptyString()))
                 .andExpect(jsonPath("$.firstName", is(invalidUsernameEmail.getFirstName())))
-                .andExpect(jsonPath("$.lastName", is(invalidUsernameEmail.getLastName())))
-                .andExpect(jsonPath("$.email", isEmptyString()));
+                .andExpect(jsonPath("$.lastName", is(invalidUsernameEmail.getLastName()))).andExpect(jsonPath("$.email", isEmptyString()));
     }
 
     @Test
     public void unsuccessfulRegisterInvalidUsername_thenReturnUserModelEmptyUsernameNullId() throws Exception {
-        mockMvc.perform(post("/register").contentType(mediaType)
-                .content(getContent(objectMapper, invalidUsername)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", nullValue()))
-                .andExpect(jsonPath("$.username", isEmptyString()))
-                .andExpect(jsonPath("$.firstName", is(invalidUsername.getFirstName())))
+        mockMvc.perform(post("/register").contentType(mediaType).content(getContent(objectMapper, invalidUsername)))
+                .andExpect(status().isOk()).andExpect(content().contentType(mediaType)).andExpect(jsonPath("$.id", nullValue()))
+                .andExpect(jsonPath("$.username", isEmptyString())).andExpect(jsonPath("$.firstName", is(invalidUsername.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(invalidUsername.getLastName())))
                 .andExpect(jsonPath("$.email", is(invalidUsername.getEmail())));
     }

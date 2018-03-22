@@ -39,7 +39,6 @@ public class LoginControllerTest {
 
     private MediaType mediaType =
             new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
-    private static boolean setupRoles = false;
     private MockMvc mockMvc;
 
     @Autowired
@@ -63,75 +62,57 @@ public class LoginControllerTest {
     private ObjectMapper objectMapper;
 
     @Before
-    @SuppressWarnings("Duplicates")
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
         objectMapper = jackson2HttpMessageConverter.getObjectMapper();
         registerUser = new UserModel("foo", bCryptPasswordEncoder.encode("bar"), "name", "lastname", "foo@bar.com", "", "");
         userRepository.save(registerUser);
-        if (!setupRoles) {
-            RoleModel adminRole = new RoleModel("admin");
-            RoleModel userRole = new RoleModel("user");
-            rolesRepository.save(adminRole);
-            rolesRepository.save(userRole);
 
-            setupRoles = true;
-        }
+        rolesRepository.dropTable();
+        rolesRepository.createRoleModelTable();
+        rolesRepository.createRoleModelUsersTable();
+
+        RoleModel adminRole = new RoleModel("admin");
+        RoleModel userRole = new RoleModel("user");
+        rolesRepository.save(adminRole);
+        rolesRepository.save(userRole);
+
     }
 
     @After
-    @SuppressWarnings("Duplicates")
     public void tearDown() {
         userRepository.deleteAll();
     }
 
     @Test
     public void unsuccessfulLoginInvalidUserPassword_thenReturnEmptyJson() throws Exception {
-        mockMvc.perform(post("/login").contentType(mediaType)
-                .content(getContent(objectMapper, invalidUserPassword)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", nullValue()))
-                .andExpect(jsonPath("$.username", isEmptyString()))
-                .andExpect(jsonPath("$.firstName", isEmptyString()))
-                .andExpect(jsonPath("$.lastName", isEmptyString()))
-                .andExpect(jsonPath("$.email", isEmptyString()));
+        mockMvc.perform(post("/login").contentType(mediaType).content(getContent(objectMapper, invalidUserPassword)))
+                .andExpect(status().isOk()).andExpect(content().contentType(mediaType)).andExpect(jsonPath("$.id", nullValue()))
+                .andExpect(jsonPath("$.username", isEmptyString())).andExpect(jsonPath("$.firstName", isEmptyString()))
+                .andExpect(jsonPath("$.lastName", isEmptyString())).andExpect(jsonPath("$.email", isEmptyString()));
     }
 
     @Test
     public void unsuccessfulLoginInvalidPassword_thenReturnEmptyJson() throws Exception {
-        mockMvc.perform(post("/login").contentType(mediaType)
-                .content(getContent(objectMapper, invalidPassword)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", nullValue()))
-                .andExpect(jsonPath("$.username", isEmptyString()))
-                .andExpect(jsonPath("$.firstName", isEmptyString()))
-                .andExpect(jsonPath("$.lastName", isEmptyString()))
-                .andExpect(jsonPath("$.email", isEmptyString()));
+        mockMvc.perform(post("/login").contentType(mediaType).content(getContent(objectMapper, invalidPassword))).andExpect(status().isOk())
+                .andExpect(content().contentType(mediaType)).andExpect(jsonPath("$.id", nullValue()))
+                .andExpect(jsonPath("$.username", isEmptyString())).andExpect(jsonPath("$.firstName", isEmptyString()))
+                .andExpect(jsonPath("$.lastName", isEmptyString())).andExpect(jsonPath("$.email", isEmptyString()));
     }
 
 
     @Test
     public void unsuccessfulLoginInvalidUser_thenReturnEmptyJson() throws Exception {
-        mockMvc.perform(post("/login").contentType(mediaType)
-                .content(getContent(objectMapper, invalidUser)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", nullValue()))
-                .andExpect(jsonPath("$.username", isEmptyString()))
-                .andExpect(jsonPath("$.firstName", isEmptyString()))
-                .andExpect(jsonPath("$.lastName", isEmptyString()))
-                .andExpect(jsonPath("$.email", isEmptyString()));
+        mockMvc.perform(post("/login").contentType(mediaType).content(getContent(objectMapper, invalidUser))).andExpect(status().isOk())
+                .andExpect(content().contentType(mediaType)).andExpect(jsonPath("$.id", nullValue()))
+                .andExpect(jsonPath("$.username", isEmptyString())).andExpect(jsonPath("$.firstName", isEmptyString()))
+                .andExpect(jsonPath("$.lastName", isEmptyString())).andExpect(jsonPath("$.email", isEmptyString()));
     }
 
     @Test
     public void successfulLogin_thenReturnUserStoredInDatabase() throws Exception {
-        mockMvc.perform(post("/login").contentType(mediaType)
-                .content(getContent(objectMapper, successfulLogin)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
-                .andExpect(jsonPath("$.id", notNullValue()))
+        mockMvc.perform(post("/login").contentType(mediaType).content(getContent(objectMapper, successfulLogin))).andExpect(status().isOk())
+                .andExpect(content().contentType(mediaType)).andExpect(jsonPath("$.id", notNullValue()))
                 .andExpect(jsonPath("$.username", is(registerUser.getUsername())))
                 .andExpect(jsonPath("$.firstName", is(registerUser.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(registerUser.getLastName())))

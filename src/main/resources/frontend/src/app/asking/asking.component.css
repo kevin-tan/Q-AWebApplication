@@ -5,16 +5,30 @@
   color: #377f9b;
 }
 
-select{
-  background-color: #0f0f0f;
+#category{
   color: #377f9b;
-  width: 100px;
-  height: 30px;
+  width: 150px;
+  height: 40px;
+}
+
+#title{
+  resize: none;
+  height: 40px;
+}
+#question{
+  resize: none;
+  height: 350px;
+}
+
+#textterm{
+  height: 125px;
+  resize: none;
 }
 
 label{
   color: white;
 }
+
 
 .textquestion{
   color: white;
@@ -22,4 +36,41 @@ label{
 
 .texttags{
   color: white;
+}
+
+
+#askButton {
+  width: 275px;
+  height: 100px;
+  border-radius: 10px;
+  background-color: #2c6e87;
+  position: relative;
+  top: 61px;
+  left: 155px;
+
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  cursor: pointer;
+  color: #fff;
+}
+#askButton:after, #askButton:before {
+  content: 'Submit';
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transition: all 0.3s;
+  transform: translate(-50%, -50%);
+}
+#askButton:hover:after {
+  font-size: 45px;
+}
+#askButton:before {
+  font-size: 35px;
+  line-height: 20px;
+  top: 190%;
+}
+#askButton:hover:before {
+
 }

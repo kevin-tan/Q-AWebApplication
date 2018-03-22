@@ -1,6 +1,7 @@
 <app-header></app-header>
 
-<div class="container">
+
+<div onload="myFunction()" class="container">
     <div class="row" >
       <div class="col-8" id="firstRow">
         <div>
@@ -27,8 +28,8 @@
       </div>
 
       <div class="col-4"><button (click)="OnSelectAsking();" id="askButton" class="btn btn-info"></button></div>
-
-      <div class="col-8" id="secondrow">
+      <div id="loader"></div>
+      <div class="col-8" id="secondrow" style="display: none" >
         <ul *ngFor="let question of questions" class="list-group">
 
 

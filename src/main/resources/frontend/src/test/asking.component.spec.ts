@@ -48,7 +48,7 @@ describe('AskingComponent', () => {
     debugCheckBox = fixture.debugElement.query(By.css('#terms'));
     htmlCheckBox = debugCheckBox.nativeElement;
 
-    debugSubmit = fixture.debugElement.query(By.css('#submission'));
+    debugSubmit = fixture.debugElement.query(By.css('#askButton'));
     htmlSubmit = debugSubmit.nativeElement;
   });
 

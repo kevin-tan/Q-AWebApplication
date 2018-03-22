@@ -28,7 +28,7 @@ export class LeaderboardComponent implements OnInit {
 
   showPage() {
     document.getElementById("loader").style.display = "none";
-    document.getElementById("ranklist").style.display = "block";
+    document.getElementById("leaderboard").style.display = "block";
   }
 
 }

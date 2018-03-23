@@ -105,7 +105,7 @@ describe('DashboardComponent', () => {
       expect(component.TagSearch("any")).toEqual(this.mockEmpty);
     });
   });
-  
+
   // describe('#OnSelectAsking', () => {
   //   it('should navigate you the asking page /dashboard/asking/', fakeAsync(() => {
   //     let path: String = 'dashboard/asking';

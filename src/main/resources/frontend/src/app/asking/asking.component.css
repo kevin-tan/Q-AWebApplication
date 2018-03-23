@@ -1,3 +1,13 @@
+#blackbox{
+  margin: 10% auto;
+  margin-top: 20px;
+  background: rgba(0,0,0,0.75);
+  padding: 35px;
+  max-width: 1142px;
+  overflow: auto;
+  border-radius: 25px;
+}
+
 .btn-dark{
   height: 50px;
   width: 120px;
@@ -74,3 +84,4 @@ label{
 #askButton:hover:before {
 
 }
+

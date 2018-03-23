@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div  class="container my-3 py-3" >
+<div id="blackbox" class="container my-3 py-3">
   <form (submit)="addQuestion();" #askForm="ngForm" >
     <div class="form-group my-3 p-3">
       <label for="title" id="titlelabel"><h1>Title</h1></label>
@@ -165,8 +165,6 @@
         we will not be liable for any loss or damage of any nature.
       </textarea>
       </div>
-
-
       <div class="from-group my-3 p-3" >
         <label for="terms">
           <input type="checkbox" id="terms"
@@ -176,13 +174,7 @@
         </label>
         <p></p>
         <button type="submit" class="btn btn-dark" id="askButton" [disabled]="!askForm.form.valid || !acceptance"></button>
-
       </div>
-
-
-
-
-
   </form>
 </div>
 <app-footer></app-footer>

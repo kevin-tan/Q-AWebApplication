@@ -8,14 +8,15 @@
       <p class="user-info-label">Username:</p>
       <p *ngIf="!edit" class="user-info-data">{{user.username}}</p>
       <input *ngIf="edit" type="text" [(ngModel)]="user.username">
-      <small *ngIf="edit" class="errorMessage error" >*This username is taken</small>
+      <small *ngIf="errorUser" class="errorMessage error" >*This username is taken</small>
     </div>
     <div *ngIf="isLogged" class="info-group" [class.group-edit]="edit">
       <p class="user-info-label">Email:</p>
       <p *ngIf="!edit" class="user-info-data">{{user.email}}</p>
-      <input *ngIf="edit" type="text" [(ngModel)]="user.email">
-      <small *ngIf="edit" class="errorMessage error" >*This email is taken</small>
-      <small *ngIf="edit" class="errorMessage error" >*Not a valid email</small>
+      <input *ngIf="edit" type="email" [(ngModel)]="user.email">
+      <small *ngIf="errorEmail" class="errorMessage error" >*This email is taken</small>
+      <small *ngIf="errorEmail" class="errorMessage error" >*Not a valid email</small>
+
     </div>
     <div class="info-group" [class.group-edit]="edit" >
       <p class="user-info-label">First Name: </p>
@@ -37,14 +38,14 @@
     </div>
 
     <div *ngIf="edit" class="info-group">
-      <button *ngIf="!selected" (click)="popInput('Password')">Change Password</button>
+      <button *ngIf="!selected" (click)="popInput('Password')" >Change Password</button>
       <input *ngIf="selectInput=='Password'" type="password">
       <input *ngIf="selectInput=='Password'" type="password" [(ngModel)]="data">
       <input *ngIf="selectInput=='Password'" type="password">
       <small *ngIf="selectInput=='Password'" class="errorMessage error" >*Password don't match</small>
     </div>
 
-    <button *ngIf="!edit&&isLogged" class="editbtn" (click)="onEdit()">Edit Profile</button>
+    <button *ngIf="!edit&&isLogged" class="editbtn" style="width:150px;" (click)="onEdit()">Edit Profile</button>
     <button *ngIf="edit" class="editbtn" (click)="save()">Save</button>
   </div>
 
@@ -58,17 +59,27 @@
   </div>
 
   <div class="question-container card-container">
-
       <div *ngFor="let question of questions" class="card">
-        <a routerLink="" (click)="OnSelectQuestion(question)">{{question.questionTitle}}</a>
-        <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
-        <small>Submitted: {{question.postedDate}}</small>
-        <small style="float:right;">Author:
-          <a href="#">{{question.author}}</a>
-        </small>
-        <p style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
+        <table>
+          <tr>
+            <td class="vote">
+              <label class="votelab">Votes</label>
+              <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
+            </td>
+            <td class="question">
+              <a class="questiontitle" routerLink="" (click)="OnSelectQuestion(question)">{{question.questionTitle}}</a>
+              <span class="badge badge-primary" style="float:right;">{{question.questionCategories}}</span>
+              <p style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="stamp">
+              <small style="float:left;">Submitted on: {{question.postedDate}} </small>
+            </td>
+          </tr>
+        </table>
       </div>
-
   </div>
 
   <div class="reply-container" id="reply-header">
@@ -76,17 +87,27 @@
     <hr class="title-line">
   </div>
 
-  <div class="reply-container">
-
+  <div class="reply-container card-container">
     <div *ngFor="let answer of answers" class="card">
-      <a routerLink="" (click)="OnSelectReply(answer)">{{answer.questionModelTitle}}</a>
-      <span class="badge badge-default badge-pill">{{answer.votes.upVotes - answer.votes.downVotes}}</span>
-      <small>Submitted: {{answer.postedDate}}</small>
-      <p style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{answer.message}}</p>
+      <table>
+        <tr>
+          <td class="vote">
+            <label class="votelab">Votes</label>
+            <span class="badge badge-default badge-pill">{{answer.votes.upVotes - answer.votes.downVotes}}</span>
+          </td>
+          <td class="question">
+            <a class="questiontitle" routerLink="" (click)="OnSelectReply(answer)">{{answer.questionModelTitle}}</a>
+            <p style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{answer.message}}</p>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="stamp">
+            <small style="float:left;">Submitted on: {{answer.postedDate}} </small>
+          </td>
+        </tr>
+      </table>
     </div>
-
-  </div>
-
-</div>
+ </div>
 
 <app-footer></app-footer>

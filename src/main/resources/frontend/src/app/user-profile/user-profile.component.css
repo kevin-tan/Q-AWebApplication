@@ -10,10 +10,11 @@
 
 #info-container{
   width: 350px;
-  max-height: 600px;
-  background: rgba(183,214,226,1);
+  max-height: 800px;
+  background: rgba(255,255,255,1);
   float: left;
   overflow:auto;
+  border-radius: 20px;
 }
 #name-container{
   position: relative;
@@ -75,7 +76,7 @@
   width: 200px;
 }
 .group-edit{
-  margin-left: 5%;
+  margin-left: 20%;
 }
 .user-info-label{
   display: inline;
@@ -106,8 +107,68 @@
   overflow: auto;
   display: list-item;
 }
+.errorMessage{
+  color: red;
+  font-size: 12px !important;
+  text-align: center;
+  font-weight: bold;
+}
+input{
+  font-size: 15px;
+  border: 1.5px solid #3e93b2;
+  border-radius: 9px;
+  width: 200px;
+  color: black;
+  background-color: white;
+  text-indent: 10px;
+  left: 60px;
+}
+
 .editbtn{
+  border-radius: 20px;
+  width: 100px;
+  height: 40px;
+  margin-left: 30px;
+  margin-bottom: 20%;
+  background-color: #3d91b0;
+  color: white;
+  border-color: whitesmoke;
+  font-weight: bold;
   margin-left:35%;
   margin-bottom: 20px;
 }
+.editbtn:hover{
+  background-color: whitesmoke;
+  color:#3d91b0;
+  border-color: #3e93b2;
+  font-weight: bold;
+}
+.vote{
+  text-align: center;
+  font-size: 40px;
+  font-weight: normal;
+  padding-right: 20px;
+  border-collapse: collapse;
+  width: 30px;
+  line-height: 1px;
+}
+.votelab{
+  font-size: 15px;
+  text-align: center;
+}
 
+.stamp{
+  color:rgba(150, 150, 150, 0.5);
+  text-align: right;
+  width: 100%;
+}
+.questiontitle{
+  font-weight: bold;
+  font-size: larger;
+  color: #3e93b2;
+}
+.question{
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}

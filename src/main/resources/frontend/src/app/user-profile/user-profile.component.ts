@@ -22,6 +22,8 @@ export class UserProfileComponent implements OnInit {
   selectInput: string ='';
   loggedID; routeID: string;
   passwordData; data: string;
+  errorUser: boolean = false;
+  errorEmail: boolean = false;
 
   constructor(private userService: UserProfileService, private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) {
     route.params.subscribe(value => {this.update();});

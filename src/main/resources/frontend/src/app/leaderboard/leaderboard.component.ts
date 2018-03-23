@@ -32,5 +32,4 @@ export class LeaderboardComponent implements OnInit {
     document.getElementById("loader").style.display = "none";
     document.getElementById("leaderboardContent").style.display = "block";
   }
-
 }

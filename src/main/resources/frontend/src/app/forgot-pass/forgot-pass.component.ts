@@ -35,7 +35,7 @@ export class ForgotPassComponent implements OnInit {
     let securityAnswer = this.answerData;
     const user: User = {email,securityAnswer} as User;
 
-    this.userProfileService.postSecurityAnswer(user).subscribe(
+    this.userProfileService.resetPassword(user).subscribe(
       res => {this.userResp = res;
         if(this.userResp.id == null){
           this.answerErr = true;
@@ -49,7 +49,7 @@ export class ForgotPassComponent implements OnInit {
 
   resetPassword(){
     this.userAccess.password  = this.passData;
-    this.userProfileService.postSecurityAnswer(this.userAccess).subscribe();
+    this.userProfileService.resetPassword(this.userAccess).subscribe();
     this.router.navigateByUrl('/login');
 
   }

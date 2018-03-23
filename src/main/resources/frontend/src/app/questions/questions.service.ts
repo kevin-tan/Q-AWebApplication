@@ -4,7 +4,6 @@ import { Question } from "./question";
 import { Observable } from 'rxjs/Observable';
 import { Answer } from "./answer";
 import { userReputation } from "./userReputation";
-import { User } from "../user-profile/user";
 
 @Injectable()
 export class QuestionsService {
@@ -17,13 +16,12 @@ export class QuestionsService {
   getUpvoteAnswerURL: string;
   getDownvoteAnswerURL: string;
   postAnswerURL: string;
-  getLeaderboardURL: string
+  getLeaderboardURL: string;
   putQuestionURL: string;
   deleteQuestionURL: string;
   putAnswerURL: string;
   deleteAnswerURL: string;
   bestAnswerURL: string;
-  leaderBoardHighestQuestion: string;
 
   constructor(private http: HttpClient) { }
 

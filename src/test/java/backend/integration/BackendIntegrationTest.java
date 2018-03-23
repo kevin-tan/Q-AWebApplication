@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -55,6 +56,8 @@ public class BackendIntegrationTest {
     private WebApplicationContext webApplicationContext;
     @Autowired
     private MappingJackson2HttpMessageConverter jackson2HttpMessageConverter;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private RolesRepository rolesRepository;
     @Autowired
@@ -98,12 +101,17 @@ public class BackendIntegrationTest {
     //Object json mappers
     private ObjectMapper objectMapper;
     private ObjectNode reply;
+    private ObjectNode newPassword;
 
     @Before
     public void setUp() {
         mockMvc = webAppContextSetup(webApplicationContext).build();
         objectMapper = jackson2HttpMessageConverter.getObjectMapper();
         reply = new ObjectMapper().createObjectNode();
+        newPassword = new ObjectMapper().createObjectNode();
+        
+        //Update Node with new password
+        newPassword.put("password", "newPassword");
 
         //Setup answer to post
         reply.put("message", answerPost.getMessage());
@@ -233,6 +241,26 @@ public class BackendIntegrationTest {
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].questionTitle", containsString("Title")))
                 .andExpect(jsonPath("$[1].questionTitle", containsString("Title")));
+    	
+        //Change user password
+    	mockMvc.perform(put("/users/" + userId + "/changePassword").contentType(mediaType)
+    			.content(objectMapper.writeValueAsString(newPassword)))
+    	.andExpect(status().isOk());
+    	
+    	UserModel afterPasswordChange = userRepository.findOne((long) userId);
+    	assertThat(bCryptPasswordEncoder.matches(newPassword.get("password").textValue(), afterPasswordChange.getPassword()));
+    	
+    	//Selecting best answer
+    	mockMvc.perform(put("/users/" + searchUser.getId() + "/questions/" + question2.getId() + "/bestAnswer/" + answer1.getId())
+    			.contentType(mediaType)
+    			.content(""))
+    	.andExpect(status().isOk())
+    	.andExpect(jsonPath("$.id", is(answer1.getId().intValue())))
+    	.andExpect(jsonPath("$.message", is(answer1.getMessage())))
+    	.andExpect(jsonPath("$.author", is(answer1.getAuthor())))
+    	.andExpect(jsonPath("$.questionModelTitle", is(question2.getQuestionTitle())))
+    	.andExpect(jsonPath("$.questionModelId", is(question2.getId().intValue())))
+    	.andExpect(jsonPath("$.userId", is(searchUser.getId().intValue())));
     }
 
     //Used to bypass password attribute being ignored by ObjectMapper

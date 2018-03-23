@@ -1,0 +1,9 @@
+.container{
+  margin: 10% auto;
+  margin-top: 20px;
+  background: rgba(0,0,0,0.80);
+  padding: 35px;
+  max-width: 1142px;
+  overflow: auto;
+  border-radius: 25px;
+}

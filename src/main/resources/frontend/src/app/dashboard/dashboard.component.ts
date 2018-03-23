@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
 
   // calls the question service to return all questions that match the search term
   OnSearch(searchTerm){
+    console.log(searchTerm)
     this.questionsService.searchDashboard(searchTerm).subscribe(data => this.questions = data);
   }
 

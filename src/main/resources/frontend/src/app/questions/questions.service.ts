@@ -63,6 +63,7 @@ export class QuestionsService {
 
   // querys the server to return an array of questions matching the given search term via title
   searchDashboard(searchTerm) {
+    console.log('searching this' + searchTerm)
     if (searchTerm == "") {
       this.getSearchURL = 'http://localhost:8080/questions';
       return this.getQuestionsWithURL(this.getSearchURL);

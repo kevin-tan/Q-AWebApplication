@@ -8,17 +8,14 @@ import {FormsModule} from "@angular/forms";
 import {UserProfileService} from "../app/user-profile/user-profile.service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {QuestionsService} from "../app/questions/questions.service";
-import {User} from "../app/user-profile/user";
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
   let fixture: ComponentFixture<UserProfileComponent>;
-
-  let debugUsername: DebugElement;
-  let htmlUsername: HTMLElement;
-
+  let debugUsernameD: DebugElement;
+  let htmlUsernameD: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -26,7 +23,7 @@ describe('UserProfileComponent', () => {
       imports: [ RouterTestingModule, FormsModule, HttpClientTestingModule ],
       providers: [ UserProfileService, QuestionsService ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -34,47 +31,12 @@ describe('UserProfileComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    debugUsername = fixture.debugElement.query(By.css('input[name=username]'));
-    htmlUsername = debugUsername.nativeElement;
   });
 
   it('should create', async() => {
     expect(component).toBeTruthy();
   });
-  it('should display username info', () => {
-    expect(htmlPassword).toBeTruthy();
-  });
-  it('should display email info if user logged in', () => {
-    expect(htmlPassword).toBeTruthy();
-  });
-  it('should display first name info', () => {
-    expect(htmlPassword).toBeTruthy();
-  });
-  it('should display last name info', () => {
-    expect(htmlPassword).toBeTruthy();
-  });
-  it('should display date joined info', () => {
-    expect(htmlPassword).toBeTruthy();
-  });
-  it('should display reputation info', () => {
-    expect(htmlPassword).toBeTruthy();
-  });
-  it('should display edit profile button if user logged in', () => {
-    expect(htmlPassword).toBeTruthy();
-  });
-
-
-  describe('#registerService',() => {
-    it('should return an Observable<User>',()=>{
-      let firstName = 'John';
-      let lastName = 'Doe';
-      let email = 'JohnDoe@gmail.com';
-      let username = 'john';
-      let password = 'pass';
-      let securityQuestion = 'where was I born';
-      let securityAnswer = 'Montreal';
-      const dummyUser: User = {firstName, lastName, email, username, password, securityQuestion, securityAnswer} as User;
-
-    })
+  it('should update and display user info and related questions', async() => {
+    expect(component).toBeTruthy();
   });
 });

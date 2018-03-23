@@ -28,7 +28,7 @@ describe('LoginRedirectService should', () => {
     expect(redirectService.canActivate()).toBe(false);
   });
   it('be able to go to login/registration page if user is NOT logged in', () => {
-    userService.isLoggedIn = false;
+    spyOn(redirectService, 'getStatus').and.returnValue(false);
     expect(redirectService.canActivate()).toBe(true);
   });
 });

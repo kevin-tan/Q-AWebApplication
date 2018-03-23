@@ -8,7 +8,7 @@
       <div class="info-group" [class.group-edit]="edit" id="first">
         <p class="user-info-label">Username:</p>
         <p *ngIf="!edit" class="user-info-data">{{user.username}}</p>
-        <input *ngIf="edit" type="text" [(ngModel)]="user.username">
+        <input *ngIf="edit" id="usernameD" type="text" [(ngModel)]="user.username">
         <small *ngIf="errorUser" class="errorMessage error" >*This username is taken</small>
       </div>
       <div *ngIf="isLogged" class="info-group" [class.group-edit]="edit">
@@ -74,27 +74,27 @@
   </div>
 
   <div class="question-container card-container">
-      <div *ngFor="let question of questions" class="card">
-        <table>
-          <tr>
-            <td class="vote">
-              <label class="votelab">Votes</label>
-              <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
-            </td>
-            <td class="question">
-              <a class="questiontitle" routerLink="" (click)="OnSelectQuestion(question)">{{question.questionTitle}}</a>
-              <span class="badge badge-primary" style="float:right;">{{question.questionCategories}}</span>
-              <p style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="stamp">
-              <small style="float:left;">Submitted on: {{question.postedDate}} </small>
-            </td>
-          </tr>
-        </table>
-      </div>
+    <div *ngFor="let question of questions" class="card">
+      <table>
+        <tr>
+          <td class="vote">
+            <label class="votelab">Votes</label>
+            <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
+          </td>
+          <td class="question">
+            <a class="questiontitle" routerLink="" (click)="OnSelectQuestion(question)">{{question.questionTitle}}</a>
+            <span class="badge badge-primary" style="float:right;">{{question.questionCategories}}</span>
+            <p style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="stamp">
+            <small style="float:left;">Submitted on: {{question.postedDate}} </small>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 
   <div class="reply-container" id="reply-header">
@@ -123,6 +123,8 @@
         </tr>
       </table>
     </div>
- </div>
+  </div>
+</div>
 
-<app-footer></app-footer>
+
+  <app-footer></app-footer>

@@ -61,7 +61,6 @@ describe('AskingComponent', () => {
     component.addQuestion();
     expect(component.addQuestion).toHaveBeenCalled();
   });
-
   it('should display a title box', () => {
     expect(htmlTitle).toBeTruthy();
   });

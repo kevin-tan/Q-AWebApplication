@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {UserProfileService} from "../user-profile/user-profile.service";
 import {User} from "../user-profile/user";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-registration',
@@ -17,6 +18,7 @@ export class RegistrationComponent implements OnInit {
   securityQuestionData: string;
   securityAnswerData: string;
   userAlert;emailAlert; successAlert: boolean =  false;
+  response: Observable<User>;
 
   constructor(private router: Router, private  userService: UserProfileService) {}
 
@@ -31,7 +33,7 @@ export class RegistrationComponent implements OnInit {
     let securityQuestion = this.securityQuestionData;
     let securityAnswer = this.securityAnswerData;
     const user: User = {firstName, lastName, email, username, password, securityQuestion, securityAnswer} as User;
-    console.log(user);
+
     this.userService.register(user).subscribe(user =>{
       if(user.username == '') {
         this.userAlert = true;
@@ -47,4 +49,5 @@ export class RegistrationComponent implements OnInit {
       }
     });
     }
+
 }

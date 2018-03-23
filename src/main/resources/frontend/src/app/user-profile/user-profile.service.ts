@@ -11,7 +11,6 @@ export class UserProfileService {
 
   baseURL: string = 'http://localhost:8080/';
   userURL: string = 'http://localhost:8080/users/';
-  isLoggedIn: boolean = new Boolean(sessionStorage.getItem('status')).valueOf();
 
   constructor(private http: HttpClient) { }
 
@@ -20,9 +19,6 @@ export class UserProfileService {
   }
   login(user: User): Observable<User>{
     return this.http.post<User>(this.baseURL+'login',user);
-  }
-  getIsLoggedIn(): boolean{
-    return this.isLoggedIn;
   }
   getUserByID(id): Observable<User>{
     return this.http.get<User>(this.userURL+id,{responseType: 'json'});

@@ -11,6 +11,8 @@ import {User} from "../app/user-profile/user";
 import {Observable} from "rxjs/Observable";
 import {HttpEvent, HttpEventType} from "@angular/common/http";
 import {parseHttpResponse} from "selenium-webdriver/http";
+import {DebugElement} from "@angular/core";
+import {By} from "@angular/platform-browser";
 
 describe('LoginComponent ', () => {
   let component: LoginComponent;
@@ -18,9 +20,12 @@ describe('LoginComponent ', () => {
   let userService: UserProfileService;
   let httpMock: HttpTestingController;
 
-  let username = 'user1';
-  let password = 'Pass';
-  const dummyUser: User = {username, password} as User;
+  let debugUsername: DebugElement;
+  let debugPassword: DebugElement;
+  let debugLoginButton: DebugElement;
+  let htmlUsername: HTMLElement;
+  let htmlPassword: HTMLElement;
+  let htmlLoginButton: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -37,6 +42,15 @@ describe('LoginComponent ', () => {
     userService = TestBed.get(UserProfileService);
     httpMock = TestBed.get(HttpTestingController);
     fixture.detectChanges();
+
+    debugUsername = fixture.debugElement.query(By.css('input[name=username]'));
+    htmlUsername = debugUsername.nativeElement;
+
+    debugPassword = fixture.debugElement.query(By.css('input[name=password]'));
+    htmlPassword = debugUsername.nativeElement;
+
+    debugLoginButton = fixture.debugElement.query(By.css('.submitButton'));
+    htmlLoginButton = debugUsername.nativeElement;
   });
 
   afterEach(()=>{
@@ -45,6 +59,15 @@ describe('LoginComponent ', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should display username box', () => {
+     expect(htmlUsername).toBeTruthy();
+  });
+  it('should display password box', () => {
+     expect(htmlPassword).toBeTruthy();
+  });
+  it('should display login button', () => {
+     expect(htmlLoginButton).toBeTruthy();
   });
 
   it('onLogin should return an error if login credential are incorrect',

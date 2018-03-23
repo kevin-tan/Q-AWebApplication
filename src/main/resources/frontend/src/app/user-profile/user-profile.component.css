@@ -126,15 +126,11 @@ input{
 
 .editbtn{
   border-radius: 20px;
-  width: 100px;
   height: 40px;
-  margin-left: 30px;
-  margin-bottom: 20%;
   background-color: #3d91b0;
   color: white;
   border-color: whitesmoke;
   font-weight: bold;
-  margin-left:35%;
   margin-bottom: 20px;
 }
 .editbtn:hover{

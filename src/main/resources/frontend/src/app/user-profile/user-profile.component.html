@@ -4,30 +4,32 @@
   <div id="info-container">
     <div  (click)="userInfoMenu()" id="user-avatar">{{user.firstName.charAt(0).toUpperCase()}}{{user.lastName.charAt(0).toUpperCase()}}</div>
 
-    <div class="info-group" [class.group-edit]="edit" id="first">
-      <p class="user-info-label">Username:</p>
-      <p *ngIf="!edit" class="user-info-data">{{user.username}}</p>
-      <input *ngIf="edit" type="text" [(ngModel)]="user.username">
-      <small *ngIf="errorUser" class="errorMessage error" >*This username is taken</small>
+    <div *ngIf="!changePass">
+      <div class="info-group" [class.group-edit]="edit" id="first">
+        <p class="user-info-label">Username:</p>
+        <p *ngIf="!edit" class="user-info-data">{{user.username}}</p>
+        <input *ngIf="edit" type="text" [(ngModel)]="user.username">
+        <small *ngIf="errorUser" class="errorMessage error" >*This username is taken</small>
+      </div>
+      <div *ngIf="isLogged" class="info-group" [class.group-edit]="edit">
+        <p class="user-info-label">Email:</p>
+        <p *ngIf="!edit" class="user-info-data">{{user.email}}</p>
+        <input *ngIf="edit" type="email" [(ngModel)]="user.email">
+        <small *ngIf="errorEmail" class="errorMessage error" >*This email is taken</small>
+        <small *ngIf="errorEmail" class="errorMessage error" >*Not a valid email</small>
+      </div>
+      <div class="info-group" [class.group-edit]="edit" >
+        <p class="user-info-label">First Name: </p>
+        <p *ngIf="!edit" class="user-info-data">{{user.firstName}}</p>
+        <input *ngIf="edit" type="text" [(ngModel)]="user.firstName">
+      </div>
+      <div class="info-group" [class.group-edit]="edit">
+        <p class="user-info-label">Last Name: </p>
+        <p *ngIf="!edit" class="user-info-data">{{user.lastName}}</p>
+        <input *ngIf="edit" type="text" [(ngModel)]="user.lastName">
+      </div>
     </div>
-    <div *ngIf="isLogged" class="info-group" [class.group-edit]="edit">
-      <p class="user-info-label">Email:</p>
-      <p *ngIf="!edit" class="user-info-data">{{user.email}}</p>
-      <input *ngIf="edit" type="email" [(ngModel)]="user.email">
-      <small *ngIf="errorEmail" class="errorMessage error" >*This email is taken</small>
-      <small *ngIf="errorEmail" class="errorMessage error" >*Not a valid email</small>
 
-    </div>
-    <div class="info-group" [class.group-edit]="edit" >
-      <p class="user-info-label">First Name: </p>
-      <p *ngIf="!edit" class="user-info-data">{{user.firstName}}</p>
-      <input *ngIf="edit" type="text" [(ngModel)]="user.firstName">
-    </div>
-    <div class="info-group" [class.group-edit]="edit">
-      <p class="user-info-label">Last Name: </p>
-      <p *ngIf="!edit" class="user-info-data">{{user.lastName}}</p>
-      <input *ngIf="edit" type="text" [(ngModel)]="user.lastName">
-    </div>
     <div *ngIf="!edit" class="info-group">
       <p class="user-info-label">Date Joined: </p>
       <p class="user-info-data">{{user.dateJoined}}</p>
@@ -37,16 +39,29 @@
       <p class="user-info-data">{{user.reputation}}</p>
     </div>
 
-    <div *ngIf="edit" class="info-group">
-      <button *ngIf="!selected" (click)="popInput('Password')" >Change Password</button>
-      <input *ngIf="selectInput=='Password'" type="password">
-      <input *ngIf="selectInput=='Password'" type="password" [(ngModel)]="data">
-      <input *ngIf="selectInput=='Password'" type="password">
-      <small *ngIf="selectInput=='Password'" class="errorMessage error" >*Password don't match</small>
+    <div *ngIf="edit">
+      <button *ngIf="!changePass" (click)="popInput('Password')" class="editbtn" style="width:180px;margin-left:85px;">Change Password</button>
+
+      <div *ngIf="changePass">
+        <div class="info-group">
+          <p class="user-info-label">Old Password: </p>
+          <input type="password" [(ngModel)]="oldPassword">
+        </div>
+        <div class="info-group">
+          <p class="user-info-label">New Password: </p>
+          <input type="password" [(ngModel)]="newPassword">
+        </div>
+        <div class="info-group">
+          <p class="user-info-label">Confirm New Password: </p>
+          <input type="password" [(ngModel)]="newPasswordConfirm">
+          <small *ngIf="!errorPassword" class="errorMessage error" >*Password don't match</small>
+        </div>
+        <button class="editbtn" style="width:100px; margin-left:125px;" (click)="changePassword()">Save</button>
+      </div>
     </div>
 
-    <button *ngIf="!edit&&isLogged" class="editbtn" style="width:150px;" (click)="onEdit()">Edit Profile</button>
-    <button *ngIf="edit" class="editbtn" (click)="save()">Save</button>
+    <button *ngIf="!edit&&isLogged" class="editbtn" style="width:150px; margin-left:100px;" (click)="onEdit()">Edit Profile</button>
+    <button *ngIf="edit && !changePass" class="editbtn" style="width:100px; margin-left:125px;" (click)="save()">Save</button>
   </div>
 
   <div id="name-container">

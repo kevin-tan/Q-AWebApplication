@@ -35,16 +35,4 @@ export class UserProfileService {
   changePassword(id: string, user: User){
     return this.http.put(this.userURL+id+'/changePassword',user);
   }
-  changeUsername(id: string, user: string) {
-    return this.http.put(this.userURL + id + '/changeUsername', user);
-  }
-  changeEmail(id: string, user: User) {
-    return this.http.put(this.userURL + id + '/changeEmail', user);
-  }
-  changeFirstName(id: string, user: User) {
-    return this.http.put(this.userURL + id + '/changeFirstName', user);
-  }
-  changeLastName(id: string, user: User) {
-    return this.http.put(this.userURL + id + '/changeLastName', user);
-  }
 }

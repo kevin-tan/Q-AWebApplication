@@ -10,11 +10,12 @@ import { Router } from '@angular/router'
 export class LeaderboardComponent implements OnInit {
 
   public leaderboards = [] // array used to store the leaderboard for display
-
+  time;
 
   constructor(private questionsService: QuestionsService, private router: Router) { }
 
   ngOnInit() {
+    this.time = setTimeout(this.showPage, 4000);
     this.getTheLeaderBoard()
   }
 
@@ -26,7 +27,10 @@ export class LeaderboardComponent implements OnInit {
   // routes the user to the chosen user's profile
   OnSelectUser(userID) {
     this.router.navigate(['profile', userID]);
-
+  }
+  showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("leaderboardContent").style.display = "block";
   }
 
 }

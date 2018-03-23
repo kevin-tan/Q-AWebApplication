@@ -8,7 +8,8 @@
 
     <div class="col-md-12" id="leaderboard">
       <h2>User Reputation Leaderboards</h2>
-        <div *ngFor="let leaderboard of leaderboards; let i = index" class="list-group">
+      <div id="loader"></div>
+        <div *ngFor="let leaderboard of leaderboards; let i = index" class="list-group" id="leaderboardContent">
           <a routerLink="" (click)="OnSelectUser(leaderboard.id)" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-20 justify-content-between" id="rank">
               <h2>#{{i+1}}</h2>
@@ -21,6 +22,7 @@
             </div>
           </a>
         </div>
+
 
 
     </div>

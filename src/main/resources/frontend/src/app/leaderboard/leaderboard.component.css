@@ -27,7 +27,7 @@
 #loader {
   position: relative;
   left: 50%;
-  top: 70%;
+  top:300px;
   z-index: 1;
   width: 150px;
   height: 150px;

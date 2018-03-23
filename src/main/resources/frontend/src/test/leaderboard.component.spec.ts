@@ -12,8 +12,6 @@ describe('LeaderboardComponent', () => {
   let component: LeaderboardComponent;
   let fixture: ComponentFixture<LeaderboardComponent>;
   let service: QuestionsService;
-  let http: HttpClientTestingModule;
-  let injector: TestBed;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,7 +27,15 @@ describe('LeaderboardComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     service = new QuestionsService(this.http);
+  });
 
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  describe('#getTheLeaderBoard()', () => {
+
+    let mockEmpty: userReputation[];
     let mockData: userReputation[] = [
       {
         "id": 1,
@@ -51,19 +57,16 @@ describe('LeaderboardComponent', () => {
         "reputation": 2,
         "username": "Test2"
       }
-    ]
+    ];
 
-
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  describe('#getTheLeaderBoard()', () => {
-    it('should return an array of UserReputation', () => {
-      spyOn(service, 'getLeaderBoard').and.returnValue(this.mockData);
+    it('should return an array of UserReputation if there are users in the leaderboard', () => {
+      spyOn(service, 'getLeaderBoard').and.returnValue(mockData);
       expect(component.getTheLeaderBoard()).toEqual(this.mockData);
-    })
-  })
+    });
+
+    it('should return empty array if there are no user in the leaderboard', () => {
+      spyOn(service, 'getLeaderBoard').and.returnValue(mockEmpty);
+      expect(component.getTheLeaderBoard()).toEqual(this.mockEmpty);
+    });
+  });
 });

@@ -4,7 +4,6 @@ import { Question } from "./question";
 import { Observable } from 'rxjs/Observable';
 import { Answer } from "./answer";
 import { userReputation } from "./userReputation";
-import { User } from "../user-profile/user";
 
 @Injectable()
 export class QuestionsService {
@@ -17,13 +16,12 @@ export class QuestionsService {
   getUpvoteAnswerURL: string;
   getDownvoteAnswerURL: string;
   postAnswerURL: string;
-  getLeaderboardURL: string
+  getLeaderboardURL: string;
   putQuestionURL: string;
   deleteQuestionURL: string;
   putAnswerURL: string;
   deleteAnswerURL: string;
   bestAnswerURL: string;
-  leaderBoardHighestQuestion: string;
 
   constructor(private http: HttpClient) { }
 
@@ -65,6 +63,7 @@ export class QuestionsService {
 
   // querys the server to return an array of questions matching the given search term via title
   searchDashboard(searchTerm) {
+    console.log('searching this' + searchTerm)
     if (searchTerm == "") {
       this.getSearchURL = 'http://localhost:8080/questions';
       return this.getQuestionsWithURL(this.getSearchURL);
@@ -133,8 +132,8 @@ export class QuestionsService {
     return this.http.put<Answer>(this.bestAnswerURL, answer.id);
   }
 
-  getHighestVotedQuestion(leaderUserId): Observable<Question> {
-    this.leaderBoardHighestQuestion = 'http://localhost:8080/users/' + leaderUserId + '/highestRatedQuestion';
-    return this.http.get<Question>(this.leaderBoardHighestQuestion);
-  }
+  // getHighestVotedQuestion(leaderUserId): Observable<Question> {
+  //   this.leaderBoardHighestQuestion = 'http://localhost:8080/users/' + leaderUserId + '/highestRatedQuestion';
+  //   return this.http.get<Question>(this.leaderBoardHighestQuestion);
+  // }
 }

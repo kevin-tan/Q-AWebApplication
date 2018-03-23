@@ -2,7 +2,7 @@
 
 
 <div class="container">
-  <div class="card my-3 p-3">
+  <div class="card my-3 p-3" id="questionSection">
     <table style="border-collapse:collapse">
       <tbody>
       <tr>
@@ -14,6 +14,7 @@
         </div>
       </td>
       <td class="posts" style="width: 100%;" id="questionPost">
+        <span class="badge badge-primary" style="float:right;">{{currentQuestion?.questionCategories}}</span>
         <h6 class="border-bottom border-gray pb-2 mb-0">{{currentQuestion?.questionTitle}}</h6>
         <p *ngIf="editing != currentQuestion?.id; else nowEditing"class="border-bottom border-gray py-2 mb-0">{{currentQuestion?.message}}</p>
         <ng-template #nowEditing>
@@ -36,8 +37,8 @@
     </table>
   </div>
 
-  <div class="card my-3 p-3" id="answerSection">
-    <h6>Answers ({{currentQuestion?.answerModel.length}})</h6>
+  <div class="card my-3 p-3" id="answerSection" style="background: rgba(0,0,0,0);">
+    <h6 style="color: white">Answers ({{currentQuestion?.answerModel.length}})</h6>
     <div class="card my-3 p-3" *ngFor="let answer of answerArray">
       <table style="border-collapse:collapse">
         <tbody>
@@ -49,7 +50,7 @@
             <input (click)="downVoteAnswerClick(answer);" type="image" src="../../assets/downvote.png" style="width: 50px; height: 50px"/>
           </div>
         </td>
-        <td class="posts" style="width: 100%;">
+        <td class="posts" style="width: 100%; background-color: white">
           <h6 class="border-bottom border-gray pb-2 mb-0">{{answer.author}}</h6>
           <p *ngIf="editing != answer.id; else nowEditing"class="border-bottom border-gray py-2 mb-0">{{answer.message}}</p>
           <ng-template #nowEditing>
@@ -78,7 +79,7 @@
   </div>
   <div *ngIf="displayAnswerBox; else displayLoginButton">
     <label style="color: white">Reply:
-      <textarea #message required cols="155"></textarea>
+      <textarea #message required cols="150" rows="10" style="border-radius: 15px; resize: none;"></textarea>
     </label>
     <button type="submit" (click)="addAnswer(message.value); message.value='';" class="btn btn-default">
       Reply

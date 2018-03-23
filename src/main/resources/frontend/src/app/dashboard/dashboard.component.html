@@ -1,61 +1,60 @@
 <app-header></app-header>
 
-<div class="container">
-    <div class="row" >
-      <div class="col-8" id="firstRow">
-        <div>
-          <!--div class="col-md-7 col-md-offset-1"-->
-          <select style="display:inline-block" class="form-control" id="categories">
-            <option>Title - Alphabetical</option>
-            <option>Time - Ascending</option>
-            <option>Time - Descending</option>
-            <option>Score - Top Rated</option>
-            <option>Score - Lowest Rated</option>
-          </select>
-          <input class="form-control" style="display:inline-block; padding-right: 1px" id="searchbar" [(ngModel)]="dashSearch" type="text" placeholder="Search...">
-          <button class="form-control" style="display: inline-block; "  id="searchbtn" (click)="OnSearch(dashSearch)">Search</button>
-          <div class="btn-group" role="group" aria-label="Basic example" style="padding-top: 4px">
-            <label id="catLabel">Categories:</label>
-            <button (click)="getAllQuestions()" type="button" class="btn btn-secondary" id="catAll" ngDefaultControl style="background-color: #377f9b">All</button>
-            <button (click)="OnSearch('Java')" type="button" class="btn btn-secondary" id="catJava" ngDefaultControl style="background-color: #296a84">Java</button>
-            <button (click)="OnSearch('C++')" type="button" class="btn btn-secondary" id="catCplus" ngDefaultControl style="background-color: #215b72">C++</button>
-            <button (click)="OnSearch('C#')" type="button" class="btn btn-secondary" id="catCsharp" ngDefaultControl style="background-color: #1d5368">C#</button>
-            <button (click)="OnSearch('Python')" type="button" class="btn btn-secondary" id="catPy" ngDefaultControl style="background-color: 	#194c60">Python</button>
-            <button (click)="OnSearch('C')" type="button" class="btn btn-secondary" id="catC" ngDefaultControl style="background-color: #123d4f">C</button>
-          </div>
+
+<div onload="myFunction()" class="container">
+    <div class="row">
+        <div class="col-8" id="firstRow">
+            <div>
+                <!--div class="col-md-7 col-md-offset-1"-->
+                <input class="form-control" style="display:inline-block; padding-right: 1px" id="searchbar" [(ngModel)]="dashSearch" type="text"
+                    placeholder="Search...">
+                <button class="form-control" style="display: inline-block; " id="searchbtn" (click)="OnSearch(dashSearch)">Search</button>
+                <div class="btn-group" role="group" aria-label="Basic example" style="padding-top: 4px">
+                    <label id="catLabel">Categories:</label>
+                    <button (click)="getAllQuestions()" type="button" class="btn btn-secondary" id="catAll" ngDefaultControl style="background-color: #377f9b">All</button>
+                    <button (click)="TagSearch('java')" type="button" class="btn btn-secondary" id="catJava" ngDefaultControl style="background-color: #296a84">Java</button>
+                    <button (click)="TagSearch('c++')" type="button" class="btn btn-secondary" id="catCplus" ngDefaultControl style="background-color: #215b72">C++</button>
+                    <button (click)="TagSearch('c#')" type="button" class="btn btn-secondary" id="catCsharp" ngDefaultControl style="background-color: #1d5368">C#</button>
+                    <button (click)="TagSearch('python')" type="button" class="btn btn-secondary" id="catPy" ngDefaultControl style="background-color: #194c60">Python</button>
+                    <button (click)="TagSearch('c')" type="button" class="btn btn-secondary" id="catC" ngDefaultControl style="background-color: #123d4f">C</button>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <div class="col-4"><button (click)="OnSelectAsking();" id="askButton" class="btn btn-info"></button></div>
+        <div class="col-4">
+            <button (click)="OnSelectAsking();" id="askButton" class="btn btn-info"></button>
+        </div>
+        <div id="loader"></div>
+        <div class="col-8" id="secondrow" style="display: none">
+            <ul *ngFor="let question of questions" class="list-group">
 
-      <div class="col-8" id="secondrow">
-        <ul *ngFor="let question of questions" class="list-group">
 
 
+                <li class="list-group-item">
+                    <table>
+                        <tr>
+                            <td id="vote">
+                                <label id="votelab">Votes</label>
+                                <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
+                            </td>
+                            <td id="question">
+                                <a id="questiontitle" routerLink="" (click)="OnSelectQuestion(question)">{{question.questionTitle}}</a>
+                                <span class="badge badge-primary" style="float:right;">{{question.questionCategories}}</span>                                
+                                <p class="" id="" style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td id="stamp">
+                                <small>Submitted by: </small><a routerLink="" (click)="OnSelectUser(question.userId)"> {{question.author}}</a>
+                                <small style="float:left;">Submitted on: {{question.postedDate}} </small>
+                            </td>
+                        </tr>
 
-          <li class="list-group-item">
-            <table>
-              <tr>
-                <td id="vote">
-                  <label id="votelab">Votes</label>
-                  <span class="badge badge-default badge-pill">{{question.votes.upVotes - question.votes.downVotes}}</span>
-                </td>
-            <td id="question">
-            <a id="questiontitle" routerLink="" (click)="OnSelectQuestion(question)">{{question.questionTitle}}</a>
-            <p class="" id="" style="overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{question.message}}</p>
-            </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td id="stamp">
-                  <small>Submitted on by: {{question.postedDate}}  <a routerLink="" (click)="OnSelectUser(question.userId)"> {{question.author}}</a> </small>
-                </td>
-              </tr>
-
-            </table>
-          </li>
-        </ul>
-      </div>
+                    </table>
+                </li>
+            </ul>
+        </div>
 
 
 
@@ -64,7 +63,7 @@
 <app-footer></app-footer>
 
 <!-- OLD CODE -->
-        <!--div class="col-md-7 col-md-offset-1">
+<!--div class="col-md-7 col-md-offset-1">
 
     <div class="row">
         <div class="panel col-md-8">

@@ -10,16 +10,19 @@ import { Router } from '@angular/router'
 export class DashboardComponent implements OnInit {
 
   public questions = []; // array to store all questions for display on the dashboard
+  public time;
+
 
   constructor(private questionsService: QuestionsService, private router: Router) { }
 
   ngOnInit() {
-    this.getAllQuestions();
+    this.time = setTimeout(this.showPage, 4000);
+    this.questionsService.getQuestions().subscribe(data => this.questions = data); // calls the question service to retrieve all questions from the server
   }
 
   // calls the question service to retrieve all questions from the server
   getAllQuestions() {
-    this.questionsService.getQuestions().subscribe(data => this.questions = data); 
+    this.questionsService.getQuestions().subscribe(data => this.questions = data);
   }
 
   // routes the user to the chosen question's display page
@@ -39,6 +42,7 @@ export class DashboardComponent implements OnInit {
 
   // calls the question service to return all questions that match the search term
   OnSearch(searchTerm){
+    console.log(searchTerm)
     this.questionsService.searchDashboard(searchTerm).subscribe(data => this.questions = data);
   }
 
@@ -47,4 +51,8 @@ export class DashboardComponent implements OnInit {
     this.questionsService.searchTag(tag).subscribe(data => this.questions = data);
   }
 
+  showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("secondrow").style.display = "block";
+  }
 }

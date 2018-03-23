@@ -4,8 +4,8 @@ input{
   border: none;
   border-bottom: 1.5px solid #3e93b2;
   width: 250px;
-  color: white;
-  background-color: rgba(0,0,0, 0.5);
+  color: black;
+  background-color: white;
   text-indent: 10px;
   left: 60px;
 }
@@ -15,22 +15,32 @@ label{
   left: 60px;
   font-size: 18px;
   width: 100px;
-  color: #5ad3ff;
+  color: #3d91b0;
   font-weight: bold;
 }
+
+
+
 #wrapper{
-  background: rgba(0,0,0, 0.7);
-  border-radius: 30px;
+  background: linear-gradient(to bottom right, whitesmoke, lightgrey);
+  border-radius: 45px;
   width: 500px;
   margin: auto;
   margin-top: 10vh;
-  box-shadow: 5px 10px 50px #3e93b2;
+
   position: relative;
 }
 #logo{
   padding-top: 5%;
   margin-left: 23%;
 }
+
+
+#fpl{
+  position: relative;
+  left: 225px;
+}
+
 .form-element{
   margin-top: 20px
 }
@@ -40,17 +50,18 @@ label{
 }
 .submitButton{
   border-radius: 20px;
-  border-width: 1px;
   width: 100px;
+  height: 50px;
   margin-left: 30px;
   margin-bottom: 20%;
-  background-color: #5ad3ff;
-  color: black;
+  background-color: #3d91b0;
+  color: white;
+  border-color: whitesmoke;
   font-weight: bold;
 }
 .submitButton:hover{
-  background-color: black;
-  color:#5ad3ff;
+  background-color: whitesmoke;
+  color:#3d91b0;
   border-color: #3e93b2;
   font-weight: bold;
 }
@@ -74,7 +85,7 @@ label{
   border-radius: 20px;
 }
 .ng-invalid:not(form)  {
-  border: 2px solid #a94442; /* red */
+  border: 2px solid black; /* red */
   border-radius: 20px;
 }
 #forgot-pass{
@@ -84,7 +95,7 @@ label{
   font-size: 15px;
 }
 #forgot-pass:hover{
-  color: white;
+  color: grey;
 }
 .forgot-question-input{
 
@@ -97,3 +108,7 @@ label{
   margin-left: 180px;
   margin-top: 5%;
 }
+
+
+
+

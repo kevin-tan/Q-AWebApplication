@@ -18,10 +18,12 @@ export class UserProfileComponent implements OnInit {
   public question: Question;
 
   edit: boolean = false;
-  selected; isLogged: boolean;
-  selectInput: string ='';
+  changePass; isLogged: boolean;
   loggedID; routeID: string;
-  passwordData; data: string;
+  oldPassword; newPassword; newPasswordConfirm: string;
+  errorUser: boolean = false;
+  errorEmail: boolean = false;
+  errorPassword: boolean;
 
   constructor(private userService: UserProfileService, private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) {
     route.params.subscribe(value => {this.update();});
@@ -52,44 +54,38 @@ export class UserProfileComponent implements OnInit {
   }
   userInfoMenu(){
     this.edit = false;
-    this.selected = false;
-    this.selectInput ='';
+    this.changePass = false;
   }
-  popInput(select: string){
-    this.selectInput = select;
-    this.selected = true;
-    console.log(this.selectInput);
+  popInput(){
+    this.changePass = true;
   }
   save(){
     let username = this.user.username;
     let email = this.user.email;
     let firstName = this.user.firstName;
     let lastName = this.user.lastName;
+    const user: User = {username, email, firstName, lastName} as User;
 
-    this.userService.changeUsername(this.loggedID,this.user.username).subscribe();
-
-    if(this.selectInput =='Username'){
-      username = this.data;
-      const user: User ={username, email, firstName, lastName} as User;
-      this.userService.changeUserInfo(this.loggedID,user).subscribe();
-    }
-    else if(this.selectInput =='Email'){
-      email = this.data;
-      const user: User ={username, email, firstName, lastName} as User;
-      this.userService.changeUserInfo(this.loggedID,user).subscribe();
-    }
-    else if(this.selectInput =='Name'){
-      let firstName = this.user.firstName;
-      let lastName = this.user.lastName;
-      const user: User ={username, email, firstName, lastName} as User;
-      this.userService.changeUserInfo(this.loggedID,user).subscribe();
-    }
-    else if(this.selectInput =='Password'){
-
-    }
+    this.userService.changeUserInfo(this.loggedID, user).subscribe();
     this.userInfoMenu();
   }
-  getUserInput(usernameEdit: string){
-    console.log(usernameEdit);
+
+  changePassword(){
+    let validate = this.oldPassword;
+    let password = this.newPassword;
+    let confirmPass = this.newPasswordConfirm;
+    const user: User ={validate, password} as User;
+
+    this.userService.changePassword(this.loggedID, user).subscribe(()=>{
+      console.log(user);
+    });
+    if((password == confirmPass) && (password == '')){
+      this.errorPassword = false;
+      this.userInfoMenu();
+      console.log(user);
+    }
+    else{
+      this.errorPassword = true;
+    }
   }
 }

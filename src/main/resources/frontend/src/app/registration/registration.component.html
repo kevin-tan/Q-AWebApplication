@@ -58,7 +58,7 @@
 
         <div class="form-element">
           <button type="submit" [disabled]="!rForm.form.valid" class="submitButton" id="first">Sign Up</button>
-          <a routerLink="/login"> <button type="button" class="submitButton">Login</button></a>
+          <button onclick="location.href='/login'"  type="button" class="submitButton">Login</button>
         </div>
         <div *ngIf="userAlert ||emailAlert"  class="alert alert-danger errorMessage">Verify Errors!</div>
         <div [hidden]="!successAlert"  class="alert alert-success successMessage">Successfully signed up!</div>

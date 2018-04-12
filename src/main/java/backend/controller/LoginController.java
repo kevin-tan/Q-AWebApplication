@@ -37,7 +37,6 @@ public class LoginController {
     }
 
     //Validates Security Answer and Updates User Password
-    //TODO: Handshake with FrontEnd on what parameters will be passed(username, email or ID)
     @PutMapping(value = "/resetPassword")
     public UserModel forgotPassword(@RequestBody UserModel userModel) {
         UserModel user = userRepository.findByEmail(userModel.getEmail());

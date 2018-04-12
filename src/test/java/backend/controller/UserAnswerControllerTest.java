@@ -20,6 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,6 +44,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
 @WebAppConfiguration
 public class UserAnswerControllerTest {
 
@@ -105,17 +107,16 @@ public class UserAnswerControllerTest {
         .andExpect(jsonPath("$.questionModelTitle", is(question.getQuestionTitle())));
     } 
     
-    ///TODO: Invstigate why test is failing
-//    @Test
-//    public void editReply() throws IOException, Exception {
-//    	mockMvc.perform(put("/user/" + user.getId() + "/questions/" + question.getId() + "/replies/" + answer.getId())
-//    			.contentType(mediaType)
-//                .content(objectMapper.writeValueAsString(putJson)))
-//    	.andExpect(status().isOk());
-//    	
-//    	AnswerModel afterPut = answerRepository.getOne(answer.getId());
-//    	assertThat(afterPut.getMessage()).isEqualTo(answer2.getMessage());
-//    }
+    @Test
+    public void editReply() throws IOException, Exception {
+    	mockMvc.perform(put("/user/" + user.getId() + "/questions/" + question.getId() + "/replies/" + answer.getId())
+    			.contentType(mediaType)
+                .content(objectMapper.writeValueAsString(putJson)))
+    	.andExpect(status().isOk());
+    	
+    	AnswerModel afterPut = answerRepository.getOne(answer.getId());
+    	assertThat(afterPut.getMessage()).isEqualTo(answer2.getMessage());
+    }
     
     @Test
     public void deleteReply() throws Exception {
@@ -127,8 +128,8 @@ public class UserAnswerControllerTest {
     
     @After
     public void tearDown() {
+    	answerRepository.deleteAll();
+    	questionRepository.deleteAll();
     	userRepository.deleteAll();
-        questionRepository.deleteAll();
-        answerRepository.deleteAll();
     }
 }

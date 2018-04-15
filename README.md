@@ -27,6 +27,7 @@ This project is currently **in progress**
   * [Angular](https://angular.io)
   * [Bootstrap](https://getbootstrap.com/)
   * [Karma](https://karma-runner.github.io/2.0/index.html)
+  * [Jasmine](https://jasmine.github.io/)
   * [Node.js](https://nodejs.org/en/)
 * Back End
   * [Spring](https://spring.io)

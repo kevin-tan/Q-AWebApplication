@@ -11,7 +11,7 @@ This project is currently **in progress**
 - [X] Login feature
 - [X] QA Section
 - [X] Leaderboard
-- [ ] Testing
+- [X] Testing
 ## Team members
 * Karthikan Jeyabalan (Front-end)
 * Kevin Tan (Team Lead, Back-end)
@@ -25,10 +25,14 @@ This project is currently **in progress**
   * [HTML/CSS](https://www.w3schools.com/html/)
   * [TypeScript](https://www.typescriptlang.org/)
   * [Angular](https://angular.io)
+  * [Bootstrap](https://getbootstrap.com/)
+  * [Karma](https://karma-runner.github.io/2.0/index.html)
+  * [Node.js](https://nodejs.org/en/)
 * Back End
   * [Spring](https://spring.io)
   * [Hibernate](http://hibernate.org/)
   * [Java](https://www.oracle.com/java/java9.html)
+  * [JUnit](https://junit.org/junit5/)
 * Database
   * [MySQL](https://www.mysql.com)
   * [H2](http://www.h2database.com/html/main.html) (For testing)

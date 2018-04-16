@@ -106,12 +106,4 @@ describe('DashboardComponent', () => {
     });
   });
 
-  // describe('#OnSelectAsking', () => {
-  //   it('should navigate you the asking page /dashboard/asking/', fakeAsync(() => {
-  //     let path: String = 'dashboard/asking';
-  //     router.navigate([path])
-  //     tick();
-  //     expect(router.url).toEqual(path)
-  // }))
-  // })
 });

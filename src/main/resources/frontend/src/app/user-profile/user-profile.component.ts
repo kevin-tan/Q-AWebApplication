@@ -23,7 +23,6 @@ export class UserProfileComponent implements OnInit {
   oldPassword; newPassword; newPasswordConfirm: string;
   errorUser: boolean = false;
   errorEmail: boolean = false;
-  errorPassword: boolean;
 
   constructor(private userService: UserProfileService, private questionsService: QuestionsService, private router: Router, private route: ActivatedRoute) {
     route.params.subscribe(value => {this.update();});
@@ -73,19 +72,11 @@ export class UserProfileComponent implements OnInit {
   changePassword(){
     let validate = this.oldPassword;
     let password = this.newPassword;
-    let confirmPass = this.newPasswordConfirm;
     const user: User ={validate, password} as User;
 
     this.userService.changePassword(this.loggedID, user).subscribe(()=>{
       console.log(user);
-    });
-    if((password == confirmPass) && (password == '')){
-      this.errorPassword = false;
       this.userInfoMenu();
-      console.log(user);
-    }
-    else{
-      this.errorPassword = true;
-    }
+    });
   }
 }

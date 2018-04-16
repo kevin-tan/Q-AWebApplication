@@ -45,6 +45,7 @@ export class RegistrationComponent implements OnInit {
         this.successAlert = true;
         sessionStorage.setItem('status', 'true');
         sessionStorage.setItem('id', user.id.toString());
+        sessionStorage.setItem('username', user.username);
         this.router.navigateByUrl('/dashboard');
       }
     });

@@ -43,20 +43,22 @@
       <button *ngIf="!changePass" (click)="popInput('Password')" class="editbtn" style="width:180px;margin-left:85px;">Change Password</button>
 
       <div *ngIf="changePass">
-        <div class="info-group">
-          <p class="user-info-label">Old Password: </p>
-          <input type="password" [(ngModel)]="oldPassword">
-        </div>
-        <div class="info-group">
-          <p class="user-info-label">New Password: </p>
-          <input type="password" [(ngModel)]="newPassword">
-        </div>
-        <div class="info-group">
-          <p class="user-info-label">Confirm New Password: </p>
-          <input type="password" [(ngModel)]="newPasswordConfirm">
-          <small *ngIf="!errorPassword" class="errorMessage error" >*Password don't match</small>
-        </div>
-        <button class="editbtn" style="width:100px; margin-left:125px;" (click)="changePassword()">Save</button>
+        <form #rForm="ngForm" (ngSubmit)="changePassword()" novalidate>
+          <div class="info-group">
+            <p class="user-info-label">Old Password: </p>
+            <input type="password" name="oldPassword" [(ngModel)]="oldPassword">
+          </div>
+          <div class="info-group">
+            <p class="user-info-label">New Password: </p>
+            <input type="password" name="nPassword" [(ngModel)]="newPassword" required validateEqual="nPasswordConfirm" reverse="true" #nPassword="ngModel">
+          </div>
+          <div class="info-group">
+            <p class="user-info-label">Confirm New Password: </p>
+            <input type="password" name="nPasswordConfirm" [(ngModel)]="newPasswordConfirm" required validateEqual="nPassword" reverse="false" #nPasswordConfirm="ngModel" >
+            <small class="errorMessage error" [hidden]="nPasswordConfirm.valid || (nPasswordConfirm.pristine && !rForm.submitted)">*Password does not match</small>
+          </div>
+          <button type="submit" [disabled]="!rForm.form.valid" class="editbtn" style="width:100px; margin-left:125px;">Save</button>
+        </form>
       </div>
     </div>
 
@@ -125,6 +127,5 @@
     </div>
   </div>
 </div>
-
 
   <app-footer></app-footer>
